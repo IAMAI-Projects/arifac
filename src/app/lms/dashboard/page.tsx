@@ -3,21 +3,47 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { PlayCircle, CheckCircle, FileText, Download, LogOut, Menu, Lock, Award, ChevronRight } from 'lucide-react';
+import { PlayCircle, CheckCircle, FileText, Download, LogOut, Menu, Lock, Award, ChevronRight, BookOpen, Clock, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { lmsCourseData, Module, Lesson } from '@/data/lms';
+import { getUser, logout, isLoggedIn, getPaidCourses, hasPaidForCourse } from '@/lib/auth';
+import { certificationLevels, CertificationLevel } from '@/data/arifac';
+import SyllabusModal from '@/components/SyllabusModal';
 
 export default function LMSDashboard() {
     const router = useRouter();
+    const [user, setUser] = useState<{ name: string; email: string } | null>(null);
+    const [paidCourses, setPaidCourses] = useState<string[]>([]);
+    const [activeCourseLevel, setActiveCourseLevel] = useState<string | null>(null);
+    const [syllabusCourse, setSyllabusCourse] = useState<CertificationLevel | null>(null);
     const [activeModuleIndex, setActiveModuleIndex] = useState(0);
     const [activeLessonIndex, setActiveLessonIndex] = useState(0);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        if (!isLoggedIn()) {
+            router.push('/login');
+            return;
+        }
+        setUser(getUser());
+        const paid = getPaidCourses();
+        setPaidCourses(paid);
+
+        // If they have exactly one paid course, select it automatically
+        if (paid.length === 1) {
+            setActiveCourseLevel(paid[0]);
+        }
+        setIsLoading(false);
+    }, [router]);
 
     // Track completion status: moduleIndex -> lessonIndex -> boolean
     const [completedLessons, setCompletedLessons] = useState<Record<string, boolean>>({});
 
+    // For now, we use the same lmsCourseData for all levels as a placeholder
+    // In a real app, this would be fetched based on activeCourseLevel
     const currentModule = lmsCourseData[activeModuleIndex];
-    const currentLesson = currentModule.lessons[activeLessonIndex];
+    const currentLesson = currentModule?.lessons[activeLessonIndex];
 
     // Calculate overall progress
     const totalLessons = lmsCourseData.reduce((acc, module) => acc + module.lessons.length, 0);
@@ -29,7 +55,6 @@ export default function LMSDashboard() {
         const key = `${activeModuleIndex}-${activeLessonIndex}`;
         setCompletedLessons(prev => ({ ...prev, [key]: true }));
 
-        // Auto-advance logic could go here
         if (activeLessonIndex < currentModule.lessons.length - 1) {
             setActiveLessonIndex(prev => prev + 1);
         } else if (activeModuleIndex < lmsCourseData.length - 1) {
@@ -47,6 +72,107 @@ export default function LMSDashboard() {
             router.push('/lms/exam');
         }
     };
+
+    const handleLogout = () => {
+        logout();
+        router.push('/');
+    };
+
+    if (isLoading) {
+        return <div className="min-h-screen flex items-center justify-center bg-white">
+            <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin" />
+        </div>;
+    }
+
+    // CATALOG VIEW: If no course is selected
+    if (!activeCourseLevel) {
+        return (
+            <div className="min-h-screen bg-gray-50 flex flex-col">
+                <header className="bg-white h-16 border-b border-gray-200 flex items-center justify-between px-6 sticky top-0 z-10">
+                    <div className="flex items-center gap-4">
+                        <div className="font-bold text-xl text-primary font-heading">LMS Dashboard</div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <span className="text-sm font-bold text-primary hidden md:block">{user?.name}</span>
+                        <button onClick={handleLogout} className="p-2 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors text-gray-400">
+                            <LogOut className="w-5 h-5" />
+                        </button>
+                    </div>
+                </header>
+
+                <main className="flex-1 p-6 md:p-12 overflow-y-auto">
+                    <div className="max-w-6xl mx-auto">
+                        <div className="mb-10 text-center">
+                            <h1 className="text-3xl font-bold text-primary mb-3">Certification Catalog</h1>
+                            <p className="text-gray-500">Select a course to begin your professional journey.</p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {certificationLevels.map((level, idx) => {
+                                const isPaid = paidCourses.includes(level.level);
+                                return (
+                                    <motion.div
+                                        key={level.level}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: idx * 0.1 }}
+                                        className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col"
+                                    >
+                                        <div className="p-6 flex-1">
+                                            <div className="text-xs font-bold text-accent mb-2 uppercase tracking-widest">{level.level}</div>
+                                            <div className="flex justify-between items-start mb-3">
+                                                <h3 className="text-lg font-bold text-primary">{level.title}</h3>
+                                                {!isPaid && (
+                                                    <span className="text-sm font-bold text-primary">₹{level.price.toLocaleString('en-IN')}</span>
+                                                )}
+                                            </div>
+                                            <ul className="space-y-2 mb-6 text-sm text-gray-500">
+                                                {level.features.slice(0, 3).map((f, i) => (
+                                                    <li key={i} className="flex items-start gap-2">
+                                                        <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 shrink-0" />
+                                                        <span>{f}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div className="p-6 pt-0 flex flex-col gap-3">
+                                            <button
+                                                onClick={() => setSyllabusCourse(level)}
+                                                className="w-full bg-gray-50 text-gray-600 py-2 rounded-xl font-semibold text-xs hover:bg-gray-100 transition-colors"
+                                            >
+                                                View Syllabus
+                                            </button>
+
+                                            {isPaid ? (
+                                                <button
+                                                    onClick={() => setActiveCourseLevel(level.level)}
+                                                    className="w-full bg-primary text-white py-3 rounded-xl font-bold text-sm hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/10"
+                                                >
+                                                    <PlayCircle className="w-4 h-4" /> Go to Course
+                                                </button>
+                                            ) : (
+                                                <Link
+                                                    href={`/payment?level=${level.level}`}
+                                                    className="w-full bg-accent text-primary py-3 rounded-xl font-bold text-sm hover:bg-yellow-500 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-accent/20"
+                                                >
+                                                    Enroll Now
+                                                </Link>
+                                            )}
+                                        </div>
+                                    </motion.div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </main>
+
+                <SyllabusModal
+                    course={syllabusCourse}
+                    onClose={() => setSyllabusCourse(null)}
+                />
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row text-primary font-sans">
@@ -109,19 +235,31 @@ export default function LMSDashboard() {
                         <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-2 hover:bg-gray-100 rounded-lg text-gray-600">
                             <Menu className="w-5 h-5" />
                         </button>
+                        <button
+                            onClick={() => setActiveCourseLevel(null)}
+                            className="text-xs font-bold text-accent-dark bg-accent/10 px-3 py-1 rounded-full hover:bg-accent/20 transition-colors uppercase tracking-widest hidden md:block"
+                        >
+                            {activeCourseLevel}
+                        </button>
                         <div className="font-semibold text-gray-700 truncate max-w-xs md:max-w-none">
                             {currentModule.title}: <span className="text-primary">{currentLesson.title}</span>
                         </div>
                     </div>
 
                     <div className="flex items-center gap-6">
+                        <button
+                            onClick={() => setActiveCourseLevel(null)}
+                            className="text-sm font-semibold text-gray-500 hover:text-primary transition-colors flex items-center gap-1"
+                        >
+                            Catalog
+                        </button>
                         <div className="flex flex-col items-end hidden md:flex">
-                            <span className="text-sm font-bold text-primary">S. Avanish</span>
-                            <span className="text-xs text-gray-500">IAMAI Member</span>
+                            <span className="text-sm font-bold text-primary">{user?.name}</span>
+                            <span className="text-xs text-gray-500">Authorized Access</span>
                         </div>
-                        <Link href="/" className="p-2 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors text-gray-400" title="Logout">
+                        <button onClick={handleLogout} className="p-2 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors text-gray-400">
                             <LogOut className="w-5 h-5" />
-                        </Link>
+                        </button>
                     </div>
                 </header>
 

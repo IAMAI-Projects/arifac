@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import Logo from '@/components/Logo';
 import { ShieldCheck, CreditCard, Lock, CheckCircle2, ChevronDown } from 'lucide-react';
 import { certificationLevels } from '@/data/arifac';
+import { markCourseAsPaid } from '@/lib/auth';
 
 function PaymentContent() {
     const router = useRouter();
@@ -48,6 +49,7 @@ function PaymentContent() {
                 formData.expiry === '12/30' &&
                 formData.cvv === '111'
             ) {
+                markCourseAsPaid(selectedCourse.level);
                 router.push('/lms/dashboard');
             } else {
                 setError('Transaction Failed: Invalid card details. Use Setup: 1234567890 | 12/30 | 111');

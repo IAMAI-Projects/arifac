@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import Logo from './Logo';
+import { getUser, logout } from '@/lib/auth';
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -55,18 +56,40 @@ export default function Navbar() {
 
                 {/* Desktop Action Buttons */}
                 <div className="hidden md:flex items-center gap-4">
-                    <Link
-                        href="/login"
-                        className="text-sm font-semibold text-primary hover:text-accent transition-colors px-4 py-2 border border-gray-200 rounded-md hover:border-primary hover:bg-gray-50"
-                    >
-                        Login to LMS
-                    </Link>
-                    <Link
-                        href="/join"
-                        className="text-sm font-semibold text-white bg-primary hover:bg-gray-800 transition-all px-5 py-2 rounded-md shadow-lg hover:shadow-xl"
-                    >
-                        Become a Member
-                    </Link>
+                    {getUser() ? (
+                        <>
+                            <Link
+                                href="/lms/dashboard"
+                                className="text-sm font-semibold text-primary hover:text-accent transition-colors px-4 py-2 border border-gray-200 rounded-md hover:border-primary hover:bg-gray-50 flex items-center gap-2"
+                            >
+                                Dashboard
+                            </Link>
+                            <button
+                                onClick={() => {
+                                    logout();
+                                    window.location.href = '/';
+                                }}
+                                className="text-sm font-semibold text-red-500 hover:text-red-700 transition-colors px-4 py-2 border border-red-100 rounded-md hover:border-red-500 hover:bg-red-50"
+                            >
+                                Logout
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <Link
+                                href="/login"
+                                className="text-sm font-semibold text-primary hover:text-accent transition-colors px-4 py-2 border border-gray-200 rounded-md hover:border-primary hover:bg-gray-50"
+                            >
+                                Login to LMS
+                            </Link>
+                            <Link
+                                href="/join"
+                                className="text-sm font-semibold text-white bg-primary hover:bg-gray-800 transition-all px-5 py-2 rounded-md shadow-lg hover:shadow-xl"
+                            >
+                                Become a Member
+                            </Link>
+                        </>
+                    )}
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -102,20 +125,44 @@ export default function Navbar() {
                             ))}
                             <div className="h-px bg-gray-100 w-full" />
                             <div className="flex flex-col gap-4">
-                                <Link
-                                    href="/login"
-                                    className="text-center font-semibold text-primary px-4 py-3 border border-gray-200 rounded-md hover:bg-gray-50 transition-colors"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    Login to LMS
-                                </Link>
-                                <Link
-                                    href="/join"
-                                    className="text-center font-semibold text-white bg-primary px-5 py-3 rounded-md shadow-lg"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    Become a Member
-                                </Link>
+                                {getUser() ? (
+                                    <>
+                                        <Link
+                                            href="/lms/dashboard"
+                                            className="text-center font-semibold text-primary px-4 py-3 border border-gray-200 rounded-md hover:bg-gray-50 transition-colors"
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                        >
+                                            Dashboard
+                                        </Link>
+                                        <button
+                                            onClick={() => {
+                                                logout();
+                                                setIsMobileMenuOpen(false);
+                                                window.location.href = '/';
+                                            }}
+                                            className="text-center font-semibold text-red-500 px-4 py-3 border border-red-100 rounded-md hover:bg-red-50 transition-colors"
+                                        >
+                                            Logout
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Link
+                                            href="/login"
+                                            className="text-center font-semibold text-primary px-4 py-3 border border-gray-200 rounded-md hover:bg-gray-50 transition-colors"
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                        >
+                                            Login to LMS
+                                        </Link>
+                                        <Link
+                                            href="/join"
+                                            className="text-center font-semibold text-white bg-primary px-5 py-3 rounded-md shadow-lg"
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                        >
+                                            Become a Member
+                                        </Link>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </motion.div>

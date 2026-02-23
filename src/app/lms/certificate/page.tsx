@@ -1,12 +1,16 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Logo from '@/components/Logo';
-import { Download, Printer, Share2 } from 'lucide-react';
+import { Download, Printer, Share2, Loader2 } from 'lucide-react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 export default function CertificatePage() {
-    const certificateRef = useRef(null);
+    const certificateRef = useRef<HTMLDivElement>(null);
+    const [isDownloading, setIsDownloading] = useState(false);
+
     const date = new Date().toLocaleDateString('en-GB', {
         day: 'numeric',
         month: 'long',
@@ -15,6 +19,53 @@ export default function CertificatePage() {
 
     const handlePrint = () => {
         window.print();
+    };
+
+    const handleDownload = async () => {
+        if (!certificateRef.current) return;
+
+        try {
+            setIsDownloading(true);
+            const certificateElement = certificateRef.current;
+
+            // Capture the certificate as an image
+            const canvas = await html2canvas(certificateElement, {
+                scale: 2, // Higher scale for better quality
+                useCORS: true,
+                logging: false,
+                backgroundColor: '#ffffff'
+            });
+
+            const imgData = canvas.toDataURL('image/png');
+
+            // Create PDF (A4 Landscape)
+            // A4 dimensions in mm: 297 x 210
+            const pdf = new jsPDF({
+                orientation: 'landscape',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
+
+            // Calculate ratio to fit page
+            const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+
+            // Add image to PDF
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+
+            // Save PDF
+            pdf.save('ARIFAC-Certificate.pdf');
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            alert('Failed to generate PDF. Please try using the Print option and Save as PDF.');
+        } finally {
+            setIsDownloading(false);
+        }
     };
 
     return (
@@ -27,15 +78,27 @@ export default function CertificatePage() {
                     <button onClick={handlePrint} className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-semibold hover:bg-gray-50 transition-colors shadow-sm text-primary">
                         <Printer className="w-4 h-4" /> Print
                     </button>
-                    <button className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-gray-800 transition-colors shadow-lg">
-                        <Download className="w-4 h-4" /> Download PDF
+                    <button
+                        onClick={handleDownload}
+                        disabled={isDownloading}
+                        className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-gray-800 transition-colors shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
+                        {isDownloading ? (
+                            <>
+                                <Loader2 className="w-4 h-4 animate-spin" /> Generating...
+                            </>
+                        ) : (
+                            <>
+                                <Download className="w-4 h-4" /> Download PDF
+                            </>
+                        )}
                     </button>
                 </div>
             </div>
 
             {/* Certificate Frame */}
-            <div className="bg-white p-2 shadow-2xl max-w-[1000px] w-full aspect-[1.414/1] relative print:shadow-none print:w-full">
-                <div className="h-full w-full border-[20px] border-double border-primary/10 relative p-12 flex flex-col items-center text-center justify-between bg-[radial-gradient(#f8f8f8_1px,transparent_1px)] bg-[size:20px_20px]">
+            <div ref={certificateRef} className="bg-white p-2 shadow-2xl max-w-[1000px] w-full aspect-[1.414/1] relative print:shadow-none print:w-full print:m-0 print:p-0">
+                <div className="h-full w-full border-[20px] border-double border-primary/10 relative p-12 flex flex-col items-center text-center justify-between bg-[radial-gradient(#f8f8f8_1px,transparent_1px)] bg-[size:20px_20px] print:border-none">
 
                     {/* Background Seal */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">

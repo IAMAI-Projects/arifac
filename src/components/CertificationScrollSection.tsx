@@ -5,11 +5,15 @@ import { motion, useScroll, useTransform, AnimatePresence, useMotionValueEvent }
 import { CheckCircle2, ShieldCheck, X, BookOpen, Clock } from 'lucide-react';
 import { certificationLevels, CertificationLevel } from '@/data/arifac';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { isLoggedIn, hasPaidForCourse } from '@/lib/auth';
+import SyllabusModal from './SyllabusModal';
 
 export default function CertificationScrollSection() {
     const containerRef = useRef<HTMLDivElement>(null);
     const [selectedLevel, setSelectedLevel] = useState<CertificationLevel | null>(null);
     const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
+    const router = useRouter();
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -38,25 +42,51 @@ export default function CertificationScrollSection() {
                             A tiered competency model designed to standardize financial integrity expertise across the national ecosystem.
                         </p>
 
-                        <div className="relative h-[400px] w-full border-l-2 border-gray-200 pl-8">
+                        <div className="flex flex-col gap-10 relative">
+                            {/* Vertical Line */}
+                            <div className="absolute left-4 top-4 bottom-4 w-[2px] bg-gray-100 -z-10" />
+
                             {certificationLevels.map((level, index) => {
-                                // Dynamic active state based on scroll
-                                const rangeStart = index * 0.25;
-                                const rangeEnd = (index + 1) * 0.25;
+                                const isActive = activeCardIndex === index;
 
                                 return (
                                     <motion.div
                                         key={level.level}
-                                        style={{
-                                            opacity: useTransform(scrollYProgress, [rangeStart, rangeStart + 0.1, rangeEnd - 0.1, rangeEnd], [0, 1, 1, 0]),
-                                            scale: useTransform(scrollYProgress, [rangeStart, rangeStart + 0.1, rangeEnd - 0.1, rangeEnd], [0.95, 1, 1, 0.95]),
-                                            x: useTransform(scrollYProgress, [rangeStart, rangeStart + 0.1, rangeEnd - 0.1, rangeEnd], [0, 20, 20, 0]),
+                                        animate={{
+                                            opacity: isActive ? 1 : 0.2,
+                                            scale: isActive ? 1.05 : 1,
+                                            x: isActive ? 10 : 0
                                         }}
-                                        className="absolute top-0 left-0 w-full mb-4"
+                                        transition={{ duration: 0.3 }}
+                                        className="relative pl-12 cursor-pointer group"
+                                        onClick={() => {
+                                            // Optional: Scroll to that section if we had better control, 
+                                            // but for now navigation highlight is enough.
+                                        }}
                                     >
-                                        <div className="text-6xl font-bold text-gray-100 mb-2">{level.level}</div>
-                                        <h3 className="text-2xl font-bold text-primary mb-2">{level.title}</h3>
-                                        <div className="h-1 w-20 bg-accent rounded-full" />
+                                        {/* Dot on line */}
+                                        <motion.div
+                                            animate={{
+                                                backgroundColor: isActive ? "var(--color-accent, #EAB308)" : "#E5E7EB",
+                                                scale: isActive ? 1.5 : 1,
+                                                boxShadow: isActive ? "0 0 15px rgba(234, 179, 8, 0.4)" : "none"
+                                            }}
+                                            className="absolute left-[0.9rem] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full border-2 border-white"
+                                        />
+
+                                        <div className={`text-sm font-bold tracking-tight mb-1 transition-colors ${isActive ? 'text-accent' : 'text-gray-400'}`}>
+                                            LEVEL {index + 1}
+                                        </div>
+                                        <h3 className={`text-xl font-bold transition-colors ${isActive ? 'text-primary' : 'text-gray-300'}`}>
+                                            {level.title}
+                                        </h3>
+
+                                        {isActive && (
+                                            <motion.div
+                                                layoutId="activeIndicator"
+                                                className="absolute left-0 top-0 bottom-0 w-1 bg-accent rounded-full"
+                                            />
+                                        )}
                                     </motion.div>
                                 );
                             })}
@@ -70,15 +100,17 @@ export default function CertificationScrollSection() {
                             const rangeEnd = (index + 1) * 0.25;
                             const isActive = activeCardIndex === index;
 
+                            // Using tighter fade-in/out and longer "hold" (0.05 instead of 0.1)
                             return (
                                 <motion.div
                                     key={index}
                                     style={{
-                                        opacity: useTransform(scrollYProgress, [rangeStart, rangeStart + 0.1, rangeEnd - 0.1, rangeEnd], [0, 1, 1, 0]),
-                                        y: useTransform(scrollYProgress, [rangeStart, rangeStart + 0.1, rangeEnd - 0.1, rangeEnd], [50, 0, 0, -50]),
-                                        zIndex: isActive ? 100 : certificationLevels.length - index,
+                                        opacity: useTransform(scrollYProgress, [rangeStart, rangeStart + 0.05, rangeEnd - 0.05, rangeEnd], [0, 1, 1, 0]),
+                                        y: useTransform(scrollYProgress, [rangeStart, rangeStart + 0.05, rangeEnd - 0.05, rangeEnd], [40, 0, 0, -40]),
+                                        scale: useTransform(scrollYProgress, [rangeStart, rangeStart + 0.05, rangeEnd - 0.05, rangeEnd], [0.98, 1, 1, 0.98]),
+                                        zIndex: isActive ? 10 : 0,
                                     }}
-                                    className={`absolute w-full max-w-lg bg-white border border-gray-200 rounded-2xl p-8 shadow-xl shadow-gray-200/50 ${isActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                                    className={`absolute w-full max-w-lg bg-white border border-gray-200 rounded-2xl p-8 shadow-2xl shadow-gray-200/50 ${isActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
                                 >
                                     <div className="flex justify-between items-start mb-6">
                                         <span className="bg-accent/10 text-accent/80 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-accent/20">
@@ -106,12 +138,30 @@ export default function CertificationScrollSection() {
 
                                     <div className="mt-8 pt-6 border-t border-gray-100 flex justify-between items-center">
                                         <div className="text-xs text-gray-400 uppercase tracking-wider">Certification Level {index + 1}</div>
-                                        <button
-                                            onClick={() => setSelectedLevel(level)}
-                                            className="text-sm font-semibold text-primary hover:text-accent transition-colors flex items-center gap-1 cursor-pointer"
-                                        >
-                                            View Syllabus →
-                                        </button>
+                                        <div className="flex items-center gap-4">
+                                            <button
+                                                onClick={() => setSelectedLevel(level)}
+                                                className="text-sm font-semibold text-gray-400 hover:text-primary transition-colors cursor-pointer"
+                                            >
+                                                Syllabus
+                                            </button>
+
+                                            {isLoggedIn() && hasPaidForCourse(level.level) ? (
+                                                <Link
+                                                    href="/lms/dashboard"
+                                                    className="text-sm font-bold text-accent hover:text-primary transition-colors flex items-center gap-1"
+                                                >
+                                                    Go to Course →
+                                                </Link>
+                                            ) : (
+                                                <button
+                                                    onClick={() => setSelectedLevel(level)}
+                                                    className="text-sm font-semibold text-primary hover:text-accent transition-colors flex items-center gap-1 cursor-pointer"
+                                                >
+                                                    Enroll Now →
+                                                </button>
+                                            )}
+                                        </div>
                                     </div>
                                 </motion.div>
                             );
@@ -121,93 +171,10 @@ export default function CertificationScrollSection() {
             </div>
 
             {/* Syllabus Modal */}
-            <AnimatePresence>
-                {selectedLevel && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setSelectedLevel(null)}
-                            className="absolute inset-0 bg-primary/40 backdrop-blur-md"
-                        />
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
-                        >
-                            {/* Modal Header */}
-                            <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-                                <div>
-                                    <div className="text-xs font-bold text-accent uppercase tracking-widest mb-1">{selectedLevel.level} Syllabus</div>
-                                    <h3 className="text-2xl font-bold text-primary">{selectedLevel.title}</h3>
-                                </div>
-                                <button
-                                    onClick={() => setSelectedLevel(null)}
-                                    className="p-2 hover:bg-gray-200 rounded-full transition-colors"
-                                >
-                                    <X size={24} className="text-gray-500" />
-                                </button>
-                            </div>
-
-                            {/* Modal Content */}
-                            <div className="p-6 overflow-y-auto">
-                                {selectedLevel.syllabus ? (
-                                    <div className="space-y-8">
-                                        {selectedLevel.syllabus.map((module) => (
-                                            <div key={module.id} className="space-y-4">
-                                                <div className="flex items-center justify-between border-b border-gray-100 pb-2">
-                                                    <h4 className="font-bold text-lg text-primary flex items-center gap-2">
-                                                        <BookOpen size={20} className="text-accent" />
-                                                        Module {module.id}: {module.title}
-                                                    </h4>
-                                                    <span className="text-sm text-gray-500 font-medium flex items-center gap-1">
-                                                        <Clock size={16} />
-                                                        {module.duration}
-                                                    </span>
-                                                </div>
-                                                <p className="text-gray-600 text-sm italic">{module.description}</p>
-                                                <div className="grid gap-3">
-                                                    {module.lessons.map((lesson) => (
-                                                        <div key={lesson.id} className="bg-gray-50 p-4 rounded-xl border border-gray-100 group hover:border-accent/30 transition-colors">
-                                                            <div className="flex justify-between items-start mb-2">
-                                                                <h5 className="font-semibold text-gray-800 text-sm group-hover:text-primary">{lesson.title}</h5>
-                                                                <span className="text-xs text-gray-400 font-mono">{lesson.duration}</span>
-                                                            </div>
-                                                            <p className="text-gray-600 text-xs leading-relaxed">{lesson.content}</p>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <div className="py-20 text-center">
-                                        <div className="text-gray-400 mb-2">Syllabus details coming soon...</div>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Modal Footer */}
-                            <div className="p-6 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-4">
-                                <button
-                                    onClick={() => setSelectedLevel(null)}
-                                    className="px-6 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:bg-gray-200 transition-colors"
-                                >
-                                    Close
-                                </button>
-                                <Link
-                                    href={`/payment?level=${selectedLevel.level}`}
-                                    className="px-6 py-2 rounded-lg text-sm font-semibold text-white bg-primary hover:bg-gray-800 transition-all shadow-lg"
-                                >
-                                    Enroll Now - ₹{selectedLevel.price.toLocaleString('en-IN')}
-                                </Link>
-                            </div>
-                        </motion.div>
-                    </div>
-                )}
-            </AnimatePresence>
+            <SyllabusModal
+                course={selectedLevel}
+                onClose={() => setSelectedLevel(null)}
+            />
         </section>
     );
 }

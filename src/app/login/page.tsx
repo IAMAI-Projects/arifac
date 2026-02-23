@@ -6,6 +6,7 @@ import Logo from '@/components/Logo';
 import { ArrowLeft, Lock, Mail } from 'lucide-react';
 
 import { useRouter } from 'next/navigation';
+import { login } from '@/lib/auth';
 
 export default function LoginPage() {
     const router = useRouter();
@@ -21,10 +22,17 @@ export default function LoginPage() {
 
         // Simulate network delay
         setTimeout(() => {
-            if (email === 's.avanish@iamai.in' && password === '123456') {
-                router.push('/payment');
+            const validUsers: Record<string, string> = {
+                's.avanish@iamai.in': 'S. Avanish',
+                'satyendra@iamai.in': 'Satyendra',
+                'sandeep@iamai.in': 'Sandeep'
+            };
+
+            if (validUsers[email] && password === '123456') {
+                login(email, validUsers[email]);
+                router.push('/lms/dashboard');
             } else {
-                setError('Invalid credentials. Please use the demo account.');
+                setError('Invalid credentials. Please use a valid demo account (e.g., s.avanish@iamai.in | 123456).');
                 setIsLoading(false);
             }
         }, 1000);
