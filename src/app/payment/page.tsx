@@ -5,7 +5,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Logo from '@/components/Logo';
-import { ShieldCheck, CreditCard, Lock, CheckCircle2, ChevronDown } from 'lucide-react';
+import { CreditCard, Lock, CheckCircle2, ChevronDown } from 'lucide-react';
+import { LogoMark } from '@/components/Logo';
 import { certificationLevels } from '@/data/arifac';
 import { markCourseAsPaid } from '@/lib/auth';
 
@@ -101,8 +102,8 @@ function PaymentContent() {
                             <span className="text-lg font-bold">Total Due</span>
                             <span className="text-2xl font-bold text-accent">{formatPrice(selectedCourse.price)}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-xs text-green-400 mt-4 bg-green-400/10 p-2 rounded w-fit">
-                            <ShieldCheck className="w-3 h-3" />
+                        <div className="flex items-center gap-2 text-xs text-blue-400 mt-4 bg-blue-400/10 p-2 rounded w-fit">
+                            <LogoMark className="w-4 h-4 relative" />
                             Secure 256-bit SSL Encrypted
                         </div>
                     </div>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import Logo from './Logo';
 import { getUser, logout } from '@/lib/auth';
 
@@ -20,12 +20,21 @@ export default function Navbar() {
     }, []);
 
     const navLinks = [
-        { name: 'About', href: '#about' },
-        { name: 'Certification', href: '#certification' },
-        { name: 'Membership', href: '#membership' },
-        { name: 'Partners', href: '#partners' },
-        { name: 'Resources', href: '#resources' },
+        { name: 'About', href: '/#about' },
+        { name: 'Certification', href: '/#certification' },
+        { name: 'Meetings', href: '/meetings' },
+        { name: 'Gallery', href: '/gallery' },
+        { name: 'Members', href: '/members' },
     ];
+
+    const teamLinks = [
+        { name: 'Sectoral Nodal Officers', href: '/sectoral-nodal-officers' },
+        { name: 'Training Leads', href: '/training-leads' },
+        { name: 'Training Volunteers', href: '/training-volunteers' },
+        { name: 'Training Topic Request', href: '/training-topics' },
+    ];
+
+    const [isTeamOpen, setIsTeamOpen] = useState(false);
 
     const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
@@ -42,20 +51,54 @@ export default function Navbar() {
                 </Link>
 
                 {/* Desktop Navigation */}
-                <div className="hidden md:flex items-center gap-8">
+                <div className="hidden lg:flex items-center gap-6">
                     {navLinks.map((link) => (
                         <Link
                             key={link.name}
                             href={link.href}
-                            className="text-sm font-medium text-gray-600 hover:text-primary transition-colors duration-200 uppercase tracking-wide"
+                            className="text-xs font-bold text-gray-600 hover:text-primary transition-colors duration-200 uppercase tracking-wide"
                         >
                             {link.name}
                         </Link>
                     ))}
+
+                    {/* Team Dropdown */}
+                    <div
+                        className="relative"
+                        onMouseEnter={() => setIsTeamOpen(true)}
+                        onMouseLeave={() => setIsTeamOpen(false)}
+                    >
+                        <button className="text-xs font-bold text-gray-600 hover:text-primary transition-colors duration-200 uppercase tracking-wide flex items-center gap-1">
+                            Our Team <ChevronDown size={14} className={`transition-transform duration-200 ${isTeamOpen ? 'rotate-180' : ''}`} />
+                        </button>
+
+                        <AnimatePresence>
+                            {isTeamOpen && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 10 }}
+                                    className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-100 rounded-xl shadow-xl overflow-hidden"
+                                >
+                                    <div className="py-2">
+                                        {teamLinks.map((link) => (
+                                            <Link
+                                                key={link.name}
+                                                href={link.href}
+                                                className="block px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary hover:bg-gray-50 transition-colors"
+                                            >
+                                                {link.name}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
                 </div>
 
                 {/* Desktop Action Buttons */}
-                <div className="hidden md:flex items-center gap-4">
+                <div className="hidden lg:flex items-center gap-4">
                     {getUser() ? (
                         <>
                             <Link
@@ -94,7 +137,7 @@ export default function Navbar() {
 
                 {/* Mobile Menu Button */}
                 <button
-                    className="md:hidden p-2 text-gray-600 hover:text-primary transition-colors"
+                    className="lg:hidden p-2 text-gray-600 hover:text-primary transition-colors"
                     onClick={toggleMobileMenu}
                     aria-label="Toggle menu"
                 >
@@ -110,7 +153,7 @@ export default function Navbar() {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        className="md:hidden bg-white border-t border-gray-100 overflow-hidden"
+                        className="lg:hidden bg-white border-t border-gray-100 overflow-hidden"
                     >
                         <div className="container mx-auto px-6 py-8 flex flex-col gap-6">
                             {navLinks.map((link) => (
@@ -123,6 +166,21 @@ export default function Navbar() {
                                     {link.name}
                                 </Link>
                             ))}
+
+                            <div className="flex flex-col gap-3">
+                                <div className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Our Team</div>
+                                {teamLinks.map((link) => (
+                                    <Link
+                                        key={link.name}
+                                        href={link.href}
+                                        className="text-lg font-medium text-gray-700 hover:text-primary transition-colors pl-4 border-l-2 border-gray-100"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                ))}
+                            </div>
+
                             <div className="h-px bg-gray-100 w-full" />
                             <div className="flex flex-col gap-4">
                                 {getUser() ? (

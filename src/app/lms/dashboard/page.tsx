@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { PlayCircle, CheckCircle, FileText, Download, LogOut, Menu, Lock, Award, ChevronRight, BookOpen, Clock, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { PlayCircle, CheckCircle, FileText, Download, LogOut, Menu, Lock, Award, ChevronRight, BookOpen, Clock, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Logo, { LogoMark } from '@/components/Logo';
 import { lmsCourseData, Module, Lesson } from '@/data/lms';
 import { getUser, logout, isLoggedIn, getPaidCourses, hasPaidForCourse } from '@/lib/auth';
 import { certificationLevels, CertificationLevel } from '@/data/arifac';
@@ -90,7 +91,7 @@ export default function LMSDashboard() {
             <div className="min-h-screen bg-gray-50 flex flex-col">
                 <header className="bg-white h-16 border-b border-gray-200 flex items-center justify-between px-6 sticky top-0 z-10">
                     <div className="flex items-center gap-4">
-                        <div className="font-bold text-xl text-primary font-heading">LMS Dashboard</div>
+                        <Logo />
                     </div>
                     <div className="flex items-center gap-4">
                         <span className="text-sm font-bold text-primary hidden md:block">{user?.name}</span>

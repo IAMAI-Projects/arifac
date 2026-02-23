@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, ChevronDown, ShieldCheck, FileText, Users, Building2 } from 'lucide-react';
+import { ArrowRight, ChevronDown, FileText, Users, Building2 } from 'lucide-react';
 import { useRef } from 'react';
+import { LogoMark } from './Logo';
 
 export default function HeroSection() {
     const targetRef = useRef(null);
@@ -44,13 +45,13 @@ export default function HeroSection() {
                 className="absolute bottom-[-10%] right-[-10%] w-[700px] h-[700px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"
             />
 
-            {/* Floating Abstract Element - Compliance Shield */}
+            {/* Floating Abstract Element - Compliance Brand Mark */}
             <motion.div
                 animate={{ y: [0, -20, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-1/4 right-[10%] hidden lg:block pointer-events-none opacity-40 grayscale"
+                className="absolute top-1/4 right-[10%] hidden lg:block pointer-events-none opacity-20 grayscale hover:grayscale-0 hover:opacity-40 transition-all font-primary"
             >
-                <ShieldCheck className="w-32 h-32 text-gray-200" strokeWidth={0.5} />
+                <LogoMark className="w-32 h-32" />
             </motion.div>
 
             <div className="container relative z-10 px-6 pt-20 text-center">

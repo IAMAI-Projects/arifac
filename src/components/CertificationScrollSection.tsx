@@ -2,7 +2,8 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValueEvent } from 'framer-motion';
-import { CheckCircle2, ShieldCheck, X, BookOpen, Clock } from 'lucide-react';
+import { CheckCircle2, X, BookOpen, Clock } from 'lucide-react';
+import { LogoMark } from './Logo';
 import { certificationLevels, CertificationLevel } from '@/data/arifac';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -117,8 +118,8 @@ export default function CertificationScrollSection() {
                                             {level.validity} Validity
                                         </span>
                                         {level.isProctored && (
-                                            <div className="flex items-center gap-1.5 text-green-600 text-xs font-medium">
-                                                <ShieldCheck className="w-4 h-4" />
+                                            <div className="flex items-center gap-1.5 text-blue-600/80 text-xs font-medium">
+                                                <LogoMark className="w-4 h-4" />
                                                 <span>Proctored Exam</span>
                                             </div>
                                         )}

@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import Image from 'next/image';
-import Logo from '@/components/Logo';
+import Logo, { LogoMark } from '@/components/Logo';
 import { Download, Printer, Share2, Loader2 } from 'lucide-react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -101,8 +101,8 @@ export default function CertificatePage() {
                 <div className="h-full w-full border-[20px] border-double border-primary/10 relative p-12 flex flex-col items-center text-center justify-between bg-[radial-gradient(#f8f8f8_1px,transparent_1px)] bg-[size:20px_20px] print:border-none">
 
                     {/* Background Seal */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
-                        <Logo className="scale-[5]" />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-[0.05] pointer-events-none">
+                        <LogoMark className="w-[400px] h-[400px] relative" />
                     </div>
 
                     {/* Header */}
@@ -143,11 +143,11 @@ export default function CertificatePage() {
                         </div>
 
                         <div className="flex flex-col items-center">
-                            <div className="w-24 h-24 bg-accent/20 rounded-full flex items-center justify-center border-4 border-accent mb-2">
-                                <div className="w-20 h-20 border border-dashed border-accent rounded-full flex items-center justify-center text-xs font-bold text-accent-darker text-center p-2 uppercase tracking-tighter">
-                                    Official Seal
-                                </div>
+                            <div className="w-24 h-24 bg-accent/5 rounded-full flex items-center justify-center border-2 border-accent/20 mb-2 relative">
+                                <div className="absolute inset-0 border border-dashed border-accent/40 rounded-full animate-spin-slow"></div>
+                                <LogoMark className="w-12 h-12 relative opacity-80" />
                             </div>
+                            <p className="text-[10px] font-bold text-accent uppercase tracking-widest mt-1">Official Seal</p>
                         </div>
 
                         <div className="text-center">

@@ -1,4 +1,4 @@
-import { LucideIcon, Shield, FileText, Users, Globe, BookOpen, Award, Building2, Landmark, GraduationCap, Scale, Briefcase } from 'lucide-react';
+import { LucideIcon, ShieldCheck, FileText, Users, Globe, BookOpen, Award, Building2, Landmark, GraduationCap, Scale, Briefcase } from 'lucide-react';
 import { lmsCourseData, Module } from './lms';
 
 export interface Section {
@@ -224,7 +224,7 @@ export const membershipCategories: MembershipCategory[] = [
     {
         title: "Insurance",
         description: "Life and General Insurance companies.",
-        icon: Shield
+        icon: ShieldCheck
     },
     {
         title: "Securities Markets",
