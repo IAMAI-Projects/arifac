@@ -57,7 +57,7 @@ export default function Navbar() {
                         rel="noopener noreferrer"
                         className="flex items-center gap-1.5 group"
                     >
-                        <div className="relative w-14 h-5 rounded overflow-hidden bg-white">
+                        <div className="relative w-16 h-10 rounded overflow-hidden bg-white">
                             <Image
                                 src="/iamai-logo.png"
                                 alt="IAMAI"
