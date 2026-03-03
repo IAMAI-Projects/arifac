@@ -174,19 +174,19 @@ export default function Navbar() {
                                     href="https://iamai.edmingle.com/courses"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-sm font-semibold text-gray-700 hover:text-primary transition-all px-4 py-2 border border-gray-200 rounded-lg hover:border-primary hover:bg-gray-50"
+                                    className="text-sm font-semibold text-gray-700 hover:text-primary transition-all px-4 py-2 border border-gray-200 rounded-lg hover:border-primary bg-gray-50 hover:bg-gray-100"
                                 >
                                     Learning Platform
                                 </a>
                                 <Link
                                     href="/join"
-                                    className="text-sm font-semibold text-primary hover:text-accent transition-all px-4 py-2 border border-gray-200 rounded-lg hover:border-primary hover:bg-gray-50 tracking-wide"
+                                    className="text-sm font-semibold text-primary hover:text-accent transition-all px-4 py-2 border border-gray-200 rounded-lg hover:border-primary bg-gray-50 hover:bg-gray-100 tracking-wide"
                                 >
                                     Member Platform
                                 </Link>
                                 <Link
                                     href="/"
-                                    className="text-sm font-semibold text-gray-700 hover:text-primary transition-all px-4 py-2 border border-gray-200 rounded-lg hover:border-primary hover:bg-gray-50"
+                                    className="text-sm font-semibold text-gray-700 hover:text-primary transition-all px-4 py-2 border border-gray-200 rounded-lg hover:border-primary bg-gray-50 hover:bg-gray-100"
                                 >
                                     Arifac Team Login
                                 </Link>
@@ -266,7 +266,7 @@ export default function Navbar() {
                                         <>
                                             <Link
                                                 href="/login"
-                                                className="text-center font-semibold text-primary px-4 py-3 border border-gray-200 rounded-md hover:bg-gray-50 transition-colors"
+                                                className="text-center font-semibold text-primary px-4 py-3 border border-gray-200 rounded-md bg-gray-50 hover:bg-gray-100 transition-colors"
                                                 onClick={() => setIsMobileMenuOpen(false)}
                                             >
                                                 Learning Platform
@@ -280,8 +280,7 @@ export default function Navbar() {
                                             </Link>
                                             <Link
                                                 href=""
-                                                className="text-center font-semibold text-primary px-4 py-3 border border-gray-200 rounded-md hover:bg-gray-50 transition-colors"
-
+                                                className="text-center font-semibold text-primary px-4 py-3 border border-gray-200 rounded-md bg-gray-50 hover:bg-gray-100 transition-colors"
                                             >
                                                 Arifac Team Login
                                             </Link>
