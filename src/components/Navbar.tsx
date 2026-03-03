@@ -48,7 +48,7 @@ export default function Navbar() {
                 className="fixed top-0 left-0 right-0 z-[60] h-10 bg-gray-900 border-b border-white/5 flex items-center justify-center px-4"
             >
                 <div className="flex items-center gap-3">
-                    <span className="text-gray-400 text-[11px] uppercase tracking-widest font-medium hidden sm:block">
+                    <span className="text-white/60 group-hover:text-white text-[11px] font-medium transition-colors hidden md:block">
                         Operating under the aegis of IAMAI
                     </span>
                     <a
