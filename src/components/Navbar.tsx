@@ -49,7 +49,7 @@ export default function Navbar() {
             >
                 <div className="flex items-center gap-3">
                     <span className="text-gray-400 text-[11px] uppercase tracking-widest font-medium hidden sm:block">
-                        Operating under the aegis of
+                        Operating under the aegis of IAMAI
                     </span>
                     <a
                         href="https://iamai.in"
@@ -65,10 +65,10 @@ export default function Navbar() {
                                 className="object-contain p-0.5"
                             />
                         </div>
-                        <span className="text-white/60 group-hover:text-white text-[11px] font-medium transition-colors hidden md:block">
-                            Internet &amp; Mobile Association of India
-                        </span>
                     </a>
+                    <span className="text-white/60 group-hover:text-white text-[11px] font-medium transition-colors hidden md:block">
+                        with strategic guidance from FIU-IND and collaboration with key regulators.
+                    </span>
                 </div>
             </motion.div>
 
