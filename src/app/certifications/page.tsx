@@ -62,7 +62,7 @@ export default function CertificationsPage() {
                             </div>
                             <div>
                                 <h3 className="font-bold text-primary mb-1">Industry Validated</h3>
-                                <p className="text-sm text-gray-500">Curriculum vetted by leading financial institutions and regulators.</p>
+                                <p className="text-sm text-gray-500">Curriculum vetted by subject matter experts.</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-4">
