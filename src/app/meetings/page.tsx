@@ -9,11 +9,11 @@ const meetingsData = [
     {
         id: 1,
         title: "National Consultation Meeting - Mumbai",
-        date: "December 05, 2024",
+        date: "December 10, 2025",
         time: "11:00 AM - 4:00 PM",
         location: "Mumbai, Maharashtra",
         type: "In-Person",
-        status: "Upcoming",
+        status: "Past",
         description: "Focusing on the establishment of industry-specific working groups and defining time-bound action points for efficient mission delivery in the financial sector."
     },
     {

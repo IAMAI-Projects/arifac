@@ -97,6 +97,7 @@ export const certificationLevels: CertificationLevel[] = [
         syllabus: lmsCourseData,
         enrollUrl: "https://iamai.edmingle.com/course/CertifiedAMLFinancialCrimeProfessionalIndia-105418"
     }
+
 ];
 
 export const membershipCategories: MembershipCategory[] = [
@@ -165,10 +166,7 @@ export const partnersData: PartnerCategory[] = [
         title: "Strategic Guidance",
         partners: ["Financial Intelligence Unit - India (FIU-IND)"]
     },
-    {
-        title: "Regulatory Engagement",
-        partners: ["Reserve Bank of India (RBI)", "SEBI", "IRDAI", "IFSCA"]
-    },
+
     {
         title: "Knowledge Partners",
         partners: ["Leading Law Firms", "Global Consultancies", "Academic Institutions"]

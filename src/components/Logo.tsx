@@ -28,16 +28,19 @@ export default function Logo({
     className = "",
     textClassName = "",
     variant = "light",
+    showBadge = false,
 }: {
     className?: string;
     textClassName?: string;
     variant?: "light" | "dark";
+    showBadge?: boolean;
 }) {
     const nameColor = variant === "dark" ? "text-white" : "text-[#111827]";
+    const subColor = variant === "dark" ? "text-[#3a7ca5]/80" : "text-[#3a7ca5]";
 
     return (
         <div className={`flex items-center gap-3 ${className}`}>
-            <div className="w-10 h-10 shrink-0 relative bg-white rounded-lg p-1 shadow-sm">
+            <div className={`w-10 h-10 shrink-0 relative ${variant === 'dark' ? 'bg-white/10 ring-1 ring-white/20' : 'bg-white shadow-sm'} rounded-lg p-1`}>
                 <Image
                     src="/logo.png"
                     alt="ARIFAC Logo"
@@ -47,14 +50,19 @@ export default function Logo({
                 />
             </div>
             <div className={`flex flex-col ${textClassName}`}>
-                {/* White on dark bg (footer), black on light bg (header) */}
                 <span className={`font-heading font-bold text-lg leading-none tracking-tight ${nameColor}`}>
                     ARIFAC
                 </span>
-                {/* Always brand blue — visible on both light and dark backgrounds */}
-                <span className="text-[0.6rem] uppercase tracking-widest font-semibold whitespace-nowrap text-[#3a7ca5]">
+                <span className={`text-[0.6rem] uppercase tracking-widest font-semibold whitespace-nowrap ${subColor} mt-0.5`}>
                     Building Partnerships in AML/CFT
                 </span>
+                {showBadge && (
+                    <div className="mt-1.5">
+                        <span className="inline-block px-2 py-0.5 rounded-full bg-accent/20 border border-accent/30 text-accent text-[0.55rem] font-bold tracking-widest uppercase">
+                            Professional Framework
+                        </span>
+                    </div>
+                )}
             </div>
         </div>
     );

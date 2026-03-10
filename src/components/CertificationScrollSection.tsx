@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { CheckCircle2, Clock, BookOpen, ChevronRight } from 'lucide-react';
+import { CheckCircle2, Clock, BookOpen, ChevronRight, ArrowRight } from 'lucide-react';
 import { certificationLevels, CertificationLevel } from '@/data/arifac';
 import Link from 'next/link';
 import { isLoggedIn, hasPaidForCourse } from '@/lib/auth';
@@ -14,15 +14,22 @@ export default function CertificationScrollSection() {
         <section id="certification" className="py-24 bg-white">
             <div className="container mx-auto px-6">
 
-                {/* Section Header */}
-                <div className="max-w-2xl mb-14">
-                    <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
-                        Professional <br />
-                        <span className="text-accent">Certification Framework</span>
-                    </h2>
-                    <p className="text-lg text-gray-500">
-                        A tiered competency model designed to standardize financial integrity expertise across the national ecosystem.
-                    </p>
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+                    <div className="max-w-2xl">
+                        <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
+                            <br />
+                            <span className="text-accent"> </span>
+                        </h2>
+                        <p className="text-lg text-gray-500">
+                            A tiered competency model designed to standardize financial integrity expertise across the national ecosystem.
+                        </p>
+                    </div>
+                    <Link
+                        href="/certifications"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-bold text-sm hover:bg-accent transition-all shadow-sm hover:shadow-md shrink-0"
+                    >
+                        View All Courses <ArrowRight size={16} />
+                    </Link>
                 </div>
 
                 {/* Course Cards */}

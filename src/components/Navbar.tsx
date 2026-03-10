@@ -73,14 +73,14 @@ export default function Navbar() {
             </motion.div>
 
             <nav
-                className={`fixed left-0 right-0 z-50 transition-all duration-500 border-b ${isScrolled
-                    ? 'top-0 bg-white/95 backdrop-blur-2xl border-gray-200/80 py-4 shadow-md'
-                    : 'top-10 bg-transparent border-transparent py-6'
+                className={`fixed left-0 right-0 z-50 transition-all duration-500 border-b bg-white/95 backdrop-blur-2xl border-gray-200/80 ${isScrolled
+                    ? 'top-0 py-4 shadow-md'
+                    : 'top-10 py-6'
                     }`}
             >
                 <div className="container mx-auto px-6 flex items-center justify-between">
                     <Link href="/" className="group">
-                        <Logo />
+                        <Logo variant="light" showBadge={false} />
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -92,10 +92,11 @@ export default function Navbar() {
                                     className="relative group px-4 py-1 text-sm font-semibold text-gray-600 hover:text-primary transition-colors duration-200"
                                 >
                                     {link.name}
-                                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-primary rounded-full transition-all duration-300 group-hover:w-4/5" />
+                                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-accent rounded-full transition-all duration-300 group-hover:w-4/5" />
                                 </Link>
-                                {/* Separator */}
-                                <span className="w-px h-4 bg-gray-300/70 mx-1" />
+                                {index < navLinks.length - 1 && (
+                                    <span className="w-1 h-1 rounded-full mx-1 bg-gray-200" />
+                                )}
                             </div>
                         ))}
 
@@ -107,8 +108,8 @@ export default function Navbar() {
                         >
                             <button className="relative group px-4 py-1 text-sm font-semibold text-gray-600 hover:text-primary transition-colors duration-200 flex items-center gap-1.5">
                                 Training
-                                <ChevronDown size={14} className={`mt-0.5 transition-transform duration-300 ${isTeamOpen ? 'rotate-180 text-primary' : ''}`} />
-                                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-primary rounded-full transition-all duration-300 group-hover:w-4/5" />
+                                <ChevronDown size={14} className={`mt-0.5 transition-transform duration-300 ${isTeamOpen ? 'rotate-180 text-accent' : ''}`} />
+                                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-accent rounded-full transition-all duration-300 group-hover:w-4/5" />
                             </button>
 
                             <AnimatePresence>
@@ -156,37 +157,30 @@ export default function Navbar() {
                                         logout();
                                         window.location.href = '/';
                                     }}
-                                    className="text-sm font-semibold text-red-500 hover:text-red-700 transition-colors px-4 py-2 border border-red-100 rounded-lg hover:border-red-300 hover:bg-red-50"
+                                    className="text-sm font-bold bg-red-50 text-red-600 hover:bg-red-100 border border-red-100 transition-all px-5 py-2.5 rounded-xl"
                                 >
                                     Logout
                                 </button>
                             </>
                         ) : (
                             <>
-                                {/* Old internal login link — replaced with external LMS */}
-                                {/* <Link
-                                href="/login"
-                                className="text-sm font-semibold text-gray-700 hover:text-primary transition-colors px-4 py-2 rounded-lg hover:bg-gray-100"
-                            >
-                                Learning Platform
-                            </Link> */}
                                 <a
                                     href="https://iamai.edmingle.com/courses"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-sm font-semibold text-gray-700 hover:text-primary transition-all px-4 py-2 border border-gray-200 rounded-lg hover:border-primary bg-gray-50 hover:bg-gray-100"
+                                    className="text-sm font-bold bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-primary transition-all px-5 py-2.5 rounded-xl border"
                                 >
                                     Learning Platform
                                 </a>
                                 <Link
                                     href="/join"
-                                    className="text-sm font-semibold text-primary hover:text-accent transition-all px-4 py-2 border border-gray-200 rounded-lg hover:border-primary bg-gray-50 hover:bg-gray-100 tracking-wide"
+                                    className="text-sm font-bold bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-primary transition-all px-5 py-2.5 rounded-xl border"
                                 >
                                     Member Platform
                                 </Link>
                                 <Link
                                     href="/"
-                                    className="text-sm font-semibold text-gray-700 hover:text-primary transition-all px-4 py-2 border border-gray-200 rounded-lg hover:border-primary bg-gray-50 hover:bg-gray-100"
+                                    className="text-sm font-bold bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-primary transition-all px-5 py-2.5 rounded-xl border"
                                 >
                                     Arifac Team Login
                                 </Link>
@@ -273,7 +267,7 @@ export default function Navbar() {
                                             </Link>
                                             <Link
                                                 href="/join"
-                                                className="text-center font-semibold text-white bg-primary px-5 py-3 rounded-md shadow-lg"
+                                                className="text-center font-semibold text-primary px-4 py-3 border border-gray-200 rounded-md bg-gray-50 hover:bg-gray-100 transition-colors"
                                                 onClick={() => setIsMobileMenuOpen(false)}
                                             >
                                                 Member Platform
