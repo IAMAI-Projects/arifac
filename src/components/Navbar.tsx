@@ -33,6 +33,7 @@ export default function Navbar() {
                 {
                     title: t('nav.certifications'),
                     links: [
+                        { name: t('cert.all'), href: '/certifications' },
                         { name: t('nav.exam'), href: '#' },
                         { name: t('nav.materials'), href: '#' },
                         { name: t('nav.verify'), href: '#' },
