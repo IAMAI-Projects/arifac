@@ -20,39 +20,37 @@ export default function MembershipSection() {
     };
 
     return (
-        <section id="membership" className="py-24 bg-gray-50 relative">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,0,0,0.03),transparent_40%)]" />
-
+        <section id="membership" className="py-32 bg-white relative overflow-hidden">
             <div className="container mx-auto px-6 relative z-10">
-                <div className="max-w-3xl mb-16">
-                    <span className="text-accent font-semibold tracking-wider uppercase text-sm">{t('member.network')}</span>
-                    <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mt-2 mb-6">
+                <div className="flex flex-col items-center text-center mb-20">
+                    <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-4">{t('member.network')}</span>
+                    <h2 className="text-4xl md:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-6">
                         {t('member.title')}
                     </h2>
-                    <p className="text-lg text-gray-600">
+                    <p className="text-xl text-secondary max-w-3xl font-medium leading-relaxed">
                         {t('member.description')}
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {membershipCategories.map((category, index) => {
                         const Icon = category.icon || Users;
                         return (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: index * 0.05 }}
-                                className="group p-6 rounded-xl bg-white border border-gray-200 hover:border-accent/30 hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-300"
+                                transition={{ delay: index * 0.1 }}
+                                className="group p-8 rounded-3xl bg-[#f5f5f7] hover:bg-[#ebebed] transition-all duration-500"
                             >
-                                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                    <Icon className="w-5 h-5 text-gray-400 group-hover:text-accent transition-colors" />
+                                <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform duration-500">
+                                    <Icon className="w-6 h-6 text-accent" />
                                 </div>
-                                <h3 className="text-lg font-bold text-primary mb-2">
+                                <h3 className="text-xl font-bold text-[#1d1d1f] mb-3">
                                     {memberKeys[category.title] ? t(`${memberKeys[category.title]}.title`) : category.title}
                                 </h3>
-                                <p className="text-sm text-gray-500 group-hover:text-gray-700 transition-colors">
+                                <p className="text-[14px] text-secondary leading-relaxed font-medium">
                                     {memberKeys[category.title] ? t(`${memberKeys[category.title]}.desc`) : category.description}
                                 </p>
                             </motion.div>
@@ -60,16 +58,16 @@ export default function MembershipSection() {
                     })}
                 </div>
 
-                <div className="mt-16 bg-primary rounded-2xl p-8 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div>
-                        <h3 className="text-xl font-bold text-white mb-2">{t('member.benefits_title')}</h3>
-                        <p className="text-gray-300 text-sm max-w-xl">
+                <div className="mt-20 bg-[#1d1d1f] rounded-[32px] p-10 md:p-16 flex flex-col items-center text-center gap-8">
+                    <div className="max-w-2xl">
+                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">{t('member.benefits_title')}</h3>
+                        <p className="text-gray-400 text-lg font-medium leading-relaxed">
                             {t('member.benefits_desc')}
                         </p>
                     </div>
-                    <button className="bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center gap-2 shrink-0">
+                    <button className="bg-white text-[#1d1d1f] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all flex items-center gap-2">
                         {t('member.fee_btn')}
-                        <ArrowRight className="w-4 h-4" />
+                        <ArrowRight className="w-5 h-5" />
                     </button>
                 </div>
             </div>

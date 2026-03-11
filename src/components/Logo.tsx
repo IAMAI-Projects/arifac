@@ -38,7 +38,7 @@ export default function Logo({
 }) {
     const { t } = useLanguage();
     const nameColor = variant === "dark" ? "text-white" : "text-[#111827]";
-    const subColor = variant === "dark" ? "text-[#3a7ca5]/80" : "text-[#3a7ca5]";
+    const subColor = variant === "dark" ? "text-[#0066cc]/80" : "text-[#0066cc]";
 
     return (
         <div className={`flex items-center gap-3 ${className}`}>

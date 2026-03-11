@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Image as ImageIcon } from 'lucide-react';
+import { ChevronRight, Image as ImageIcon } from 'lucide-react';
 
 import Image from 'next/image';
 
@@ -14,29 +14,27 @@ const previewImages = [
 
 export default function QuickGallerySection() {
     return (
-        <section className="py-24 bg-white overflow-hidden">
+        <section className="py-32 bg-white overflow-hidden">
             <div className="container mx-auto px-6">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-                    <div className="max-w-xl">
-                        <div className="flex items-center gap-2 text-accent font-bold uppercase tracking-widest text-[10px] mb-4">
-                            <ImageIcon size={14} /> Visual Journey
-                        </div>
-                        <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">
+                <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                    <div className="max-w-3xl">
+                        <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-4 block">Visual Journey</span>
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1d1d1f] tracking-tight mb-8">
                             Life at ARIFAC
                         </h2>
-                        <p className="text-gray-600">
+                        <p className="text-xl text-secondary max-w-2xl font-medium leading-relaxed">
                             Capturing moments of collaboration, learning, and recognition across our national network.
                         </p>
                     </div>
                     <Link
                         href="/gallery"
-                        className="group flex items-center gap-2 text-primary font-bold hover:text-accent transition-colors shrink-0"
+                        className="group inline-flex items-center gap-2 text-[#0066cc] font-semibold text-lg hover:underline decoration-2 underline-offset-4"
                     >
-                        View Full Gallery <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        View Full Gallery <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                     {previewImages.map((item, idx) => (
                         <motion.div
                             key={item.id}
@@ -44,17 +42,17 @@ export default function QuickGallerySection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: idx * 0.1 }}
-                            className="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all"
+                            className="group relative aspect-[4/3] rounded-[32px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-700"
                         >
                             <Image
                                 src={item.image}
                                 alt={item.title}
                                 fill
-                                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                className="object-cover transition-transform duration-1000 group-hover:scale-105"
                             />
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                                <span className="text-accent text-[10px] font-bold uppercase tracking-widest mb-1">{item.category}</span>
-                                <h3 className="text-white font-bold text-lg">{item.title}</h3>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                                <span className="text-accent text-[11px] font-bold uppercase tracking-[0.15em] mb-2">{item.category}</span>
+                                <h3 className="text-white font-bold text-xl tracking-tight">{item.title}</h3>
                             </div>
                         </motion.div>
                     ))}

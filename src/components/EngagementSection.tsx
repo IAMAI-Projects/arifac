@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { engagementFormats } from '@/data/arifac';
-import { ArrowRight, MessageSquare, Users, FileText, TrendingUp, Briefcase } from 'lucide-react';
+import { ArrowRight, MessageSquare, Users, FileText, TrendingUp, Briefcase, ChevronRight } from 'lucide-react';
 import { useLanguage } from './LanguageContext';
 
 export default function EngagementSection() {
@@ -22,25 +22,25 @@ export default function EngagementSection() {
     };
 
     return (
-        <section id="engagement" className="py-24 bg-white">
+        <section id="engagement" className="py-32 bg-[#f5f5f7]">
             <div className="container mx-auto px-6">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-                    <div className="max-w-2xl">
-                        <span className="text-accent font-semibold tracking-wider uppercase text-sm">{t('engage.collab')}</span>
-                        <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mt-2">
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+                    <div className="max-w-3xl">
+                        <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-4 block">{t('engage.collab')}</span>
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1d1d1f] tracking-tight mb-8">
                             {t('engage.title')}
                         </h2>
-                        <p className="text-lg text-gray-600 mt-4">
+                        <p className="text-xl text-secondary max-w-2xl font-medium leading-relaxed">
                             {t('engage.description')}
                         </p>
                     </div>
-                    <button className="text-accent border-b border-accent/30 pb-1 hover:text-primary hover:border-primary transition-colors flex items-center gap-2">
+                    <button className="group inline-flex items-center gap-2 text-[#0066cc] font-semibold text-lg hover:underline decoration-2 underline-offset-4">
                         {t('engage.calendar')}
-                        <ArrowRight className="w-4 h-4" />
+                        <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                     </button>
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {engagementFormats.map((format, index) => {
                         const Icon = getIcon(index);
                         return (
@@ -50,26 +50,22 @@ export default function EngagementSection() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className="group relative overflow-hidden bg-gray-50 border border-gray-100 rounded-xl p-8 hover:bg-white hover:shadow-lg transition-all duration-300"
+                                className="group bg-white rounded-[32px] p-10 hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-500"
                             >
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full blur-[40px] -translate-y-1/2 translate-x-1/2 group-hover:bg-accent/10 transition-colors" />
+                                <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
+                                    <Icon className="w-7 h-7 text-[#1d1d1f]" />
+                                </div>
 
-                                <div className="relative z-10">
-                                    <div className="w-12 h-12 rounded-lg bg-gray-200 border border-gray-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                                        <Icon className="w-6 h-6 text-primary" />
-                                    </div>
+                                <h3 className="text-2xl font-bold text-[#1d1d1f] mb-4">
+                                    {engageKeys[format.title] ? t(`${engageKeys[format.title]}.title`) : format.title}
+                                </h3>
+                                <p className="text-lg text-secondary leading-relaxed font-medium mb-8">
+                                    {engageKeys[format.title] ? t(`${engageKeys[format.title]}.desc`) : format.description}
+                                </p>
 
-                                    <h3 className="text-xl font-bold text-primary mb-3">
-                                        {engageKeys[format.title] ? t(`${engageKeys[format.title]}.title`) : format.title}
-                                    </h3>
-                                    <p className="text-gray-500 group-hover:text-gray-700 transition-colors mb-6">
-                                        {engageKeys[format.title] ? t(`${engageKeys[format.title]}.desc`) : format.description}
-                                    </p>
-
-                                    <div className="flex items-center gap-2 text-sm text-accent font-medium opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                        <span>{t('engage.participate')}</span>
-                                        <ArrowRight className="w-4 h-4" />
-                                    </div>
+                                <div className="flex items-center gap-2 text-[15px] text-[#0066cc] font-bold opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
+                                    <span>{t('engage.participate')}</span>
+                                    <ChevronRight className="w-4 h-4" />
                                 </div>
                             </motion.div>
                         );

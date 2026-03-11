@@ -3,7 +3,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, Users, Video } from 'lucide-react';
+import { Calendar, MapPin, Users, Video, ChevronRight } from 'lucide-react';
 
 const meetingsData = [
     {
@@ -40,54 +40,64 @@ const meetingsData = [
 
 export default function MeetingsPage() {
     return (
-        <main className="min-h-screen bg-gray-50 flex flex-col">
+        <main className="min-h-screen bg-white flex flex-col">
             <Navbar />
 
-            <div className="flex-1 pt-32 pb-20">
+            <div className="flex-1 pt-48 pb-32">
                 <div className="container mx-auto px-6">
-                    <div className="max-w-4xl mx-auto mb-12">
-                        <h1 className="text-4xl font-bold text-primary mb-4">Meetings & Consultations</h1>
-                        <p className="text-gray-600 text-lg">Facilitating information sharing and strategic engagement to strengthen the national AML/CFT ecosystem through collaborative national and regional meetings.</p>
+                    <div className="max-w-4xl mx-auto mb-24 text-center">
+                        <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-6 block">Engagement</span>
+                        <h1 className="text-5xl md:text-7xl font-bold text-[#1d1d1f] tracking-tight mb-8">Meetings & Consultations</h1>
+                        <p className="text-xl md:text-2xl text-secondary max-w-3xl mx-auto font-medium leading-relaxed">
+                            Facilitating information sharing and strategic engagement to strengthen the national AML/CFT ecosystem through collaborative national and regional meetings.
+                        </p>
                     </div>
 
-                    <div className="max-w-4xl mx-auto space-y-6">
+                    <div className="max-w-5xl mx-auto space-y-10">
                         {meetingsData.map((meeting, idx) => (
                             <motion.div
                                 key={meeting.id}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: idx * 0.1 }}
-                                className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+                                className="group bg-[#f5f5f7] rounded-[40px] overflow-hidden hover:bg-[#ebebed] transition-all duration-500"
                             >
-                                <div className="p-8">
-                                    <div className="flex flex-wrap items-center gap-3 mb-4">
-                                        <span className={`text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest ${meeting.status === 'Upcoming' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
+                                <div className="p-10 md:p-14">
+                                    <div className="flex flex-wrap items-center gap-4 mb-8">
+                                        <span className={`text-[11px] font-bold px-4 py-1.5 rounded-full uppercase tracking-[0.15em] border ${
+                                            meeting.status === 'Upcoming' || meeting.status === 'Planned' 
+                                            ? 'bg-white text-green-600 border-green-100' 
+                                            : 'bg-white text-secondary border-gray-200'
                                             }`}>
                                             {meeting.status}
                                         </span>
-                                        <span className="text-xs font-medium text-accent bg-accent/5 px-3 py-1 rounded-full uppercase tracking-widest flex items-center gap-1">
-                                            {meeting.type === 'Online' ? <Video size={12} /> : meeting.type === 'Hybrid' ? <Users size={12} /> : <MapPin size={12} />}
+                                        <span className="text-[11px] font-bold text-accent bg-white border border-gray-100 px-4 py-1.5 rounded-full uppercase tracking-[0.15em] flex items-center gap-2 shadow-sm">
+                                            {meeting.type === 'Online' ? <Video size={14} /> : meeting.type === 'Hybrid' ? <Users size={14} /> : <MapPin size={14} />}
                                             {meeting.type}
                                         </span>
                                     </div>
 
-                                    <h2 className="text-2xl font-bold text-primary mb-3">{meeting.title}</h2>
-                                    <p className="text-gray-600 mb-6">{meeting.description}</p>
+                                    <h2 className="text-3xl font-bold text-[#1d1d1f] mb-6 tracking-tight">{meeting.title}</h2>
+                                    <p className="text-lg text-secondary mb-10 leading-relaxed font-medium">{meeting.description}</p>
 
-                                    <div className="grid sm:grid-cols-2 gap-4 text-sm text-gray-500">
-                                        <div className="flex items-center gap-2">
-                                            <Calendar size={18} className="text-accent" />
+                                    <div className="flex flex-wrap gap-10 text-[15px] font-bold text-[#1d1d1f]">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm">
+                                                <Calendar size={20} className="text-accent" />
+                                            </div>
                                             <span>{meeting.date} at {meeting.time}</span>
                                         </div>
-                                        <div className="flex items-center gap-2">
-                                            <MapPin size={18} className="text-accent" />
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm">
+                                                <MapPin size={20} className="text-accent" />
+                                            </div>
                                             <span>{meeting.location}</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="px-8 py-4 bg-gray-50 border-t border-gray-100 flex justify-end">
-                                    <button className="text-sm font-bold text-primary hover:text-accent transition-colors">
-                                        {meeting.status === 'Upcoming' ? 'Register Seat' : meeting.status === 'Planned' ? 'View Agenda' : 'View Minutes'} →
+                                <div className="px-10 md:px-14 py-8 bg-white/50 border-t border-gray-200 flex justify-end">
+                                    <button className="inline-flex items-center gap-2 py-3 px-8 bg-white border border-gray-200 text-[#1d1d1f] rounded-2xl font-bold hover:bg-gray-50 transition-all shadow-sm">
+                                        {meeting.status === 'Upcoming' ? 'Register Seat' : meeting.status === 'Planned' ? 'View Agenda' : 'View Minutes'} <ChevronRight size={18} />
                                     </button>
                                 </div>
                             </motion.div>

@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import Logo from '@/components/Logo';
-import { ArrowLeft, Send, Mail, Phone, MapPin, CheckCircle2, Loader2 } from 'lucide-react';
+import { Mail, Phone, MapPin, CheckCircle2, Loader2, Send } from 'lucide-react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import { LogoMark } from '@/components/Logo';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
@@ -48,168 +49,176 @@ export default function ContactPage() {
     };
 
     const inputClass =
-        'w-full bg-white border border-gray-200 rounded-lg py-3 px-4 text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-gray-400 text-sm transition-colors';
-    const labelClass = 'block text-sm font-medium text-gray-700 mb-1.5';
+        'w-full bg-[#f5f5f7] border-none rounded-2xl py-4 px-6 text-[#1d1d1f] font-bold placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-accent/20 transition-all duration-300';
+    const labelClass = 'block text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-3 ml-2';
 
     return (
-        <div className="min-h-screen bg-white flex flex-col md:flex-row text-primary overflow-hidden">
+        <main className="min-h-screen bg-white flex flex-col font-jakarta">
+            <Navbar />
 
-            {/* Left Panel */}
-            <div className="hidden md:flex flex-col justify-between w-5/12 bg-gray-50 p-12 relative overflow-hidden border-r border-gray-200">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,0,0,0.03),transparent_50%)]" />
-
-                <div className="relative z-10">
-                    <Link href="/" className="inline-block mb-12">
-                        <Logo />
-                    </Link>
-
-                    <h2 className="text-3xl font-heading font-bold mb-4 text-primary leading-snug">
-                        Get in Touch<br />
-                        <span className="text-accent">with ARIFAC</span>
-                    </h2>
-                    <p className="text-gray-500 text-sm leading-relaxed mb-10">
-                        Whether you're exploring membership, have questions about our certification programmes, or want to collaborate — we'd love to hear from you.
-                    </p>
-
-                    <div className="space-y-6">
-                        <div className="flex items-start gap-4">
-                            <div className="w-9 h-9 rounded-full bg-accent/10 flex items-center justify-center shrink-0 border border-accent/20 mt-0.5">
-                                <Mail size={16} className="text-accent" />
-                            </div>
-                            <div>
-                                <div className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-0.5">Email</div>
-                                <a href="mailto:s.avanish@iamai.in" className="text-sm text-primary hover:text-accent transition-colors">
-                                    s.avanish@iamai.in
-                                </a>
-                            </div>
-                        </div>
-
-                        <div className="flex items-start gap-4">
-                            <div className="w-9 h-9 rounded-full bg-accent/10 flex items-center justify-center shrink-0 border border-accent/20 mt-0.5">
-                                <MapPin size={16} className="text-accent" />
-                            </div>
-                            <div>
-                                <div className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-0.5">Office</div>
-                                <p className="text-sm text-gray-600">
-                                    Internet and Mobile Association of India<br />
-                                    New Delhi, India
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="flex items-start gap-4">
-                            <div className="w-9 h-9 rounded-full bg-accent/10 flex items-center justify-center shrink-0 border border-accent/20 mt-0.5">
-                                <Phone size={16} className="text-accent" />
-                            </div>
-                            <div>
-                                <div className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-0.5">Response Time</div>
-                                <p className="text-sm text-gray-600">Within 2 business days</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="relative z-10 p-5 bg-white rounded-xl border border-gray-200 shadow-sm mt-auto">
-                    <p className="text-xs text-gray-500 italic leading-relaxed">
-                        "ARIFAC is committed to building India's financial integrity ecosystem through open collaboration and institutional alignment."
-                    </p>
-                </div>
-            </div>
-
-            {/* Right Panel – Form */}
-            <div className="flex-1 flex flex-col p-6 md:p-12 overflow-y-auto bg-white">
-                <div className="flex justify-between items-center mb-10">
-                    <Link href="/" className="text-gray-400 hover:text-primary flex items-center gap-2 text-sm transition-colors">
-                        <ArrowLeft className="w-4 h-4" /> Back to Home
-                    </Link>
-                </div>
-
-                <div className="max-w-xl mx-auto w-full">
-                    <div className="mb-8">
-                        <h1 className="text-3xl font-bold font-heading mb-2 text-primary">Contact Us</h1>
-                        <p className="text-gray-500 text-sm">Fill in the form below and our team will get back to you promptly.</p>
-                    </div>
-
-                    {status === 'success' ? (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="py-16 flex flex-col items-center text-center gap-4"
-                        >
-                            <div className="w-16 h-16 rounded-full bg-green-50 border border-green-100 flex items-center justify-center">
-                                <CheckCircle2 size={32} className="text-green-500" />
-                            </div>
-                            <h2 className="text-xl font-bold text-primary">Message Sent!</h2>
-                            <p className="text-gray-500 text-sm max-w-sm">
-                                Thank you for reaching out. We've received your message and will respond within 2 business days.
-                            </p>
-                            <button
-                                onClick={() => setStatus('idle')}
-                                className="mt-4 px-6 py-2.5 rounded-lg border border-gray-200 text-sm font-semibold text-primary hover:bg-gray-50 transition-colors"
+            <div className="flex-1 pt-48 pb-32">
+                <div className="container mx-auto px-6">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="grid lg:grid-cols-2 gap-24 lg:gap-40">
+                            {/* Left Side: Info */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -30 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8, ease: "easeOut" }}
+                                className="space-y-16"
                             >
-                                Send Another Message
-                            </button>
-                        </motion.div>
-                    ) : (
-                        <form onSubmit={handleSubmit} className="space-y-5">
-                            <div className="grid md:grid-cols-2 gap-5">
-                                <div>
-                                    <label htmlFor="name" className={labelClass}>Full Name <span className="text-red-400">*</span></label>
-                                    <input id="name" name="name" type="text" required placeholder="Your full name" className={inputClass} />
+                                <div className="space-y-8">
+                                    <div className="flex items-center gap-3 text-accent font-bold uppercase tracking-[0.3em] text-[10px]">
+                                        <Mail className="w-5 h-5" /> Connect with us
+                                    </div>
+                                    <h1 className="text-6xl md:text-8xl font-bold text-[#1d1d1f] tracking-tight leading-[1.1]">
+                                        Get in <br />
+                                        <span className="text-gray-300">touch.</span>
+                                    </h1>
+                                    <p className="text-2xl text-gray-500 leading-relaxed font-medium max-w-lg">
+                                        Whether you're exploring membership, have questions about our certifications, or want to collaborate.
+                                    </p>
                                 </div>
-                                <div>
-                                    <label htmlFor="email" className={labelClass}>Email Address <span className="text-red-400">*</span></label>
-                                    <input id="email" name="email" type="email" required placeholder="you@organisation.com" className={inputClass} />
+
+                                <div className="space-y-10">
+                                    <div className="flex items-start gap-8">
+                                        <div className="w-14 h-14 bg-[#f5f5f7] rounded-2xl flex items-center justify-center shrink-0 text-accent">
+                                            <Mail size={24} />
+                                        </div>
+                                        <div>
+                                            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">Direct Email</div>
+                                            <a href="mailto:s.avanish@iamai.in" className="text-2xl font-bold text-[#1d1d1f] hover:text-accent transition-colors underline decoration-gray-200 underline-offset-8">
+                                                s.avanish@iamai.in
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start gap-8">
+                                        <div className="w-14 h-14 bg-[#f5f5f7] rounded-2xl flex items-center justify-center shrink-0 text-accent">
+                                            <MapPin size={24} />
+                                        </div>
+                                        <div>
+                                            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">Main Office</div>
+                                            <p className="text-2xl font-bold text-[#1d1d1f] leading-snug">
+                                                IAMAI Headquarters,<br />
+                                                New Delhi, India
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start gap-8">
+                                        <div className="w-14 h-14 bg-[#f5f5f7] rounded-2xl flex items-center justify-center shrink-0 text-accent">
+                                            <Phone size={24} />
+                                        </div>
+                                        <div>
+                                            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">Response Time</div>
+                                            <p className="text-2xl font-bold text-[#1d1d1f]">Within 48 hours</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            </motion.div>
 
-                            <div>
-                                <label htmlFor="organisation" className={labelClass}>Organisation</label>
-                                <input id="organisation" name="organisation" type="text" placeholder="Your institution or company" className={inputClass} />
-                            </div>
-
-                            <div>
-                                <label htmlFor="subject" className={labelClass}>Subject <span className="text-red-400">*</span></label>
-                                <input id="subject" name="subject" type="text" required placeholder="e.g. Membership Enquiry, Certification Query" className={inputClass} />
-                            </div>
-
-                            <div>
-                                <label htmlFor="message" className={labelClass}>Message <span className="text-red-400">*</span></label>
-                                <textarea
-                                    id="message"
-                                    name="message"
-                                    required
-                                    rows={5}
-                                    placeholder="Please describe your query or message in detail..."
-                                    className={`${inputClass} resize-none`}
-                                />
-                            </div>
-
-                            {status === 'error' && (
-                                <p className="text-red-500 text-sm bg-red-50 border border-red-100 rounded-lg px-4 py-3">{errorMsg}</p>
-                            )}
-
-                            <div className="pt-2">
-                                <button
-                                    type="submit"
-                                    disabled={status === 'loading'}
-                                    className="w-full bg-primary text-white font-bold py-3.5 rounded-lg hover:bg-gray-800 transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
-                                >
-                                    {status === 'loading' ? (
-                                        <><Loader2 size={18} className="animate-spin" /> Sending…</>
+                            {/* Right Side: Form */}
+                            <motion.div
+                                initial={{ opacity: 0, x: 30 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                                className="relative lg:pt-8"
+                            >
+                                <div className="bg-white rounded-[48px] p-8 md:p-12 border border-gray-100 shadow-2xl shadow-gray-200/50">
+                                    {status === 'success' ? (
+                                        <motion.div
+                                            initial={{ opacity: 0, scale: 0.95 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            className="py-20 flex flex-col items-center text-center gap-8"
+                                        >
+                                            <div className="w-24 h-24 rounded-full bg-accent flex items-center justify-center text-white shadow-2xl shadow-accent/20">
+                                                <CheckCircle2 size={48} />
+                                            </div>
+                                            <div className="space-y-4">
+                                                <h2 className="text-4xl font-bold text-[#1d1d1f]">Message Sent.</h2>
+                                                <p className="text-xl text-gray-500 font-medium max-w-sm mx-auto">
+                                                    Thank you for reaching out. A representative will contact you shortly.
+                                                </p>
+                                            </div>
+                                            <button
+                                                onClick={() => setStatus('idle')}
+                                                className="px-10 py-5 bg-[#1d1d1f] text-white rounded-2xl text-lg font-bold hover:bg-gray-800 transition-all"
+                                            >
+                                                Send another message
+                                            </button>
+                                        </motion.div>
                                     ) : (
-                                        <><Send size={16} /> Send Message</>
-                                    )}
-                                </button>
-                            </div>
+                                        <form onSubmit={handleSubmit} className="space-y-10">
+                                            <div className="grid md:grid-cols-2 gap-8">
+                                                <div>
+                                                    <label htmlFor="name" className={labelClass}>Full Name</label>
+                                                    <input id="name" name="name" type="text" required placeholder="John Doe" className={inputClass} />
+                                                </div>
+                                                <div>
+                                                    <label htmlFor="email" className={labelClass}>Email Address</label>
+                                                    <input id="email" name="email" type="email" required placeholder="john@example.com" className={inputClass} />
+                                                </div>
+                                            </div>
 
-                            <p className="text-[11px] text-gray-400 text-center">
-                                By submitting, you consent to ARIFAC processing your details to respond to your enquiry.
-                            </p>
-                        </form>
-                    )}
+                                            <div>
+                                                <label htmlFor="organisation" className={labelClass}>Organisation</label>
+                                                <input id="organisation" name="organisation" type="text" placeholder="Institution Name" className={inputClass} />
+                                            </div>
+
+                                            <div>
+                                                <label htmlFor="subject" className={labelClass}>Subject</label>
+                                                <input id="subject" name="subject" type="text" required placeholder="Nature of enquiry" className={inputClass} />
+                                            </div>
+
+                                            <div>
+                                                <label htmlFor="message" className={labelClass}>Message</label>
+                                                <textarea
+                                                    id="message"
+                                                    name="message"
+                                                    required
+                                                    rows={6}
+                                                    placeholder="How can we help you?"
+                                                    className={`${inputClass} resize-none`}
+                                                />
+                                            </div>
+
+                                            {status === 'error' && (
+                                                <p className="text-red-500 font-bold bg-red-50 rounded-2xl px-6 py-4 border border-red-100 text-sm">{errorMsg}</p>
+                                            )}
+
+                                            <button
+                                                type="submit"
+                                                disabled={status === 'loading'}
+                                                className="w-full bg-accent text-white font-bold py-6 rounded-2xl hover:bg-[#0055aa] transition-all shadow-xl shadow-accent/20 flex items-center justify-center gap-3 disabled:opacity-60 text-lg"
+                                            >
+                                                {status === 'loading' ? (
+                                                    <><Loader2 size={24} className="animate-spin" /> Sending...</>
+                                                ) : (
+                                                    <><Send size={20} /> Send enquiry</>
+                                                )}
+                                            </button>
+                                        </form>
+                                    )}
+                                </div>
+
+                                <motion.div 
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 1 }}
+                                    className="mt-12 text-center"
+                                >
+                                    <p className="text-gray-400 text-sm font-medium">
+                                        ARIFAC is an industry-led initiative under the aegis of IAMAI.
+                                    </p>
+                                </motion.div>
+                            </motion.div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <Footer />
+        </main>
     );
 }

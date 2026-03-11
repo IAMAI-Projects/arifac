@@ -29,98 +29,43 @@ export default function HeroSection() {
     return (
         <section ref={targetRef} className="relative min-h-[110vh] flex items-center justify-center overflow-hidden bg-white">
             {/* Dynamic Background Elements */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_50%,#000_60%,transparent_100%)] pointer-events-none" />
-
-            <motion.div
-                animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.3, 0.5, 0.3],
-                }}
-                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-accent/5 rounded-full blur-[100px] pointer-events-none"
-            />
-            <motion.div
-                animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.2, 0.4, 0.2],
-                }}
-                transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-[-10%] right-[-10%] w-[700px] h-[700px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"
-            />
-
-            {/* Floating Abstract Element - Compliance Brand Mark */}
-            <motion.div
-                animate={{ y: [0, -20, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-1/4 right-[10%] hidden lg:block pointer-events-none opacity-20 grayscale hover:grayscale-0 hover:opacity-40 transition-all font-primary"
-            >
-                <LogoMark className="w-32 h-32" />
-            </motion.div>
+            <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-30" />
 
             <div className="container relative z-10 px-6 pt-20 text-center">
                 <motion.div
                     style={{ opacity, scale, y }}
-                    className="flex flex-col items-center gap-8 max-w-5xl mx-auto"
+                    className="flex flex-col items-center gap-6 max-w-5xl mx-auto"
                 >
-                    <br />
                     {/* Animated Badge */}
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gray-50 border border-gray-200 shadow-sm backdrop-blur-md"
+                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-50/50 backdrop-blur-sm border border-gray-100/50"
                     >
-                        <span className="relative flex h-2.5 w-2.5">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
-                        </span>
-
-                        <span className="text-xs font-bold tracking-widest uppercase text-gray-600">
+                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500">
                             {t('hero.badge')}
                         </span>
-
-                        {/* Separator + IAMAI tag */}
-                        {/* <span className="w-px h-4 bg-gray-300/70" />
-                        <a
-                            href="https://iamai.in"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1.5 group"
-                            title="Internet And Mobile Association of India"
-                        >
-                            <span className="text-[10px] text-gray-400 font-medium group-hover:text-gray-600 transition-colors hidden sm:block">by</span>
-                            <div className="relative w-10 h-4 rounded overflow-hidden bg-white border border-gray-100">
-                                <Image
-                                    src="/iamai-logo.png"
-                                    alt="IAMAI"
-                                    fill
-                                    className="object-contain p-0.5"
-                                />
-                            </div>
-                        </a> */}
                     </motion.div>
 
-                    {/* Main Heading with Gradient and Stagger */}
+                    {/* Main Heading */}
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading leading-[1.05] tracking-tight text-primary"
+                        className="text-4xl md:text-6xl lg:text-7xl font-bold font-heading leading-[1.1] tracking-tight text-[#1d1d1f]"
                     >
-
                         {t('hero.title')} <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-gray-600 to-primary animate-gradient-x bg-[length:200%_auto]">
-                            {t('hero.title_integrity')} &nbsp;
+                        <span className="text-secondary">
+                            {t('hero.title_integrity')} & {t('hero.title_architecture')}
                         </span>
-                        {t('hero.title_architecture')}
-                        <br />
                     </motion.h1>
 
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.6 }}
-                        className="text-lg md:text-xl text-gray-600 max-w-4xl font-light leading-relaxed bg-white/50 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-sm"
+                        className="text-lg md:text-xl text-secondary max-w-2xl font-medium leading-relaxed"
                     >
                         {t('hero.description')}
                     </motion.div>
@@ -130,19 +75,20 @@ export default function HeroSection() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.8 }}
-                        className="flex flex-col sm:flex-row gap-5 mt-6 w-full justify-center"
+                        className="flex flex-col sm:flex-row gap-4 mt-4 w-full justify-center"
                     >
                         <Link
                             href="#certification"
-                            className="group inline-flex items-center justify-center gap-2 bg-white border border-gray-200 text-primary min-w-[220px] px-8 py-4 rounded-xl font-bold text-base hover:border-primary hover:bg-gray-50 transition-all shadow-sm hover:shadow-md hover:-translate-y-1"
+                            className="inline-flex items-center justify-center bg-[#0066cc] text-white px-8 py-3 rounded-full font-semibold text-base hover:bg-[#0077ed] transition-all"
                         >
                             {t('hero.btn_explore')}
                         </Link>
                         <Link
                             href="/join"
-                            className="group inline-flex items-center justify-center gap-2 bg-white border border-gray-200 text-primary min-w-[220px] px-8 py-4 rounded-xl font-bold text-base hover:border-primary hover:bg-gray-50 transition-all shadow-sm hover:shadow-md hover:-translate-y-1"
+                            className="inline-flex items-center justify-center text-[#0066cc] hover:underline px-8 py-3 rounded-full font-semibold text-base transition-all group"
                         >
                             {t('hero.btn_join')}
+                            <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </motion.div>
 

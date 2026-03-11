@@ -75,6 +75,18 @@ const translations: Record<Language, Record<string, string>> = {
         'data.meeting.regional.loc': 'IAMAI Office, Gurugram',
         'data.meeting.regional.type': 'Operational Workshop',
 
+        // Data: About
+        'data.about.title': 'About ARIFAC',
+        'data.about.desc': 'The Alliance of Reporting Entities in India for AML/CFT (ARIFAC) is a national, industry-led initiative operating under the aegis of IAMAI, with strategic guidance from the Financial Intelligence Unit - India (FIU-IND). We bridge the gap between regulatory expectation and operational execution.',
+        'data.about.feat.nat.title': 'National Coordination',
+        'data.about.feat.nat.desc': 'Unifying diverse reporting entities under a common compliance framework.',
+        'data.about.feat.cap.title': 'Capability Development',
+        'data.about.feat.cap.desc': 'Standardizing competency through tiered professional certifications.',
+        'data.about.feat.dialogue.title': 'Industry-Regulator Dialogue',
+        'data.about.feat.dialogue.desc': 'Facilitating constructive feedback loops between industry and regulators.',
+        'data.about.feat.know.title': 'Collaborative Knowledge',
+        'data.about.feat.know.desc': 'Sharing typologies, red flags, and best practices across sectors.',
+
         // Hero Section
         'hero.badge': "India's National AML/CFT Compliance Platform",
         'hero.title': 'Advancing India’s',
@@ -258,6 +270,18 @@ const translations: Record<Language, Record<string, string>> = {
         'data.meeting.regional.title': 'उत्तर भारत क्षेत्रीय बैठक',
         'data.meeting.regional.loc': 'IAMAI कार्यालय, गुरुग्राम',
         'data.meeting.regional.type': 'परिचालन कार्यशाला',
+
+        // Data: About
+        'data.about.title': 'ARIFAC के बारे में',
+        'data.about.desc': 'भारत में रिपोर्टिंग संस्थाओं के लिए AML/CFT (ARIFAC) IAMAI के तत्वावधान में संचालित एक राष्ट्रीय, उद्योग-नेतृत्व वाली पहल है, जिसे वित्तीय खुफिया इकाई - भारत (FIU-IND) से रणनीतिक मार्गदर्शन प्राप्त है। हम विनियामक अपेक्षा और परिचालन निष्पादन के बीच के अंतर को पाटते हैं।',
+        'data.about.feat.nat.title': 'राष्ट्रीय समन्वय',
+        'data.about.feat.nat.desc': 'एक साझा अनुपालन ढांचे के तहत विविध रिपोर्टिंग संस्थाओं को एकजुट करना।',
+        'data.about.feat.cap.title': 'क्षमता विकास',
+        'data.about.feat.cap.desc': 'स्तरीय पेशेवर प्रमाणपत्रों के माध्यम से दक्षता का मानकीकरण करना।',
+        'data.about.feat.dialogue.title': 'उद्योग-नियामक संवाद',
+        'data.about.feat.dialogue.desc': 'उद्योग और नियामकों के बीच रचनात्मक फीडबैक लूप की सुविधा प्रदान करना।',
+        'data.about.feat.know.title': 'सहयोगात्मक ज्ञान',
+        'data.about.feat.know.desc': 'क्षेत्रों में टाइपोलॉजी, रेड फ्लैग और सर्वोत्तम प्रथाओं को साझा करना।',
 
         // Hero Section
         'hero.badge': "भारत का राष्ट्रीय AML/CFT अनुपालन मंच",

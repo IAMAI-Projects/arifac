@@ -61,47 +61,83 @@ const sectors = [
 
 export default function SectoralNodalOfficersPage() {
     return (
-        <main className="min-h-screen bg-gray-50 flex flex-col">
+        <main className="min-h-screen bg-white flex flex-col font-jakarta">
             <Navbar />
 
-            <div className="flex-1 pt-32 pb-20">
+            <div className="flex-1 pt-48 pb-32">
                 <div className="container mx-auto px-6">
-                    <div className="max-w-4xl mx-auto mb-16">
-                        <div className="flex items-center gap-3 text-accent font-bold uppercase tracking-widest text-[10px] mb-4">
-                            <LogoMark className="w-4 h-4 relative" /> Team Leadership
-                        </div>
-                        <h1 className="text-4xl font-bold text-primary mb-6">Sectoral Nodal Officers</h1>
-                        <p className="text-gray-600 text-lg leading-relaxed">
-                            Our Sectoral Nodal Officers (SNOs) represent major financial institutions and sectors, facilitating coordination and mission delivery across the ARIFAC network.
-                        </p>
+                    <div className="max-w-4xl mx-auto mb-32">
+                        <motion.div 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="flex items-center gap-3 text-accent font-bold uppercase tracking-[0.3em] text-[10px] mb-8"
+                        >
+                            <LogoMark className="w-5 h-5 relative" /> Ecosystem Leadership
+                        </motion.div>
+                        <motion.h1 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                            className="text-6xl md:text-7xl font-bold text-[#1d1d1f] mb-10 tracking-tight leading-[1.1]"
+                        >
+                            Sectoral Nodal <br />
+                            <span className="text-gray-300">Officers.</span>
+                        </motion.h1>
+                        <motion.p 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="text-2xl text-gray-500 leading-relaxed font-medium max-w-2xl"
+                        >
+                            Facilitating coordination and mission delivery across the ARIFAC network through representation from major financial sectors.
+                        </motion.p>
                     </div>
 
-                    <div className="max-w-4xl mx-auto space-y-12">
+                    <div className="max-w-4xl mx-auto">
                         {sectors.map((sector, idx) => (
                             <motion.div
                                 key={sector.category}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: idx * 0.05 }}
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.1 }}
+                                className="mb-24 last:mb-0"
                             >
-                                <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-4">
-                                    <span className="w-8 h-1 bg-accent rounded-full" />
-                                    {sector.category}
-                                </h2>
-                                <div className="grid gap-4">
+                                <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12 mb-12 border-b border-gray-100 pb-8">
+                                    <span className="text-accent font-bold text-sm tracking-widest tabular-nums opacity-50">
+                                        {(idx + 1).toString().padStart(2, '0')}
+                                    </span>
+                                    <h2 className="text-3xl font-bold text-[#1d1d1f] tracking-tight">
+                                        {sector.category}
+                                    </h2>
+                                </div>
+                                
+                                <div className="grid gap-6">
                                     {sector.officers.map((officer, oIdx) => (
-                                        <div
+                                        <motion.div
                                             key={oIdx}
-                                            className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row md:items-center justify-between gap-4"
+                                            initial={{ opacity: 0, x: -20 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ delay: oIdx * 0.1 }}
+                                            className="group bg-[#f5f5f7] rounded-[24px] p-8 md:p-10 flex flex-col md:flex-row md:items-center justify-between gap-8 hover:bg-white hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-500"
                                         >
-                                            <div>
-                                                <h3 className="text-lg font-bold text-primary mb-1">{officer.institution}</h3>
-                                                <div className="text-xs font-bold text-accent uppercase tracking-widest">Nodal Officer</div>
+                                            <div className="space-y-2">
+                                                <h3 className="text-2xl font-bold text-[#1d1d1f] group-hover:text-accent transition-colors duration-300">
+                                                    {officer.institution}
+                                                </h3>
+                                                <div className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em]">
+                                                    Principal Representative
+                                                </div>
                                             </div>
-                                            <div className="bg-gray-50 px-4 py-2 rounded-lg border border-gray-100">
-                                                <span className="text-sm font-semibold text-gray-700">{officer.name}</span>
+                                            <div className="flex items-center gap-6">
+                                                <div className="h-12 w-px bg-gray-200 hidden md:block" />
+                                                <div className="space-y-1">
+                                                    <div className="text-[10px] font-bold text-accent uppercase tracking-widest">Nodal Officer</div>
+                                                    <div className="text-lg font-bold text-[#1d1d1f]">{officer.name}</div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </motion.div>
                                     ))}
                                 </div>
                             </motion.div>

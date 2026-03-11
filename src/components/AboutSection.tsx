@@ -35,24 +35,24 @@ export default function AboutSection() {
     };
 
     return (
-        <section id="about" className="py-24 relative overflow-hidden bg-white">
+        <section id="about" className="py-32 relative overflow-hidden bg-white">
             <div className="container mx-auto px-6">
                 <motion.div
                     ref={ref}
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
                     variants={containerVariants}
-                    className="max-w-4xl mx-auto text-center mb-16"
+                    className="max-w-5xl mx-auto text-center mb-24"
                 >
-                    <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-heading font-bold mb-6 text-primary">
+                    <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1d1d1f] tracking-tight mb-8">
                         {t('data.about.title')}
                     </motion.h2>
-                    <motion.p variants={itemVariants} className="text-xl text-gray-600 leading-relaxed">
+                    <motion.p variants={itemVariants} className="text-xl text-secondary max-w-3xl mx-auto font-medium leading-relaxed">
                         {t('data.about.desc')}
                     </motion.p>
                 </motion.div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
                     {aboutData.features.map((feature, index) => {
                         const Icon = feature.icon;
                         return (
@@ -62,15 +62,15 @@ export default function AboutSection() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1, duration: 0.5 }}
                                 viewport={{ once: true }}
-                                className="group p-6 rounded-xl bg-gray-50 border border-gray-100 hover:border-accent/40 hover:bg-white hover:shadow-lg transition-all duration-300"
+                                className="group p-8 rounded-[32px] bg-[#f5f5f7] hover:bg-[#ebebed] transition-all duration-500"
                             >
-                                <div className="w-12 h-12 rounded-lg bg-gray-200/50 flex items-center justify-center mb-4 group-hover:bg-accent/10 transition-colors">
-                                    <Icon className="w-6 h-6 text-primary group-hover:text-accent transition-colors" />
+                                <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform duration-500">
+                                    <Icon className="w-7 h-7 text-accent" />
                                 </div>
-                                <h3 className="text-lg font-semibold text-primary mb-2">
+                                <h3 className="text-xl font-bold text-[#1d1d1f] mb-4">
                                     {aboutFeatKeys[feature.title] ? t(`${aboutFeatKeys[feature.title]}.title`) : feature.title}
                                 </h3>
-                                <p className="text-sm text-gray-500 group-hover:text-gray-600 transition-colors">
+                                <p className="text-[15px] text-secondary font-medium leading-relaxed">
                                     {aboutFeatKeys[feature.title] ? t(`${aboutFeatKeys[feature.title]}.desc`) : feature.description}
                                 </p>
                             </motion.div>

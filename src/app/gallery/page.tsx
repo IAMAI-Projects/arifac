@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { Star } from 'lucide-react';
 
 const galleryCategories = ["All", "Events", "Training", "Community", "Awards"];
 
@@ -18,46 +19,73 @@ const galleryImages = [
 
 export default function GalleryPage() {
     return (
-        <main className="min-h-screen bg-white flex flex-col">
+        <main className="min-h-screen bg-white flex flex-col font-jakarta">
             <Navbar />
 
-            <div className="flex-1 pt-32 pb-20">
+            <div className="flex-1 pt-48 pb-32">
                 <div className="container mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <h1 className="text-4xl font-bold text-primary mb-4">Gallery</h1>
-                        <p className="text-gray-500 max-w-2xl mx-auto">A visual journey through our community's milestones, training sessions, and celebrations.</p>
+                    <div className="max-w-4xl mx-auto mb-32">
+                        <motion.div 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="flex items-center gap-3 text-accent font-bold uppercase tracking-[0.3em] text-[10px] mb-8"
+                        >
+                            <Star className="w-5 h-5 relative" /> Visual Narrative
+                        </motion.div>
+                        <motion.h1 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                            className="text-6xl md:text-8xl font-bold text-[#1d1d1f] mb-10 tracking-tight leading-[1.1]"
+                        >
+                            Capturing <br />
+                            <span className="text-gray-300">Milestones.</span>
+                        </motion.h1>
+                        <motion.p 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="text-2xl text-gray-500 leading-relaxed font-medium max-w-2xl"
+                        >
+                            A visual journey through our community's core milestones, leadership summits, and professional celebrations.
+                        </motion.p>
                     </div>
 
-                    <div className="flex flex-wrap justify-center gap-4 mb-12">
+                    <div className="flex flex-wrap justify-center gap-4 mb-24">
                         {galleryCategories.map((cat) => (
                             <button
                                 key={cat}
-                                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all ${cat === 'All' ? 'bg-primary text-white shadow-lg' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-                                    }`}
+                                className={`px-10 py-4 rounded-2xl text-[13px] font-bold tracking-widest uppercase transition-all duration-300 ${cat === 'All' 
+                                    ? 'bg-[#1d1d1f] text-white shadow-2xl shadow-gray-400/50' 
+                                    : 'bg-[#f5f5f7] text-gray-400 hover:bg-gray-200 hover:text-[#1d1d1f]'
+                                }`}
                             >
                                 {cat}
                             </button>
                         ))}
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                         {galleryImages.map((item, idx) => (
                             <motion.div
                                 key={item.id}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
                                 transition={{ delay: idx * 0.1 }}
-                                className="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all"
+                                className="group relative aspect-square rounded-[40px] overflow-hidden bg-[#f5f5f7] hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.1)] transition-all duration-700"
                             >
                                 <Image
                                     src={item.image}
                                     alt={item.title}
                                     fill
-                                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                                    <span className="text-accent text-xs font-bold uppercase tracking-widest mb-1">{item.category}</span>
-                                    <h3 className="text-white font-bold text-lg">{item.title}</h3>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-10">
+                                    <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                        <span className="text-accent text-[10px] font-bold uppercase tracking-[0.3em] mb-3 block">{item.category}</span>
+                                        <h3 className="text-white font-bold text-2xl leading-tight">{item.title}</h3>
+                                    </div>
                                 </div>
                             </motion.div>
                         ))}

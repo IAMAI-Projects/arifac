@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Calendar, MapPin } from 'lucide-react';
+import { ArrowRight, Calendar, MapPin, ChevronRight } from 'lucide-react';
 
 import { useLanguage } from './LanguageContext';
 
@@ -25,48 +25,46 @@ export default function LatestMeetingsSection() {
     ];
 
     return (
-        <section className="py-24 bg-gray-50 relative">
+        <section className="py-32 bg-white relative">
             <div className="container mx-auto px-6">
-                <div className="max-w-4xl mx-auto">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+                <div className="max-w-5xl mx-auto">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
                         <div>
-                            <div className="flex items-center gap-2 text-accent font-bold uppercase tracking-widest text-[10px] mb-4">
-                                <Calendar size={14} /> {t('meetings.engagements')}
-                            </div>
-                            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">
+                            <span className="text-secondary text-[12px] font-bold tracking-[0.2em] uppercase mb-4 block">{t('meetings.engagements')}</span>
+                            <h2 className="text-4xl md:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-8">
                                 {t('meetings.title')}
                             </h2>
-                            <p className="text-gray-600">
+                            <p className="text-xl text-secondary max-w-2xl font-medium leading-relaxed">
                                 {t('meetings.description')}
                             </p>
                         </div>
                         <Link
                             href="/meetings"
-                            className="group flex items-center gap-2 text-primary font-bold hover:text-accent transition-colors"
+                            className="group inline-flex items-center gap-2 text-[#0066cc] font-semibold text-lg hover:underline decoration-2 underline-offset-4"
                         >
-                            {t('meetings.all')} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            {t('meetings.all')} <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                         {recentMeetings.map((meeting, idx) => (
                             <motion.div
                                 key={idx}
-                                initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
+                                initial={{ opacity: 0, scale: 0.98 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group"
+                                className="bg-[#f5f5f7] p-10 rounded-[32px] hover:bg-[#ebebed] transition-all duration-500 group"
                             >
-                                <div className="text-[10px] font-bold text-accent uppercase tracking-widest mb-3">{meeting.type}</div>
-                                <h3 className="text-xl font-bold text-primary mb-6 group-hover:text-accent transition-colors">{meeting.title}</h3>
+                                <div className="text-[11px] font-bold text-accent uppercase tracking-[0.15em] mb-4">{meeting.type}</div>
+                                <h3 className="text-2xl font-bold text-[#1d1d1f] mb-8 group-hover:text-[#0066cc] transition-colors duration-500 tracking-tight">{meeting.title}</h3>
 
-                                <div className="space-y-3">
-                                    <div className="flex items-center gap-3 text-sm text-gray-500">
-                                        <Calendar className="w-4 h-4 text-gray-400" />
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-4 text-[14px] text-secondary font-medium">
+                                        <Calendar className="w-5 h-5 text-[#0066cc]" />
                                         <span>{meeting.date}</span>
                                     </div>
-                                    <div className="flex items-center gap-3 text-sm text-gray-500">
-                                        <MapPin className="w-4 h-4 text-gray-400" />
+                                    <div className="flex items-center gap-4 text-[14px] text-secondary font-medium">
+                                        <MapPin className="w-5 h-5 text-[#0066cc]" />
                                         <span>{meeting.location}</span>
                                     </div>
                                 </div>

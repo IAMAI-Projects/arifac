@@ -57,159 +57,144 @@ export default function TrainingVolunteersPage() {
     }
 
     return (
-        <main className="min-h-screen flex flex-col pt-20 bg-white text-primary">
+        <main className="min-h-screen bg-white">
             <Navbar />
 
-            <div className="flex-1 py-16 px-6 md:px-12 lg:px-24">
-                <div className="max-w-6xl mx-auto">
-                    <div className="flex flex-col md:flex-row gap-12 lg:gap-24">
+            <div className="pt-48 pb-32 px-6">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-start">
                         {/* Info Section */}
-                        <div className="md:w-1/3">
-                            <motion.div
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                            >
-                                <span className="text-accent font-bold uppercase tracking-widest text-[10px] mb-4 block">Contribution</span>
-                                <h1 className="text-4xl lg:text-5xl font-heading font-bold mb-6 leading-tight">
-                                    Become a <br /><span className="text-gray-400">Trainer</span>
-                                </h1>
-                                <p className="text-gray-600 mb-8 leading-relaxed">
-                                    Join our pool of subject matter experts. Your knowledge helps strengthen the national compliance framework.
-                                </p>
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="max-w-xl"
+                        >
+                            <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-8 block">Contribution</span>
+                            <h1 className="text-5xl md:text-7xl font-bold text-[#1d1d1f] tracking-tight mb-8 leading-[1.05]">
+                                Become a <span className="text-secondary">Trainer</span>
+                            </h1>
+                            <p className="text-2xl text-secondary font-medium leading-relaxed mb-12">
+                                Join our pool of subject matter experts. Your knowledge helps strengthen the national compliance framework.
+                            </p>
 
-                                <div className="space-y-6">
-                                    <div className="flex gap-4">
-                                        <div className="w-10 h-10 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center shrink-0">
-                                            <BookOpen className="w-5 h-5 text-gray-400" />
-                                        </div>
-                                        <div>
-                                            <h3 className="font-bold text-sm">Expert Sessions</h3>
-                                            <p className="text-xs text-gray-500">Conduct high-impact training for reporting entities.</p>
-                                        </div>
+                            <div className="space-y-10">
+                                <div className="flex gap-6 group">
+                                    <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-500">
+                                        <BookOpen className="w-7 h-7 text-accent" />
                                     </div>
-                                    <div className="flex gap-4">
-                                        <div className="w-10 h-10 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center shrink-0">
-                                            <Send className="w-5 h-5 text-gray-400" />
-                                        </div>
-                                        <div>
-                                            <h3 className="font-bold text-sm">Knowledge Dissemination</h3>
-                                            <p className="text-xs text-gray-500">Contribute to typology reports and guidance notes.</p>
-                                        </div>
+                                    <div className="flex-1">
+                                        <h3 className="text-xl font-bold text-[#1d1d1f] mb-2">Expert Sessions</h3>
+                                        <p className="text-secondary font-medium leading-relaxed">Conduct high-impact training for reporting entities across sectors.</p>
                                     </div>
                                 </div>
-                            </motion.div>
-                        </div>
+                                <div className="flex gap-6 group">
+                                    <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-500">
+                                        <Send className="w-7 h-7 text-accent" />
+                                    </div>
+                                    <div className="flex-1">
+                                        <h3 className="text-xl font-bold text-[#1d1d1f] mb-2">Knowledge Dissemination</h3>
+                                        <p className="text-secondary font-medium leading-relaxed">Contribute to typology reports and strategic guidance notes for members.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
 
                         {/* Form Section */}
-                        <div className="flex-1">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="bg-white rounded-3xl border border-gray-200 p-8 md:p-12 shadow-2xl shadow-gray-200/50"
-                            >
-                                <form onSubmit={handleSubmit} className="space-y-8">
-                                    <div className="grid md:grid-cols-2 gap-8">
-                                        <div className="space-y-2">
-                                            <label htmlFor="firstName" className="text-xs font-bold uppercase tracking-widest text-gray-400">First Name</label>
-                                            <div className="relative">
-                                                <User className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
-                                                <input
-                                                    id="firstName"
-                                                    type="text"
-                                                    placeholder="John"
-                                                    className="w-full bg-transparent border-b border-gray-200 py-3 pl-7 focus:border-primary outline-none transition-colors text-primary font-medium"
-                                                    value={formData.firstName}
-                                                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                                                    required
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <label htmlFor="lastName" className="text-xs font-bold uppercase tracking-widest text-gray-400">Last Name</label>
-                                            <div className="relative">
-                                                <User className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
-                                                <input
-                                                    id="lastName"
-                                                    type="text"
-                                                    placeholder="Doe"
-                                                    className="w-full bg-transparent border-b border-gray-200 py-3 pl-7 focus:border-primary outline-none transition-colors text-primary font-medium"
-                                                    value={formData.lastName}
-                                                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                                                    required
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="grid md:grid-cols-2 gap-8">
-                                        <div className="space-y-2">
-                                            <label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-gray-400">Work Email</label>
-                                            <div className="relative">
-                                                <Mail className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
-                                                <input
-                                                    id="email"
-                                                    type="email"
-                                                    placeholder="john@institution.com"
-                                                    className="w-full bg-transparent border-b border-gray-200 py-3 pl-7 focus:border-primary outline-none transition-colors text-primary font-medium"
-                                                    value={formData.email}
-                                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                    required
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <label htmlFor="mobile" className="text-xs font-bold uppercase tracking-widest text-gray-400">Official Mobile</label>
-                                            <div className="relative">
-                                                <Phone className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
-                                                <input
-                                                    id="mobile"
-                                                    type="tel"
-                                                    placeholder="+91 00000 00000"
-                                                    className="w-full bg-transparent border-b border-gray-200 py-3 pl-7 focus:border-primary outline-none transition-colors text-primary font-medium"
-                                                    value={formData.mobile}
-                                                    onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-                                                    required
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-4">
-                                        <label htmlFor="topics" className="text-xs font-bold uppercase tracking-widest text-gray-400">Area of Expertise / Proposed Topics</label>
-                                        <textarea
-                                            id="topics"
-                                            placeholder="Please describe the topics you would like to volunteer for..."
-                                            className="w-full bg-gray-50 border border-gray-100 rounded-2xl p-6 focus:border-primary focus:bg-white outline-none transition-all text-primary font-medium min-h-[150px] resize-none"
-                                            value={formData.topics}
-                                            onChange={(e) => setFormData({ ...formData, topics: e.target.value })}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="bg-[#f5f5f7] rounded-[48px] p-10 md:p-16"
+                        >
+                            <form onSubmit={handleSubmit} className="space-y-10">
+                                <div className="grid md:grid-cols-2 gap-10">
+                                    <div className="space-y-3">
+                                        <label htmlFor="firstName" className="text-[11px] font-bold uppercase tracking-[0.15em] text-secondary ml-1">First Name</label>
+                                        <input
+                                            id="firstName"
+                                            type="text"
+                                            placeholder="John"
+                                            className="w-full bg-white rounded-2xl px-6 py-4 border-none shadow-sm focus:ring-2 focus:ring-accent/20 outline-none transition-all text-[#1d1d1f] font-bold text-lg placeholder:text-gray-300"
+                                            value={formData.firstName}
+                                            onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                                             required
                                         />
                                     </div>
-
-                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pt-4">
-                                        <label className="flex items-start gap-3 cursor-pointer group max-w-sm">
-                                            <input
-                                                type="checkbox"
-                                                className="mt-1 w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
-                                                checked={formData.agreement}
-                                                onChange={(e) => setFormData({ ...formData, agreement: e.target.checked })}
-                                                required
-                                            />
-                                            <span className="text-[11px] text-gray-400 leading-tight">
-                                                I confirm the information provided is accurate and I am authorized to volunteer on behalf of my expertise.
-                                            </span>
-                                        </label>
-
-                                        <button
-                                            type="submit"
-                                            className="bg-primary text-white px-10 py-4 rounded-xl font-bold transition-all hover:bg-gray-800 active:scale-[0.98] shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
-                                        >
-                                            Submit Application <Send className="w-4 h-4" />
-                                        </button>
+                                    <div className="space-y-3">
+                                        <label htmlFor="lastName" className="text-[11px] font-bold uppercase tracking-[0.15em] text-secondary ml-1">Last Name</label>
+                                        <input
+                                            id="lastName"
+                                            type="text"
+                                            placeholder="Doe"
+                                            className="w-full bg-white rounded-2xl px-6 py-4 border-none shadow-sm focus:ring-2 focus:ring-accent/20 outline-none transition-all text-[#1d1d1f] font-bold text-lg placeholder:text-gray-300"
+                                            value={formData.lastName}
+                                            onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                                            required
+                                        />
                                     </div>
-                                </form>
-                            </motion.div>
-                        </div>
+                                </div>
+
+                                <div className="grid md:grid-cols-2 gap-10">
+                                    <div className="space-y-3">
+                                        <label htmlFor="email" className="text-[11px] font-bold uppercase tracking-[0.15em] text-secondary ml-1">Work Email</label>
+                                        <input
+                                            id="email"
+                                            type="email"
+                                            placeholder="john@institution.com"
+                                            className="w-full bg-white rounded-2xl px-6 py-4 border-none shadow-sm focus:ring-2 focus:ring-accent/20 outline-none transition-all text-[#1d1d1f] font-bold text-lg placeholder:text-gray-300"
+                                            value={formData.email}
+                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="space-y-3">
+                                        <label htmlFor="mobile" className="text-[11px] font-bold uppercase tracking-[0.15em] text-secondary ml-1">Official Mobile</label>
+                                        <input
+                                            id="mobile"
+                                            type="tel"
+                                            placeholder="+91 00000 00000"
+                                            className="w-full bg-white rounded-2xl px-6 py-4 border-none shadow-sm focus:ring-2 focus:ring-accent/20 outline-none transition-all text-[#1d1d1f] font-bold text-lg placeholder:text-gray-300"
+                                            value={formData.mobile}
+                                            onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <label htmlFor="topics" className="text-[11px] font-bold uppercase tracking-[0.15em] text-secondary ml-1">Expertise & Topics</label>
+                                    <textarea
+                                        id="topics"
+                                        placeholder="Please describe the topics you would like to volunteer for..."
+                                        className="w-full bg-white rounded-3xl px-8 py-6 border-none shadow-sm focus:ring-2 focus:ring-accent/20 outline-none transition-all text-[#1d1d1f] font-bold text-lg placeholder:text-gray-300 min-h-[200px] resize-none"
+                                        value={formData.topics}
+                                        onChange={(e) => setFormData({ ...formData, topics: e.target.value })}
+                                        required
+                                    />
+                                </div>
+
+                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pt-6">
+                                    <label className="flex items-start gap-4 cursor-pointer group max-w-sm">
+                                        <input
+                                            type="checkbox"
+                                            className="mt-1 w-5 h-5 rounded-lg border-gray-300 text-accent focus:ring-accent/20"
+                                            checked={formData.agreement}
+                                            onChange={(e) => setFormData({ ...formData, agreement: e.target.checked })}
+                                            required
+                                        />
+                                        <span className="text-[13px] text-secondary font-medium leading-relaxed group-hover:text-[#1d1d1f] transition-colors">
+                                            I confirm the information provided is accurate and I am authorized to volunteer on behalf of my expertise.
+                                        </span>
+                                    </label>
+
+                                    <button
+                                        type="submit"
+                                        className="bg-[#0066cc] text-white px-12 py-5 rounded-2xl font-bold text-lg transition-all hover:bg-[#0077ed] active:scale-[0.98] shadow-lg shadow-accent/20 flex items-center justify-center gap-2"
+                                    >
+                                        Submit Application <Send className="w-5 h-5" />
+                                    </button>
+                                </div>
+                            </form>
+                        </motion.div>
                     </div>
                 </div>
             </div>

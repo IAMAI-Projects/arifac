@@ -20,18 +20,19 @@ export default function PartnersSection() {
     };
 
     return (
-        <section id="partners" className="py-24 bg-white">
+        <section id="partners" className="py-32 bg-white">
             <div className="container mx-auto px-6">
-                <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
+                <div className="flex flex-col items-center text-center mb-24">
+                    <span className="text-secondary text-[12px] font-bold tracking-[0.2em] uppercase mb-4 block">{t('nav.partnerships')}</span>
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1d1d1f] tracking-tight mb-8">
                         {t('partners.title')}
                     </h2>
-                    <p className="text-lg text-gray-600">
+                    <p className="text-xl text-secondary max-w-3xl font-medium leading-relaxed">
                         {t('partners.description')}
                     </p>
                 </div>
 
-                <div className="space-y-16">
+                <div className="space-y-24">
                     {partnersData.map((category, index) => (
                         <motion.div
                             key={index}
@@ -39,16 +40,16 @@ export default function PartnersSection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className="text-center"
+                            className="flex flex-col items-center"
                         >
-                            <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-8">
+                            <h3 className="text-[12px] font-bold text-[#1d1d1f]/40 uppercase tracking-[0.2em] mb-12">
                                 {partnerKeys[category.title] ? t(partnerKeys[category.title]) : category.title}
                             </h3>
-                            <div className="flex flex-wrap justify-center gap-x-12 gap-y-8">
+                            <div className="flex flex-wrap justify-center gap-x-16 gap-y-12">
                                 {category.partners.map((partner, idx) => (
                                     <div
                                         key={idx}
-                                        className="text-xl md:text-2xl font-bold text-primary opacity-60 hover:opacity-100 transition-opacity cursor-default"
+                                        className="text-2xl md:text-3xl font-bold text-[#1d1d1f] opacity-20 hover:opacity-100 transition-all duration-500 cursor-default tracking-tight"
                                     >
                                         {partnerItems[partner] ? t(partnerItems[partner]) : partner}
                                     </div>
@@ -58,8 +59,8 @@ export default function PartnersSection() {
                     ))}
                 </div>
 
-                <div className="mt-20 pt-10 border-t border-gray-100 text-center">
-                    <p className="text-sm text-gray-500 max-w-2xl mx-auto italic">
+                <div className="mt-32 pt-12 border-t border-gray-100 text-center">
+                    <p className="text-[13px] text-secondary max-w-2xl mx-auto font-medium leading-relaxed italic opacity-80">
                         {t('partners.disclaimer')}
                     </p>
                 </div>

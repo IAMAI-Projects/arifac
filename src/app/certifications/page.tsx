@@ -14,28 +14,23 @@ export default function CertificationsPage() {
     const [selectedLevel, setSelectedLevel] = useState<CertificationLevel | null>(null);
 
     return (
-        <main className="bg-background min-h-screen">
+        <main className="min-h-screen bg-white">
             <Navbar />
 
             {/* Hero Section */}
-            <section className="relative pt-32 pb-20 bg-white overflow-hidden">
-                {/* Premium Background Elements */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
-
-                <div className="container mx-auto px-6 relative z-10">
+            <section className="relative pt-48 pb-32 bg-white overflow-hidden">
+                <div className="container relative mx-auto px-6 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="max-w-3xl"
+                        className="max-w-4xl mx-auto"
                     >
-                        <br /><br />
-                        <h1 className="text-4xl md:text-6xl font-heading font-bold text-primary mb-6">
-                            Elevate Your <br />
-                            <span className="text-accent">Compliance Expertise</span>
+                        <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-6 block">Professional Growth</span>
+                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-[#1d1d1f] tracking-tight mb-10 leading-[1.05]">
+                            Elevate Your <span className="text-secondary">Expertise</span>
                         </h1>
-                        <p className="text-xl text-gray-600 leading-relaxed font-light">
+                        <p className="text-2xl md:text-3xl text-secondary max-w-3xl mx-auto font-medium leading-relaxed">
                             A comprehensive, multi-level certification program designed to standardize financial integrity expertise across the Indian financial ecosystem.
                         </p>
                     </motion.div>
@@ -43,34 +38,34 @@ export default function CertificationsPage() {
             </section>
 
             {/* Framework Features */}
-            <section className="py-12 bg-white border-b border-gray-100">
+            <section className="py-20 bg-[#f5f5f7] border-y border-gray-100">
                 <div className="container mx-auto px-6">
-                    <div className="grid md:grid-cols-3 gap-8">
-                        <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center shrink-0">
-                                <Award className="text-accent" size={24} />
+                    <div className="grid md:grid-cols-3 gap-12">
+                        <div className="flex flex-col items-center text-center gap-6">
+                            <div className="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center shrink-0">
+                                <Award className="text-accent" size={32} />
                             </div>
-                            <div>
-                                <h3 className="font-bold text-primary mb-1">Recognized Standards</h3>
-                                <p className="text-sm text-gray-500">Aligned with global FATF standards and Indian regulatory requirements.</p>
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center shrink-0">
-                                <ShieldCheck className="text-accent" size={24} />
-                            </div>
-                            <div>
-                                <h3 className="font-bold text-primary mb-1">Industry Validated</h3>
-                                <p className="text-sm text-gray-500">Curriculum vetted by subject matter experts.</p>
+                            <div className="max-w-xs">
+                                <h3 className="text-xl font-bold text-[#1d1d1f] mb-3">Recognized Standards</h3>
+                                <p className="text-secondary font-medium leading-relaxed">Aligned with global FATF standards and Indian regulatory requirements.</p>
                             </div>
                         </div>
-                        <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center shrink-0">
-                                <Zap className="text-accent" size={24} />
+                        <div className="flex flex-col items-center text-center gap-6">
+                            <div className="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center shrink-0">
+                                <ShieldCheck className="text-accent" size={32} />
                             </div>
-                            <div>
-                                <h3 className="font-bold text-primary mb-1">Career Growth</h3>
-                                <p className="text-sm text-gray-500">Structured pathway from foundational knowledge to strategic leadership.</p>
+                            <div className="max-w-xs">
+                                <h3 className="text-xl font-bold text-[#1d1d1f] mb-3">Industry Validated</h3>
+                                <p className="text-secondary font-medium leading-relaxed">Curriculum vetted by leading subject matter experts.</p>
+                            </div>
+                        </div>
+                        <div className="flex flex-col items-center text-center gap-6">
+                            <div className="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center shrink-0">
+                                <Zap className="text-accent" size={32} />
+                            </div>
+                            <div className="max-w-xs">
+                                <h3 className="text-xl font-bold text-[#1d1d1f] mb-3">Career Growth</h3>
+                                <p className="text-secondary font-medium leading-relaxed">Structured pathway from foundational knowledge to leadership.</p>
                             </div>
                         </div>
                     </div>
@@ -78,9 +73,9 @@ export default function CertificationsPage() {
             </section>
 
             {/* Courses Grid */}
-            <section className="py-24 bg-gray-50">
+            <section className="py-32 bg-white">
                 <div className="container mx-auto px-6">
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                         {certificationLevels.map((level, index) => (
                             <motion.div
                                 key={level.level}
@@ -88,73 +83,75 @@ export default function CertificationsPage() {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                                 viewport={{ once: true }}
-                                className="bg-white border border-gray-200 rounded-3xl p-8 flex flex-col hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative group"
+                                className="bg-[#f5f5f7] rounded-[40px] p-10 flex flex-col hover:bg-[#ebebed] transition-all duration-500 relative group"
                             >
                                 {/* Level Badge + Meta */}
-                                <div className="flex items-center justify-between mb-6">
-                                    <span className="text-xs font-bold tracking-widest uppercase text-accent bg-accent/8 border border-accent/20 px-4 py-1.5 rounded-full">
+                                <div className="flex items-center justify-between mb-8">
+                                    <span className="text-[11px] font-bold tracking-[0.15em] uppercase text-accent bg-white border border-gray-100 px-5 py-2 rounded-full shadow-sm">
                                         Level {index + 1}
                                     </span>
-                                    <div className="flex items-center gap-1.5 text-gray-400 text-xs">
-                                        <Clock size={14} />
-                                        <span>{level.validity} Validity</span>
+                                    <div className="flex items-center gap-2 text-secondary text-[12px] font-bold uppercase tracking-wider">
+                                        <Clock size={16} />
+                                        <span>{level.validity}</span>
                                     </div>
                                 </div>
 
                                 {/* Title */}
-                                <h3 className="text-xl font-bold text-primary mb-2 leading-tight">
+                                <h3 className="text-3xl font-bold text-[#1d1d1f] mb-4 tracking-tight leading-tight">
                                     {level.title}
                                 </h3>
-                                <p className="text-sm text-gray-400 mb-6">{level.targetAudience}</p>
+                                <p className="text-[15px] text-secondary font-medium mb-8 leading-relaxed">{level.targetAudience}</p>
 
                                 {/* Price Tag */}
-                                <div className="mb-6">
-                                    <span className="text-2xl font-bold text-primary">₹{level.price.toLocaleString()}</span>
-                                    <span className="text-gray-400 text-sm ml-1">+ GST</span>
+                                <div className="mb-10">
+                                    <div className="flex items-baseline gap-1">
+                                        <span className="text-4xl font-bold text-[#1d1d1f]">₹{level.price.toLocaleString()}</span>
+                                        <span className="text-secondary text-sm font-bold">+ GST</span>
+                                    </div>
                                 </div>
 
                                 {/* Feature list */}
-                                <ul className="space-y-3.5 mb-8 flex-1">
+                                <ul className="space-y-4 mb-12 flex-1">
                                     {level.features.map((feature, idx) => (
-                                        <li key={idx} className="flex items-start gap-3 text-sm text-gray-600">
-                                            <CheckCircle2 size={16} className="text-accent shrink-0 mt-0.5" />
+                                        <li key={idx} className="flex items-start gap-3.5 text-[15px] text-secondary font-medium leading-normal">
+                                            <CheckCircle2 size={20} className="text-accent shrink-0 mt-0.5" />
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
                                 {/* Actions */}
-                                <div className="flex flex-col gap-3 pt-6 border-t border-gray-100">
+                                <div className="flex flex-col gap-4 pt-10 border-t border-gray-200">
                                     {isLoggedIn() && hasPaidForCourse(level.level) ? (
                                         <Link
                                             href="/lms/dashboard"
-                                            className="w-full flex items-center justify-center gap-2 py-3 bg-accent text-white rounded-xl font-bold text-sm hover:bg-primary transition-all"
+                                            className="w-full flex items-center justify-center gap-2 py-4 bg-[#0066cc] text-white rounded-2xl font-bold text-lg hover:bg-[#0077ed] transition-all"
                                         >
-                                            Go to Course <ChevronRight size={16} />
+                                            Go to Course <ChevronRight size={20} />
                                         </Link>
                                     ) : level.enrollUrl ? (
                                         <a
                                             href={level.enrollUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-full flex items-center justify-center gap-2 py-3 bg-primary text-white rounded-xl font-bold text-sm hover:bg-accent transition-all"
+                                            className="w-full flex items-center justify-center gap-2 py-4 bg-[#0066cc] text-white rounded-2xl font-bold text-lg hover:bg-[#0077ed] transition-all"
                                         >
-                                            Enroll Now <ChevronRight size={16} />
+                                            Enroll Now <ChevronRight size={20} />
                                         </a>
                                     ) : (
                                         <button
                                             onClick={() => setSelectedLevel(level)}
-                                            className="w-full flex items-center justify-center gap-2 py-3 bg-primary text-white rounded-xl font-bold text-sm hover:bg-accent transition-all animate-pulse-subtle"
+                                            className="w-full flex items-center justify-center gap-2 py-4 bg-[#0066cc] text-white rounded-2xl font-bold text-lg hover:bg-[#0077ed] transition-all"
                                         >
-                                            Pre-register Now <ChevronRight size={16} />
+                                            Pre-register Now <ChevronRight size={20} />
                                         </button>
                                     )}
 
                                     <button
                                         onClick={() => setSelectedLevel(level)}
-                                        className="w-full flex items-center justify-center gap-2 py-3 bg-gray-50 text-gray-600 rounded-xl font-bold text-sm hover:bg-gray-100 transition-all border border-gray-100"
+                                        className="w-full flex items-center justify-center gap-2 py-4 bg-white text-[#1d1d1f] border border-gray-200 rounded-2xl font-bold text-lg hover:bg-gray-50 transition-all"
                                     >
-                                        <BookOpen size={16} />
+                                        <BookOpen size={20} />
                                         View Full Syllabus
                                     </button>
                                 </div>

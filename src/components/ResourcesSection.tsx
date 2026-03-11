@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { resourcesData } from '@/data/arifac';
-import { FileText, Lock, Download, ExternalLink } from 'lucide-react';
+import { FileText, Lock, Download, ExternalLink, ChevronRight } from 'lucide-react';
 import { useLanguage } from './LanguageContext';
 
 export default function ResourcesSection() {
@@ -17,78 +17,75 @@ export default function ResourcesSection() {
     };
 
     return (
-        <section id="resources" className="py-24 bg-gray-50">
+        <section id="resources" className="py-32 bg-[#f5f5f7]">
             <div className="container mx-auto px-6">
-                <div className="flex items-center justify-between mb-12">
-                    <div>
-                        <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-2">
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+                    <div className="max-w-3xl">
+                        <span className="text-secondary text-[12px] font-bold tracking-[0.2em] uppercase mb-4 block">{t('nav.resources')}</span>
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1d1d1f] tracking-tight mb-8">
                             {t('resources.title')}
                         </h2>
-                        <p className="text-gray-600">{t('resources.description')}</p>
+                        <p className="text-xl text-secondary max-w-2xl font-medium leading-relaxed">
+                            {t('resources.description')}
+                        </p>
                     </div>
-                    <button className="hidden md:flex items-center gap-2 text-primary font-semibold hover:text-accent transition-colors">
-                        {t('resources.all')} <ExternalLink className="w-4 h-4" />
+                    <button className="group inline-flex items-center gap-2 text-[#0066cc] font-semibold text-lg hover:underline decoration-2 underline-offset-4">
+                        {t('resources.all')} <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                     </button>
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {resourcesData.map((resource, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, scale: 0.98 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.05 }}
-                            className="group bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md hover:border-gray-200 transition-all"
+                            className="group bg-white rounded-[32px] p-8 hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-500 flex flex-col"
                         >
-                            <div className="flex justify-between items-start mb-4">
-                                <div className={`text-xs font-semibold px-2 py-1 rounded border ${getAccessColor(resource.accessLevel)}`}>
+                            <div className="flex justify-between items-center mb-8">
+                                <div className={`text-[11px] font-bold px-3 py-1 rounded-full border shadow-sm ${getAccessColor(resource.accessLevel)}`}>
                                     {resource.accessLevel === 'Public' ? t('res.vis_public') : t('res.vis_member')}
                                 </div>
-                                <div className="text-gray-400 text-sm">
+                                <div className="text-secondary text-[12px] font-medium">
                                     {resource.date.includes('Oct') ? resource.date.replace('Oct', t('common.oct')) :
                                         resource.date.includes('Nov') ? resource.date.replace('Nov', t('common.nov')) :
                                             resource.date.includes('Dec') ? resource.date.replace('Dec', t('common.dec')) : resource.date}
                                 </div>
                             </div>
 
-                            <div className="mb-4">
-                                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                            <div className="mb-8">
+                                <span className="text-[11px] font-bold text-accent uppercase tracking-[0.15em]">
                                     {resource.type === 'Report' ? t('res.cat_report') :
                                         resource.type === 'Guidance' ? t('res.cat_guidance') :
                                             resource.type === 'Whitepaper' ? t('res.cat_whitepaper') : resource.type}
                                 </span>
-                                <h3 className="text-lg font-bold text-primary mt-1 line-clamp-2 leading-tight group-hover:text-secondary transition-colors">
+                                <h3 className="text-2xl font-bold text-[#1d1d1f] mt-3 line-clamp-2 leading-tight group-hover:text-[#0066cc] transition-colors duration-500">
                                     {resource.title}
                                 </h3>
                             </div>
 
-                            <div className="pt-4 border-t border-gray-50 flex items-center justify-between">
-                                <div className="flex items-center gap-2 text-sm text-gray-500">
-                                    <FileText className="w-4 h-4" />
+                            <div className="pt-6 border-t border-gray-100 flex items-center justify-between mt-auto">
+                                <div className="flex items-center gap-2 text-[13px] text-secondary font-semibold">
+                                    <FileText className="w-5 h-5 text-[#0066cc]" />
                                     <span>{t('resources.pdf')}</span>
                                 </div>
 
                                 {resource.accessLevel === 'Public' ? (
-                                    <button className="flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent transition-colors">
-                                        <Download className="w-4 h-4" />
+                                    <button className="flex items-center gap-2 text-[14px] font-bold text-[#1d1d1f] group-hover:text-[#0066cc] transition-colors duration-500">
+                                        <Download className="w-5 h-5" />
                                         {t('resources.download')}
                                     </button>
                                 ) : (
-                                    <button className="flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-primary transition-colors">
-                                        <Lock className="w-4 h-4" />
+                                    <button className="flex items-center gap-2 text-[14px] font-bold text-secondary hover:text-[#1d1d1f] transition-colors duration-500">
+                                        <Lock className="w-5 h-5" />
                                         {t('resources.signin')}
                                     </button>
                                 )}
                             </div>
                         </motion.div>
                     ))}
-                </div>
-
-                <div className="mt-8 text-center md:hidden">
-                    <button className="flex items-center gap-2 text-primary font-semibold hover:text-accent transition-colors mx-auto">
-                        {t('resources.all')} <ExternalLink className="w-4 h-4" />
-                    </button>
                 </div>
             </div>
         </section>
