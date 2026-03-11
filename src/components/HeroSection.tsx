@@ -6,8 +6,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ChevronDown, FileText, Users, Building2 } from 'lucide-react';
 import { useRef } from 'react';
 import { LogoMark } from './Logo';
+import { useLanguage } from './LanguageContext';
 
 export default function HeroSection() {
+    const { t } = useLanguage();
     const targetRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: targetRef,
@@ -19,9 +21,9 @@ export default function HeroSection() {
     const y = useTransform(scrollYProgress, [0, 0.5], [0, 50]);
 
     const stats = [
-        { label: "Reporting Entities", value: "500+", icon: Building2 },
-        { label: "Certified Professionals", value: "2,500+", icon: Users },
-        { label: "Regulatory Modules", value: "12", icon: FileText },
+        { label: t('hero.stats_entities'), value: "500+", icon: Building2 },
+        { label: t('hero.stats_professionals'), value: "2,500+", icon: Users },
+        { label: t('hero.stats_modules'), value: "12", icon: FileText },
     ];
 
     return (
@@ -74,7 +76,7 @@ export default function HeroSection() {
                         </span>
 
                         <span className="text-xs font-bold tracking-widest uppercase text-gray-600">
-                            India's National AML/CFT Compliance Platform
+                            {t('hero.badge')}
                         </span>
 
                         {/* Separator + IAMAI tag */}
@@ -106,11 +108,11 @@ export default function HeroSection() {
                         className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading leading-[1.05] tracking-tight text-primary"
                     >
 
-                        Advancing India’s <br />
+                        {t('hero.title')} <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-gray-600 to-primary animate-gradient-x bg-[length:200%_auto]">
-                            Financial Integrity &nbsp;
+                            {t('hero.title_integrity')} &nbsp;
                         </span>
-                        Architecture
+                        {t('hero.title_architecture')}
                         <br />
                     </motion.h1>
 
@@ -120,7 +122,7 @@ export default function HeroSection() {
                         transition={{ duration: 0.8, delay: 0.6 }}
                         className="text-lg md:text-xl text-gray-600 max-w-4xl font-light leading-relaxed bg-white/50 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-sm"
                     >
-                        <span className="font-semibold text-primary">Alliance of Reporting Entities in India for AML/CFT (ARIFAC)</span> has been conceptualized as a <span className="text-accent font-medium">first-of-its-kind</span>, <span className="text-primary font-medium">private-private partnership</span> initiative amongst reporting entities in India belonging to multiple sectors to facilitate <span className="highlight-text bg-accent/10 px-1 rounded">information sharing</span>, development of <span className="highlight-text bg-accent/10 px-1 rounded">knowledge products</span>, <span className="highlight-text bg-accent/10 px-1 rounded">training programmes</span> and <span className="highlight-text bg-accent/10 px-1 rounded">certifications</span>.
+                        {t('hero.description')}
                     </motion.div>
 
                     {/* Action Buttons */}
@@ -134,13 +136,13 @@ export default function HeroSection() {
                             href="#certification"
                             className="group inline-flex items-center justify-center gap-2 bg-white border border-gray-200 text-primary min-w-[220px] px-8 py-4 rounded-xl font-bold text-base hover:border-primary hover:bg-gray-50 transition-all shadow-sm hover:shadow-md hover:-translate-y-1"
                         >
-                            Explore Certification
+                            {t('hero.btn_explore')}
                         </Link>
                         <Link
                             href="/join"
                             className="group inline-flex items-center justify-center gap-2 bg-white border border-gray-200 text-primary min-w-[220px] px-8 py-4 rounded-xl font-bold text-base hover:border-primary hover:bg-gray-50 transition-all shadow-sm hover:shadow-md hover:-translate-y-1"
                         >
-                            Become a Member
+                            {t('hero.btn_join')}
                         </Link>
                     </motion.div>
 
@@ -175,7 +177,7 @@ export default function HeroSection() {
                 className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-400 cursor-pointer hover:text-primary transition-colors"
                 onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
             >
-                <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
+                <span className="text-[10px] uppercase tracking-[0.2em]">{t('hero.scroll')}</span>
                 <ChevronDown className="w-5 h-5" />
             </motion.div>
         </section>

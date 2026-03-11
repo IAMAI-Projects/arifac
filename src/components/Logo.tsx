@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useLanguage } from './LanguageContext';
 
 export function LogoMark({ className = "" }: { className?: string }) {
     return (
@@ -35,6 +36,7 @@ export default function Logo({
     variant?: "light" | "dark";
     showBadge?: boolean;
 }) {
+    const { t } = useLanguage();
     const nameColor = variant === "dark" ? "text-white" : "text-[#111827]";
     const subColor = variant === "dark" ? "text-[#3a7ca5]/80" : "text-[#3a7ca5]";
 
@@ -54,12 +56,12 @@ export default function Logo({
                     ARIFAC
                 </span>
                 <span className={`text-[0.6rem] uppercase tracking-widest font-semibold whitespace-nowrap ${subColor} mt-0.5`}>
-                    Building Partnerships in AML/CFT
+                    {t('logo.tagline')}
                 </span>
                 {showBadge && (
                     <div className="mt-1.5">
                         <span className="inline-block px-2 py-0.5 rounded-full bg-accent/20 border border-accent/30 text-accent text-[0.55rem] font-bold tracking-widest uppercase">
-                            Professional Framework
+                            {t('logo.badge')}
                         </span>
                     </div>
                 )}

@@ -6,8 +6,10 @@ import { certificationLevels, CertificationLevel } from '@/data/arifac';
 import Link from 'next/link';
 import { isLoggedIn, hasPaidForCourse } from '@/lib/auth';
 import SyllabusModal from './SyllabusModal';
+import { useLanguage } from './LanguageContext';
 
 export default function CertificationScrollSection() {
+    const { t } = useLanguage();
     const [selectedLevel, setSelectedLevel] = useState<CertificationLevel | null>(null);
 
     return (
@@ -17,18 +19,18 @@ export default function CertificationScrollSection() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
                     <div className="max-w-2xl">
                         <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
-                            Professional <br />
-                            <span className="text-accent">Certification Framework</span>
+                            {t('cert.title')} <br />
+                            <span className="text-accent">{t('cert.title_framework')}</span>
                         </h2>
                         <p className="text-lg text-gray-500">
-                            A tiered competency model designed to standardize financial integrity expertise across the national ecosystem.
+                            {t('cert.description')}
                         </p>
                     </div>
                     <Link
                         href="/certifications"
                         className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-bold text-sm hover:bg-accent transition-all shadow-sm hover:shadow-md shrink-0"
                     >
-                        View All Courses <ArrowRight size={16} />
+                        {t('cert.all')} <ArrowRight size={16} />
                     </Link>
                 </div>
 
@@ -42,19 +44,23 @@ export default function CertificationScrollSection() {
                             {/* Level Badge + Meta */}
                             <div className="flex items-center justify-between mb-5">
                                 <span className="text-xs font-bold tracking-widest uppercase text-accent bg-accent/8 border border-accent/20 px-3 py-1 rounded-full">
-                                    Level {index + 1}
+                                    {t('cert.level')} {index + 1}
                                 </span>
                                 <div className="flex items-center gap-1.5 text-gray-400 text-xs">
                                     <Clock size={12} />
-                                    <span>{level.validity} validity</span>
+                                    <span>{level.validity} {t('cert.validity')}</span>
                                 </div>
                             </div>
 
                             {/* Title */}
                             <h3 className="text-lg font-bold text-primary mb-1 leading-snug">
-                                {level.title}
+                                {level.title === "Foundations of AML, CFT & Sanctions" ? t('data.cert.title1') :
+                                    level.title === "Intermediate Compliance & Regulatory Oversight" ? t('data.cert.title2') :
+                                        level.title === "Advanced AML Strategy & Institutional Design" ? t('data.cert.title3') : level.title}
                             </h3>
-                            <p className="text-sm text-gray-400 mb-5">{level.targetAudience}</p>
+                            <p className="text-sm text-gray-400 mb-5">
+                                {level.title.includes("AML & Financial Crime") ? t('data.cert.course1.desc') : level.targetAudience}
+                            </p>
 
                             {/* Feature list */}
                             <ul className="space-y-2.5 mb-7 flex-1">
@@ -73,7 +79,7 @@ export default function CertificationScrollSection() {
                                     className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-primary transition-colors"
                                 >
                                     <BookOpen size={14} />
-                                    View Syllabus
+                                    {t('cert.syllabus')}
                                 </button>
 
                                 {isLoggedIn() && hasPaidForCourse(level.level) ? (
@@ -81,7 +87,7 @@ export default function CertificationScrollSection() {
                                         href="/lms/dashboard"
                                         className="flex items-center gap-1 text-sm font-bold text-accent hover:text-primary transition-colors"
                                     >
-                                        Go to Course <ChevronRight size={14} />
+                                        {t('cert.go_to_course')} <ChevronRight size={14} />
                                     </Link>
                                 ) : level.enrollUrl ? (
                                     <a
@@ -90,14 +96,14 @@ export default function CertificationScrollSection() {
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-1 text-sm font-bold text-primary hover:text-accent transition-colors"
                                     >
-                                        Enroll Now <ChevronRight size={14} />
+                                        {t('cert.enroll')} <ChevronRight size={14} />
                                     </a>
                                 ) : (
                                     <button
                                         onClick={() => setSelectedLevel(level)}
                                         className="flex items-center gap-1 text-sm font-bold text-primary hover:text-accent transition-colors"
                                     >
-                                        Enroll Now <ChevronRight size={14} />
+                                        {t('cert.enroll')} <ChevronRight size={14} />
                                     </button>
                                 )}
                             </div>

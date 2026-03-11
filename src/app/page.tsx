@@ -1,6 +1,5 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import MissionSection from "@/components/MissionSection";
 import AboutSection from "@/components/AboutSection";
 import CertificationScrollSection from "@/components/CertificationScrollSection";
 import MembershipSection from "@/components/MembershipSection";
@@ -18,7 +17,6 @@ export default function Home() {
       <HeroSection />
 
       <div className="relative z-10 bg-background">
-        <MissionSection />
         <LatestMeetingsSection />
         <CertificationScrollSection />
         <MembershipSection />

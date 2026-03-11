@@ -4,22 +4,26 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Calendar, MapPin } from 'lucide-react';
 
-const recentMeetings = [
-    {
-        title: "5th Multilateral Consultation",
-        date: "Feb 12, 2025",
-        location: "FIU-IND, New Delhi",
-        type: "High-Level Briefing"
-    },
-    {
-        title: "North India Regional Meet",
-        date: "Jan 18, 2025",
-        location: "IAMAI Office, Gurugram",
-        type: "Operational Workshop"
-    }
-];
+import { useLanguage } from './LanguageContext';
 
 export default function LatestMeetingsSection() {
+    const { t, language } = useLanguage();
+
+    const recentMeetings = [
+        {
+            title: t('data.meeting.consult.title_short'),
+            date: language === 'HI' ? "12 फरवरी, 2025" : "Feb 12, 2025",
+            location: t('data.meeting.consult.loc'),
+            type: t('data.meeting.consult.type_short')
+        },
+        {
+            title: t('data.meeting.regional.title'),
+            date: language === 'HI' ? "18 जनवरी, 2025" : "Jan 18, 2025",
+            location: t('data.meeting.regional.loc'),
+            type: t('data.meeting.regional.type')
+        }
+    ];
+
     return (
         <section className="py-24 bg-gray-50 relative">
             <div className="container mx-auto px-6">
@@ -27,20 +31,20 @@ export default function LatestMeetingsSection() {
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
                         <div>
                             <div className="flex items-center gap-2 text-accent font-bold uppercase tracking-widest text-[10px] mb-4">
-                                <Calendar size={14} /> Engagements
+                                <Calendar size={14} /> {t('meetings.engagements')}
                             </div>
                             <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">
-                                Latest Consultations
+                                {t('meetings.title')}
                             </h2>
                             <p className="text-gray-600">
-                                Tracking strategic dialogues and regional workshops strengthening India's financial integrity.
+                                {t('meetings.description')}
                             </p>
                         </div>
                         <Link
                             href="/meetings"
                             className="group flex items-center gap-2 text-primary font-bold hover:text-accent transition-colors"
                         >
-                            All Meetings <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            {t('meetings.all')} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
 

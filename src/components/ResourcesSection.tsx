@@ -3,8 +3,10 @@
 import { motion } from 'framer-motion';
 import { resourcesData } from '@/data/arifac';
 import { FileText, Lock, Download, ExternalLink } from 'lucide-react';
+import { useLanguage } from './LanguageContext';
 
 export default function ResourcesSection() {
+    const { t } = useLanguage();
     const getAccessColor = (level: string) => {
         switch (level) {
             case 'Public': return 'bg-green-100 text-green-700 border-green-200';
@@ -20,12 +22,12 @@ export default function ResourcesSection() {
                 <div className="flex items-center justify-between mb-12">
                     <div>
                         <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-2">
-                            Knowledge Hub
+                            {t('resources.title')}
                         </h2>
-                        <p className="text-gray-600">Latest research, guidance, and regulatory updates.</p>
+                        <p className="text-gray-600">{t('resources.description')}</p>
                     </div>
                     <button className="hidden md:flex items-center gap-2 text-primary font-semibold hover:text-accent transition-colors">
-                        View All Resources <ExternalLink className="w-4 h-4" />
+                        {t('resources.all')} <ExternalLink className="w-4 h-4" />
                     </button>
                 </div>
 
@@ -41,13 +43,21 @@ export default function ResourcesSection() {
                         >
                             <div className="flex justify-between items-start mb-4">
                                 <div className={`text-xs font-semibold px-2 py-1 rounded border ${getAccessColor(resource.accessLevel)}`}>
-                                    {resource.accessLevel}
+                                    {resource.accessLevel === 'Public' ? t('res.vis_public') : t('res.vis_member')}
                                 </div>
-                                <div className="text-gray-400 text-sm">{resource.date}</div>
+                                <div className="text-gray-400 text-sm">
+                                    {resource.date.includes('Oct') ? resource.date.replace('Oct', t('common.oct')) :
+                                        resource.date.includes('Nov') ? resource.date.replace('Nov', t('common.nov')) :
+                                            resource.date.includes('Dec') ? resource.date.replace('Dec', t('common.dec')) : resource.date}
+                                </div>
                             </div>
 
                             <div className="mb-4">
-                                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">{resource.type}</span>
+                                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                    {resource.type === 'Report' ? t('res.cat_report') :
+                                        resource.type === 'Guidance' ? t('res.cat_guidance') :
+                                            resource.type === 'Whitepaper' ? t('res.cat_whitepaper') : resource.type}
+                                </span>
                                 <h3 className="text-lg font-bold text-primary mt-1 line-clamp-2 leading-tight group-hover:text-secondary transition-colors">
                                     {resource.title}
                                 </h3>
@@ -56,18 +66,18 @@ export default function ResourcesSection() {
                             <div className="pt-4 border-t border-gray-50 flex items-center justify-between">
                                 <div className="flex items-center gap-2 text-sm text-gray-500">
                                     <FileText className="w-4 h-4" />
-                                    <span>PDF</span>
+                                    <span>{t('resources.pdf')}</span>
                                 </div>
 
                                 {resource.accessLevel === 'Public' ? (
                                     <button className="flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent transition-colors">
                                         <Download className="w-4 h-4" />
-                                        Download
+                                        {t('resources.download')}
                                     </button>
                                 ) : (
                                     <button className="flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-primary transition-colors">
                                         <Lock className="w-4 h-4" />
-                                        Sign In
+                                        {t('resources.signin')}
                                     </button>
                                 )}
                             </div>
@@ -77,7 +87,7 @@ export default function ResourcesSection() {
 
                 <div className="mt-8 text-center md:hidden">
                     <button className="flex items-center gap-2 text-primary font-semibold hover:text-accent transition-colors mx-auto">
-                        View All Resources <ExternalLink className="w-4 h-4" />
+                        {t('resources.all')} <ExternalLink className="w-4 h-4" />
                     </button>
                 </div>
             </div>

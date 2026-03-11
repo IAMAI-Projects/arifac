@@ -4,9 +4,19 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { aboutData } from '@/data/arifac';
+import { useLanguage } from './LanguageContext';
 
 export default function AboutSection() {
+    const { t } = useLanguage();
     const ref = useRef(null);
+
+    const aboutFeatKeys: Record<string, string> = {
+        "National Coordination": "data.about.feat.nat",
+        "Capability Development": "data.about.feat.cap",
+        "Industry-Regulator Dialogue": "data.about.feat.dialogue",
+        "Collaborative Knowledge": "data.about.feat.know"
+    };
+
     const isInView = useInView(ref, { once: true, margin: "-100px" });
 
     const containerVariants = {
@@ -35,10 +45,10 @@ export default function AboutSection() {
                     className="max-w-4xl mx-auto text-center mb-16"
                 >
                     <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-heading font-bold mb-6 text-primary">
-                        {aboutData.title}
+                        {t('data.about.title')}
                     </motion.h2>
                     <motion.p variants={itemVariants} className="text-xl text-gray-600 leading-relaxed">
-                        {aboutData.description}
+                        {t('data.about.desc')}
                     </motion.p>
                 </motion.div>
 
@@ -57,9 +67,11 @@ export default function AboutSection() {
                                 <div className="w-12 h-12 rounded-lg bg-gray-200/50 flex items-center justify-center mb-4 group-hover:bg-accent/10 transition-colors">
                                     <Icon className="w-6 h-6 text-primary group-hover:text-accent transition-colors" />
                                 </div>
-                                <h3 className="text-lg font-semibold text-primary mb-2">{feature.title}</h3>
+                                <h3 className="text-lg font-semibold text-primary mb-2">
+                                    {aboutFeatKeys[feature.title] ? t(`${aboutFeatKeys[feature.title]}.title`) : feature.title}
+                                </h3>
                                 <p className="text-sm text-gray-500 group-hover:text-gray-600 transition-colors">
-                                    {feature.description}
+                                    {aboutFeatKeys[feature.title] ? t(`${aboutFeatKeys[feature.title]}.desc`) : feature.description}
                                 </p>
                             </motion.div>
                         );

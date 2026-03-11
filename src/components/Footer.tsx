@@ -1,20 +1,24 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import Logo from './Logo';
+import { useLanguage } from './LanguageContext';
 
 export default function Footer() {
+    const { t } = useLanguage();
     const footerLinks: { title: string; links: { name: string; href: string }[] }[] = [
         {
-            title: 'About ARIFAC',
+            title: t('nav.explore'),
             links: [
-                { name: 'Meetings', href: '/meetings' },
+                { name: t('nav.events'), href: '/meetings' },
                 { name: 'Sectoral Nodal Officers', href: '/sectoral-nodal-officers' },
                 { name: 'Training Leads', href: '/training-leads' },
                 { name: 'Contact Us', href: '/contact' },
             ],
         },
         {
-            title: 'Certification',
+            title: t('nav.certifications'),
             links: [
                 { name: 'Exam Framework', href: '#' },
                 { name: 'Study Materials', href: '#' },
@@ -32,7 +36,7 @@ export default function Footer() {
             ],
         },
         {
-            title: 'Resources',
+            title: t('nav.resources'),
             links: [
                 { name: 'Regulatory Updates', href: '#' },
                 { name: 'Research & Reports', href: '#' },
@@ -49,7 +53,7 @@ export default function Footer() {
                     <div className="lg:col-span-2">
                         <Logo className="mb-6" variant="dark" />
                         <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
-                            Empowering India's financial ecosystem through unified compliance standards, expert certification, and strategic regulatory dialogue.
+                            {t('footer.desc')}
                         </p>
                     </div>
 
@@ -92,29 +96,29 @@ export default function Footer() {
                                 />
                             </div>
                             <div className="hidden md:flex flex-col">
-                                <span className="text-gray-400 text-[15px] font-medium">Operating under the aegis of</span>
-                                <span className="text-gray-400 text-[15px] font-medium">Internet &amp; Mobile Association of India</span>
+                                <span className="text-gray-400 text-[15px] font-medium">{t('footer.iamai_aegis')}</span>
+                                <span className="text-gray-400 text-[15px] font-medium">{t('footer.iamai_full')}</span>
                             </div>
                         </a>
                     </div>
                     <p className="text-gray-500 text-xs leading-relaxed text-center sm:text-right max-w-xs">
-                        ARIFAC is developed and maintained by IAMAI as part of India&apos;s commitment to strengthening financial integrity frameworks.
+                        {t('footer.iamai_desc')}
                     </p>
                 </div>
 
                 <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-xs text-gray-500">
-                        © {new Date().getFullYear()} ARIFAC | IAMAI. All rights reserved.
+                        © {new Date().getFullYear()} ARIFAC | IAMAI. {t('footer.rights')}
                     </p>
                     <div className="flex gap-6">
                         <Link href="#" className="text-xs text-gray-500 hover:text-white transition-colors">
-                            Privacy Policy
+                            {t('footer.privacy')}
                         </Link>
                         <Link href="#" className="text-xs text-gray-500 hover:text-white transition-colors">
-                            Terms of Use
+                            {t('footer.terms')}
                         </Link>
                         <Link href="#" className="text-xs text-gray-500 hover:text-white transition-colors">
-                            Cookie Policy
+                            {t('footer.cookie')}
                         </Link>
                     </div>
                 </div>

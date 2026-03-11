@@ -3,8 +3,19 @@
 import { motion } from 'framer-motion';
 import { engagementFormats } from '@/data/arifac';
 import { ArrowRight, MessageSquare, Users, FileText, TrendingUp, Briefcase } from 'lucide-react';
+import { useLanguage } from './LanguageContext';
 
 export default function EngagementSection() {
+    const { t } = useLanguage();
+
+    const engageKeys: Record<string, string> = {
+        "Sectoral Roundtables": "data.engage.round",
+        "Workshops": "data.engage.work",
+        "Policy Consultations": "data.engage.policy",
+        "Typology Briefings": "data.engage.typology",
+        "Working Groups": "data.engage.group"
+    };
+
     const getIcon = (index: number) => {
         const icons = [MessageSquare, Users, FileText, TrendingUp, Briefcase];
         return icons[index % icons.length];
@@ -15,16 +26,16 @@ export default function EngagementSection() {
             <div className="container mx-auto px-6">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                     <div className="max-w-2xl">
-                        <span className="text-accent font-semibold tracking-wider uppercase text-sm">Collaboration</span>
+                        <span className="text-accent font-semibold tracking-wider uppercase text-sm">{t('engage.collab')}</span>
                         <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mt-2">
-                            Engagement Models
+                            {t('engage.title')}
                         </h2>
                         <p className="text-lg text-gray-600 mt-4">
-                            Structured platforms for industry-wide dialogue, policy formulation, and operational problem-solving.
+                            {t('engage.description')}
                         </p>
                     </div>
                     <button className="text-accent border-b border-accent/30 pb-1 hover:text-primary hover:border-primary transition-colors flex items-center gap-2">
-                        View Calendar
+                        {t('engage.calendar')}
                         <ArrowRight className="w-4 h-4" />
                     </button>
                 </div>
@@ -48,13 +59,15 @@ export default function EngagementSection() {
                                         <Icon className="w-6 h-6 text-primary" />
                                     </div>
 
-                                    <h3 className="text-xl font-bold text-primary mb-3">{format.title}</h3>
+                                    <h3 className="text-xl font-bold text-primary mb-3">
+                                        {engageKeys[format.title] ? t(`${engageKeys[format.title]}.title`) : format.title}
+                                    </h3>
                                     <p className="text-gray-500 group-hover:text-gray-700 transition-colors mb-6">
-                                        {format.description}
+                                        {engageKeys[format.title] ? t(`${engageKeys[format.title]}.desc`) : format.description}
                                     </p>
 
                                     <div className="flex items-center gap-2 text-sm text-accent font-medium opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                        <span>Participate</span>
+                                        <span>{t('engage.participate')}</span>
                                         <ArrowRight className="w-4 h-4" />
                                     </div>
                                 </div>

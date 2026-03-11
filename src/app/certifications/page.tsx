@@ -18,11 +18,10 @@ export default function CertificationsPage() {
             <Navbar />
 
             {/* Hero Section */}
-            <section className="relative pt-32 pb-20 bg-primary overflow-hidden">
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]" />
-                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent" />
-                </div>
+            <section className="relative pt-32 pb-20 bg-white overflow-hidden">
+                {/* Premium Background Elements */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
 
                 <div className="container mx-auto px-6 relative z-10">
                     <motion.div
@@ -32,11 +31,11 @@ export default function CertificationsPage() {
                         className="max-w-3xl"
                     >
                         <br /><br />
-                        <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">
+                        <h1 className="text-4xl md:text-6xl font-heading font-bold text-primary mb-6">
                             Elevate Your <br />
                             <span className="text-accent">Compliance Expertise</span>
                         </h1>
-                        <p className="text-xl text-white/70 leading-relaxed">
+                        <p className="text-xl text-gray-600 leading-relaxed font-light">
                             A comprehensive, multi-level certification program designed to standardize financial integrity expertise across the Indian financial ecosystem.
                         </p>
                     </motion.div>
