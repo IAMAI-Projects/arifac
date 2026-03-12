@@ -98,11 +98,18 @@ export default function Navbar() {
                 className="fixed top-0 left-0 right-0 z-[60] h-8 bg-[#1d1d1f]/90 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-6"
             >
                 {/* Left side area to balance the news ticker */}
-                <div className="flex-1 flex items-center justify-start min-w-[140px]" />
+                <div className="flex-1 flex items-center justify-start min-w-[20px] md:min-w-[140px]" />
 
                 {/* News Ticker Container - Centered */}
-                <div className="flex-[8] overflow-hidden relative h-full flex items-center min-w-0 max-w-5xl mx-auto px-4">
-                    <div className="flex items-center gap-4 shrink-0 px-2 lg:px-4">
+                <div className="flex-[10] overflow-hidden relative h-full flex items-center min-w-0 max-w-6xl mx-auto px-4">
+                    <div className="flex items-center shrink-0 pr-4">
+                        <Image
+                            src="/images/fiu-logo.png"
+                            alt="FIU-IND"
+                            width={84}
+                            height={34}
+                            className="object-contain h-9 w-auto opacity-100 mr-4"
+                        />
                         <span className="text-accent text-[9px] font-black uppercase tracking-tighter bg-accent/10 border border-accent/20 px-1.5 py-0.5 rounded-sm whitespace-nowrap">
                             {'NEWS'}
                         </span>

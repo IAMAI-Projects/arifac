@@ -14,7 +14,7 @@ const translations: Record<Language, Record<string, string>> = {
     EN: {
         // Navbar
         'nav.certifications': 'Certifications & Training',
-        'nav.events': 'Events & Meetings',
+        'nav.events': 'Industry Engagement',
         'nav.explore': 'Explore',
         'nav.resources': 'Resources',
         'nav.help': 'Help',
@@ -45,8 +45,8 @@ const translations: Record<Language, Record<string, string>> = {
         'nav.directory': 'Member Directory',
         'nav.join': 'Join Now',
         'nav.platform_access': 'Platform Access',
-        'nav.learning_platform': 'Learning Platform',
-        'nav.member_platform': 'Member Platform',
+        'nav.learning_platform': 'Arifac Certification',
+        'nav.member_platform': 'Arifac Membership',
         'nav.team_login': 'Arifac Team Login',
         'nav.logout': 'Logout',
         'nav.search_placeholder': 'Search for courses, certifications, or news...',
