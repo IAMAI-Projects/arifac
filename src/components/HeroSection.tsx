@@ -21,7 +21,7 @@ export default function HeroSection() {
     const y = useTransform(scrollYProgress, [0, 0.5], [0, 50]);
 
     const stats = [
-        { label: t('hero.stats_entities'), value: "500+", icon: Building2 },
+
         { label: t('hero.stats_professionals'), value: "2,500+", icon: Users },
         { label: t('hero.stats_modules'), value: "12", icon: FileText },
     ];
@@ -43,31 +43,77 @@ export default function HeroSection() {
                         transition={{ duration: 0.6, delay: 0.2 }}
                         className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-50/50 backdrop-blur-sm border border-gray-100/50"
                     >
-                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500">
-                            {t('hero.badge')}
-                        </span>
-                    </motion.div>
 
+                    </motion.div>
+                    <br />
                     {/* Main Heading */}
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-4xl md:text-6xl lg:text-7xl font-bold font-heading leading-[1.1] tracking-tight text-[#1d1d1f]"
+                        className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading leading-[1.1] tracking-tight text-[#1d1d1f]"
                     >
                         {t('hero.title')} <br />
-                        <span className="text-secondary">
-                            {t('hero.title_integrity')} & {t('hero.title_architecture')}
-                        </span>
+                        <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">
+                            {t('hero.title_integrity')}
+                        </span>{' '}
+                        {t('hero.title_architecture')}
                     </motion.h1>
 
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.6 }}
-                        className="text-lg md:text-xl text-secondary max-w-2xl font-medium leading-relaxed"
+                        className="text-[15px] md:text-[16px] text-[#a1a1aa] max-w-4xl font-light leading-[1.8]"
                     >
-                        {t('hero.description')}
+                        {t('hero.description').split(new RegExp(`(${[
+                            'first-of-its-kind',
+                            'अपनी तरह की पहली',
+                            'information sharing',
+                            'सूचना साझाकरण',
+                            'knowledge products',
+                            'ज्ञान उत्पादों',
+                            'training programmes',
+                            'प्रशिक्षण कार्यक्रमों',
+                            'certifications',
+                            'प्रमाणपत्रों',
+                            'private-private partnership',
+                            'निजी-निजी भागीदारी'
+                        ].join('|')})`, 'gi')).map((part, index) => {
+                            const lowerPart = part.toLowerCase();
+                            const isYellowHighlight = [
+                                'first-of-its-kind',
+                                'अपनी तरह की पहली',
+                                'information sharing',
+                                'सूचना साझाकरण',
+                                'knowledge products',
+                                'ज्ञान उत्पादों',
+                                'training programmes',
+                                'प्रशिक्षण कार्यक्रमों',
+                                'certifications',
+                                'प्रमाणपत्रों'
+                            ].includes(lowerPart);
+                            const isBlackHighlight = [
+                                'private-private partnership',
+                                'निजी-निजी भागीदारी'
+                            ].includes(lowerPart);
+
+                            if (isYellowHighlight) {
+                                return (
+                                    <span key={index} className="px-1 py-[2px] mx-[2px] rounded bg-[#fcfae8] text-[#b5a222] font-medium tracking-wide">
+                                        {part}
+                                    </span>
+                                );
+                            }
+                            if (isBlackHighlight) {
+                                return (
+                                    <span key={index} className="text-[#1d1d1f] font-medium tracking-wide mx-[2px]">
+                                        {part}
+                                    </span>
+                                );
+                            }
+                            return <span key={index}>{part}</span>;
+                        })}
                     </motion.div>
 
                     {/* Action Buttons */}
@@ -97,17 +143,18 @@ export default function HeroSection() {
                         initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 1 }}
-                        className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 py-8 px-12 bg-white rounded-2xl border border-gray-100 shadow-xl shadow-gray-200/50"
+                        className="flex flex-col md:flex-row justify-center gap-16 mt-16 py-8 px-12 bg-white rounded-2xl border border-gray-100 shadow-xl shadow-gray-200/50"
                     >
                         {stats.map((stat, idx) => {
+                            if (!stat.icon) return null; // Safety check in case of empty items
                             const Icon = stat.icon;
                             return (
-                                <div key={idx} className="flex flex-col items-center">
-                                    <div className="p-3 bg-gray-50 rounded-full mb-3">
-                                        <Icon className="w-6 h-6 text-accent" />
+                                <div key={idx} className="flex flex-col items-center min-w-[200px]">
+                                    <div className="p-3 bg-indigo-50/50 rounded-full mb-3">
+                                        <Icon className="w-6 h-6 text-[#5b5bcf]" />
                                     </div>
-                                    <div className="text-3xl font-bold text-primary">{stat.value}</div>
-                                    <div className="text-sm text-gray-500 font-medium uppercase tracking-wider mt-1">{stat.label}</div>
+                                    <div className="text-3xl font-bold text-[#1d1d1f]">{stat.value}</div>
+                                    <div className="text-[11px] text-[#86868b] font-semibold uppercase tracking-wider mt-1">{stat.label}</div>
                                 </div>
                             );
                         })}
