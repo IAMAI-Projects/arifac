@@ -103,13 +103,6 @@ export default function Navbar() {
                 {/* News Ticker Container - Centered */}
                 <div className="flex-[10] overflow-hidden relative h-full flex items-center min-w-0 max-w-6xl mx-auto px-4">
                     <div className="flex items-center shrink-0 pr-4">
-                        <Image
-                            src="/images/fiu-logo.png"
-                            alt="FIU-IND"
-                            width={84}
-                            height={34}
-                            className="object-contain h-9 w-auto opacity-100 mr-4"
-                        />
                         <span className="text-accent text-[9px] font-black uppercase tracking-tighter bg-accent/10 border border-accent/20 px-1.5 py-0.5 rounded-sm whitespace-nowrap">
                             {'NEWS'}
                         </span>
@@ -209,9 +202,21 @@ export default function Navbar() {
                     }`}
             >
                 <div className="container mx-auto px-6 flex items-center justify-between">
-                    <Link href="/" className="group">
-                        <Logo variant="light" showBadge={false} />
-                    </Link>
+                    <div className="flex items-center gap-4">
+                        <div className="h-10 px-2 py-1 bg-white shadow-sm rounded-lg shrink-0 flex items-center justify-center">
+                            <Image
+                                src="/images/fiu-logo.png"
+                                alt="FIU-IND"
+                                width={94}
+                                height={44}
+                                className="object-contain h-full w-auto"
+                            />
+                        </div>
+                        <div className="w-0.5 h-8 bg-gray-200 rounded-full flex-shrink-0 mx-1" />
+                        <Link href="/" className="group">
+                            <Logo variant="light" showBadge={false} />
+                        </Link>
+                    </div>
 
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center">

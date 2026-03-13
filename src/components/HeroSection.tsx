@@ -145,19 +145,6 @@ export default function HeroSection() {
                         transition={{ duration: 0.8, delay: 1 }}
                         className="flex flex-col md:flex-row items-center justify-center gap-12 mt-16 py-8 px-12 bg-white rounded-2xl border border-gray-100 shadow-xl shadow-gray-200/50"
                     >
-                        {/* FIU-IND Logo */}
-                        <div className="flex flex-col items-center justify-center min-w-[200px]">
-                            <Image 
-                                src="/images/fiu-logo.png" 
-                                alt="FIU-IND Logo" 
-                                width={120} 
-                                height={120} 
-                                className="object-contain"
-                            />
-                        </div>
-
-                        {/* Divider */}
-                        <div className="hidden md:block w-px h-24 bg-gray-200" />
 
                         {stats.map((stat, idx) => {
                             if (!stat.icon) return null; // Safety check in case of empty items
