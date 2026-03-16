@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, HelpCircle, Search, User, ShoppingCart } from 'lucide-react';
+import { Menu, X, ChevronDown, HelpCircle, Search, User, ShoppingCart, Linkedin } from 'lucide-react';
 import Logo from './Logo';
 import { getUser, logout } from '@/lib/auth';
 import { useLanguage } from './LanguageContext';
@@ -27,6 +27,40 @@ export default function Navbar() {
 
     const navLinks = [
         {
+            name: t('nav.explore'),
+            href: '#',
+            dropdown: [
+                { name: t('nav.about'), href: '/about' },
+                { name: t('nav.members'), href: '/members' },
+                { name: t('nav.benefits'), href: '/member-benefits' },
+                { name: t('nav.partnerships'), href: '#' },
+            ]
+        },
+
+        {
+            name: t('nav.events'),
+            href: '/meetings',
+            dropdown: [
+                { name: t('nav.events'), href: '/meetings' },
+                { name: t('nav.gallery'), href: '/gallery' },
+                { name: t('nav.chapters'), href: '#' },
+            ]
+        },
+        {
+            name: t('nav.resources'),
+            href: '#',
+            dropdown: [
+                { name: t('nav.updates'), href: '#' },
+                { name: t('nav.research'), href: '#' },
+                { name: t('nav.enterprise'), href: '#' },
+                { name: t('nav.tools'), href: '#' },
+                { name: t('nav.webinars'), href: '#' },
+                { name: t('nav.press'), href: '#' },
+                { name: t('nav.insights'), href: '#' },
+                { name: t('nav.papers'), href: '#' },
+            ]
+        },
+        {
             name: t('nav.certifications'),
             href: '/certifications',
             sections: [
@@ -47,39 +81,6 @@ export default function Navbar() {
                         { name: t('nav.topics'), href: '/training-topics' },
                     ]
                 }
-            ]
-        },
-        {
-            name: t('nav.events'),
-            href: '/meetings',
-            dropdown: [
-                { name: t('nav.events'), href: '/meetings' },
-                { name: t('nav.gallery'), href: '/gallery' },
-                { name: t('nav.chapters'), href: '#' },
-            ]
-        },
-        {
-            name: t('nav.explore'),
-            href: '#',
-            dropdown: [
-                { name: t('nav.about'), href: '/about' },
-                { name: t('nav.members'), href: '/members' },
-                { name: t('nav.benefits'), href: '/member-benefits' },
-                { name: t('nav.partnerships'), href: '#' },
-            ]
-        },
-        {
-            name: t('nav.resources'),
-            href: '#',
-            dropdown: [
-                { name: t('nav.updates'), href: '#' },
-                { name: t('nav.research'), href: '#' },
-                { name: t('nav.enterprise'), href: '#' },
-                { name: t('nav.tools'), href: '#' },
-                { name: t('nav.webinars'), href: '#' },
-                { name: t('nav.press'), href: '#' },
-                { name: t('nav.insights'), href: '#' },
-                { name: t('nav.papers'), href: '#' },
             ]
         },
     ];
@@ -202,19 +203,24 @@ export default function Navbar() {
                     }`}
             >
                 <div className="container mx-auto px-6 flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <div className="h-10 px-2 py-1 bg-white shadow-sm rounded-lg shrink-0 flex items-center justify-center">
+                    <div className="flex items-center gap-3">
+                        <a 
+                            href="https://fiuindia.gov.in/" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="h-9 px-1.5 py-0.5 bg-white shadow-sm rounded-lg shrink-0 flex items-center justify-center hover:shadow-md transition-shadow group"
+                        >
                             <Image
                                 src="/images/fiu-logo.png"
                                 alt="FIU-IND"
-                                width={94}
-                                height={44}
-                                className="object-contain h-full w-auto"
+                                width={84}
+                                height={40}
+                                className="object-contain h-full w-auto group-hover:scale-105 transition-transform"
                             />
-                        </div>
-                        <div className="w-0.5 h-8 bg-gray-200 rounded-full flex-shrink-0 mx-1" />
-                        <Link href="/" className="group">
-                            <Logo variant="light" showBadge={false} />
+                        </a>
+                        <div className="w-px h-6 bg-gray-200 shrink-0" />
+                        <Link href="/" className="group -ml-1">
+                            <Logo variant="light" />
                         </Link>
                     </div>
 
@@ -286,6 +292,15 @@ export default function Navbar() {
 
                     {/* Desktop Action Icons */}
                     <div className="hidden lg:flex items-center gap-5">
+                        <a
+                            href="https://www.linkedin.com/company/arifacpanindia/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 transition-colors duration-200 text-[#1d1d1f]/60 hover:text-accent"
+                            aria-label="LinkedIn"
+                        >
+                            <Linkedin size={20} />
+                        </a>
                         <button
                             onClick={() => setIsSearchOpen(true)}
                             className="p-2 transition-colors duration-200 text-[#1d1d1f]/60 hover:text-accent"

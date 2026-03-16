@@ -8,7 +8,7 @@ export function LogoMark({ className = "" }: { className?: string }) {
         <div className={`relative ${className}`}>
             <Image
                 src="/logo.png"
-                alt="ARIFAC Logo Mark"
+                alt="ARIFAC Logo"
                 fill
                 className="object-contain"
                 priority
@@ -27,44 +27,21 @@ export function LogoMark({ className = "" }: { className?: string }) {
  */
 export default function Logo({
     className = "",
-    textClassName = "",
     variant = "light",
-    showBadge = false,
 }: {
     className?: string;
-    textClassName?: string;
     variant?: "light" | "dark";
-    showBadge?: boolean;
 }) {
-    const { t } = useLanguage();
-    const nameColor = variant === "dark" ? "text-white" : "text-[#111827]";
-    const subColor = variant === "dark" ? "text-[#0066cc]/80" : "text-[#0066cc]";
-
     return (
-        <div className={`flex items-center gap-3 ${className}`}>
-            <div className={`w-10 h-10 shrink-0 relative ${variant === 'dark' ? 'bg-white/10 ring-1 ring-white/20' : 'bg-white shadow-sm'} rounded-lg p-1`}>
+        <div className={`flex items-center ${className}`}>
+            <div className={`relative w-40 h-14 shrink-0 ${variant === 'dark' ? 'brightness-0 invert' : ''}`}>
                 <Image
                     src="/logo.png"
                     alt="ARIFAC Logo"
                     fill
-                    className="object-contain p-0.5"
+                    className="object-contain"
                     priority
                 />
-            </div>
-            <div className={`flex flex-col ${textClassName}`}>
-                <span className={`font-heading font-bold text-lg leading-none tracking-tight ${nameColor}`}>
-                    ARIFAC
-                </span>
-                <span className={`text-[0.6rem] uppercase tracking-widest font-semibold whitespace-nowrap ${subColor} mt-0.5`}>
-                    {t('logo.tagline')}
-                </span>
-                {showBadge && (
-                    <div className="mt-1.5">
-                        <span className="inline-block px-2 py-0.5 rounded-full bg-accent/20 border border-accent/30 text-accent text-[0.55rem] font-bold tracking-widest uppercase">
-                            {t('logo.badge')}
-                        </span>
-                    </div>
-                )}
             </div>
         </div>
     );

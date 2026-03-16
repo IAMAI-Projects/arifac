@@ -42,14 +42,14 @@ export default function PartnersSection() {
                             transition={{ delay: index * 0.1 }}
                             className="flex flex-col items-center"
                         >
-                            <h3 className="text-[12px] font-bold text-[#1d1d1f]/40 uppercase tracking-[0.2em] mb-12">
+                            <h3 className="text-[12px] font-bold text-[#1d1d1f]/60 uppercase tracking-[0.2em] mb-12">
                                 {partnerKeys[category.title] ? t(partnerKeys[category.title]) : category.title}
                             </h3>
                             <div className="flex flex-wrap justify-center gap-x-16 gap-y-12">
                                 {category.partners.map((partner, idx) => (
                                     <div
                                         key={idx}
-                                        className="text-2xl md:text-3xl font-bold text-[#1d1d1f] opacity-20 hover:opacity-100 transition-all duration-500 cursor-default tracking-tight"
+                                        className="text-2xl md:text-3xl font-bold text-[#1d1d1f] opacity-50 hover:opacity-100 transition-all duration-500 cursor-default tracking-tight"
                                     >
                                         {partnerItems[partner] ? t(partnerItems[partner]) : partner}
                                     </div>

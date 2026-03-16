@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Logo from './Logo';
 import { useLanguage } from './LanguageContext';
+import { Facebook, Instagram, Linkedin, Twitter, Youtube } from 'lucide-react';
 
 export default function Footer() {
     const { t } = useLanguage();
@@ -55,6 +56,23 @@ export default function Footer() {
                         <p className="text-secondary text-[13px] leading-relaxed max-w-sm">
                             {t('footer.desc')}
                         </p>
+                        <div className="flex items-center gap-4 mt-8">
+                            {[
+                                { icon: Linkedin, href: "https://www.linkedin.com/company/arifacpanindia/", label: "LinkedIn" },
+                                { icon: Twitter, href: "/", label: "X" },
+                            ].map((social, i) => (
+                                <a
+                                    key={i}
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-10 h-10 rounded-full bg-white border border-gray-100 flex items-center justify-center text-[#1d1d1f] hover:bg-[#1d1d1f] hover:text-white hover:border-[#1d1d1f] transition-all duration-300 shadow-sm group"
+                                    aria-label={social.label}
+                                >
+                                    <social.icon className="w-5 h-5 transition-transform group-hover:scale-110" />
+                                </a>
+                            ))}
+                        </div>
                     </div>
 
                     {footerLinks.map((column, index) => (

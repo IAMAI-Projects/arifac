@@ -51,12 +51,13 @@ export default function HeroSection() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading leading-[1.1] tracking-tight text-[#1d1d1f]"
+                        className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading leading-[1.1] tracking-tight text-[#1d1d1f]"
                     >
-                        {t('hero.title')} <br />
+                        {t('hero.title')} {' '}
                         <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">
                             {t('hero.title_integrity')}
                         </span>{' '}
+                        <br />
                         {t('hero.title_architecture')}
                     </motion.h1>
 
@@ -64,50 +65,45 @@ export default function HeroSection() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.6 }}
-                        className="text-[15px] md:text-[16px] text-[#a1a1aa] max-w-4xl font-light leading-[1.8]"
+                        className="text-[15px] md:text-[16px] text-[#a1a1aa] max-w-4xl font-light leading-[1.8] whitespace-pre-wrap"
                     >
                         {t('hero.description').split(new RegExp(`(${[
-                            'first-of-its-kind',
-                            'अपनी तरह की पहली',
-                            'information sharing',
-                            'सूचना साझाकरण',
-                            'knowledge products',
-                            'ज्ञान उत्पादों',
-                            'training programmes',
-                            'प्रशिक्षण कार्यक्रमों',
-                            'certifications',
-                            'प्रमाणपत्रों',
-                            'private-private partnership',
-                            'निजी-निजी भागीदारी'
+                            'compliance capacity',
+                            'अनुपालन क्षमता',
+                            'knowledge sharing',
+                            'ज्ञान साझाकरण',
+                            'professional training',
+                            'पेशेवर प्रशिक्षण',
+                            'training',
+                            'प्रशिक्षण',
+                            'certification',
+                            'प्रमाणन',
+                            'policy dialogue',
+                            'नीति संवाद',
+                            'industry collaboration',
+                            'उद्योग सहयोग'
                         ].join('|')})`, 'gi')).map((part, index) => {
                             const lowerPart = part.toLowerCase();
                             const isYellowHighlight = [
-                                'first-of-its-kind',
-                                'अपनी तरह की पहली',
-                                'information sharing',
-                                'सूचना साझाकरण',
-                                'knowledge products',
-                                'ज्ञान उत्पादों',
-                                'training programmes',
-                                'प्रशिक्षण कार्यक्रमों',
-                                'certifications',
-                                'प्रमाणपत्रों'
-                            ].includes(lowerPart);
-                            const isBlackHighlight = [
-                                'private-private partnership',
-                                'निजी-निजी भागीदारी'
+                                'compliance capacity',
+                                'अनुपालन क्षमता',
+                                'knowledge sharing',
+                                'ज्ञान साझाकरण',
+                                'professional training',
+                                'पेशेवर प्रशिक्षण',
+                                'training',
+                                'प्रशिक्षण',
+                                'certification',
+                                'प्रमाणन',
+                                'policy dialogue',
+                                'नीति संवाद',
+                                'industry collaboration',
+                                'उद्योग सहयोग'
                             ].includes(lowerPart);
 
                             if (isYellowHighlight) {
                                 return (
                                     <span key={index} className="px-1 py-[2px] mx-[2px] rounded bg-[#fcfae8] text-[#b5a222] font-medium tracking-wide">
-                                        {part}
-                                    </span>
-                                );
-                            }
-                            if (isBlackHighlight) {
-                                return (
-                                    <span key={index} className="text-[#1d1d1f] font-medium tracking-wide mx-[2px]">
                                         {part}
                                     </span>
                                 );

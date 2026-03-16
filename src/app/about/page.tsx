@@ -4,7 +4,7 @@ import React from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from 'framer-motion';
-import { Quote, Target, Award, Users, Shield, Globe } from 'lucide-react';
+import { Quote, Target, Award, Users, Shield, Globe, ArrowRight } from 'lucide-react';
 
 export default function AboutPage() {
     return (
@@ -24,7 +24,7 @@ export default function AboutPage() {
                             About <span className="text-secondary">ARIFAC</span>
                         </h1>
                         <p className="text-2xl md:text-3xl text-secondary max-w-3xl mx-auto font-medium leading-relaxed">
-                            Alliance of Reporting Entities in India for AML/CFT — A collective force for financial integrity.
+                            India’s AML/CFT capability platform supported by FIU India
                         </p>
                     </motion.div>
                 </div>
@@ -42,68 +42,107 @@ export default function AboutPage() {
                             className="mb-16"
                         >
                             <div className="flex items-center gap-2 text-accent font-bold uppercase tracking-[0.2em] text-[12px] mb-12">
-                                <Quote size={18} /> THE MANDATE
+                                <Quote size={18} /> Why ARIFAC
                             </div>
 
-                            <div className="space-y-20">
-                                <div className="relative">
-                                    <p className="text-3xl md:text-5xl font-bold text-[#1d1d1f] leading-tight tracking-tight">
-                                        "The advent of unparalleled technological, geopolitical and socio-economic change is the distinguishing hallmark of our times."
-                                    </p>
-                                    <div className="mt-12 text-xl text-secondary leading-relaxed max-w-5xl font-medium">
-                                        While this environment creates tremendous opportunity for the financial services industry to provide faster and more affordable services to larger and more diverse populations – it also creates systemic risks of financial crimes that are increasingly sophisticated, rapid and global in nature which need to be addressed with the alignment of the capabilities of the national AML/CFT ecosystem and the speed and technological sophistication which is driving this innovation.
+                            <div className="space-y-24">
+                                {/* Why ARIFAC Content */}
+                                <div className="grid lg:grid-cols-5 gap-16 items-start">
+                                    <div className="lg:col-span-3 space-y-8">
+                                        <div className="space-y-6">
+                                            <p className="text-2xl md:text-3xl font-medium text-[#1d1d1f] leading-relaxed">
+                                                India’s anti-money laundering framework is governed by the <span className="text-secondary font-bold">Prevention of Money Laundering Act (PMLA)</span> and supervised by the <span className="text-secondary font-bold">Financial Intelligence Unit – India (FIU-IND)</span>.
+                                            </p>
+                                            <p className="text-lg text-secondary leading-relaxed">
+                                                As the number of reporting entities continues to expand across financial institutions, fintech companies, intermediaries, and designated non-financial businesses and professions (DNFBPs), there is an increasing need for:
+                                            </p>
+                                        </div>
+
+                                        <div className="grid sm:grid-cols-2 gap-4">
+                                            {[
+                                                { title: "Structured compliance training", icon: Shield },
+                                                { title: "Industry-wide knowledge sharing", icon: Globe },
+                                                { title: "Continuous regulatory engagement", icon: Users },
+                                                { title: "Skilled financial crime professionals", icon: Award }
+                                            ].map((item, i) => (
+                                                <div key={i} className="flex items-center gap-4 p-5 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                                                    <div className="w-10 h-10 rounded-full bg-[#f5f5f7] flex items-center justify-center text-accent shrink-0">
+                                                        <item.icon size={20} />
+                                                    </div>
+                                                    <span className="font-semibold text-[#1d1d1f] text-[15px]">{item.title}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        <div className="p-8 rounded-3xl bg-primary text-white shadow-xl shadow-primary/10">
+                                            <p className="text-xl font-bold leading-relaxed">
+                                                ARIFAC has been designed to address this need by building a national AML/CFT capability platform.
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div className="mt-10 p-8 md:p-12 rounded-[32px] bg-white border border-gray-100 shadow-sm text-xl font-bold text-[#1d1d1f] leading-relaxed">
-                                        An effective national AML/CFT regime must look to successfully combat these risks through coordinated and collaborative efforts by leveraging the expertise and capabilities of its private sector and ARIFAC is expected to play a momentous role toward said goal.
+
+                                    <div className="lg:col-span-2 space-y-8">
+                                        <div className="p-8 rounded-[32px] bg-white border border-gray-100 shadow-sm">
+                                            <h3 className="text-[12px] font-bold text-secondary uppercase tracking-[0.2em] mb-6">Strategic Context</h3>
+                                            <p className="text-base text-secondary leading-relaxed font-medium">
+                                                The advent of technological change creates systemic risks of financial crimes that need to be addressed with the alignment of national capabilities and technological sophistication.
+                                            </p>
+                                            <div className="mt-8 pt-6 border-t border-gray-100">
+                                                <p className="text-sm font-bold text-primary italic">
+                                                    "Combatting risks through coordinated and collaborative efforts by leveraging the expertise of the private sector."
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div className="grid md:grid-cols-2 gap-20 items-start pt-10">
-                                    <div className="space-y-6">
-                                        <h3 className="text-[12px] font-bold text-secondary uppercase tracking-[0.2em]">Foundation</h3>
-                                        <p className="text-lg text-secondary leading-relaxed font-normal">
-                                            The inaugural conference of ARIFAC was held on August 04, 2023, in New Delhi. A number of organisations have joined the initiative as members and the membership is expected to expand with the organization of regional (north, south, east and west) and sectoral chapters (Banks, Payment Banks, Co-operative Banks, Payment Aggregators, VDA-SPs etc).
-                                        </p>
+                                {/* Regulatory Alignment */}
+                                <div className="pt-20 border-t border-gray-200">
+                                    <div className="flex items-center gap-2 text-accent font-bold uppercase tracking-[0.2em] text-[12px] mb-12">
+                                        <Target size={18} /> Regulatory Alignment
                                     </div>
-                                    <div className="space-y-6">
-                                        <h3 className="text-[12px] font-bold text-secondary uppercase tracking-[0.2em]">Strategic Vision</h3>
-                                        <div className="p-8 rounded-3xl bg-white/50 border border-gray-200">
-                                            <p className="text-lg text-[#1d1d1f] leading-relaxed font-bold italic">
-                                                ARIFAC is envisaged to meet under the aegis of national and regional chapters. The primary objectives of the platform include information sharing, development of knowledge products and assistance by way of training and certification.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div className="pt-20">
-                                    <h3 className="text-[12px] font-bold text-secondary uppercase tracking-[0.2em] mb-12 text-center">Operational Pillars</h3>
-                                    <div className="grid md:grid-cols-3 gap-10">
-                                        <div className="bg-white p-10 rounded-[32px] shadow-sm hover:shadow-xl transition-all duration-500 group">
-                                            <div className="w-16 h-16 bg-[#f5f5f7] rounded-2xl flex items-center justify-center mb-8 shadow-sm text-accent group-hover:scale-110 transition-transform duration-500">
-                                                <Target size={32} />
-                                            </div>
-                                            <h4 className="font-bold text-[#1d1d1f] text-2xl mb-4">Knowledge Products</h4>
-                                            <p className="text-secondary text-base leading-relaxed font-medium">
-                                                Developing best practices papers, typology reports, and strategic guidance for member institutions.
+                                    <div className="grid md:grid-cols-2 gap-16">
+                                        <div className="space-y-8">
+                                            <p className="text-3xl font-bold text-[#1d1d1f] tracking-tight">
+                                                ARIFAC programs and training frameworks are aligned with:
                                             </p>
+                                            <ul className="space-y-4">
+                                                {[
+                                                    "Prevention of Money Laundering Act (PMLA)",
+                                                    "FIU-IND Reporting Entity Guidelines",
+                                                    "RBI / SEBI / IRDAI / IFSCA AML requirements",
+                                                    "FATF Recommendations",
+                                                    "Virtual Digital Asset (VDA) reporting guidelines issued by FIU-IND"
+                                                ].map((li, i) => (
+                                                    <li key={i} className="flex items-start gap-4 text-secondary">
+                                                        <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center text-accent mt-0.5 shrink-0">
+                                                            <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+                                                        </div>
+                                                        <span className="font-medium text-lg leading-tight">{li}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
                                         </div>
-                                        <div className="bg-white p-10 rounded-[32px] shadow-sm hover:shadow-xl transition-all duration-500 group">
-                                            <div className="w-16 h-16 bg-[#f5f5f7] rounded-2xl flex items-center justify-center mb-8 shadow-sm text-accent group-hover:scale-110 transition-transform duration-500">
-                                                <Award size={32} />
+
+                                        <div className="flex items-center justify-center">
+                                            <div className="w-full max-w-md p-10 rounded-[40px] bg-white border border-gray-100 shadow-xl relative overflow-hidden group">
+                                                <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl group-hover:bg-accent/10 transition-colors" />
+                                                <h4 className="text-[12px] font-bold text-secondary uppercase tracking-[0.2em] mb-6">Official Guidance</h4>
+                                                <p className="text-secondary font-medium mb-8">
+                                                    For official regulatory guidance, please visit the official Financial Intelligence Unit – India portal.
+                                                </p>
+                                                <a 
+                                                    href="https://fiuindia.gov.in" 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-3 bg-[#f5f5f7] hover:bg-[#1d1d1f] hover:text-white px-6 py-4 rounded-2xl font-bold transition-all duration-300 w-full"
+                                                >
+                                                    <Globe size={20} className="text-accent" />
+                                                    <span>fiuindia.gov.in</span>
+                                                    <ArrowRight size={18} className="ml-auto opacity-50" />
+                                                </a>
                                             </div>
-                                            <h4 className="font-bold text-[#1d1d1f] text-2xl mb-4">Capacity Building</h4>
-                                            <p className="text-secondary text-base leading-relaxed font-medium">
-                                                Undertaking training programmes for reporting entities and specialized personnel within the AML/CFT domain.
-                                            </p>
-                                        </div>
-                                        <div className="bg-white p-10 rounded-[32px] shadow-sm hover:shadow-xl transition-all duration-500 group">
-                                            <div className="w-16 h-16 bg-[#f5f5f7] rounded-2xl flex items-center justify-center mb-8 shadow-sm text-accent group-hover:scale-110 transition-transform duration-500">
-                                                <Shield size={32} />
-                                            </div>
-                                            <h4 className="font-bold text-[#1d1d1f] text-2xl mb-4">Standardization</h4>
-                                            <p className="text-secondary text-base leading-relaxed font-medium">
-                                                Bringing national awareness and global standardization to certifications in the AML/CFT ecosystem.
-                                            </p>
                                         </div>
                                     </div>
                                 </div>

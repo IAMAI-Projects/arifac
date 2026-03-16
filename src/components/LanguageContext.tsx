@@ -65,7 +65,7 @@ const translations: Record<Language, Record<string, string>> = {
         'common.dec': 'Dec',
         'data.cert.title1': 'Foundations of AML, CFT & Sanctions',
         'data.cert.title2': 'Intermediate Compliance & Regulatory Oversight',
-        'data.cert.title3': 'Advanced AML Strategy & Institutional Design',
+        'data.cert.title3': 'India’s AML/CFT capability platform supported by FIU India',
 
         // Data: Meetings (Revised from file)
         'data.meeting.consult.title_short': '5th Multilateral Consultation',
@@ -89,10 +89,10 @@ const translations: Record<Language, Record<string, string>> = {
 
         // Hero Section
         'hero.badge': "India's National AML/CFT Compliance Platform",
-        'hero.title': 'Advancing India’s',
-        'hero.title_integrity': 'Financial Integrity',
-        'hero.title_architecture': 'Architecture',
-        'hero.description': 'Alliance of Reporting Entities in India for AML/CFT (ARIFAC) has been conceptualized as a first-of-its-kind, private-private partnership initiative amongst reporting entities in India belonging to multiple sectors to facilitate information sharing, development of knowledge products, training programmes and certifications.',
+        'hero.title': 'India’s AML/CFT',
+        'hero.title_integrity': 'Capability Platform',
+        'hero.title_architecture': 'Supported by FIU India',
+        'hero.description': "\nARIFAC is an industry collaboration platform established to strengthen AML/CFT compliance capacity, knowledge sharing, and professional training across India’s financial and non-financial reporting entities.\nThe initiative operates with guidance from the Financial Intelligence Unit – India (FIU-IND) and aims to build a structured ecosystem for training, certification, policy dialogue, and industry collaboration on financial crime prevention.",
         'hero.btn_explore': 'Explore Certification',
         'hero.btn_join': 'Become a Member',
         'hero.stats_entities': 'Reporting Entities',
@@ -285,10 +285,10 @@ const translations: Record<Language, Record<string, string>> = {
 
         // Hero Section
         'hero.badge': "भारत का राष्ट्रीय AML/CFT अनुपालन मंच",
-        'hero.title': 'भारत की',
-        'hero.title_integrity': 'वित्तीय सत्यनिष्ठा',
-        'hero.title_architecture': 'संरचना को आगे बढ़ाना',
-        'hero.description': 'भारत में रिपोर्टिंग संस्थाओं के लिए AML/CFT (ARIFAC) गठबंधन को सूचना साझाकरण, ज्ञान उत्पादों के विकास, प्रशिक्षण कार्यक्रमों और प्रमाणपत्रों की सुविधा के लिए कई क्षेत्रों से संबंधित भारत में रिपोर्टिंग संस्थाओं के बीच अपनी तरह की पहली, निजी-निजी भागीदारी पहल के रूप में संकल्पित किया गया है।',
+        'hero.title': 'भारत का AML/CFT',
+        'hero.title_integrity': 'क्षमता मंच',
+        'hero.title_architecture': 'FIU-IND द्वारा समर्थित',
+        'hero.description': "ARIFAC एक उद्योग सहयोग मंच है जिसे भारत की वित्तीय और गैर-वित्तीय रिपोर्टिंग संस्थाओं में AML/CFT अनुपालन क्षमता, ज्ञान साझाकरण और पेशेवर प्रशिक्षण को मजबूत करने के लिए स्थापित किया गया है।\n\nयह पहल वित्तीय खुफिया इकाई - भारत (FIU-IND) के मार्गदर्शन में संचालित होती है और प्रशिक्षण, प्रमाणन, नीति संवाद और वित्तीय अपराध रोकथाम पर उद्योग सहयोग के लिए एक संरचित पारिस्थितिकी तंत्र बनाने का लक्ष्य रखती है।",
         'hero.btn_explore': 'प्रमाणन एक्सप्लोर करें',
         'hero.btn_join': 'सदस्य बनें',
         'hero.stats_entities': 'रिपोर्टिंग संस्थाएं',

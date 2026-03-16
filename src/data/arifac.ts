@@ -45,7 +45,7 @@ export interface ResourceItem {
 }
 
 export const heroData = {
-    title: "Advancing India’s Financial Integrity Architecture",
+    title: "India’s AML/CFT capability platform supported by FIU India",
     subtitle: "National, industry-led platform strengthening AML, CFT and Sanctions capability.",
     ctaPrimary: "Become a Member",
     ctaSecondary: "Explore Certification"

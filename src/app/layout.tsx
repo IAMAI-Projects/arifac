@@ -14,8 +14,20 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "ARIFAC | Advancing India’s Financial Integrity Architecture",
+  title: "ARIFAC | India’s AML/CFT capability platform supported by FIU India",
   description: "A national, industry-led platform strengthening AML, CFT and Sanctions capability under IAMAI with strategic guidance of FIU-IND.",
+  icons: {
+    icon: [
+      {
+        url: '/favicon-light.svg',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/favicon-dark.svg',
+        media: '(prefers-color-scheme: dark)',
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
