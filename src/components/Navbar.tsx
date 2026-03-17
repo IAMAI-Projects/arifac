@@ -340,7 +340,7 @@ export default function Navbar() {
                                         </div>
                                         <div className="p-3 flex flex-col gap-1.5">
                                             <a
-                                                href="https://iamai.edmingle.com/courses"
+                                                href="https://arifac.iamai.in/courses"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
@@ -521,7 +521,7 @@ export default function Navbar() {
                             <div className="flex flex-col gap-6 pb-20">
                                 <p className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] pl-1">Platform Access</p>
                                 <a
-                                    href="https://iamai.edmingle.com/courses"
+                                    href="https://arifac.iamai.in/courses"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-center font-bold text-white px-8 py-6 bg-accent rounded-[24px] shadow-2xl shadow-accent/20 hover:scale-[1.02] transition-all text-xl"
