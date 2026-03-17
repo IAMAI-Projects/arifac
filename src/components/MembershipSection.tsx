@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { membershipCategories } from '@/data/arifac';
 import { Users, ArrowRight } from 'lucide-react';
 import { useLanguage } from './LanguageContext';
+import Link from 'next/link';
 
 export default function MembershipSection() {
     const { t } = useLanguage();
@@ -65,10 +66,11 @@ export default function MembershipSection() {
                             {t('member.benefits_desc')}
                         </p>
                     </div>
-                    <button className="bg-white text-[#1d1d1f] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all flex items-center gap-2">
+
+                    <Link href="/member-benefits" className="bg-white text-[#1d1d1f] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all flex items-center gap-2">
                         {t('member.fee_btn')}
                         <ArrowRight className="w-5 h-5" />
-                    </button>
+                    </Link>
                 </div>
             </div>
         </section>

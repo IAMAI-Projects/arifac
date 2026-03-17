@@ -88,7 +88,7 @@ export default function MemberBenefitsPage() {
                         transition={{ duration: 0.6 }}
                     >
                         <p className="text-[11px] font-bold text-[#1d1d1f] uppercase tracking-[0.2em] mb-6">
-                            1. Membership Benefits
+                            Membership Benefits
                         </p>
                         <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-[#1d1d1f] leading-[1.05] tracking-tight mb-8">
                             Where India's compliance community connects.

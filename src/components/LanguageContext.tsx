@@ -123,7 +123,7 @@ const translations: Record<Language, Record<string, string>> = {
         'member.description': 'ARIFAC unites the entire ecosystem of reporting entities under a common governance framework.',
         'member.benefits_title': 'Membership Benefits',
         'member.benefits_desc': 'Access exclusive working groups, typology reports, and direct regulatory feedback channels.',
-        'member.fee_btn': 'View Fee Structure',
+        'member.fee_btn': 'View Membership Benefits',
 
         // Engagement Section
         'engage.collab': 'Collaboration',

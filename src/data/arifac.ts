@@ -95,7 +95,7 @@ export const certificationLevels: CertificationLevel[] = [
         isProctored: false,
         price: 5000,
         syllabus: lmsCourseData,
-        enrollUrl: "https://iamai.edmingle.com/course/CertifiedAMLFinancialCrimeProfessionalIndia-105418"
+        enrollUrl: "https://arifac.iamai.in/course/CertifiedAMLFinancialCrimeProfessionalIndia-105418"
     }
 
 ];

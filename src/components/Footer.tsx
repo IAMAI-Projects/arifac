@@ -52,7 +52,7 @@ export default function Footer() {
             <div className="container mx-auto px-6">
                 <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8 mb-16">
                     <div className="lg:col-span-2">
-                        <Logo className="mb-6" variant="light" />
+                        <Logo className="mb-1" variant="light" />
                         <p className="text-secondary text-[13px] leading-relaxed max-w-sm">
                             {t('footer.desc')}
                         </p>
@@ -103,7 +103,7 @@ export default function Footer() {
                             rel="noopener noreferrer"
                             className="group flex items-center gap-4 hover:opacity-80 transition-opacity"
                         >
-                            <div className="relative w-24 h-10 bg-white border border-gray-100 rounded-lg overflow-hidden p-1 shadow-sm">
+                            <div className="relative w-24 h-15 bg-white border border-gray-100 rounded-lg overflow-hidden p-1 shadow-sm">
                                 <Image
                                     src="/iamai-logo.png"
                                     alt="IAMAI"
