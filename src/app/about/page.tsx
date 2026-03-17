@@ -8,7 +8,7 @@ import { Quote, Target, Award, Users, Shield, Globe, ArrowRight } from 'lucide-r
 
 export default function AboutPage() {
     return (
-        <main className="min-h-screen bg-white">
+        <main className="min-h-screen bg-white font-sans">
             <Navbar />
 
             {/* Hero Section */}

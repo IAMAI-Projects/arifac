@@ -57,7 +57,7 @@ export default function TrainingVolunteersPage() {
     }
 
     return (
-        <main className="min-h-screen bg-white">
+        <main className="min-h-screen bg-white font-sans">
             <Navbar />
 
             <div className="pt-48 pb-32 px-6">

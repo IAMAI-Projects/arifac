@@ -88,7 +88,7 @@ export default function LMSDashboard() {
     // CATALOG VIEW: If no course is selected
     if (!activeCourseLevel) {
         return (
-            <div className="min-h-screen bg-gray-50 flex flex-col">
+            <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
                 <header className="bg-white h-16 border-b border-gray-200 flex items-center justify-between px-6 sticky top-0 z-10">
                     <div className="flex items-center gap-4">
                         <Logo />

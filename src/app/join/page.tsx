@@ -20,7 +20,7 @@ export default function JoinPage() {
     };
 
     return (
-        <div className="min-h-screen bg-white flex flex-col md:flex-row text-primary overflow-hidden">
+        <div className="min-h-screen bg-white flex flex-col md:flex-row text-primary overflow-hidden font-sans">
             {/* Visual Context Side */}
             <div className="hidden md:flex flex-col justify-between w-5/12 bg-gray-50 p-12 relative overflow-hidden border-r border-gray-200">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,0,0,0.03),transparent_50%)]" />

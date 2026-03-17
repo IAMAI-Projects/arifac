@@ -39,7 +39,7 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen bg-white flex flex-col md:flex-row text-primary overflow-hidden">
+        <div className="min-h-screen bg-white flex flex-col md:flex-row text-primary overflow-hidden font-sans">
             {/* Visual Side */}
             <div className="hidden md:flex flex-col justify-between w-1/2 bg-gray-50 p-12 relative overflow-hidden border-r border-gray-200">
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />

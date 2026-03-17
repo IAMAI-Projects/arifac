@@ -74,7 +74,7 @@ export default function MembersPage() {
     );
 
     return (
-        <main className="min-h-screen bg-gray-50 flex flex-col">
+        <main className="min-h-screen bg-gray-50 flex flex-col font-sans">
             <Navbar />
 
             <div className="flex-1 pt-32 pb-20">

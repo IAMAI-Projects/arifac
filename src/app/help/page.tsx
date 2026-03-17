@@ -77,7 +77,7 @@ export default function HelpPage() {
     );
 
     return (
-        <main className="min-h-screen bg-white font-primary">
+        <main className="min-h-screen bg-white font-sans">
             <Navbar />
 
             {/* Hero Section */}

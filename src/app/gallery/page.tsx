@@ -19,7 +19,7 @@ const galleryImages = [
 
 export default function GalleryPage() {
     return (
-        <main className="min-h-screen bg-white flex flex-col font-jakarta">
+        <main className="min-h-screen bg-white flex flex-col font-heading">
             <Navbar />
 
             <div className="flex-1 pt-48 pb-32">

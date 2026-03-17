@@ -95,7 +95,7 @@ export default function ExamPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6 font-sans">
             <div className="bg-white max-w-2xl w-full rounded-2xl shadow-xl p-10 border border-gray-100">
                 <div className="flex justify-between items-center mb-8">
                     <span className="text-sm font-bold text-gray-400 uppercase tracking-wider">Question {currentQuestion + 1} of {finalExamQuestions.length}</span>

@@ -53,7 +53,7 @@ export default function ContactPage() {
     const labelClass = 'block text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-3 ml-2';
 
     return (
-        <main className="min-h-screen bg-white flex flex-col font-jakarta">
+        <main className="min-h-screen bg-white flex flex-col font-heading">
             <Navbar />
 
             <div className="flex-1 pt-48 pb-32">

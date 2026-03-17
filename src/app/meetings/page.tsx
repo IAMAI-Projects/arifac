@@ -103,7 +103,7 @@ const inPersonMeetings = [
 
 export default function MeetingsPage() {
     return (
-        <main className="min-h-screen bg-white flex flex-col">
+        <main className="min-h-screen bg-white flex flex-col font-sans">
             <Navbar />
 
             <div className="flex-1 pt-48 pb-32">
