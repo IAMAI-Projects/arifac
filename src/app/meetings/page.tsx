@@ -73,7 +73,7 @@ const inPersonMeetings = [
         date: "December 10, 2025",
         location: "Mumbai",
         host: "IAMAI",
-        minutesLink: "/meetings/minutes-4th-national-arifac-meeting",
+        minutesLink: "/Minutes-of-the-5th-National-ARIFAC-Meeting.docx",
     },
     {
         id: 2,

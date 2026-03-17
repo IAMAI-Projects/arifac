@@ -34,7 +34,7 @@ export default function Logo({
 }) {
     return (
         <div className={`flex items-center ${className}`}>
-            <div className={`relative w-40 h-14 shrink-0 ${variant === 'dark' ? 'brightness-0 invert' : ''}`}>
+            <div className={`relative w-30 h-22 shrink-0 ${variant === 'dark' ? 'brightness-0 invert' : ''}`}>
                 <Image
                     src="/logo.png"
                     alt="ARIFAC Logo"

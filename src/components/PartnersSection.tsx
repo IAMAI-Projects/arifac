@@ -58,12 +58,6 @@ export default function PartnersSection() {
                         </motion.div>
                     ))}
                 </div>
-
-                <div className="mt-32 pt-12 border-t border-gray-100 text-center">
-                    <p className="text-[13px] text-secondary max-w-2xl mx-auto font-medium leading-relaxed italic opacity-80">
-                        {t('partners.disclaimer')}
-                    </p>
-                </div>
             </div>
         </section>
     );

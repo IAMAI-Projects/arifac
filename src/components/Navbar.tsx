@@ -203,91 +203,95 @@ export default function Navbar() {
                     }`}
             >
                 <div className="container mx-auto px-6 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-6 shrink-0">
                         <a
                             href="https://fiuindia.gov.in/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="h-9 px-1.5 py-0.5 bg-white shadow-sm rounded-lg shrink-0 flex items-center justify-center hover:shadow-md transition-shadow group"
+                            className="h-22 bg-white shrink-0 flex items-center justify-center hover:opacity-90 transition-opacity"
                         >
                             <Image
                                 src="/images/fiu-logo.png"
                                 alt="FIU-IND"
-                                width={84}
-                                height={40}
-                                className="object-contain h-full w-auto group-hover:scale-105 transition-transform"
+                                width={100}
+                                height={44}
+                                className="object-contain h-full w-auto"
                             />
                         </a>
-                        <div className="w-px h-6 bg-gray-200 shrink-0" />
-                        <Link href="/" className="group -ml-1">
-                            <Logo variant="light" />
+                        <div className="w-px h-10 bg-gray-200 shrink-0" />
+                        <Link href="/" className="group flex items-center">
+                            <Logo variant="light" className="scale-105 origin-left" />
                         </Link>
+
+                        <div className="w-px h-10 bg-gray-200 shrink-0 ml-2" />
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden lg:flex items-center">
-                        {navLinks.map((link, index) => (
-                            <div
-                                key={link.name}
-                                className="relative flex items-center"
-                                onMouseEnter={() => setActiveDropdown(link.name)}
-                                onMouseLeave={() => setActiveDropdown(null)}
-                            >
-                                <button
-                                    className={`relative group px-5 py-1 text-[13px] font-bold tracking-tight transition-colors duration-200 flex items-center gap-1.5 text-[#1d1d1f]/80 hover:text-accent`}
+                    <div className="hidden lg:flex items-center gap-1 flex-1 ml-4 justify-between">
+                        <div className="flex items-center">
+                            {navLinks.map((link, index) => (
+                                <div
+                                    key={link.name}
+                                    className="relative flex items-center"
+                                    onMouseEnter={() => setActiveDropdown(link.name)}
+                                    onMouseLeave={() => setActiveDropdown(null)}
                                 >
-                                    {link.name}
-                                    <ChevronDown size={12} className={`mt-0.5 opacity-40 transition-transform duration-300 ${activeDropdown === link.name ? 'rotate-180' : ''}`} />
-                                </button>
+                                    <button
+                                        className={`relative group px-5 py-1 text-[13px] font-bold tracking-tight transition-colors duration-200 flex items-center gap-1.5 text-[#1d1d1f]/80 hover:text-accent`}
+                                    >
+                                        {link.name}
+                                        <ChevronDown size={12} className={`mt-0.5 opacity-40 transition-transform duration-300 ${activeDropdown === link.name ? 'rotate-180' : ''}`} />
+                                    </button>
 
-                                <AnimatePresence>
-                                    {activeDropdown === link.name && (
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 8, scale: 0.97 }}
-                                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                                            exit={{ opacity: 0, y: 8, scale: 0.97 }}
-                                            transition={{ duration: 0.18, ease: 'easeOut' }}
-                                            className={`absolute top-full left-0 mt-3 bg-white border border-gray-100 rounded-3xl shadow-2xl overflow-hidden z-50 ${link.sections ? 'w-[520px]' : 'w-72'}`}
-                                        >
-                                            <div className={`p-5 ${link.sections ? 'grid grid-cols-2 gap-8' : 'flex flex-col gap-1'}`}>
-                                                {link.sections ? (
-                                                    link.sections.map((section) => (
-                                                        <div key={section.title} className="flex flex-col gap-4">
-                                                            <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] px-3 mb-1">
-                                                                {section.title}
-                                                            </h3>
-                                                            <div className="flex flex-col gap-1.5">
-                                                                {section.links.map((subItem) => (
-                                                                    <Link
-                                                                        key={subItem.name}
-                                                                        href={subItem.href}
-                                                                        className="flex items-center gap-3 px-3 py-3 text-[14px] font-bold text-[#1d1d1f]/70 hover:text-accent hover:bg-[#f5f5f7] rounded-xl transition-all duration-200 group/item"
-                                                                    >
-                                                                        <span className="w-1 h-4 rounded-full bg-gray-200 group-hover/item:bg-accent transition-colors duration-200" />
-                                                                        {subItem.name}
-                                                                    </Link>
-                                                                ))}
+                                    <AnimatePresence>
+                                        {activeDropdown === link.name && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                exit={{ opacity: 0, y: 8, scale: 0.97 }}
+                                                transition={{ duration: 0.18, ease: 'easeOut' }}
+                                                className={`absolute top-full left-0 mt-3 bg-white border border-gray-100 rounded-3xl shadow-2xl overflow-hidden z-50 ${link.sections ? 'w-[520px]' : 'w-72'}`}
+                                            >
+                                                <div className={`p-5 ${link.sections ? 'grid grid-cols-2 gap-8' : 'flex flex-col gap-1'}`}>
+                                                    {link.sections ? (
+                                                        link.sections.map((section) => (
+                                                            <div key={section.title} className="flex flex-col gap-4">
+                                                                <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] px-3 mb-1">
+                                                                    {section.title}
+                                                                </h3>
+                                                                <div className="flex flex-col gap-1.5">
+                                                                    {section.links.map((subItem) => (
+                                                                        <Link
+                                                                            key={subItem.name}
+                                                                            href={subItem.href}
+                                                                            className="flex items-center gap-3 px-3 py-3 text-[14px] font-bold text-[#1d1d1f]/70 hover:text-accent hover:bg-[#f5f5f7] rounded-xl transition-all duration-200 group/item"
+                                                                        >
+                                                                            <span className="w-1 h-4 rounded-full bg-gray-200 group-hover/item:bg-accent transition-colors duration-200" />
+                                                                            {subItem.name}
+                                                                        </Link>
+                                                                    ))}
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    ))
-                                                ) : (
-                                                    link.dropdown?.map((subItem) => (
-                                                        <Link
-                                                            key={subItem.name}
-                                                            href={subItem.href}
-                                                            className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/70 hover:text-accent hover:bg-[#f5f5f7] rounded-xl transition-all duration-200 group/item"
-                                                        >
-                                                            <span className="w-1 h-4 rounded-full bg-gray-200 group-hover/item:bg-accent transition-colors duration-200" />
-                                                            {subItem.name}
-                                                        </Link>
-                                                    ))
-                                                )}
-                                            </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-                        ))}
+                                                        ))
+                                                    ) : (
+                                                        link.dropdown?.map((subItem) => (
+                                                            <Link
+                                                                key={subItem.name}
+                                                                href={subItem.href}
+                                                                className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/70 hover:text-accent hover:bg-[#f5f5f7] rounded-xl transition-all duration-200 group/item"
+                                                            >
+                                                                <span className="w-1 h-4 rounded-full bg-gray-200 group-hover/item:bg-accent transition-colors duration-200" />
+                                                                {subItem.name}
+                                                            </Link>
+                                                        ))
+                                                    )}
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                     {/* Desktop Action Icons */}

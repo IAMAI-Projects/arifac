@@ -20,7 +20,7 @@ export default function QuickGallerySection() {
                     <div className="max-w-3xl">
                         <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-4 block">Visual Journey</span>
                         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1d1d1f] tracking-tight mb-8">
-                            Life at ARIFAC
+                            Gallery
                         </h2>
                         <p className="text-xl text-secondary max-w-2xl font-medium leading-relaxed">
                             Capturing moments of collaboration, learning, and recognition across our national network.

@@ -2,27 +2,47 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Calendar, MapPin, ChevronRight } from 'lucide-react';
+import { Calendar, MapPin, ChevronRight, Building2 } from 'lucide-react';
 
 import { useLanguage } from './LanguageContext';
 
-export default function LatestMeetingsSection() {
-    const { t, language } = useLanguage();
+const inPersonMeetings = [
+    {
+        id: 1,
+        title: "4th National Chapter Meeting",
+        date: "December 10, 2025",
+        location: "Mumbai",
+        host: "IAMAI",
+        minutesLink: "/Minutes-of-the-5th-National-ARIFAC-Meeting.docx",
+    },
+    {
+        id: 2,
+        title: "3rd National Chapter Meeting",
+        date: "July 24, 2024",
+        location: "Mumbai",
+        host: "Citibank NA India",
+        minutesLink: null,
+    },
+    {
+        id: 3,
+        title: "2nd National Chapter Meeting",
+        date: "October 19, 2023",
+        location: "Mumbai",
+        host: "Standard Chartered Bank",
+        minutesLink: null,
+    },
+    {
+        id: 4,
+        title: "Inaugural National Chapter Meeting",
+        date: "August 4, 2023",
+        location: "New Delhi",
+        host: "Paytm",
+        minutesLink: null,
+    },
+];
 
-    const recentMeetings = [
-        {
-            title: t('data.meeting.consult.title_short'),
-            date: language === 'HI' ? "12 फरवरी, 2025" : "Feb 12, 2025",
-            location: t('data.meeting.consult.loc'),
-            type: t('data.meeting.consult.type_short')
-        },
-        {
-            title: t('data.meeting.regional.title'),
-            date: language === 'HI' ? "18 जनवरी, 2025" : "Jan 18, 2025",
-            location: t('data.meeting.regional.loc'),
-            type: t('data.meeting.regional.type')
-        }
-    ];
+export default function LatestMeetingsSection() {
+    const { t } = useLanguage();
 
     return (
         <section className="py-32 bg-white relative">
@@ -47,26 +67,44 @@ export default function LatestMeetingsSection() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                        {recentMeetings.map((meeting, idx) => (
+                        {inPersonMeetings.map((meeting, idx) => (
                             <motion.div
-                                key={idx}
+                                key={meeting.id}
                                 initial={{ opacity: 0, scale: 0.98 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                className="bg-[#f5f5f7] p-10 rounded-[32px] hover:bg-[#ebebed] transition-all duration-500 group"
+                                transition={{ delay: idx * 0.08 }}
+                                className="bg-[#f5f5f7] p-10 rounded-[32px] hover:bg-[#ebebed] transition-all duration-500 group flex flex-col"
                             >
-                                <div className="text-[11px] font-bold text-accent uppercase tracking-[0.15em] mb-4">{meeting.type}</div>
-                                <h3 className="text-2xl font-bold text-[#1d1d1f] mb-8 group-hover:text-[#0066cc] transition-colors duration-500 tracking-tight">{meeting.title}</h3>
+                                <div className="text-[11px] font-bold text-accent uppercase tracking-[0.15em] mb-4">In-person Meeting</div>
+                                <h3 className="text-2xl font-bold text-[#1d1d1f] mb-6 group-hover:text-[#0066cc] transition-colors duration-500 tracking-tight">{meeting.title}</h3>
 
-                                <div className="space-y-4">
-                                    <div className="flex items-center gap-4 text-[14px] text-secondary font-medium">
-                                        <Calendar className="w-5 h-5 text-[#0066cc]" />
-                                        <span>{meeting.date}</span>
+                                <div className="space-y-3 mb-6">
+                                    <div className="flex items-center gap-3 text-[14px] text-secondary font-medium">
+                                        <Calendar className="w-4 h-4 text-[#0066cc] shrink-0" />
+                                        <span>{meeting.date}, {meeting.location}</span>
                                     </div>
-                                    <div className="flex items-center gap-4 text-[14px] text-secondary font-medium">
-                                        <MapPin className="w-5 h-5 text-[#0066cc]" />
-                                        <span>{meeting.location}</span>
+                                    <div className="flex items-center gap-3 text-[14px] text-secondary font-medium">
+                                        <Building2 className="w-4 h-4 text-[#0066cc] shrink-0" />
+                                        <span>Hosted by <span className="text-[#1d1d1f] font-semibold">{meeting.host}</span></span>
                                     </div>
+                                </div>
+
+                                <div className="mt-auto">
+                                    {meeting.minutesLink ? (
+                                        <a
+                                            href={meeting.minutesLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 py-2 px-5 bg-white border border-gray-200 text-[#1d1d1f] rounded-2xl text-[13px] font-bold hover:bg-gray-50 transition-all shadow-sm"
+                                        >
+                                            Click here for summary of the meeting proceedings <ChevronRight size={14} />
+                                        </a>
+                                    ) : (
+                                        <span className="inline-flex items-center gap-2 py-2 px-5 bg-white/60 border border-gray-200 text-secondary rounded-2xl text-[13px] font-medium cursor-default">
+                                            Click here for summary of the meeting proceedings <ChevronRight size={14} />
+                                        </span>
+                                    )}
                                 </div>
                             </motion.div>
                         ))}
