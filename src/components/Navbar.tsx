@@ -41,7 +41,7 @@ export default function Navbar() {
             name: t('nav.events'),
             href: '/meetings',
             dropdown: [
-                { name: t('nav.events'), href: '/meetings' },
+                { name: t('Events & Meetings'), href: '/meetings' },
                 { name: t('nav.gallery'), href: '/gallery' },
                 { name: t('nav.chapters'), href: '#' },
             ]
@@ -50,7 +50,7 @@ export default function Navbar() {
             name: t('nav.resources'),
             href: '#',
             dropdown: [
-                { name: t('nav.updates'), href: '#' },
+                { name: t('nav.updates'), href: '/regulatory-updates' },
                 { name: t('nav.research'), href: '#' },
                 { name: t('nav.enterprise'), href: '#' },
                 { name: t('nav.tools'), href: '#' },
@@ -204,9 +204,9 @@ export default function Navbar() {
             >
                 <div className="container mx-auto px-6 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <a 
-                            href="https://fiuindia.gov.in/" 
-                            target="_blank" 
+                        <a
+                            href="https://fiuindia.gov.in/"
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="h-9 px-1.5 py-0.5 bg-white shadow-sm rounded-lg shrink-0 flex items-center justify-center hover:shadow-md transition-shadow group"
                         >

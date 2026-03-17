@@ -39,7 +39,7 @@ export default function Footer() {
         {
             title: t('nav.resources'),
             links: [
-                { name: 'Regulatory Updates', href: '#' },
+                { name: 'Regulatory Updates', href: '/regulatory-updates' },
                 { name: 'Research & Reports', href: '#' },
                 { name: 'Webinars', href: '#' },
                 { name: 'Press Room', href: '#' },
