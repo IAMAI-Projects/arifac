@@ -126,7 +126,7 @@ export default function HeroSection() {
                             {t('hero.btn_explore')}
                         </Link>
                         <Link
-                            href="/join"
+                            href="/membership/register"
                             className="inline-flex items-center justify-center text-[#0066cc] hover:underline px-8 py-3 rounded-full font-semibold text-base transition-all group"
                         >
                             {t('hero.btn_join')}

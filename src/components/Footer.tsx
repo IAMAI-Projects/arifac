@@ -33,7 +33,7 @@ export default function Footer() {
                 { name: 'Member Directory', href: '/members' },
                 { name: 'Benefits', href: '#' },
                 { name: 'Fee Structure', href: '#' },
-                { name: 'Join Now', href: '/join' },
+                { name: 'Join Now', href: '/membership/register' },
             ],
         },
         {
