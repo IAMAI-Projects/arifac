@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, User, Building2, ShieldCheck, CheckSquare, Upload, Search, Briefcase } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useSearchParams } from 'next/navigation';
 
 // Data
 const PRIMARY_SECTORS = [
@@ -38,12 +39,14 @@ const IDENTIFIER_TYPES = [
   "Other Regulatory Licence / Registration Number"
 ];
 
-export default function MembershipRegistrationForm() {
+function RegistrationFormContent() {
+  const searchParams = useSearchParams();
+  const prefilledOrg = searchParams.get('org') || '';
   const [formData, setFormData] = useState({
     // Section 1
     fullName: '', designation: '', mobile: '', email: '', username: '', password: '',
     // Section 2
-    orgName: '', registeredAddress: '', orgWebsite: '', primarySector: '', entityType: '',
+    orgName: prefilledOrg, registeredAddress: '', orgWebsite: '', primarySector: '', entityType: '',
     isRegulated: '',
     // Section 3
     registeredWithFiu: '', fiuRegNumber: '',
@@ -53,6 +56,13 @@ export default function MembershipRegistrationForm() {
     // Section 5
     declarationAccepted: false, remarks: ''
   });
+
+  // Update orgName if searchParams change after initial render
+  useEffect(() => {
+    if (prefilledOrg && !formData.orgName) {
+      setFormData(prev => ({ ...prev, orgName: prefilledOrg }));
+    }
+  }, [prefilledOrg]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -69,12 +79,9 @@ export default function MembershipRegistrationForm() {
   };
 
   return (
-    <main className="bg-gray-50 min-h-screen font-sans flex flex-col">
-      <Navbar />
-
-      <div className="flex-grow pt-32 pb-20 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          {/* Header */}
+    <div className="flex-grow pt-32 pb-20 px-4 sm:px-6">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
           <br />
           <div className="mb-8">
             <Link href="/membership/register" className="inline-flex items-center text-gray-500 hover:text-blue-600 mb-6 transition-colors">
@@ -327,6 +334,16 @@ export default function MembershipRegistrationForm() {
           </motion.form>
         </div>
       </div>
+  );
+}
+
+export default function MembershipRegistrationForm() {
+  return (
+    <main className="bg-gray-50 min-h-screen font-sans flex flex-col">
+      <Navbar />
+      <Suspense fallback={<div className="flex-grow flex items-center justify-center pt-32 pb-20">Loading form...</div>}>
+        <RegistrationFormContent />
+      </Suspense>
       <Footer />
     </main>
   );
