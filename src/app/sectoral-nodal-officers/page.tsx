@@ -78,10 +78,10 @@ export default function SectoralNodalOfficersPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-6xl md:text-7xl font-bold text-[#1d1d1f] mb-10 tracking-tight leading-[1.1]"
+                            className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-[#1d1d1f] mb-8 tracking-tight leading-[1.1]"
                         >
                             Sectoral Nodal <br />
-                            <span className="text-gray-300">Officers.</span>
+                            <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Officers.</span>
                         </motion.h1>
                         <motion.p 
                             initial={{ opacity: 0, y: 20 }}

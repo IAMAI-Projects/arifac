@@ -71,9 +71,9 @@ export default function ContactPage() {
                                     <div className="flex items-center gap-3 text-accent font-bold uppercase tracking-[0.3em] text-[10px]">
                                         <Mail className="w-5 h-5" /> Connect with us
                                     </div>
-                                    <h1 className="text-6xl md:text-8xl font-bold text-[#1d1d1f] tracking-tight leading-[1.1]">
+                                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-[#1d1d1f] tracking-tight leading-[1.1]">
                                         Get in <br />
-                                        <span className="text-gray-300">touch.</span>
+                                        <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">touch.</span>
                                     </h1>
                                     <p className="text-2xl text-gray-500 leading-relaxed font-medium max-w-lg">
                                         Whether you're exploring membership, have questions about our certifications, or want to collaborate.

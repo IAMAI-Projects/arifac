@@ -19,9 +19,8 @@ export default function AboutPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="max-w-4xl mx-auto"
                     >
-                        <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-6 block">Our Mission</span>
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-[#1d1d1f] tracking-tight mb-10 leading-[1.05]">
-                            About <span className="text-secondary">ARIFAC</span>
+                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading leading-[1.1] tracking-tight text-[#1d1d1f] mb-8">
+                            About <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">ARIFAC</span>
                         </h1>
                         <p className="text-2xl md:text-3xl text-secondary max-w-3xl mx-auto font-medium leading-relaxed">
                             India’s AML/CFT capability platform supported by FIU India
@@ -132,9 +131,9 @@ export default function AboutPage() {
                                                 <p className="text-secondary font-medium mb-8">
                                                     For official regulatory guidance, please visit the official Financial Intelligence Unit – India portal.
                                                 </p>
-                                                <a 
-                                                    href="https://fiuindia.gov.in" 
-                                                    target="_blank" 
+                                                <a
+                                                    href="https://fiuindia.gov.in"
+                                                    target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="inline-flex items-center gap-3 bg-[#f5f5f7] hover:bg-[#1d1d1f] hover:text-white px-6 py-4 rounded-2xl font-bold transition-all duration-300 w-full"
                                                 >

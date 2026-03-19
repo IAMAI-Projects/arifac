@@ -90,8 +90,11 @@ export default function MemberBenefitsPage() {
                         <p className="text-[11px] font-bold text-[#1d1d1f] uppercase tracking-[0.2em] mb-6">
                             Membership Benefits
                         </p>
-                        <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-[#1d1d1f] leading-[1.05] tracking-tight mb-8">
-                            Where India's compliance community connects.
+                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading leading-[1.1] tracking-tight text-[#1d1d1f] mb-8">
+                            Where India's{' '}
+                            <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">
+                                compliance community connects.
+                            </span>
                         </h1>
                         <p className="text-lg text-[#6e6e73] leading-relaxed max-w-2xl">
                             ARIFAC Membership offers more than access — it is a sustained partnership with the institutions,
@@ -100,11 +103,6 @@ export default function MemberBenefitsPage() {
                     </motion.div>
                 </div>
             </section>
-
-            {/* ── Divider ───────────────────────────────────────────────── */}
-            <div className="max-w-3xl mx-auto px-6">
-                <hr className="border-gray-200" />
-            </div>
 
             {/* ── 4 Benefit Cards ──────────────────────────────────────── */}
             <section className="py-16 px-6">
@@ -151,18 +149,7 @@ export default function MemberBenefitsPage() {
                         </div>
                     </motion.div>
 
-                    {/* ── Preferential pricing callout ── */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.25 }}
-                        className="mt-6 border-l-4 border-[#c8a96e] bg-[#fdf8ef] rounded-r-2xl px-6 py-5"
-                    >
-                        <p className="text-[14px] text-[#5a460a] leading-relaxed">
-                            <strong className="font-bold">Preferential pricing</strong> applies across all programmes, events, and publications — extending the value of
-                            membership throughout the year.
-                        </p>
-                    </motion.div>
+
                 </div>
             </section>
 

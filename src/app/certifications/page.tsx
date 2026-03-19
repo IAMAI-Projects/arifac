@@ -27,8 +27,8 @@ export default function CertificationsPage() {
                         className="max-w-4xl mx-auto"
                     >
                         <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-6 block">Professional Growth</span>
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-[#1d1d1f] tracking-tight mb-10 leading-[1.05]">
-                            Elevate Your <span className="text-secondary">Expertise</span>
+                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-[#1d1d1f] tracking-tight mb-8 leading-[1.1]">
+                            Elevate Your <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Expertise</span>
                         </h1>
                         <p className="text-2xl md:text-3xl text-secondary max-w-3xl mx-auto font-medium leading-relaxed">
                             A comprehensive, multi-level certification program designed to standardize financial integrity expertise across the Indian financial ecosystem.

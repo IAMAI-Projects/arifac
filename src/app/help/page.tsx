@@ -89,19 +89,19 @@ export default function HelpPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="max-w-3xl mx-auto"
                     >
-                        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                            How can we <span className="text-[#4b00d1]">help you?</span>
+                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 mb-6 leading-tight">
+                            How can we <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">help you?</span>
                         </h1>
                         <p className="text-xl text-gray-600 mb-10 font-light">
                             Search our knowledge base or browse categories below to find answers to your questions.
                         </p>
 
                         <div className="relative group max-w-2xl mx-auto">
-                            <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-[#4b00d1]" size={24} />
+                            <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-accent" size={24} />
                             <input
                                 type="text"
                                 placeholder="Search for help topics, FAQs..."
-                                className="w-full bg-white border-2 border-gray-100 rounded-2xl py-5 pl-16 pr-8 text-lg text-gray-900 focus:outline-none focus:border-[#4b00d1] transition-all shadow-sm focus:shadow-md"
+                                className="w-full bg-white border-2 border-gray-100 rounded-2xl py-5 pl-16 pr-8 text-lg text-gray-900 focus:outline-none focus:border-accent transition-all shadow-sm focus:shadow-md"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />

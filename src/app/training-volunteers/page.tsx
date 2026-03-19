@@ -86,8 +86,8 @@ export default function TrainingVolunteersPage() {
                             className="max-w-xl"
                         >
                             <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-8 block">Contribution</span>
-                            <h1 className="text-5xl md:text-7xl font-bold text-[#1d1d1f] tracking-tight mb-8 leading-[1.05]">
-                                Become a <span className="text-secondary">Trainer</span>
+                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-[#1d1d1f] tracking-tight mb-8 leading-[1.1]">
+                                Become a <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Trainer</span>
                             </h1>
                             <p className="text-2xl text-secondary font-medium leading-relaxed mb-12">
                                 Join our pool of subject matter experts. Your knowledge helps strengthen the national compliance framework.

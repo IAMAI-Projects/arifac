@@ -55,8 +55,8 @@ export default function RegulatoryUpdatesPage() {
                         className="max-w-4xl mx-auto"
                     >
                         <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-6 block">Resources</span>
-                        <h1 className="text-5xl md:text-7xl font-bold text-[#1d1d1f] tracking-tight mb-8 leading-[1.1]">
-                            Regulatory <span className="text-secondary">Updates</span>
+                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-[#1d1d1f] tracking-tight mb-8 leading-[1.1]">
+                            Regulatory <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Updates</span>
                         </h1>
                         <p className="text-xl md:text-2xl text-secondary max-w-2xl mx-auto font-medium leading-relaxed">
                             Access the latest regulatory frameworks, guidelines, and international standards for AML/CFT compliance in India.

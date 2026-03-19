@@ -111,7 +111,9 @@ export default function MeetingsPage() {
                     {/* Page Header */}
                     <div className="max-w-4xl mx-auto mb-24 text-center">
                         <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-6 block">Engagement</span>
-                        <h1 className="text-5xl md:text-7xl font-bold text-[#1d1d1f] tracking-tight mb-8">Meetings &amp; Consultations</h1>
+                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading leading-[1.1] tracking-tight text-[#1d1d1f] mb-8">
+                            Meetings &amp; <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Consultations</span>
+                        </h1>
                         <p className="text-xl md:text-2xl text-secondary max-w-3xl mx-auto font-medium leading-relaxed">
                             Facilitating information sharing and strategic engagement to strengthen the national AML/CFT ecosystem through collaborative national chapter meetings.
                         </p>

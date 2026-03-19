@@ -79,9 +79,12 @@ export default function MembersPage() {
 
             <div className="flex-1 pt-32 pb-20">
                 <div className="container mx-auto px-6">
+                    <br />
                     <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                         <div>
-                            <h1 className="text-4xl font-bold text-primary mb-4">Our Members</h1>
+                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-[#1d1d1f] mb-4">
+                                Our <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Members</span>
+                            </h1>
                             <p className="text-gray-600">Representing over {membersData.length} leading organizations in the ecosystem.</p>
                         </div>
                         <div className="flex gap-4">

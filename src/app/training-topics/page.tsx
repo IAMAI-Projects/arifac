@@ -86,8 +86,8 @@ export default function TrainingTopicsPage() {
                             className="max-w-xl"
                         >
                             <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-8 block">Curriculum</span>
-                            <h1 className="text-5xl md:text-7xl font-bold text-[#1d1d1f] tracking-tight mb-8 leading-[1.05]">
-                                Request a <span className="text-secondary">Topic</span>
+                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-[#1d1d1f] tracking-tight mb-8 leading-[1.1]">
+                                Request a <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Topic</span>
                             </h1>
                             <p className="text-2xl text-secondary font-medium leading-relaxed mb-12">
                                 Help us tailor our training programs to the specific needs of your institution or sector.
