@@ -109,7 +109,7 @@ export default function MembershipRegistrationStep1() {
 
               <div className="bg-white p-6 rounded-xl border border-gray-200 text-gray-600 leading-relaxed mb-8">
                 <ul className="list-disc pl-5 space-y-2 mb-6">
-                  <li>Must be a registered entity or an authorized professional in the financial sector.</li>
+                  <li>Must be a reporting entity or an authorized professional in the financial sector.</li>
                   <li>Must adhere to the guidelines set forth by FIU-India and other regulatory bodies.</li>
                   <li>Requires commitment to continuous learning and sharing of best practices in AML/CFT.</li>
                   <li>The registration must be completed by an Authorised Representative of the entity.</li>
@@ -205,8 +205,8 @@ export default function MembershipRegistrationStep1() {
                 <button
                   disabled={!accepted || !searchQuery.trim() || (filteredOrgs.length === 0 && !newOrgConsent)}
                   className={`inline-flex items-center justify-center px-8 py-4 rounded-full font-semibold text-base transition-all ${accepted && searchQuery.trim() && (filteredOrgs.length > 0 || newOrgConsent)
-                      ? "bg-[#0066cc] text-white hover:bg-[#0077ed] hover:shadow-lg hover:shadow-blue-500/20"
-                      : "bg-gray-100 text-gray-400 cursor-not-allowed"
+                    ? "bg-[#0066cc] text-white hover:bg-[#0077ed] hover:shadow-lg hover:shadow-blue-500/20"
+                    : "bg-gray-100 text-gray-400 cursor-not-allowed"
                     }`}
                   onClick={handleProceed}
                 >

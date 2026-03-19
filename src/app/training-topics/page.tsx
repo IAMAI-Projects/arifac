@@ -16,14 +16,30 @@ export default function TrainingTopicsPage() {
         agreement: false
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState('');
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsSubmitted(true);
-        // Simulate submission
-        setTimeout(() => {
-            console.log('Topic request submitted:', formData);
-        }, 500);
+        setIsSubmitting(true);
+        setError('');
+        
+        try {
+            const res = await fetch('/api/training', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ...formData, type: 'topic' })
+            });
+            
+            if (!res.ok) throw new Error('Failed to submit');
+            setIsSubmitted(true);
+        } catch (err) {
+            setError('Something went wrong. Please try again later.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     if (isSubmitted) {
@@ -188,11 +204,13 @@ export default function TrainingTopicsPage() {
 
                                     <button
                                         type="submit"
-                                        className="bg-[#0066cc] text-white px-12 py-5 rounded-2xl font-bold text-lg transition-all hover:bg-[#0077ed] active:scale-[0.98] shadow-lg shadow-accent/20 flex items-center justify-center gap-2"
+                                        disabled={isSubmitting}
+                                        className="bg-[#0066cc] text-white px-12 py-5 rounded-2xl font-bold text-lg transition-all hover:bg-[#0077ed] active:scale-[0.98] disabled:opacity-70 shadow-lg shadow-accent/20 flex items-center justify-center gap-2"
                                     >
-                                        Submit Request <Send className="w-5 h-5" />
+                                        {isSubmitting ? 'Submitting...' : <>Submit Request <Send className="w-5 h-5" /></>}
                                     </button>
                                 </div>
+                                {error && <p className="text-red-500 font-medium text-center mt-4">{error}</p>}
                             </form>
                         </motion.div>
                     </div>
