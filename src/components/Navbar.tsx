@@ -25,6 +25,17 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    useEffect(() => {
+        if (isMobileMenuOpen || isSearchOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isMobileMenuOpen, isSearchOpen]);
+
     const navLinks = [
         {
             name: t('nav.explore'),
@@ -41,9 +52,9 @@ export default function Navbar() {
             name: t('nav.events'),
             href: '/meetings',
             dropdown: [
-                { name: t('Events & Meetings'), href: '/meetings', icon: Calendar },
+                { name: t('Meetings and Consulations'), href: '/meetings', icon: Calendar },
                 { name: t('nav.gallery'), href: '/gallery', icon: ImageIcon },
-                { name: t('nav.chapters'), href: '#', icon: MapPin },
+
             ]
         },
         {
@@ -52,12 +63,8 @@ export default function Navbar() {
             dropdown: [
                 { name: t('nav.updates'), href: '/regulatory-updates', icon: Bell },
                 { name: t('nav.research'), href: '#', icon: FileText },
-                { name: t('nav.enterprise'), href: '#', icon: Building },
-                { name: t('nav.tools'), href: '#', icon: Wrench },
                 { name: t('nav.webinars'), href: '#', icon: Video },
-                { name: t('nav.press'), href: '#', icon: Newspaper },
                 { name: t('nav.insights'), href: '#', icon: Lightbulb },
-                { name: t('nav.papers'), href: '#', icon: BookOpen },
             ]
         },
         {
@@ -92,11 +99,8 @@ export default function Navbar() {
     return (
         <>
             {/* IAMAI Partnership Top Bar */}
-            <motion.div
-                initial={{ y: 0 }}
-                animate={{ y: isScrolled ? -32 : 0 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-                className="fixed top-0 left-0 right-0 z-[60] h-8 bg-[#1d1d1f]/90 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-6"
+            <div
+                className="absolute top-0 left-0 right-0 z-[60] h-8 bg-[#1d1d1f]/90 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-6"
             >
                 {/* Left side area to balance the news ticker */}
                 <div className="flex-1 flex items-center justify-start min-w-[20px] md:min-w-[140px]" />
@@ -194,15 +198,11 @@ export default function Navbar() {
                         </AnimatePresence>
                     </div>
                 </div>
-            </motion.div>
+            </div>
 
             <nav
-                className={`fixed left-0 right-0 z-50 transition-all duration-500 border-b border-gray-100/50 ${
-                    activeDropdown || isMobileMenuOpen ? 'bg-white' : 'bg-white/90 backdrop-blur-xl'
-                } ${isScrolled
-                    ? 'top-0 py-2 shadow-sm'
-                    : 'top-8 py-3'
-                    }`}
+                className={`absolute left-0 right-0 z-50 transition-all duration-500 border-b border-gray-100/50 ${activeDropdown || isMobileMenuOpen ? 'bg-white' : 'bg-white/90 backdrop-blur-xl'
+                    } top-8 py-3`}
                 onMouseLeave={() => {
                     if (activeDropdown !== 'account') setActiveDropdown(null);
                 }}
@@ -245,7 +245,7 @@ export default function Navbar() {
                                     >
                                         {link.name}
                                         {activeDropdown === link.name && (
-                                            <motion.div 
+                                            <motion.div
                                                 layoutId="active-nav-indicator"
                                                 className="absolute bottom-0 left-5 right-5 h-[3px] bg-accent rounded-t-full"
                                                 initial={{ opacity: 0 }}
@@ -318,13 +318,7 @@ export default function Navbar() {
                                             >
                                                 {t('nav.member_platform')}
                                             </Link>
-                                            <hr className="my-1.5 border-gray-100" />
-                                            <Link
-                                                href="/"
-                                                className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
-                                            >
-                                                {t('nav.team_login')}
-                                            </Link>
+
                                             {getUser() && (
                                                 <button
                                                     onClick={() => {

@@ -13,9 +13,9 @@ interface LanguageContextType {
 const translations: Record<Language, Record<string, string>> = {
     EN: {
         // Navbar
-        'nav.certifications': 'Certifications & Training',
+        'nav.certifications': 'ARIFAC Certifcations & Training',
         'nav.events': 'Industry Engagement',
-        'nav.explore': 'Explore',
+        'nav.explore': 'Discover',
         'nav.resources': 'Resources',
         'nav.help': 'Help',
         'nav.top_aegis': 'Operating under the aegis of IAMAI',

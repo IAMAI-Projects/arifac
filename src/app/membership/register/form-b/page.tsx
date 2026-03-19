@@ -116,7 +116,7 @@ function RegistrationFormBContent() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="col-span-1 md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Name of Organisation *</label>
-                  <input required name="orgName" value={formData.orgName} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter organisation name" />
+                  <input required name="orgName" value={formData.orgName} onChange={handleInputChange} readOnly={!!prefilledOrg} type="text" className={`w-full px-4 py-3 rounded-xl border border-gray-300 transition-all ${!!prefilledOrg ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-gray-200' : 'focus:ring-2 focus:ring-blue-500 focus:border-blue-500'}`} placeholder="Enter organisation name" />
                 </div>
                 <div className="col-span-1 md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Registered Office Address *</label>

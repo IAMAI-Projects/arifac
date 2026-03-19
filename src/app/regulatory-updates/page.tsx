@@ -25,7 +25,7 @@ export default function RegulatoryUpdatesPage() {
             bg: "bg-purple-50"
         },
         {
-            title: "FPAC Note",
+            title: "FPAC",
             url: "https://fiuindia.gov.in/files/FPAC/FPACnote.pdf",
             description: "Feedback and Advisory Committee notes providing strategic insights on reporting quality.",
             icon: AlertCircle,
@@ -84,16 +84,16 @@ export default function RegulatoryUpdatesPage() {
                                 <div className={`w-14 h-14 rounded-2xl ${resource.bg} flex items-center justify-center ${resource.color} mb-8 transition-transform group-hover:scale-110 duration-500`}>
                                     <resource.icon size={28} />
                                 </div>
-                                
+
                                 <h3 className="text-2xl font-bold text-[#1d1d1f] mb-4 flex items-center gap-2">
                                     {resource.title}
                                     <ExternalLink size={18} className="opacity-0 group-hover:opacity-100 transition-opacity text-accent" />
                                 </h3>
-                                
+
                                 <p className="text-secondary text-lg leading-relaxed mb-8 flex-grow">
                                     {resource.description}
                                 </p>
-                                
+
                                 <div className="flex items-center gap-2 text-accent font-bold text-[14px] uppercase tracking-wider">
                                     Access Resource <LinkIcon size={14} />
                                 </div>
@@ -108,7 +108,7 @@ export default function RegulatoryUpdatesPage() {
                 <div className="container mx-auto px-6">
                     <div className="max-w-4xl mx-auto p-10 rounded-[40px] bg-[#f5f5f7] border border-gray-100 relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
-                        
+
                         <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center">
                             <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-sm shrink-0">
                                 <FileText size={28} className="text-accent" />
@@ -118,9 +118,9 @@ export default function RegulatoryUpdatesPage() {
                                 <p className="text-secondary leading-relaxed font-medium">
                                     While ARIFAC provides access to these resources for professional development and knowledge sharing, reporting entities must always refer to the official portals of FIU-IND and respective sectoral regulators for the most current statutory requirements and legal notices.
                                 </p>
-                                <a 
-                                    href="https://fiuindia.gov.in" 
-                                    target="_blank" 
+                                <a
+                                    href="https://fiuindia.gov.in"
+                                    target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 text-accent font-bold hover:underline"
                                 >

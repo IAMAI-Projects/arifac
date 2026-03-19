@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { LanguageProvider } from '@/components/LanguageContext';
+import ScrollToTop from '@/components/ScrollToTop';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -42,6 +43,7 @@ export default function RootLayout({
       >
         <LanguageProvider>
           {children}
+          <ScrollToTop />
         </LanguageProvider>
       </body>
     </html>

@@ -65,51 +65,9 @@ export default function HeroSection() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.6 }}
-                        className="text-[15px] md:text-[16px] text-[#a1a1aa] max-w-4xl font-light leading-[1.8] whitespace-pre-wrap"
+                        className="text-[15px] md:text-[16px] text-gray-900 max-w-4xl font-light leading-[1.8] whitespace-pre-wrap"
                     >
-                        {t('hero.description').split(new RegExp(`(${[
-                            'compliance capacity',
-                            'अनुपालन क्षमता',
-                            'knowledge sharing',
-                            'ज्ञान साझाकरण',
-                            'professional training',
-                            'पेशेवर प्रशिक्षण',
-                            'training',
-                            'प्रशिक्षण',
-                            'certification',
-                            'प्रमाणन',
-                            'policy dialogue',
-                            'नीति संवाद',
-                            'industry collaboration',
-                            'उद्योग सहयोग'
-                        ].join('|')})`, 'gi')).map((part, index) => {
-                            const lowerPart = part.toLowerCase();
-                            const isYellowHighlight = [
-                                'compliance capacity',
-                                'अनुपालन क्षमता',
-                                'knowledge sharing',
-                                'ज्ञान साझाकरण',
-                                'professional training',
-                                'पेशेवर प्रशिक्षण',
-                                'training',
-                                'प्रशिक्षण',
-                                'certification',
-                                'प्रमाणन',
-                                'policy dialogue',
-                                'नीति संवाद',
-                                'industry collaboration',
-                                'उद्योग सहयोग'
-                            ].includes(lowerPart);
-
-                            if (isYellowHighlight) {
-                                return (
-                                    <span key={index} className="px-1 py-[2px] mx-[2px] rounded bg-[#fcfae8] text-[#b5a222] font-medium tracking-wide">
-                                        {part}
-                                    </span>
-                                );
-                            }
-                            return <span key={index}>{part}</span>;
-                        })}
+                        {t('hero.description')}
                     </motion.div>
 
                     {/* Action Buttons */}

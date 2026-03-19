@@ -30,7 +30,7 @@ export default function MembershipRegistrationStep1() {
     if (selectedOrg && PRE_APPROVED_ORGS.includes(selectedOrg)) {
       window.location.href = `/membership/register/form?org=${encodeURIComponent(selectedOrg)}`;
     } else {
-      window.location.href = "/membership/register/form-b";
+      window.location.href = `/membership/register/form-b?org=${encodeURIComponent(searchQuery)}`;
     }
   };
 
