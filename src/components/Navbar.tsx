@@ -75,7 +75,7 @@ export default function Navbar() {
         },
         {
             name: t('Resources'),
-            href: '/certifications',
+            href: '/resources',
         },
     ];
 
