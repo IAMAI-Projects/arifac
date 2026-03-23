@@ -63,7 +63,7 @@ export default function Navbar() {
             name: t('Programs'),
             href: '#',
             dropdown: [
-                { name: t('cert.all'), href: '/certifications', icon: Award },
+                { name: t('Training & Certification (LMS)'), href: '/certifications', icon: Award },
                 { name: t('nav.training_leads'), href: '/training-leads', icon: GraduationCap },
                 { name: t('nav.volunteers'), href: '/training-volunteers', icon: Users2 },
                 { name: t('nav.topics'), href: '/training-topics', icon: Layers },
