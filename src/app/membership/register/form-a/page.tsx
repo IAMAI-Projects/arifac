@@ -44,7 +44,7 @@ function RegistrationFormContent() {
   const prefilledOrg = searchParams.get('org') || '';
   const [formData, setFormData] = useState({
     // Section 1
-    fullName: '', designation: '', mobile: '', email: '', username: '', password: '',
+    salutation: '', fullName: '', designation: '', countryCode: '+91', mobile: '', email: '', username: '', password: '',
     // Section 2
     orgName: prefilledOrg, registeredAddress: '', orgWebsite: '', primarySector: '', entityType: '',
     isRegulated: '',
@@ -88,7 +88,8 @@ function RegistrationFormContent() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form Data Submitted:", formData);
-    alert("Proceeding to Payment Gateway (To be implemented)");
+    // Simulate payment and then redirect to dashboard
+    window.location.href = '/membership/dashboard';
   };
 
   return (
@@ -126,28 +127,49 @@ function RegistrationFormContent() {
               </div>
               <h2 className="text-xl font-bold text-gray-900">1. Authorised Representative Details</h2>
             </div>
-            <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="col-span-1 md:col-span-2">
+            <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-6 gap-6">
+              <div className="col-span-1 md:col-span-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Salutation *</label>
+                <select required name="salutation" value={formData.salutation} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white">
+                  <option value="" disabled>Select</option>
+                  <option value="Mr.">Mr.</option>
+                  <option value="Ms.">Ms.</option>
+                  <option value="Mrs.">Mrs.</option>
+                  <option value="Dr.">Dr.</option>
+                  <option value="Prof.">Prof.</option>
+                </select>
+              </div>
+              <div className="col-span-1 md:col-span-5">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
                 <input required name="fullName" value={formData.fullName} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter full name" />
               </div>
-              <div>
+              <div className="col-span-1 md:col-span-3">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Designation *</label>
                 <input required name="designation" value={formData.designation} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter designation" />
               </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Mobile *</label>
-                <input required name="mobile" value={formData.mobile} onChange={handleInputChange} type="tel" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter mobile number" />
+              <div className="col-span-1 md:col-span-3">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Mobile Number *</label>
+                <div className="flex gap-2">
+                  <select name="countryCode" value={formData.countryCode} onChange={handleInputChange} className="w-[100px] px-3 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-sm">
+                    <option value="+91">+91 (IN)</option>
+                    <option value="+1">+1 (US)</option>
+                    <option value="+44">+44 (UK)</option>
+                    <option value="+971">+971 (UAE)</option>
+                    <option value="+65">+65 (SG)</option>
+                    <option value="+61">+61 (AU)</option>
+                  </select>
+                  <input required name="mobile" value={formData.mobile} onChange={handleInputChange} type="tel" className="flex-grow px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter number" />
+                </div>
               </div>
-              <div>
+              <div className="col-span-1 md:col-span-3">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
                 <input required name="email" value={formData.email} onChange={handleInputChange} type="email" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter official email" />
               </div>
-              <div>
+              <div className="col-span-1 md:col-span-3">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Preferred Username *</label>
                 <input required name="username" value={formData.username} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Choose a username" />
               </div>
-              <div className="col-span-1 md:col-span-2">
+              <div className="col-span-1 md:col-span-6">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Preferred Password *</label>
                 <input required name="password" value={formData.password} onChange={handleInputChange} type="password" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Create a strong password" />
               </div>

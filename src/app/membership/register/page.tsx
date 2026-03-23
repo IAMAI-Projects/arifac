@@ -28,7 +28,7 @@ export default function MembershipRegistrationStep1() {
 
     // If selected from list, go to Form A (or /form), else go to Form B (or /form-b)
     if (selectedOrg && PRE_APPROVED_ORGS.includes(selectedOrg)) {
-      window.location.href = `/membership/register/form?org=${encodeURIComponent(selectedOrg)}`;
+      window.location.href = `/membership/register/form-a?org=${encodeURIComponent(selectedOrg)}`;
     } else {
       window.location.href = `/membership/register/form-b?org=${encodeURIComponent(searchQuery)}`;
     }

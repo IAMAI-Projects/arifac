@@ -8,6 +8,14 @@ import { Menu, X, ChevronDown, HelpCircle, Search, User, ShoppingCart, Linkedin,
 import Logo from './Logo';
 import { getUser, logout } from '@/lib/auth';
 import { useLanguage } from './LanguageContext';
+import { LucideIcon } from 'lucide-react';
+
+interface NavLink {
+    name: string;
+    href: string;
+    dropdown?: { name: string; href: string; icon?: LucideIcon }[];
+    sections?: { title: string; links: { name: string; href: string; icon?: LucideIcon }[] }[];
+}
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -36,59 +44,38 @@ export default function Navbar() {
         };
     }, [isMobileMenuOpen, isSearchOpen]);
 
-    const navLinks = [
+    const navLinks: NavLink[] = [
         {
-            name: t('nav.explore'),
-            href: '#',
-            dropdown: [
-                { name: t('nav.about'), href: '/about', icon: Info },
-                { name: t('nav.members'), href: '/members', icon: Users },
-                { name: t('nav.benefits'), href: '/member-benefits', icon: Star },
-                { name: t('nav.partnerships'), href: '#', icon: Handshake },
-            ]
+            name: t('About'),
+            href: '/about',
         },
 
         {
-            name: t('nav.events'),
+            name: t('Membership'),
             href: '/meetings',
             dropdown: [
-                { name: t('Meetings and Consulations'), href: '/meetings', icon: Calendar },
-                { name: t('nav.gallery'), href: '/gallery', icon: ImageIcon },
+                { name: t('Membership Programs'), href: '/member-benefits', icon: Calendar },
+                { name: t('Membership Structure and Fee'), href: '/member-structure-fee', icon: ImageIcon },
 
             ]
         },
         {
-            name: t('nav.resources'),
+            name: t('Programs'),
             href: '#',
             dropdown: [
-                { name: t('nav.updates'), href: '/regulatory-updates', icon: Bell },
-                { name: t('nav.research'), href: '#', icon: FileText },
-                { name: t('nav.webinars'), href: '#', icon: Video },
-                { name: t('nav.insights'), href: '#', icon: Lightbulb },
+                { name: t('cert.all'), href: '/certifications', icon: Award },
+                { name: t('nav.training_leads'), href: '/training-leads', icon: GraduationCap },
+                { name: t('nav.volunteers'), href: '/training-volunteers', icon: Users2 },
+                { name: t('nav.topics'), href: '/training-topics', icon: Layers },
             ]
         },
         {
-            name: t('nav.certifications'),
+            name: t('Regulatory Updates'),
+            href: '/regulatory-updates',
+        },
+        {
+            name: t('Resources'),
             href: '/certifications',
-            sections: [
-                {
-                    title: t('nav.certifications'),
-                    links: [
-                        { name: t('cert.all'), href: '/certifications', icon: Award },
-                        { name: t('nav.exam'), href: '#', icon: FileText },
-                        { name: t('nav.materials'), href: '#', icon: BookMarked },
-                        { name: t('nav.verify'), href: '#', icon: CheckCircle },
-                    ]
-                },
-                {
-                    title: t('nav.training'),
-                    links: [
-                        { name: t('nav.training_leads'), href: '/training-leads', icon: GraduationCap },
-                        { name: t('nav.volunteers'), href: '/training-volunteers', icon: Users2 },
-                        { name: t('nav.topics'), href: '/training-topics', icon: Layers },
-                    ]
-                }
-            ]
         },
     ];
 
@@ -238,22 +225,37 @@ export default function Navbar() {
                                 <div
                                     key={link.name}
                                     className="flex items-center h-full relative"
-                                    onMouseEnter={() => setActiveDropdown(link.name)}
+                                    onMouseEnter={() => {
+                                        if (link.dropdown || link.sections) {
+                                            setActiveDropdown(link.name);
+                                        } else {
+                                            setActiveDropdown(null);
+                                        }
+                                    }}
                                 >
-                                    <button
-                                        className={`relative group px-5 py-4 text-[15px] font-medium tracking-tight transition-colors duration-200 flex items-center gap-1.5 ${activeDropdown === link.name ? 'text-accent' : 'text-[#1d1d1f]/80 hover:text-accent'}`}
-                                    >
-                                        {link.name}
-                                        {activeDropdown === link.name && (
-                                            <motion.div
-                                                layoutId="active-nav-indicator"
-                                                className="absolute bottom-0 left-5 right-5 h-[3px] bg-accent rounded-t-full"
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                transition={{ duration: 0.2 }}
-                                            />
-                                        )}
-                                    </button>
+                                    {link.href && !link.dropdown && !link.sections ? (
+                                        <Link
+                                            href={link.href}
+                                            className={`relative group px-5 py-4 text-[15px] font-medium tracking-tight transition-colors duration-200 flex items-center gap-1.5 ${activeDropdown === link.name ? 'text-accent' : 'text-[#1d1d1f]/80 hover:text-accent'}`}
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    ) : (
+                                        <button
+                                            className={`relative group px-5 py-4 text-[15px] font-medium tracking-tight transition-colors duration-200 flex items-center gap-1.5 ${activeDropdown === link.name ? 'text-accent' : 'text-[#1d1d1f]/80 hover:text-accent'}`}
+                                        >
+                                            {link.name}
+                                            {activeDropdown === link.name && (
+                                                <motion.div
+                                                    layoutId="active-nav-indicator"
+                                                    className="absolute bottom-0 left-5 right-5 h-[3px] bg-accent rounded-t-full"
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 1 }}
+                                                    transition={{ duration: 0.2 }}
+                                                />
+                                            )}
+                                        </button>
+                                    )}
                                 </div>
                             ))}
                         </div>
@@ -349,64 +351,67 @@ export default function Navbar() {
 
                 {/* Mega Menu Dropdown */}
                 <AnimatePresence>
-                    {activeDropdown && activeDropdown !== 'account' && (
-                        <motion.div
-                            key="mega-menu"
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.2, ease: 'easeInOut' }}
-                            className="absolute top-full left-0 right-0 bg-white border-t border-b border-gray-100 overflow-hidden shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)]"
-                        >
-                            <div className="container mx-auto px-6 py-10">
-                                {(() => {
-                                    const link = navLinks.find(l => l.name === activeDropdown);
-                                    if (!link) return null;
+                    {activeDropdown && activeDropdown !== 'account' && (() => {
+                        const link = navLinks.find(l => l.name === activeDropdown);
+                        return link && (link.dropdown || link.sections);
+                    })() && (
+                            <motion.div
+                                key="mega-menu"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.2, ease: 'easeInOut' }}
+                                className="absolute top-full left-0 right-0 bg-white border-t border-b border-gray-100 overflow-hidden shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)]"
+                            >
+                                <div className="container mx-auto px-6 py-10">
+                                    {(() => {
+                                        const link = navLinks.find(l => l.name === activeDropdown);
+                                        if (!link) return null;
 
-                                    return (
-                                        <div className="flex justify-center flex-wrap gap-8 lg:gap-16">
-                                            {link.sections ? (
-                                                link.sections.map((section) => (
-                                                    <div key={section.title} className="flex flex-col items-center gap-6">
-                                                        <h3 className="text-[12px] font-bold text-gray-400 uppercase tracking-widest px-3">
-                                                            {section.title}
-                                                        </h3>
-                                                        <div className="flex justify-center flex-wrap gap-8 lg:gap-12 max-w-2xl">
-                                                            {section.links.map((subItem) => (
-                                                                <Link key={subItem.name} href={subItem.href} className="flex flex-col items-center gap-4 w-[100px] group" onClick={() => setActiveDropdown(null)}>
-                                                                    <div className="w-16 h-16 rounded-full bg-white border border-gray-100 flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 group-hover:bg-accent group-hover:border-accent group-hover:text-white transition-all text-[#1d1d1f]/60 duration-300">
-                                                                        {subItem.icon && <subItem.icon size={26} strokeWidth={1.5} />}
-                                                                        {!subItem.icon && <span className="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-white transition-colors duration-300" />}
-                                                                    </div>
-                                                                    <span className="text-[14px] font-medium text-center leading-tight text-[#1d1d1f]/80 group-hover:text-accent transition-colors">
-                                                                        {subItem.name}
-                                                                    </span>
-                                                                </Link>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                ))
-                                            ) : (
-                                                <div className="flex justify-center flex-wrap gap-8 lg:gap-12 max-w-4xl">
-                                                    {link.dropdown?.map((subItem) => (
-                                                        <Link key={subItem.name} href={subItem.href} className="flex flex-col items-center gap-4 w-[100px] group" onClick={() => setActiveDropdown(null)}>
-                                                            <div className="w-16 h-16 rounded-full bg-white border border-gray-100 flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 group-hover:bg-accent group-hover:border-accent group-hover:text-white transition-all text-[#1d1d1f]/60 duration-300">
-                                                                {subItem.icon && <subItem.icon size={26} strokeWidth={1.5} />}
-                                                                {!subItem.icon && <span className="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-white transition-colors duration-300" />}
+                                        return (
+                                            <div className="flex justify-center flex-wrap gap-8 lg:gap-16">
+                                                {link.sections ? (
+                                                    link.sections.map((section) => (
+                                                        <div key={section.title} className="flex flex-col items-center gap-6">
+                                                            <h3 className="text-[12px] font-bold text-gray-400 uppercase tracking-widest px-3">
+                                                                {section.title}
+                                                            </h3>
+                                                            <div className="flex justify-center flex-wrap gap-8 lg:gap-12 max-w-2xl">
+                                                                {section.links.map((subItem) => (
+                                                                    <Link key={subItem.name} href={subItem.href} className="flex flex-col items-center gap-4 w-[100px] group" onClick={() => setActiveDropdown(null)}>
+                                                                        <div className="w-16 h-16 rounded-full bg-white border border-gray-100 flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 group-hover:bg-accent group-hover:border-accent group-hover:text-white transition-all text-[#1d1d1f]/60 duration-300">
+                                                                            {subItem.icon && <subItem.icon size={26} strokeWidth={1.5} />}
+                                                                            {!subItem.icon && <span className="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-white transition-colors duration-300" />}
+                                                                        </div>
+                                                                        <span className="text-[14px] font-medium text-center leading-tight text-[#1d1d1f]/80 group-hover:text-accent transition-colors">
+                                                                            {subItem.name}
+                                                                        </span>
+                                                                    </Link>
+                                                                ))}
                                                             </div>
-                                                            <span className="text-[14px] font-medium text-center leading-tight text-[#1d1d1f]/80 group-hover:text-accent transition-colors">
-                                                                {subItem.name}
-                                                            </span>
-                                                        </Link>
-                                                    ))}
-                                                </div>
-                                            )}
-                                        </div>
-                                    );
-                                })()}
-                            </div>
-                        </motion.div>
-                    )}
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <div className="flex justify-center flex-wrap gap-8 lg:gap-12 max-w-4xl">
+                                                        {link.dropdown?.map((subItem) => (
+                                                            <Link key={subItem.name} href={subItem.href} className="flex flex-col items-center gap-4 w-[100px] group" onClick={() => setActiveDropdown(null)}>
+                                                                <div className="w-16 h-16 rounded-full bg-white border border-gray-100 flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 group-hover:bg-accent group-hover:border-accent group-hover:text-white transition-all text-[#1d1d1f]/60 duration-300">
+                                                                    {subItem.icon && <subItem.icon size={26} strokeWidth={1.5} />}
+                                                                    {!subItem.icon && <span className="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-white transition-colors duration-300" />}
+                                                                </div>
+                                                                <span className="text-[14px] font-medium text-center leading-tight text-[#1d1d1f]/80 group-hover:text-accent transition-colors">
+                                                                    {subItem.name}
+                                                                </span>
+                                                            </Link>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        );
+                                    })()}
+                                </div>
+                            </motion.div>
+                        )}
                 </AnimatePresence>
             </nav>
 
