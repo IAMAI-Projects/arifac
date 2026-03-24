@@ -64,6 +64,7 @@ export default function Navbar() {
             href: '#',
             dropdown: [
                 { name: t('Training & Certification (LMS)'), href: '/certifications', icon: Award },
+                { name: t('Industry Consultationss'), href: '/meetings', icon: GraduationCap },
                 { name: t('nav.training_leads'), href: '/training-leads', icon: GraduationCap },
                 { name: t('nav.volunteers'), href: '/training-volunteers', icon: Users2 },
                 { name: t('nav.topics'), href: '/training-topics', icon: Layers },

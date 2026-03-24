@@ -87,8 +87,8 @@ export default function ContactPage() {
                                         </div>
                                         <div>
                                             <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">Direct Email</div>
-                                            <a href="mailto:s.avanish@iamai.in" className="text-2xl font-bold text-[#1d1d1f] hover:text-accent transition-colors underline decoration-gray-200 underline-offset-8">
-                                                s.avanish@iamai.in
+                                            <a href="mailto:help.arifac@iamai.in" className="text-2xl font-bold text-[#1d1d1f] hover:text-accent transition-colors underline decoration-gray-200 underline-offset-8">
+                                                help.arifac@iamai.in
                                             </a>
                                         </div>
                                     </div>
@@ -202,7 +202,7 @@ export default function ContactPage() {
                                     )}
                                 </div>
 
-                                <motion.div 
+                                <motion.div
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 1 }}

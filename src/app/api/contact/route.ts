@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
         await transporter.sendMail({
             from: `"ARIFAC Contact Form" <${process.env.SMTP_USER}>`,
             replyTo: `"${name}" <${email}>`,
-            to: 's.avanish@iamai.in',
+            to: 'help.arifac@iamai.in',
             subject: `[ARIFAC Contact] ${subject}`,
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
