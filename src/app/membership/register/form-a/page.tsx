@@ -85,11 +85,55 @@ function RegistrationFormContent() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
-    // Simulate payment and then redirect to dashboard
-    window.location.href = '/membership/dashboard';
+    setIsSubmitting(true);
+    
+    try {
+      const orderId = `ORD-${Date.now()}`;
+      const response = await fetch('/api/ccavenue/initiate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: '5000.00', // Mock amount for demonstration
+          orderId,
+          billingName: formData.fullName,
+          billingAddress: formData.registeredAddress,
+          billingEmail: formData.email,
+          billingTel: formData.mobile
+        })
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Failed to initiate payment');
+
+      // Create and submit hidden form to CCAvenue
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = data.postUrl;
+
+      const encRequestInput = document.createElement('input');
+      encRequestInput.type = 'hidden';
+      encRequestInput.name = 'encRequest';
+      encRequestInput.value = data.encRequest;
+      form.appendChild(encRequestInput);
+
+      const accessCodeInput = document.createElement('input');
+      accessCodeInput.type = 'hidden';
+      accessCodeInput.name = 'access_code';
+      accessCodeInput.value = data.accessCode;
+      form.appendChild(accessCodeInput);
+
+      document.body.appendChild(form);
+      form.submit();
+
+    } catch (err) {
+      console.error("Payment initiation error:", err);
+      alert('Error initiating payment. Please check your console for details.');
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -431,9 +475,17 @@ function RegistrationFormContent() {
           <div className="flex justify-end pt-4 border-t border-gray-200">
             <button
               type="submit"
-              className="inline-flex items-center justify-center bg-[#0066cc] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0077ed] hover:shadow-xl hover:shadow-blue-500/20 transition-all transform hover:-translate-y-0.5"
+              disabled={isSubmitting}
+              className="inline-flex items-center justify-center bg-[#0066cc] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0077ed] hover:shadow-xl hover:shadow-blue-500/20 transition-all transform hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              Proceed to Payment
+              {isSubmitting ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-3" />
+                  Processing...
+                </>
+              ) : (
+                'Proceed to Payment'
+              )}
             </button>
           </div>
 
