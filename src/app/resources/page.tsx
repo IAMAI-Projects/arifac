@@ -16,6 +16,7 @@ import {
     ArrowRight,
     Search
 } from 'lucide-react';
+import Link from 'next/link';
 import { useLanguage } from '@/components/LanguageContext';
 
 export default function ResourcesPage() {
@@ -26,37 +27,15 @@ export default function ResourcesPage() {
             title: "Regulatory Updates",
             desc: "Stay informed about latest changes in AML/CFT laws, regulations, and circulars from FIU-IND and other regulators.",
             icon: Newspaper,
-            color: "blue"
-        },
-        {
-            title: "Training Materials",
-            desc: "Comprehensive modules, presentations, and study guides for AML/CFT compliance professionals.",
-            icon: BookOpen,
-            color: "gold"
-        },
-        {
-            title: "Typologies",
-            desc: "Case studies and reports on emerging financial crime trends, red flags, and money laundering methods.",
-            icon: Lightbulb,
-            color: "amber"
-        },
-        {
-            title: "Guidance Notes",
-            desc: "Practical instructions and best practices for implementing effective AML/CFT control frameworks.",
-            icon: FileText,
-            color: "emerald"
-        },
-        {
-            title: "Reports",
-            desc: "Industry-wide analytical reports, trend analysis, and strategic insights on financial integrity.",
-            icon: BarChart3,
-            color: "indigo"
+            color: "blue",
+            href: "/regulatory-updates"
         },
         {
             title: "FAQs",
             desc: "Frequently asked questions regarding reporting obligations, compliance requirements, and ARIFAC programs.",
             icon: MessageCircleQuestion,
-            color: "purple"
+            color: "purple",
+            href: "/faqs"
         }
     ];
 
@@ -121,10 +100,10 @@ export default function ResourcesPage() {
                                         {section.desc}
                                     </p>
 
-                                    <div className="flex items-center gap-2 text-accent font-bold group/btn">
+                                    <Link href={section.href} className="flex items-center gap-2 text-accent font-bold group/btn">
                                         <span>Explore Section</span>
                                         <ArrowRight size={18} className="group-hover/btn:translate-x-1 transition-transform" />
-                                    </div>
+                                    </Link>
                                 </motion.div>
                             ))}
                         </div>
@@ -157,21 +136,19 @@ export default function ResourcesPage() {
             </section>
 
             {/* Disclaimer Section */}
-            <section className="py-24 bg-[#f5f5f7]">
+            <section className="py-16 bg-white border-t border-gray-100">
                 <div className="container mx-auto px-6">
-                    <div className="max-w-4xl mx-auto">
-                        <div className="p-10 md:p-16 rounded-[48px] bg-white border border-gray-100 shadow-sm relative overflow-hidden">
-                            <div className="flex items-center gap-4 mb-8">
-                                <div className="p-3 rounded-2xl bg-red-50 text-red-500">
-                                    <ShieldAlert size={28} />
-                                </div>
-                                <h2 className="text-2xl md:text-3xl font-bold text-[#1d1d1f]">Disclaimer</h2>
+                    <div className="max-w-3xl mx-auto">
+                        <div className="p-8 rounded-2xl bg-[#f5f5f7] border border-gray-200/50">
+                            <div className="flex items-center gap-3 mb-4 text-gray-500">
+                                <ShieldAlert size={20} />
+                                <h2 className="text-sm font-bold uppercase tracking-wider">Disclaimer</h2>
                             </div>
-                            <div className="space-y-6 text-secondary font-medium leading-relaxed">
-                                <p className="text-lg">
+                            <div className="space-y-4 text-secondary text-sm md:text-base leading-relaxed">
+                                <p>
                                     The materials provided in this section are for informational purposes only and do not constitute legal or regulatory advice.
                                 </p>
-                                <p className="text-lg border-l-4 border-accent pl-6 py-2 italic font-semibold text-[#1d1d1f]">
+                                <p className="text-gray-500 italic font-medium">
                                     Reporting entities are advised to refer to official sources, including FIU-IND circulars and relevant statutes, to ensure statutory compliance.
                                 </p>
                             </div>

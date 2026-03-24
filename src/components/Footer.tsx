@@ -19,29 +19,18 @@ export default function Footer() {
             ],
         },
         {
-            title: t('nav.certifications'),
-            links: [
-                { name: 'Exam Framework', href: '#' },
-                { name: 'Study Materials', href: '#' },
-                { name: 'Continuing Education', href: '#' },
-                { name: 'Verify a Certificate', href: '#' },
-            ],
-        },
-        {
             title: 'Membership',
             links: [
                 { name: 'Member Directory', href: '/members' },
-                { name: 'Benefits', href: '#' },
-                { name: 'Fee Structure', href: '#' },
-                { name: 'Join Now', href: '/membership/register' },
             ],
         },
         {
-            title: t('nav.resources'),
+            title: t('Others'),
             links: [
+                { name: 'Resources', href: '/resources' },
                 { name: 'Gallery', href: '/gallery' },
-                { name: 'Regulatory Updates', href: '/regulatory-updates' },
-                { name: 'Research & Reports', href: '#' },
+                { name: 'Terms & Conditions', href: '#' },
+                { name: 'Privacy Policy', href: '#' },
 
             ],
         },

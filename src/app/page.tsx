@@ -15,13 +15,11 @@ export default function Home() {
     <main className="bg-background min-h-screen font-sans">
       <Navbar />
       <HeroSection />
-      
+
       <div className="relative z-10">
         <LatestMeetingsSection />
-        <CertificationScrollSection />
         <MembershipSection />
         <EngagementSection />
-        <QuickGallerySection />
         <PartnersSection />
         <ResourcesSection />
       </div>

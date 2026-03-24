@@ -8,7 +8,7 @@ import { FileText, Link as LinkIcon, ExternalLink, ShieldCheck, BookOpen, AlertC
 
 export default function RegulatoryUpdatesPage() {
     const authorities = [
-        "FIU-IND", "RBI", "SEBI", "IRDAI", "Ministry of Finance", "Other Authorities"
+        "FIU-IND", "RBI", "SEBI", "IRDAI", "Ministry of Finance"
     ];
 
     const categories = [
@@ -186,22 +186,6 @@ export default function RegulatoryUpdatesPage() {
                                     </div>
                                 </motion.div>
                             ))}
-                        </div>
-
-                        {/* Archive & Admin */}
-                        <div className="mt-16 grid md:grid-cols-2 gap-8">
-                            <div className="p-10 rounded-[40px] bg-accent/5 border border-accent/10">
-                                <h4 className="text-2xl font-bold text-[#1d1d1f] mb-4">Archived Circulars</h4>
-                                <p className="text-secondary mb-8">Access previously uploaded circulars and reference material from our extensive repository.</p>
-                                <button className="inline-flex items-center gap-2 text-accent font-bold hover:gap-3 transition-all uppercase tracking-wider text-sm">
-                                    View Archive <ExternalLink size={16} />
-                                </button>
-                            </div>
-                            <div className="p-10 rounded-[40px] bg-gray-50 border border-gray-100">
-                                <h4 className="text-2xl font-bold text-gray-400 mb-4">Upload Circulars / Updates</h4>
-                                <p className="text-gray-400 mb-8 font-medium">Admin / Secretariat use only. Maintain the repository for member access and general awareness.</p>
-                                <span className="inline-block px-4 py-2 rounded-lg bg-gray-200 text-gray-400 text-[10px] font-bold uppercase tracking-widest">Backend Function</span>
-                            </div>
                         </div>
                     </div>
                 </div>
