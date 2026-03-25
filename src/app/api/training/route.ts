@@ -12,13 +12,13 @@ export async function POST(req: NextRequest) {
         // Validate configuration
         if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
             console.error('[Training API Error] Missing SMTP configuration');
-            return NextResponse.json({ 
-                error: 'Server email configuration is missing. Please check your environment variables.' 
+            return NextResponse.json({
+                error: 'Server email configuration is missing. Please check your environment variables.'
             }, { status: 500 });
         }
 
         const transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST || 'smtp.gmail.com',
+            host: process.env.SMTP_HOST || 'smtp.office365.com',
             port: Number(process.env.SMTP_PORT) || 587,
             secure: false, // true for 465, false for other ports
             auth: {
