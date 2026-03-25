@@ -1,10 +1,10 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   User, 
   Building2, 
-  Calendar, 
   Download, 
   ShieldCheck, 
   ExternalLink,
@@ -20,8 +20,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function MembershipDashboard() {
-  // Mock member data - In a real app, this would come from a session or API
-  const memberData = {
+  const [memberData, setMemberData] = useState({
     name: "Avanish Singh",
     organisation: "ICICI Bank",
     email: "avanish@example.com",
@@ -32,7 +31,24 @@ export default function MembershipDashboard() {
     expiryDate: "March 22, 2027",
     status: "Active",
     type: "Industry Member (Pre-approved)"
-  };
+  });
+
+  useEffect(() => {
+    const data = sessionStorage.getItem('membershipPaymentData');
+    if (data) {
+      const parsed = JSON.parse(data);
+      setMemberData(prev => ({
+        ...prev,
+        name: parsed.fullName || prev.name,
+        organisation: parsed.orgName || prev.organisation,
+        email: parsed.email || prev.email,
+        mobile: `${parsed.countryCode} ${parsed.mobile}` || prev.mobile,
+        designation: parsed.designation || prev.designation,
+        memberSince: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+        expiryDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+      }));
+    }
+  }, []);
 
   return (
     <main className="bg-[#050505] min-h-screen font-sans text-white overflow-x-hidden">

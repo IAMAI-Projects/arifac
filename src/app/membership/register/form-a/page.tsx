@@ -85,11 +85,43 @@ function RegistrationFormContent() {
     }));
   };
 
+  const calculateAmount = () => {
+    const isBankOrNBFC = formData.primarySector === 'Banking' || formData.primarySector === 'NBFC';
+    const range = formData.turnoverOrAum;
+
+    if (isBankOrNBFC) {
+      if (range === "Up to ₹500 Cr") return 25000;
+      if (range === "₹500 Cr – ₹1,000 Cr") return 50000;
+      if (range === "₹1,000 Cr – ₹10,000 Cr") return 100000;
+      if (range === "₹10,000 Cr – ₹50,000 Cr") return 150000;
+      if (range === "₹50,000 Cr – ₹1,00,000 Cr") return 300000;
+      if (range === "Above ₹1,00,000 Cr") return 500000;
+    } else {
+      if (range === "Up to ₹5 Cr") return 25000;
+      if (range === "₹5 Cr – ₹25 Cr") return 50000;
+      if (range === "₹25 Cr – ₹100 Cr") return 100000;
+      if (range === "₹100 Cr – ₹500 Cr") return 150000;
+      if (range === "₹500 Cr – ₹2,000 Cr") return 300000;
+      if (range === "Above ₹2,000 Cr") return 500000;
+    }
+    return 25000; // Default fallback
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
-    // Simulate payment and then redirect to dashboard
-    window.location.href = '/membership/dashboard';
+    const amount = calculateAmount();
+    const paymentData = {
+      ...formData,
+      baseAmount: amount,
+      taxAmount: amount * 0.18,
+      totalAmount: amount * 1.18
+    };
+
+    // Store in sessionStorage to pass to payment page
+    sessionStorage.setItem('membershipPaymentData', JSON.stringify(paymentData));
+
+    // Redirect to payment page
+    window.location.href = '/membership/register/payment';
   };
 
   return (
