@@ -1,5 +1,4 @@
-'use client';
-
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   User, 
@@ -20,6 +19,14 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function MembershipDashboard() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   // Mock member data - In a real app, this would come from a session or API
   const memberData = {
     name: "Avanish Singh",

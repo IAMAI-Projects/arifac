@@ -3,7 +3,6 @@ import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { LanguageProvider } from '@/components/LanguageContext';
 import ScrollToTop from '@/components/ScrollToTop';
-import EdmingleSDKProvider from '@/components/EdmingleSDKProvider';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -42,12 +41,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jakarta.variable} antialiased`}
       >
-        <EdmingleSDKProvider>
-          <LanguageProvider>
-            {children}
-            <ScrollToTop />
-          </LanguageProvider>
-        </EdmingleSDKProvider>
+        <LanguageProvider>
+          {children}
+          <ScrollToTop />
+        </LanguageProvider>
       </body>
     </html>
   );

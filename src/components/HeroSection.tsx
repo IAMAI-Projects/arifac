@@ -4,21 +4,29 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, ChevronDown, FileText, Users, Building2, ShieldCheck } from 'lucide-react';
-import { useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { LogoMark } from './Logo';
 import { useLanguage } from './LanguageContext';
 
 export default function HeroSection() {
     const { t } = useLanguage();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     const targetRef = useRef(null);
     const { scrollYProgress } = useScroll({
-        target: targetRef,
+        target: mounted ? targetRef : undefined,
         offset: ["start start", "end start"]
     });
 
     const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
     const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
     const y = useTransform(scrollYProgress, [0, 0.5], [0, 50]);
+
+    if (!mounted) return null;
 
     return (
         <section ref={targetRef} className="relative min-h-[110vh] flex items-center justify-center overflow-hidden bg-white">

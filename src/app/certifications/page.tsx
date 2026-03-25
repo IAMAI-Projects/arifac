@@ -12,6 +12,13 @@ import { motion } from 'framer-motion';
 
 export default function CertificationsPage() {
     const [selectedLevel, setSelectedLevel] = useState<CertificationLevel | null>(null);
+    const [mounted, setMounted] = useState(false);
+
+    useState(() => {
+        setMounted(true);
+    });
+
+    if (!mounted) return null;
 
     return (
         <main className="min-h-screen bg-white font-sans">
@@ -129,22 +136,13 @@ export default function CertificationsPage() {
                                         >
                                             Go to Course <ChevronRight size={20} />
                                         </Link>
-                                    ) : level.enrollUrl ? (
-                                        <a
-                                            href={level.enrollUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
+                                    ) : (
+                                        <Link
+                                            href={`/membership/register/form-a?org=${encodeURIComponent(level.title)}`}
                                             className="w-full flex items-center justify-center gap-2 py-4 bg-[#0066cc] text-white rounded-2xl font-bold text-lg hover:bg-[#0077ed] transition-all"
                                         >
                                             Enroll Now <ChevronRight size={20} />
-                                        </a>
-                                    ) : (
-                                        <button
-                                            onClick={() => setSelectedLevel(level)}
-                                            className="w-full flex items-center justify-center gap-2 py-4 bg-[#0066cc] text-white rounded-2xl font-bold text-lg hover:bg-[#0077ed] transition-all"
-                                        >
-                                            Pre-register Now <ChevronRight size={20} />
-                                        </button>
+                                        </Link>
                                     )}
 
                                     <button

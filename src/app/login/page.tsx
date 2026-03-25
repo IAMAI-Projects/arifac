@@ -21,18 +21,15 @@ export default function LoginPage() {
         setError('');
 
         if (email.length > 5 && password.length >= 6) {
-            // Generate a fake name from the email (e.g. john.doe@email.com -> John Doe)
+            // Generate a fake name from the email
             const nameFromEmail = email.split('@')[0].split('.').map(n => n.charAt(0).toUpperCase() + n.slice(1)).join(' ');
             
-            // Log them in locally to update the Navbar state
+            // Log them in locally
             login(email, nameFromEmail);
             
-            // Redirect them to the SSO route which creates the JWT and launches them into Edmingle
-            const ssoUrl = `/api/sso?email=${encodeURIComponent(email)}&first_name=${encodeURIComponent(nameFromEmail)}&last_name=Member`;
-            
-            // Add a small delay for better UX before the abrupt redirect
+            // Redirect to local LMS dashboard
             setTimeout(() => {
-                window.location.href = ssoUrl;
+                router.push('/lms/dashboard');
             }, 500);
         } else {
             setError('Please enter a valid email and 6-character password.');

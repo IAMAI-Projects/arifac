@@ -21,6 +21,45 @@ export interface Question {
     correctAnswer: number; // Index of the correct option
 }
 
+export interface LMSProgress {
+  courseId: string;
+  completedLessons: string[]; // lesson IDs
+  lastAccessed: { moduleId: number; lessonId: string };
+  quizScores: Record<string, number>; // lessonId → score
+  startedAt: string;
+  completedAt?: string;
+}
+
+// localStorage persistence
+export const PROGRESS_KEY = 'arifac_lms_progress';
+
+export function getProgress(courseId: string): LMSProgress | null {
+  if (typeof window === 'undefined') return null;
+  const all = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  return all[courseId] || null;
+}
+
+export function saveProgress(courseId: string, progress: Partial<LMSProgress>) {
+  if (typeof window === 'undefined') return;
+  const all = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  all[courseId] = { ...(all[courseId] || { completedLessons: [], quizScores: {} }), ...progress };
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(all));
+}
+
+export function markLessonComplete(courseId: string, lessonId: string) {
+  const p = getProgress(courseId) || {
+    courseId,
+    completedLessons: [],
+    quizScores: {},
+    startedAt: new Date().toISOString(),
+    lastAccessed: { moduleId: 1, lessonId },
+  };
+  if (!p.completedLessons.includes(lessonId)) {
+    p.completedLessons.push(lessonId);
+  }
+  saveProgress(courseId, p);
+}
+
 export const lmsCourseData: Module[] = [
     {
         id: 1,
