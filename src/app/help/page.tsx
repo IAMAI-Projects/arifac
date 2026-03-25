@@ -121,8 +121,8 @@ export default function HelpPage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: idx * 0.1 }}
                                 className={`flex flex-col items-center gap-4 p-8 rounded-3xl border-2 transition-all ${activeCategory === cat.id
-                                        ? 'border-[#4b00d1] bg-white shadow-xl -translate-y-2'
-                                        : 'border-gray-50 bg-gray-50 hover:bg-white hover:border-gray-100 hover:shadow-lg'
+                                    ? 'border-[#4b00d1] bg-white shadow-xl -translate-y-2'
+                                    : 'border-gray-50 bg-gray-50 hover:bg-white hover:border-gray-100 hover:shadow-lg'
                                     }`}
                                 onClick={() => setActiveCategory(cat.id)}
                             >
@@ -202,7 +202,7 @@ export default function HelpPage() {
                                         </div>
                                         <div>
                                             <p className="text-sm text-white/60">Email Support</p>
-                                            <p className="font-bold text-lg">support@arifac.org</p>
+                                            <p className="font-bold text-lg">help.arifac@iamai.in</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-4">

@@ -236,9 +236,9 @@ export default function RegulatoryUpdatesPage() {
                                 <h5 className="font-bold text-lg mb-2 group-hover:text-accent transition-colors">Apply for Membership</h5>
                                 <div className="h-0.5 w-12 bg-accent mx-auto scale-x-0 group-hover:scale-x-100 transition-transform origin-center" />
                             </a>
-                            <a href="mailto:support@arifac.org" className="group">
+                            <a href="mailto:help.arifac@iamai.in" className="group">
                                 <h5 className="font-bold text-lg mb-2 group-hover:text-accent transition-colors">Contact ARIFAC Secretariat</h5>
-                                <p className="text-sm text-secondary">support@arifac.org</p>
+                                <p className="text-sm text-secondary">help.arifac@iamai.in</p>
                             </a>
                         </div>
                     </div>

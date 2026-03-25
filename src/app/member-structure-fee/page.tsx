@@ -384,8 +384,8 @@ export default function MemberStructureFeePage() {
                         <div className="mt-20 pt-12 border-t border-white/5 flex flex-col items-center gap-6">
                             <div className="text-center">
                                 <p className="text-white/40 mb-2 uppercase tracking-widest text-xs font-bold">Contact ARIFAC Secretariat</p>
-                                <a href="mailto:support@arifac.org" className="text-2xl md:text-3xl font-bold hover:text-[#C2B020] transition-colors flex items-center gap-4">
-                                    <Globe className="text-[#C2B020]" size={32} /> support@arifac.org
+                                <a href="mailto:help.arifac@iamai.in" className="text-2xl md:text-3xl font-bold hover:text-[#C2B020] transition-colors flex items-center gap-4">
+                                    <Globe className="text-[#C2B020]" size={32} /> help.arifac@iamai.in
                                 </a>
                             </div>
                         </div>

@@ -294,8 +294,8 @@ export default function MemberBenefitsPage() {
 
                         <div className="mt-12 pt-12 border-t border-white/10 flex flex-col items-center gap-4">
                             <p className="text-white/60">Contact ARIFAC Secretariat</p>
-                            <a href="mailto:support@arifac.org" className="flex items-center gap-3 text-xl font-bold hover:text-[#C2B020] transition-colors">
-                                <Mail size={24} className="text-[#C2B020]" /> support@arifac.org
+                            <a href="mailto:help.arifac@iamai.in" className="flex items-center gap-3 text-xl font-bold hover:text-[#C2B020] transition-colors">
+                                <Mail size={24} className="text-[#C2B020]" /> help.arifac@iamai.in
                             </a>
                         </div>
                     </motion.div>

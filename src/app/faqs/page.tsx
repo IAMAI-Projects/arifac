@@ -210,7 +210,7 @@ const faqs = [
     },
     {
         question: "How can I contact ARIFAC support?",
-        answer: "Email: support@arifac.org",
+        answer: "Email: help.arifac@iamai.in",
         category: "Support"
     },
     {
@@ -336,8 +336,8 @@ export default function FAQsPage() {
                                     key={cat}
                                     onClick={() => setActiveCategory(cat)}
                                     className={`px-6 py-3 rounded-2xl font-bold transition-all ${activeCategory === cat
-                                            ? "bg-accent text-white shadow-lg shadow-accent/20"
-                                            : "bg-white text-secondary hover:bg-gray-50 border border-gray-100"
+                                        ? "bg-accent text-white shadow-lg shadow-accent/20"
+                                        : "bg-white text-secondary hover:bg-gray-50 border border-gray-100"
                                         }`}
                                 >
                                     {cat}
@@ -423,7 +423,7 @@ export default function FAQsPage() {
                         </p>
                         <div className="flex flex-col md:flex-row items-center justify-center gap-6 relative z-10">
                             <a
-                                href="mailto:support@arifac.org"
+                                href="mailto:help.arifac@iamai.in"
                                 className="w-full md:w-auto px-10 py-5 bg-accent text-white font-bold rounded-2xl hover:scale-105 transition-all shadow-xl shadow-accent/20 flex items-center justify-center gap-3"
                             >
                                 <Mail size={20} /> Contact Support
