@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-    ChevronDown, 
-    Search, 
-    MessageCircleQuestion, 
+import {
+    ChevronDown,
+    Search,
+    MessageCircleQuestion,
     HelpCircle,
     Info,
     UserCheck,
@@ -210,7 +210,7 @@ const faqs = [
     },
     {
         question: "How can I contact ARIFAC support?",
-        answer: "Email: help.arifac@iamai.in",
+        answer: "Email: support@arifac.org",
         category: "Support"
     },
     {
@@ -263,8 +263,8 @@ export default function FAQsPage() {
     const [activeCategory, setActiveCategory] = useState("All");
 
     const filteredFaqs = faqs.filter(faq => {
-        const matchesSearch = faq.question.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                             faq.answer.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            faq.answer.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesCategory = activeCategory === "All" || faq.category === activeCategory;
         return matchesSearch && matchesCategory;
     });
@@ -285,7 +285,7 @@ export default function FAQsPage() {
                         >
                             <HelpCircle size={18} /> Support Center
                         </motion.div>
-                        <motion.h1 
+                        <motion.h1
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
@@ -293,7 +293,7 @@ export default function FAQsPage() {
                         >
                             Frequently Asked <span className="text-accent italic">Questions</span>
                         </motion.h1>
-                        <motion.p 
+                        <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
@@ -304,7 +304,7 @@ export default function FAQsPage() {
                     </div>
 
                     {/* Search Bar */}
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
@@ -328,18 +328,17 @@ export default function FAQsPage() {
             <section className="py-24">
                 <div className="container mx-auto px-6">
                     <div className="max-w-5xl mx-auto">
-                        
+
                         {/* Categories */}
                         <div className="flex flex-wrap justify-center gap-3 mb-16">
                             {categories.map((cat) => (
                                 <button
                                     key={cat}
                                     onClick={() => setActiveCategory(cat)}
-                                    className={`px-6 py-3 rounded-2xl font-bold transition-all ${
-                                        activeCategory === cat 
-                                        ? "bg-accent text-white shadow-lg shadow-accent/20" 
-                                        : "bg-white text-secondary hover:bg-gray-50 border border-gray-100"
-                                    }`}
+                                    className={`px-6 py-3 rounded-2xl font-bold transition-all ${activeCategory === cat
+                                            ? "bg-accent text-white shadow-lg shadow-accent/20"
+                                            : "bg-white text-secondary hover:bg-gray-50 border border-gray-100"
+                                        }`}
                                 >
                                     {cat}
                                 </button>
@@ -381,7 +380,7 @@ export default function FAQsPage() {
                                                 <ChevronDown size={24} />
                                             </motion.div>
                                         </button>
-                                        
+
                                         <AnimatePresence>
                                             {openIndex === index && (
                                                 <motion.div
@@ -423,8 +422,8 @@ export default function FAQsPage() {
                             Our support team is here to help you with anything you need. Reach out to us directly.
                         </p>
                         <div className="flex flex-col md:flex-row items-center justify-center gap-6 relative z-10">
-                            <a 
-                                href="mailto:help.arifac@iamai.in" 
+                            <a
+                                href="mailto:support@arifac.org"
                                 className="w-full md:w-auto px-10 py-5 bg-accent text-white font-bold rounded-2xl hover:scale-105 transition-all shadow-xl shadow-accent/20 flex items-center justify-center gap-3"
                             >
                                 <Mail size={20} /> Contact Support
