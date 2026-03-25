@@ -250,10 +250,10 @@ export default function MeetingsPage() {
                                         <ArrowRight size={20} className="text-accent" />
                                     </div>
                                 </Link>
-                                <a href="mailto:help.arifac@iamai.in" className="flex items-center justify-between p-6 bg-[#f5f5f7] rounded-3xl group hover:bg-[#ebebed] transition-all duration-300">
+                                <a href="mailto:support@arifac.org" className="flex items-center justify-between p-6 bg-[#f5f5f7] rounded-3xl group hover:bg-[#ebebed] transition-all duration-300">
                                     <div className="flex flex-col">
                                         <span className="text-lg font-bold text-[#1d1d1f]">Contact ARIFAC Secretariat</span>
-                                        <span className="text-sm text-secondary font-medium">help.arifac@iamai.in</span>
+                                        <span className="text-sm text-secondary font-medium">support@arifac.org</span>
                                     </div>
                                     <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
                                         <MessageSquare size={20} className="text-accent" />
