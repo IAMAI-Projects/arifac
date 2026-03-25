@@ -130,21 +130,21 @@ export default function RegulatoryUpdatesPage() {
                             </div>
 
                             {/* Filters */}
-                            <div className="flex flex-wrap gap-4 bg-[#f5f5f7] p-2 rounded-2xl border border-gray-100">
-                                <select className="bg-transparent px-4 py-2 font-bold text-sm text-secondary focus:outline-none cursor-pointer">
+                            <div className="flex flex-wrap md:flex-nowrap items-center gap-2 bg-[#f5f5f7] p-1.5 rounded-xl border border-gray-100">
+                                <select className="bg-transparent px-3 py-1.5 font-bold text-[13px] text-secondary focus:outline-none cursor-pointer">
                                     <option>All Regulators</option>
                                     <option>RBI</option>
                                     <option>SEBI</option>
                                     <option>FIU-IND</option>
                                     <option>IRDAI</option>
                                 </select>
-                                <div className="w-[1px] bg-gray-200 self-stretch" />
-                                <select className="bg-transparent px-4 py-2 font-bold text-sm text-secondary focus:outline-none cursor-pointer">
+                                <div className="w-[1px] h-4 bg-gray-200" />
+                                <select className="bg-transparent px-3 py-1.5 font-bold text-[13px] text-secondary focus:outline-none cursor-pointer">
                                     <option>All Categories</option>
                                     {categories.map(c => <option key={c}>{c}</option>)}
                                 </select>
-                                <div className="w-[1px] bg-gray-200 self-stretch" />
-                                <select className="bg-transparent px-4 py-2 font-bold text-sm text-secondary focus:outline-none cursor-pointer">
+                                <div className="w-[1px] h-4 bg-gray-200" />
+                                <select className="bg-transparent px-3 py-1.5 font-bold text-[13px] text-secondary focus:outline-none cursor-pointer">
                                     <option>Date: Newest</option>
                                     <option>Date: Oldest</option>
                                 </select>

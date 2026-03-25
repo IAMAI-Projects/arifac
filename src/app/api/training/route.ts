@@ -9,6 +9,14 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });
         }
 
+        // Validate configuration
+        if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+            console.error('[Training API Error] Missing SMTP configuration');
+            return NextResponse.json({ 
+                error: 'Server email configuration is missing. Please check your environment variables.' 
+            }, { status: 500 });
+        }
+
         const transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST || 'smtp.gmail.com',
             port: Number(process.env.SMTP_PORT) || 587,

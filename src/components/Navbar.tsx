@@ -71,7 +71,7 @@ export default function Navbar() {
 
         },
         {
-            name: t('Regulatory Updates'),
+            name: t('Updates'),
             href: '/regulatory-updates',
         },
     ];

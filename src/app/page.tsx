@@ -17,11 +17,8 @@ export default function Home() {
       <HeroSection />
 
       <div className="relative z-10">
-        <LatestMeetingsSection />
-        <MembershipSection />
-        <EngagementSection />
+
         <PartnersSection />
-        <ResourcesSection />
       </div>
 
       <Footer />
