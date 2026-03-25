@@ -121,8 +121,8 @@ export default function Navbar() {
                             ))}
                         </motion.div>
                         {/* Fade mask for smooth entry/exit */}
-                        <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#1d1d1f] to-transparent z-10" />
-                        <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[#1d1d1f] to-transparent z-10" />
+                        <div className="absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-[#1d1d1f] to-transparent z-10" />
+                        <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-[#1d1d1f] to-transparent z-10" />
                     </div>
                 </div>
 

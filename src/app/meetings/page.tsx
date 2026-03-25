@@ -134,7 +134,7 @@ export default function MeetingsPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-4xl md:text-5xl lg:text-7xl font-bold font-heading leading-[1.05] tracking-tight text-[#1d1d1f] mb-10"
+                            className="text-3xl md:text-4xl lg:text-6xl font-bold font-heading leading-[1.05] tracking-tight text-[#1d1d1f] mb-10"
                         >
                             Through Structured <br className="hidden md:block" />
                             <span className="bg-gradient-to-r from-[#C2B020] to-[#8A7B0E] text-transparent bg-clip-text">Engagement</span>

@@ -64,23 +64,28 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {footerLinks.map((column, index) => (
-                        <div key={index}>
-                            <h4 className="text-[#1d1d1f] text-[12px] font-bold mb-4 uppercase tracking-wider">{column.title}</h4>
-                            <ul className="space-y-2">
-                                {column.links.map((link, idx) => (
-                                    <li key={idx}>
-                                        <Link
-                                            href={link.href}
-                                            className="text-[12px] text-secondary hover:text-[#1d1d1f] transition-colors block"
-                                        >
-                                            {link.name}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+                    {/* Spacer to push links to the right */}
+                    <div className="hidden lg:block lg:col-span-1"></div>
+
+                    <div className="lg:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-8">
+                        {footerLinks.map((column, index) => (
+                            <div key={index}>
+                                <h4 className="text-[#1d1d1f] text-[12px] font-bold mb-4 uppercase tracking-wider">{column.title}</h4>
+                                <ul className="space-y-2">
+                                    {column.links.map((link, idx) => (
+                                        <li key={idx}>
+                                            <Link
+                                                href={link.href}
+                                                className="text-[12px] text-secondary hover:text-[#1d1d1f] transition-colors block"
+                                            >
+                                                {link.name}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
                 {/* IAMAI Technology Partner Strip */}

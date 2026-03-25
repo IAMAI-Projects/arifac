@@ -16,16 +16,16 @@ export default function HeroSection() {
         offset: ["start start", "end start"]
     });
 
-    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+    const opacity = useTransform(scrollYProgress, [0, 1], [1, 1]); // Keep opacity at 1
     const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
     const y = useTransform(scrollYProgress, [0, 0.5], [0, 50]);
 
     return (
-        <section ref={targetRef} className="relative min-h-[110vh] flex items-center justify-center overflow-hidden bg-white">
+        <section ref={targetRef} className="relative min-h-[90vh] pt-32 pb-8 flex items-center justify-center bg-white border-b border-gray-200">
             {/* Dynamic Background Elements */}
-            <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-40" />
+            <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-60" />
 
-            <div className="container relative z-10 px-6 pt-44 text-center">
+            <div className="container relative z-10 px-6 pt-12 pb-8 text-center">
                 <motion.div
                     style={{ opacity, scale, y }}
                     className="flex flex-col items-center gap-8 max-w-5xl mx-auto"
@@ -115,7 +115,7 @@ export default function HeroSection() {
                                 </div>
                                 <div className="text-center">
                                     <h3 className="text-[15px] font-bold text-[#1d1d1f] mb-1">{t('hero.pillar1_title')}</h3>
-                                    <p className="text-[12px] text-gray-400 font-medium leading-relaxed">{t('hero.pillar1_desc')}</p>
+                                    <p className="text-[12px] text-[#1d1d1f]/80 font-semibold leading-relaxed">{t('hero.pillar1_desc')}</p>
                                 </div>
                             </div>
 
@@ -125,7 +125,7 @@ export default function HeroSection() {
                                 </div>
                                 <div className="text-center">
                                     <h3 className="text-[15px] font-bold text-[#1d1d1f] mb-1">{t('hero.pillar2_title')}</h3>
-                                    <p className="text-[12px] text-gray-400 font-medium leading-relaxed">{t('hero.pillar2_desc')}</p>
+                                    <p className="text-[12px] text-[#1d1d1f]/80 font-semibold leading-relaxed">{t('hero.pillar2_desc')}</p>
                                 </div>
                             </div>
 
@@ -135,19 +135,19 @@ export default function HeroSection() {
                                 </div>
                                 <div className="text-center">
                                     <h3 className="text-[15px] font-bold text-[#1d1d1f] mb-1">{t('hero.pillar3_title')}</h3>
-                                    <p className="text-[12px] text-gray-400 font-medium leading-relaxed">{t('hero.pillar3_desc')}</p>
+                                    <p className="text-[12px] text-[#1d1d1f]/80 font-semibold leading-relaxed">{t('hero.pillar3_desc')}</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="mt-12 pt-8 border-t border-gray-50 max-w-2xl mx-auto">
+                        <div className="mt-6 pt-6 border-t border-gray-100 max-w-4xl mx-auto">
                             <motion.p
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 1, delay: 1.2 }}
-                                className="text-[13px] text-gray-400 font-medium leading-relaxed"
+                                className="text-[13px] text-[#1d1d1f]/90 font-bold leading-relaxed max-w-4xl mx-auto text-center"
                             >
-                                <span className="text-[#C2B020] mr-2 font-bold uppercase tracking-wider text-[11px]">Note:</span>
+                                <span className="text-[#C2B020] mr-2 inline-block font-black uppercase tracking-[0.1em] text-[10px] bg-[#C2B020]/10 px-2 py-0.5 rounded-sm">Note:</span>
                                 {t('hero.disclaimer')}
                             </motion.p>
                         </div>

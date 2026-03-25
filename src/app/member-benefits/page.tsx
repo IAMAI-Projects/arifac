@@ -268,7 +268,7 @@ export default function MemberBenefitsPage() {
             </section>
 
             {/* Call to Action */}
-            <section className="py-24 bg-white">
+            <section className="py-20 bg-white">
                 <div className="container mx-auto px-6 text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
@@ -278,8 +278,8 @@ export default function MemberBenefitsPage() {
                     >
                         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(194,176,32,0.1),transparent)] pointer-events-none" />
 
-                        <h2 className="text-3xl md:text-5xl font-bold mb-6">Apply for Membership</h2>
-                        <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
+                        <h2 className="text-2xl md:text-4xl font-bold mb-6">Apply for Membership</h2>
+                        <p className="text-xl text-white/80 mb-12 max-w-xl mx-auto">
                             Join ARIFAC to be part of India’s evolving financial crime prevention ecosystem.
                         </p>
 

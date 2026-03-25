@@ -20,11 +20,11 @@ export default function PartnersSection() {
     };
 
     return (
-        <section id="partners" className="py-32 bg-white">
+        <section id="partners" className="pt-8 pb-32 bg-white">
             <div className="container mx-auto px-6">
-                <div className="flex flex-col items-center text-center mb-24">
+                <div className="flex flex-col items-center text-center mb-16">
                     <span className="text-secondary text-[12px] font-bold tracking-[0.2em] uppercase mb-4 block">{t('nav.partnerships')}</span>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1d1d1f] tracking-tight mb-8">
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-8">
                         {t('partners.title')}
                     </h2>
                     <p className="text-xl text-secondary max-w-3xl font-medium leading-relaxed">

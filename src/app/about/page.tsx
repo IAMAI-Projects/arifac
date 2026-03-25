@@ -139,7 +139,7 @@ export default function AboutPage() {
                 <div className="container mx-auto px-6">
                     <div className="max-w-6xl mx-auto">
                         <div className="text-center mb-20">
-                            <h2 className="text-3xl md:text-5xl font-bold text-[#1d1d1f] mb-6">What ARIFAC Does</h2>
+                            <h2 className="text-3xl md:text-4xl font-bold text-[#1d1d1f] mb-4">What ARIFAC Does</h2>
                             <p className="text-xl text-secondary max-w-2xl mx-auto">
                                 ARIFAC operates as a collaborative platform focused on enabling industry-wide capability and coordination:
                             </p>
@@ -265,14 +265,14 @@ export default function AboutPage() {
                             className="bg-primary text-white p-12 md:p-20 rounded-[48px] md:rounded-[64px] shadow-2xl relative overflow-hidden"
                         >
                             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(194,176,32,0.15),transparent)] pointer-events-none" />
-                            <h2 className="text-3xl md:text-5xl font-bold mb-8 leading-tight">
+                            <h2 className="text-2xl md:text-3xl font-bold mb-7 leading-tight">
                                 Building a Trusted Financial Ecosystem
                             </h2>
-                            <p className="text-xl text-white/80 leading-relaxed mb-10 font-medium">
+                            <p className="text-xl md:text-xl text-white/80 leading-relaxed mb-6 font-small">
                                 ARIFAC enables stakeholders to come together to strengthen capabilities, share knowledge, and align approaches to financial crime prevention.
                             </p>
-                            <div className="h-px bg-white/20 mb-10" />
-                            <p className="text-lg text-white/90 font-bold leading-relaxed">
+                            <div className="h-px bg-white/20 mb-9" />
+                            <p className="text-xl md:text-xl text-white/80 leading-relaxed mb-6 font-small">
                                 Through collaboration, capacity building, and regulatory alignment, ARIFAC contributes to building a more resilient, compliant, and trusted financial system in India.
                             </p>
                         </motion.div>
