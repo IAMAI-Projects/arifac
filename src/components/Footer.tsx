@@ -48,7 +48,7 @@ export default function Footer() {
                         <div className="flex items-center gap-4 mt-8">
                             {[
                                 { icon: Linkedin, href: "https://www.linkedin.com/company/arifacpanindia/", label: "LinkedIn" },
-                                { icon: Twitter, href: "/", label: "X" },
+
                             ].map((social, i) => (
                                 <a
                                     key={i}

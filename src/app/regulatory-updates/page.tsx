@@ -228,11 +228,11 @@ export default function RegulatoryUpdatesPage() {
                     <div className="max-w-4xl mx-auto text-center">
                         <h2 className="text-3xl font-bold text-[#1d1d1f] mb-12 italic opacity-50 font-serif">Explore More</h2>
                         <div className="grid md:grid-cols-3 gap-8">
-                            <a href="/about" className="group">
+                            <a href="/meetings" className="group">
                                 <h5 className="font-bold text-lg mb-2 group-hover:text-accent transition-colors">Explore ARIFAC Programs</h5>
                                 <div className="h-0.5 w-12 bg-accent mx-auto scale-x-0 group-hover:scale-x-100 transition-transform origin-center" />
                             </a>
-                            <a href="/membership" className="group">
+                            <a href="/membership/register" className="group">
                                 <h5 className="font-bold text-lg mb-2 group-hover:text-accent transition-colors">Apply for Membership</h5>
                                 <div className="h-0.5 w-12 bg-accent mx-auto scale-x-0 group-hover:scale-x-100 transition-transform origin-center" />
                             </a>

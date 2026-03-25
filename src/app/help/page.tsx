@@ -185,7 +185,7 @@ export default function HelpPage() {
             {/* Contact Section */}
             <section className="py-20">
                 <div className="container mx-auto px-6">
-                    <div className="bg-[#4b00d1] rounded-[3rem] p-12 md:p-20 text-white relative overflow-hidden shadow-2xl">
+                    <div className="bg-[#1d1d1f] rounded-[3rem] p-12 md:p-20 text-white relative overflow-hidden shadow-2xl">
                         <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-[100px] -mr-48 -mt-48" />
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#c1d82f]/20 rounded-full blur-[80px] -ml-32 -mb-32" />
 

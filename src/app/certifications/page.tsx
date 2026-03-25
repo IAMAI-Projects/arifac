@@ -88,7 +88,7 @@ export default function CertificationsPage() {
                                 {/* Level Badge + Meta */}
                                 <div className="flex items-center justify-between mb-8">
                                     <span className="text-[11px] font-bold tracking-[0.15em] uppercase text-accent bg-white border border-gray-100 px-5 py-2 rounded-full shadow-sm">
-                                        Level {index + 1}
+                                        ACF-L{index + 1}
                                     </span>
                                     <div className="flex items-center gap-2 text-secondary text-[12px] font-bold uppercase tracking-wider">
                                         <Clock size={16} />

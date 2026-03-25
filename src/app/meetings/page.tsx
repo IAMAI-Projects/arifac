@@ -238,7 +238,7 @@ export default function MeetingsPage() {
                             </p>
 
                             <div className="space-y-4">
-                                <Link href="/registration" className="flex items-center justify-between p-6 bg-[#f5f5f7] rounded-3xl group hover:bg-[#ebebed] transition-all duration-300">
+                                <Link href="/membership/register" className="flex items-center justify-between p-6 bg-[#f5f5f7] rounded-3xl group hover:bg-[#ebebed] transition-all duration-300">
                                     <span className="text-lg font-bold text-[#1d1d1f]">Apply for Membership</span>
                                     <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
                                         <ArrowRight size={20} className="text-accent" />
@@ -265,18 +265,6 @@ export default function MeetingsPage() {
 
                     {/* Upcoming & Past Programs */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32">
-                        <section className="bg-white rounded-[40px] border border-gray-100 p-10">
-                            <h2 className="text-2xl font-bold text-[#1d1d1f] mb-8 flex items-center gap-3">
-                                <Calendar className="text-accent" /> Upcoming Programs
-                            </h2>
-                            <div className="space-y-4">
-                                <div className="p-6 bg-[#f5f5f7] rounded-2xl border border-dashed border-gray-300 flex flex-col items-center justify-center py-12 text-center">
-                                    <Calendar className="text-gray-400 mb-4" size={32} />
-                                    <p className="font-bold text-[#1d1d1f]">To be announced</p>
-                                    <p className="text-sm text-secondary">Check back soon for upcoming sessions</p>
-                                </div>
-                            </div>
-                        </section>
 
                         <section className="bg-white rounded-[40px] border border-gray-100 p-10">
                             <h2 className="text-2xl font-bold text-[#1d1d1f] mb-8 flex items-center gap-3">
@@ -290,6 +278,19 @@ export default function MeetingsPage() {
                                 </div>
                             </div>
                         </section>
+                        <section className="bg-white rounded-[40px] border border-gray-100 p-10">
+                            <h2 className="text-2xl font-bold text-[#1d1d1f] mb-8 flex items-center gap-3">
+                                <Calendar className="text-accent" /> Upcoming Programs
+                            </h2>
+                            <div className="space-y-4">
+                                <div className="p-6 bg-[#f5f5f7] rounded-2xl border border-dashed border-gray-300 flex flex-col items-center justify-center py-12 text-center">
+                                    <Calendar className="text-gray-400 mb-4" size={32} />
+                                    <p className="font-bold text-[#1d1d1f]">To be announced</p>
+                                    <p className="text-sm text-secondary">Check back soon for upcoming sessions</p>
+                                </div>
+                            </div>
+                        </section>
+
                     </div>
 
                     {/* Note & Disclaimer */}

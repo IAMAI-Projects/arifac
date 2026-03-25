@@ -284,12 +284,10 @@ export default function MemberBenefitsPage() {
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
-                            <button className="px-10 py-5 bg-[#C2B020] hover:bg-[#A3941B] text-[#1d1d1f] font-bold rounded-2xl transition-all flex items-center gap-3 w-full sm:w-auto justify-center">
+                            <button onClick={() => window.location.href = "/membership/register"} className="px-10 py-5 bg-[#C2B020] hover:bg-[#A3941B] text-[#1d1d1f] font-bold rounded-2xl transition-all flex items-center gap-3 w-full sm:w-auto justify-center">
                                 Apply for Membership <ArrowRight size={20} />
                             </button>
-                            <button className="px-10 py-5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-2xl border border-white/20 transition-all flex items-center gap-3 w-full sm:w-auto justify-center">
-                                <Download size={20} /> Download Details
-                            </button>
+
                         </div>
 
                         <div className="mt-12 pt-12 border-t border-white/10 flex flex-col items-center gap-4">

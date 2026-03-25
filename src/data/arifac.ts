@@ -81,17 +81,16 @@ export const aboutData = {
 
 export const certificationLevels: CertificationLevel[] = [
     {
-        level: "L1",
-        title: "Certified AML & Financial Crime Professional – India (Level 1)",
+        level: "ACF-L1",
+        title: "ARIFAC Certified Associate (AML/CFT)",
         targetAudience: "Entry-level professionals, and support staff.",
         features: [
-            "Foundations of AML, CFT & Sanctions",
-            "KYC, CDD & Onboarding Controls",
-            "Financial Crime Typologies",
-            "Regulatory Landscape (India & Global)",
-            "AML Governance, Roles & Professional Journey"
+            "Professionals working in banks, NBFCs, fintech companies, payment system operators, insurance companies, securities intermediaries, and other reporting entities.",
+            "Graduates in any discipline interested in AML/CFT compliance.",
+            "Students pursuing undergraduate or postgraduate degrees in finance, law, technology, or business.",
+            "Professionals working in risk management, compliance, audit, or financial operations."
         ],
-        validity: "Lifetime",
+        validity: "2 years",
         isProctored: false,
         price: 5000,
         syllabus: lmsCourseData,
