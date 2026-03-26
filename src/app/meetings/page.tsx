@@ -244,7 +244,7 @@ export default function MeetingsPage() {
                                         <ArrowRight size={20} className="text-accent" />
                                     </div>
                                 </Link>
-                                <Link href="#" className="flex items-center justify-between p-6 bg-[#f5f5f7] rounded-3xl group hover:bg-[#ebebed] transition-all duration-300">
+                                <Link href="/certifications" className="flex items-center justify-between p-6 bg-[#f5f5f7] rounded-3xl group hover:bg-[#ebebed] transition-all duration-300">
                                     <span className="text-lg font-bold text-[#1d1d1f]">Explore Training Programs</span>
                                     <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
                                         <ArrowRight size={20} className="text-accent" />
