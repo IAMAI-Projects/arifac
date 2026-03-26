@@ -18,6 +18,8 @@ export async function POST(req: NextRequest) {
         }
 
         const origin = req.nextUrl.origin;
+        // In dev mode without a real CCAvenue URL, use the mock gateway
+        const gatewayUrl = (!postUrl || postUrl === 'mock') ? `${origin}/api/ccavenue/mock-gateway` : postUrl;
         const redirectUrl = `${origin}/api/ccavenue/response`;
         const cancelUrl = `${origin}/api/ccavenue/response`;
 
@@ -42,7 +44,7 @@ export async function POST(req: NextRequest) {
             encRequest,
             accessCode,
             merchantId,
-            postUrl
+            postUrl: gatewayUrl
         });
 
     } catch (error) {
