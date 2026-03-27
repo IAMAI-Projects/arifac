@@ -38,20 +38,20 @@ export default function PaymentPage() {
     setCardData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handlePayment = (e: React.FormEvent) => {
+  const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
     
-    // Simulate payment processing
+    // Simulate payment processing (in production this would call Stripe/Razorpay)
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    setIsProcessing(false);
+    setIsSuccess(true);
+    
+    // Redirect to dashboard after success animation
     setTimeout(() => {
-      setIsProcessing(false);
-      setIsSuccess(true);
-      
-      // Redirect to dashboard after a delay
-      setTimeout(() => {
-        window.location.href = '/membership/dashboard';
-      }, 3000);
-    }, 2000);
+      window.location.href = '/membership/dashboard';
+    }, 3000);
   };
 
   if (!paymentData) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;

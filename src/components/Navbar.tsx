@@ -312,7 +312,7 @@ export default function Navbar() {
                                                 {t('nav.learning_platform')}
                                             </a>
                                             <Link
-                                                href="/membership/register"
+                                                href="/membership/login"
                                                 className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
                                             >
                                                 {t('nav.member_platform')}
@@ -551,7 +551,7 @@ export default function Navbar() {
                                     {t('nav.learning_platform')}
                                 </a>
                                 <Link
-                                    href="/membership/register"
+                                    href="/membership/login"
                                     className="text-center font-bold text-[#1d1d1f] px-8 py-6 bg-white rounded-[24px] border-2 border-[#1d1d1f] hover:bg-[#1d1d1f] hover:text-white transition-all text-xl"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >

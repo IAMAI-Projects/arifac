@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  User, 
-  Building2, 
-  Download, 
-  ShieldCheck, 
+import {
+  User,
+  Building2,
+  Download,
+  ShieldCheck,
   ExternalLink,
   Award,
   Clock,
@@ -20,35 +20,79 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function MembershipDashboard() {
-  const [memberData, setMemberData] = useState({
-    name: "Avanish Singh",
-    organisation: "ICICI Bank",
-    email: "avanish@example.com",
-    mobile: "+91 98765 43210",
-    designation: "Compliance Officer",
-    membershipId: "ARI-2024-0892",
-    memberSince: "March 23, 2026",
-    expiryDate: "March 22, 2027",
-    status: "Active",
-    type: "Industry Member (Pre-approved)"
-  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [memberData, setMemberData] = useState<any>(null);
 
   useEffect(() => {
-    const data = sessionStorage.getItem('membershipPaymentData');
-    if (data) {
-      const parsed = JSON.parse(data);
-      setMemberData(prev => ({
-        ...prev,
-        name: parsed.fullName || prev.name,
-        organisation: parsed.orgName || prev.organisation,
-        email: parsed.email || prev.email,
-        mobile: `${parsed.countryCode} ${parsed.mobile}` || prev.mobile,
-        designation: parsed.designation || prev.designation,
-        memberSince: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-        expiryDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-      }));
+    async function fetchData() {
+      try {
+        const res = await fetch('/api/membership/applications');
+        const data = await res.json();
+        console.log("Dashboard API response:", data);
+        
+        if (data.success && data.applications && data.applications.length > 0) {
+          const mainApp = data.applications[0];
+          setMemberData({
+            name: mainApp.users?.full_name || "Member",
+            organisation: mainApp.organisations?.name || "N/A",
+            email: mainApp.users?.email || "N/A",
+            mobile: mainApp.users?.mobile || "N/A",
+            designation: mainApp.users?.designation || "Member",
+            membershipId: `ARI-2024-${mainApp.id.toString().substring(0, 4).toUpperCase()}`,
+            memberSince: new Date(mainApp.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+            expiryDate: new Date(new Date(mainApp.created_at).setFullYear(new Date(mainApp.created_at).getFullYear() + 1)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+            status: mainApp.status,
+            type: mainApp.application_type === 'PRE_APPROVED' ? "Industry Member (Pre-approved)" : "Non Pre-approved"
+          });
+        }
+      } catch (err) {
+        console.error("Failed to fetch dashboad data:", err);
+      } finally {
+        setIsLoading(false);
+      }
     }
+
+    fetchData();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="bg-[#050505] min-h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
+          <p className="text-gray-400 animate-pulse">Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!memberData) {
+    return (
+      <div className="bg-[#050505] min-h-screen flex items-center justify-center p-6">
+        <div className="bg-white/5 border border-white/10 p-12 rounded-3xl text-center max-w-md shadow-2xl relative overflow-hidden group">
+          <div className="absolute inset-0 bg-blue-600/5 blur-3xl rounded-full translate-y-1/2" />
+          <div className="relative z-10">
+            <Building2 className="w-16 h-16 text-blue-400 mx-auto mb-6 opacity-40 group-hover:scale-110 transition-transform duration-500" />
+            <h2 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">No Membership Found</h2>
+            <p className="text-gray-400 mb-10 leading-relaxed font-medium">
+              We couldn't find an active membership for your account. If you just registered, it might take a moment to reflect.
+            </p>
+            <div className="flex flex-col gap-4">
+              <Link href="/membership/register" className="px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 font-bold hover:shadow-lg hover:shadow-blue-500/25 transition-all active:scale-95 text-center">
+                Start Registration
+              </Link>
+              <button 
+                onClick={() => window.location.reload()} 
+                className="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 font-bold hover:bg-white/10 transition-all text-sm"
+              >
+                Refresh Dashboard
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <main className="bg-[#050505] min-h-screen font-sans text-white overflow-x-hidden">
@@ -62,7 +106,7 @@ export default function MembershipDashboard() {
 
       <div className="relative pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
-          
+
           {/* Welcome Header */}
           <div className="mb-12">
             <motion.div
@@ -96,7 +140,7 @@ export default function MembershipDashboard() {
                   <ExternalLink className="w-4 h-4" />
                   View Public Profile
                 </button>
-                <Link href="/login" className="px-6 py-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-400 hover:bg-red-500/30 transition-colors flex items-center gap-2 text-sm font-semibold">
+                <Link href="/membership/login" className="px-6 py-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-400 hover:bg-red-500/30 transition-colors flex items-center gap-2 text-sm font-semibold">
                   <LogOut className="w-4 h-4" />
                   Sign Out
                 </Link>
@@ -106,7 +150,7 @@ export default function MembershipDashboard() {
 
           {/* Dashboard Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
+
             {/* Left Column: Profile Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -116,15 +160,15 @@ export default function MembershipDashboard() {
             >
               <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl p-8 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                
+
                 <div className="relative z-10">
                   <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mb-6 shadow-lg shadow-blue-500/20">
                     <User className="w-10 h-10 text-white" />
                   </div>
-                  
+
                   <h2 className="text-2xl font-bold mb-2">{memberData.name}</h2>
                   <p className="text-blue-400 font-medium mb-8">{memberData.designation}</p>
-                  
+
                   <div className="space-y-6">
                     <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
                       <div className="p-2 bg-white/5 rounded-lg text-gray-400">
@@ -135,7 +179,7 @@ export default function MembershipDashboard() {
                         <p className="font-semibold">{memberData.organisation}</p>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
                       <div className="p-2 bg-white/5 rounded-lg text-gray-400">
                         <Mail className="w-5 h-5" />
@@ -167,7 +211,7 @@ export default function MembershipDashboard() {
 
             {/* Right Column: Certificate & Info */}
             <div className="lg:col-span-2 space-y-8">
-              
+
               {/* Certificate Card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -176,7 +220,7 @@ export default function MembershipDashboard() {
                 className="bg-gradient-to-br from-indigo-500/10 to-purple-500/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 px-10 relative overflow-hidden group"
               >
                 <div className="absolute -right-20 -top-20 w-64 h-64 bg-indigo-500/10 blur-3xl opacity-50 group-hover:opacity-80 transition-opacity" />
-                
+
                 <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center">
                   {/* Certificate Preview Mockup */}
                   <div className="w-full md:w-1/3 aspect-[1.41] bg-white text-black rounded-lg shadow-2xl p-4 flex flex-col items-center justify-center text-center border-4 border-[#c5a059]">
@@ -185,7 +229,7 @@ export default function MembershipDashboard() {
                     </div>
                     <div className="text-[8px] font-bold uppercase tracking-widest text-[#c5a059] mb-1">ARIFAC Membership</div>
                     <div className="text-[12px] font-serif font-bold mb-1">{memberData.name}</div>
-                    <div className="text-[6px] text-gray-400 mb-2">Has successfully registered as an <br/> Industry Member for the year 2024-25</div>
+                    <div className="text-[6px] text-gray-400 mb-2">Has successfully registered as an <br /> Industry Member for the year 2024-25</div>
                     <div className="w-full h-px bg-gray-100 mb-2" />
                     <div className="text-[5px] text-gray-500 uppercase">{memberData.membershipId}</div>
                   </div>
@@ -200,7 +244,7 @@ export default function MembershipDashboard() {
                     <p className="text-gray-400 mb-8 leading-relaxed">
                       Download your official ARIFAC membership certificate. This document verifies your institution's commitment to AML/CFT standards.
                     </p>
-                    
+
                     <div className="flex flex-wrap gap-4">
                       <button className="px-8 py-3 rounded-xl bg-white text-black font-bold hover:bg-gray-100 transition-colors flex items-center gap-2">
                         <Download className="w-5 h-5" />
@@ -217,7 +261,7 @@ export default function MembershipDashboard() {
 
               {/* Status & Expiry Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
+
                 {/* Expiry Info */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -231,7 +275,7 @@ export default function MembershipDashboard() {
                     </div>
                     <h3 className="text-xl font-bold">Renewal & Expiry</h3>
                   </div>
-                  
+
                   <div className="space-y-4">
                     <div className="flex justify-between items-end mb-2">
                       <span className="text-gray-400">Renewal Progress</span>
@@ -240,7 +284,7 @@ export default function MembershipDashboard() {
                     <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
                       <div className="w-full h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full" />
                     </div>
-                    
+
                     <div className="grid grid-cols-2 gap-4 mt-8">
                       <div>
                         <p className="text-xs text-gray-500 uppercase tracking-wider font-bold mb-1">Registered On</p>
@@ -267,13 +311,13 @@ export default function MembershipDashboard() {
                     </div>
                     <h3 className="text-xl font-bold">Account Status</h3>
                   </div>
-                  
+
                   <div className="space-y-6">
                     <div>
                       <p className="text-xs text-gray-500 uppercase tracking-wider font-bold mb-1">Current Membership Type</p>
                       <p className="font-semibold text-lg">{memberData.type}</p>
                     </div>
-                    
+
                     <div className="p-4 rounded-2xl bg-green-500/5 border border-green-500/10 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />

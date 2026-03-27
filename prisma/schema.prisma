@@ -1,0 +1,193 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model application_details {
+  id                      String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  application_id          String?                  @db.Uuid
+  sector                  String?
+  entity_type             String?
+  aum_range               String?
+  turnover_range          String?
+  identifier_type         identifier_type?
+  identifier_value        String?
+  fiu_registration_number String?
+  iamai_certificate_url   String?
+  iba_membership_id       String?
+  created_at              DateTime?                @default(now()) @db.Timestamp(6)
+  membership_applications membership_applications? @relation(fields: [application_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model audit_logs {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  entity_type  String?
+  entity_id    String?   @db.Uuid
+  action       String?
+  performed_by String?   @db.Uuid
+  metadata     Json?
+  created_at   DateTime? @default(now()) @db.Timestamp(6)
+}
+
+model flyway_schema_history {
+  installed_rank Int      @id(map: "flyway_schema_history_pk")
+  version        String?  @db.VarChar(50)
+  description    String   @db.VarChar(200)
+  type           String   @db.VarChar(20)
+  script         String   @db.VarChar(1000)
+  checksum       Int?
+  installed_by   String   @db.VarChar(100)
+  installed_on   DateTime @default(now()) @db.Timestamp(6)
+  execution_time Int
+  success        Boolean
+
+  @@index([success], map: "flyway_schema_history_s_idx")
+}
+
+model membership_applications {
+  id                  String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  application_type    application_type
+  organisation_id     String?               @db.Uuid
+  user_id             String?               @db.Uuid
+  status              application_status    @default(INIT)
+  fee_amount          Decimal?              @db.Decimal(12, 2)
+  fee_waived          Boolean?              @default(false)
+  aum_range           String?
+  turnover_range      String?
+  is_iamai_member     Boolean?              @default(false)
+  is_iba_member       Boolean?              @default(false)
+  reviewed_by         String?               @db.Uuid
+  reviewed_at         DateTime?             @db.Timestamp(6)
+  rejection_reason    String?
+  activation_token    String?
+  activation_expiry   DateTime?             @db.Timestamp(6)
+  created_at          DateTime?             @default(now()) @db.Timestamp(6)
+  updated_at          DateTime?             @default(now()) @db.Timestamp(6)
+  application_details application_details[]
+  memberships         memberships?
+  payments            payments[]
+  users               users?                @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  organisations       organisations?        @relation(fields: [organisation_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([status], map: "idx_application_status")
+}
+
+model memberships {
+  id                      String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organisation_id         String?                  @db.Uuid
+  application_id          String?                  @unique @db.Uuid
+  status                  membership_status        @default(ACTIVE)
+  start_date              DateTime                 @db.Date
+  end_date                DateTime                 @db.Date
+  certificate_url         String?
+  created_at              DateTime?                @default(now()) @db.Timestamp(6)
+  membership_applications membership_applications? @relation(fields: [application_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  organisations           organisations?           @relation(fields: [organisation_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model organisations {
+  id                      String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                    String
+  website                 String?
+  sector                  String
+  entity_type             String
+  registered_address      String
+  regulated_entity        Boolean
+  identifier_type         identifier_type
+  identifier_value        String
+  fiu_registration_number String?
+  created_at              DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at              DateTime?       @default(now()) @db.Timestamp(6)
+  memberships             memberships[]
+  users                   users[]
+  membership_applications membership_applications[]
+
+  @@unique([identifier_type, identifier_value])
+  @@index([identifier_type, identifier_value], map: "idx_org_identifier")
+}
+
+model payments {
+  id                      String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  application_id          String?                  @db.Uuid
+  amount                  Decimal                  @db.Decimal(12, 2)
+  currency                String?                  @default("INR")
+  status                  payment_status
+  provider                String?
+  provider_payment_id     String?                  @unique
+  provider_order_id       String?
+  paid_at                 DateTime?                @db.Timestamp(6)
+  created_at              DateTime?                @default(now()) @db.Timestamp(6)
+  membership_applications membership_applications? @relation(fields: [application_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([status], map: "idx_payment_status")
+}
+
+model users {
+  id              String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organisation_id String?        @db.Uuid
+  full_name       String
+  designation     String
+  email           String         @unique
+  mobile          String
+  aadhaar         String?
+  passport        String?
+  username        String         @unique
+  password_hash   String
+  is_primary      Boolean?       @default(true)
+  is_active       Boolean?       @default(false)
+  created_at      DateTime?      @default(now()) @db.Timestamp(6)
+  organisations           organisations?            @relation(fields: [organisation_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  membership_applications membership_applications[]
+}
+
+enum application_status {
+  INIT
+  BASIC_SUBMITTED
+  UNDER_REVIEW
+  REJECTED
+  APPROVED
+  FULL_FORM_PENDING
+  FULL_FORM_SUBMITTED
+  VERIFIED
+  FEE_CALCULATED
+  PAYMENT_PENDING
+  PAYMENT_SUCCESS
+  ACTIVATION_PENDING
+  ACTIVE
+}
+
+enum application_type {
+  PRE_APPROVED
+  NON_PRE_APPROVED
+}
+
+enum identifier_type {
+  CIN
+  GST
+  PAN
+  LLPIN
+  TAN
+  FIU_REG
+  SEBI
+  RBI
+  IRDAI
+  OTHER
+}
+
+enum membership_status {
+  ACTIVE
+  EXPIRED
+  SUSPENDED
+  PENDING
+}
+
+enum payment_status {
+  INITIATED
+  SUCCESS
+  FAILED
+  REFUNDED
+}

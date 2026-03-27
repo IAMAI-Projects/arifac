@@ -2,11 +2,12 @@
 
 import { useState, useEffect, Suspense, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, User, Building2, ShieldCheck, CheckSquare, Upload, Search, Briefcase, ChevronDown } from 'lucide-react';
+import { ArrowLeft, User, Building2, ShieldCheck, CheckSquare, Upload, Search, Briefcase, ChevronDown, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useSearchParams } from 'next/navigation';
+import { login as setClientAuth } from '@/lib/auth';
 
 // Data
 const PRIMARY_SECTORS = [
@@ -107,21 +108,59 @@ function RegistrationFormContent() {
     return 25000; // Default fallback
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+
     const amount = calculateAmount();
     const paymentData = {
       ...formData,
+      formType: 'A',
       baseAmount: amount,
       taxAmount: amount * 0.18,
       totalAmount: amount * 1.18
     };
 
-    // Store in sessionStorage to pass to payment page
-    sessionStorage.setItem('membershipPaymentData', JSON.stringify(paymentData));
+    try {
+      const response = await fetch('/api/membership/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(paymentData),
+      });
 
-    // Redirect to payment page
-    window.location.href = '/membership/register/payment';
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Registration failed');
+      }
+
+      // Sync client-side auth state (local storage/UI)
+      setClientAuth(formData.email, formData.fullName);
+
+      // Store only non-sensitive display data in sessionStorage
+      sessionStorage.setItem('membershipPaymentData', JSON.stringify({
+        orgName: formData.orgName,
+        email: formData.email, // for contact display
+        fullName: formData.fullName,
+        designation: formData.designation,
+        countryCode: formData.countryCode,
+        mobile: formData.mobile,
+        baseAmount: amount,
+        taxAmount: amount * 0.18,
+        totalAmount: amount * 1.18,
+        applicationId: result.applicationId
+      }));
+
+      // Redirect to payment page
+      window.location.href = '/membership/register/payment';
+    } catch (err: any) {
+      setError(err.message);
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -151,6 +190,12 @@ function RegistrationFormContent() {
           onSubmit={handleSubmit}
           className="space-y-8"
         >
+          {error && (
+            <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 flex items-center gap-3">
+              <AlertCircle className="w-5 h-5 flex-shrink-0" />
+              <p className="text-sm font-medium">{error}</p>
+            </div>
+          )}
           {/* 1. Authorised Representative Details */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
             <div className="bg-gray-50/80 px-6 py-5 border-b border-gray-200 flex items-center gap-3">
@@ -463,9 +508,17 @@ function RegistrationFormContent() {
           <div className="flex justify-end pt-4 border-t border-gray-200">
             <button
               type="submit"
-              className="inline-flex items-center justify-center bg-[#0066cc] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0077ed] hover:shadow-xl hover:shadow-blue-500/20 transition-all transform hover:-translate-y-0.5"
+              disabled={isSubmitting}
+              className={`inline-flex items-center justify-center bg-[#0066cc] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0077ed] hover:shadow-xl hover:shadow-blue-500/20 transition-all transform hover:-translate-y-0.5 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
             >
-              Proceed to Payment
+              {isSubmitting ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                  Processing...
+                </>
+              ) : (
+                'Proceed to Payment'
+              )}
             </button>
           </div>
 

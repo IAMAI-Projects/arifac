@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, User, Building2, CheckSquare } from 'lucide-react';
+import { ArrowLeft, User, Building2, CheckSquare, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -45,11 +45,33 @@ function RegistrationFormBContent() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form B Submitted:", formData);
-    // Simulate approval/submission and then redirect to dashboard
-    window.location.href = '/membership/dashboard';
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/membership/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, formType: 'B' }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Registration failed');
+      }
+
+      // Redirect to dashboard (User is registered but inactive maybe)
+      window.location.href = '/membership/dashboard';
+    } catch (err: any) {
+      setError(err.message);
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -79,6 +101,12 @@ function RegistrationFormBContent() {
           onSubmit={handleSubmit}
           className="space-y-8"
         >
+          {error && (
+            <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 flex items-center gap-3">
+              <AlertCircle className="w-5 h-5 flex-shrink-0" />
+              <p className="text-sm font-medium">{error}</p>
+            </div>
+          )}
           {/* 1. Basic Details */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
             <div className="bg-gray-50/80 px-6 py-5 border-b border-gray-200 flex items-center gap-3">
@@ -220,9 +248,17 @@ function RegistrationFormBContent() {
           <div className="flex justify-end pt-4 border-t border-gray-200">
             <button
               type="submit"
-              className="inline-flex items-center justify-center bg-[#0066cc] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0077ed] hover:shadow-xl hover:shadow-blue-500/20 transition-all transform hover:-translate-y-0.5"
+              disabled={isSubmitting}
+              className={`inline-flex items-center justify-center bg-[#0066cc] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0077ed] hover:shadow-xl hover:shadow-blue-500/20 transition-all transform hover:-translate-y-0.5 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
             >
-              Submit Form
+              {isSubmitting ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                  Submitting...
+                </>
+              ) : (
+                'Submit Form'
+              )}
             </button>
           </div>
 

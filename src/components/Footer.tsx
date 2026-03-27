@@ -29,8 +29,8 @@ export default function Footer() {
             links: [
                 { name: 'Resources', href: '/resources' },
                 { name: 'Gallery', href: '/gallery' },
-                { name: 'Terms & Conditions', href: '#' },
-                { name: 'Privacy Policy', href: '#' },
+                { name: 'Terms & Conditions', href: '/terms-of-use' },
+
 
             ],
         },
@@ -121,15 +121,11 @@ export default function Footer() {
                         © {new Date().getFullYear()} ARIFAC | IAMAI. {t('footer.rights')}
                     </p>
                     <div className="flex gap-4">
-                        <Link href="#" className="text-[11px] text-secondary hover:text-[#1d1d1f] transition-colors">
-                            {t('footer.privacy')}
-                        </Link>
-                        <Link href="#" className="text-[11px] text-secondary hover:text-[#1d1d1f] transition-colors">
-                            {t('footer.terms')}
-                        </Link>
+
                         <Link href="#" className="text-[11px] text-secondary hover:text-[#1d1d1f] transition-colors">
                             {t('footer.cookie')}
                         </Link>
+
                     </div>
                 </div>
             </div>
