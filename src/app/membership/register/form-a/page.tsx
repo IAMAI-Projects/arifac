@@ -44,17 +44,17 @@ function RegistrationFormContent() {
   const prefilledOrg = searchParams.get('org') || '';
   const [formData, setFormData] = useState({
     // Section 1
-    salutation: '', fullName: '', designation: '', countryCode: '+91', mobile: '', email: '', username: '', password: '',
+    salutation: 'Mr.', fullName: 'Avanish Singh', designation: 'Compliance Officer', countryCode: '+91', mobile: '9876543210', email: 'avanish@icicibank.com', username: 'avanish_icici', password: 'Test@12345',
     // Section 2
-    orgName: prefilledOrg, registeredAddress: '', orgWebsite: '', primarySector: '', entityType: '',
-    isRegulated: '',
+    orgName: prefilledOrg || 'ICICI Bank', registeredAddress: 'ICICI Bank Tower, BKC, Mumbai 400051', orgWebsite: 'https://www.icicibank.com', primarySector: 'Banking', entityType: 'Public Limited Company',
+    isRegulated: 'No',
     // Section 3
-    registeredWithFiu: '', fiuRegNumber: '',
-    identifierType: '', identifierNumber: '',
+    registeredWithFiu: 'No', fiuRegNumber: '',
+    identifierType: 'CIN — Company Identification Number (MCA)', identifierNumber: 'L65190MH1994PLC079232',
     // Section 4
     industryMemberships: [] as string[], ibaMembershipId: '', turnoverOrAum: '',
     // Section 5
-    declarationAccepted: false, remarks: ''
+    declarationAccepted: true, remarks: ''
   });
 
   const dropdownRef = useRef<HTMLDivElement>(null);
