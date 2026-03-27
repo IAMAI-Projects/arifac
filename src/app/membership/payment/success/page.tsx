@@ -6,8 +6,9 @@ import Link from 'next/link';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from 'framer-motion';
+import { Suspense } from 'react';
 
-export default function PaymentSuccessPage() {
+function PaymentSuccessContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get('orderId') || 'N/A';
   const trackingId = searchParams.get('trackingId') || 'N/A';
@@ -101,5 +102,13 @@ export default function PaymentSuccessPage() {
 
       <Footer />
     </main>
+  );
+}
+
+export default function PaymentSuccessPage() {
+  return (
+    <Suspense fallback={<div className="flex-grow flex items-center justify-center pt-32 pb-20">Loading...</div>}>
+      <PaymentSuccessContent />
+    </Suspense>
   );
 }
