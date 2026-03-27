@@ -126,7 +126,7 @@ export default function CertificatePage() {
 
                         <p className="text-lg text-gray-500 italic mb-4">This is to certify that</p>
                         <h2 className="text-4xl md:text-5xl font-bold text-primary border-b border-gray-300 pb-2 inline-block px-12 mb-4 font-heading">
-                            S. Avanish
+                            S. Manish
                         </h2>
                         <div className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-12">IAMAI Member Institution</div>
 

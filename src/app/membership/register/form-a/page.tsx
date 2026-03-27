@@ -44,7 +44,7 @@ function RegistrationFormContent() {
   const prefilledOrg = searchParams.get('org') || '';
   const [formData, setFormData] = useState({
     // Section 1
-    salutation: 'Mr.', fullName: 'Avanish Singh', designation: 'Compliance Officer', countryCode: '+91', mobile: '9876543210', email: 'avanish@icicibank.com', username: 'avanish_icici', password: 'Test@12345',
+    salutation: 'Mr.', fullName: 'Manish', designation: 'Compliance Officer', countryCode: '+91', mobile: '9903198887', email: 'manish@example.com', username: 'manish_icici', password: 'Test@12345',
     // Section 2
     orgName: prefilledOrg || 'ICICI Bank', registeredAddress: 'ICICI Bank Tower, BKC, Mumbai 400051', orgWebsite: 'https://www.icicibank.com', primarySector: 'Banking', entityType: 'Public Limited Company',
     isRegulated: 'No',

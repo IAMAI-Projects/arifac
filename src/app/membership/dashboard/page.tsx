@@ -31,10 +31,10 @@ export default function MembershipDashboard() {
 
   // Mock member data - In a real app, this would come from a session or API
   const memberData = {
-    name: "Avanish Singh",
+    name: "Manish",
     organisation: "ICICI Bank",
-    email: "avanish@example.com",
-    mobile: "+91 98765 43210",
+    email: "manish@example.com",
+    mobile: "+91 99031 98887",
     designation: "Compliance Officer",
     membershipId: "ARI-2024-0892",
     memberSince: "March 23, 2026",
