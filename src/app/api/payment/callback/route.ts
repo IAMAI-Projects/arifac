@@ -49,44 +49,38 @@ export async function POST(req: NextRequest) {
         //   });
         // ────────────────────────────────────────────────────────────────────────
 
+        const successBase = `/membership/payment/success`;
+        const failedBase  = `/membership/payment/failed`;
+
         switch (orderStatus) {
             case 'Success':
                 return NextResponse.redirect(
                     new URL(
-                        `/membership/dashboard?status=success&orderId=${orderId}&trackingId=${trackingId}`,
+                        `${successBase}?orderId=${orderId}&trackingId=${trackingId}&amount=${amount}`,
                         req.url
                     )
                 );
 
             case 'Aborted':
                 return NextResponse.redirect(
-                    new URL(
-                        `/membership/register/form-a?payment=aborted&orderId=${orderId}`,
-                        req.url
-                    )
+                    new URL(`${failedBase}?reason=aborted&orderId=${orderId}`, req.url)
                 );
 
             case 'Failure':
                 return NextResponse.redirect(
-                    new URL(
-                        `/membership/register/form-a?payment=failed&orderId=${orderId}`,
-                        req.url
-                    )
+                    new URL(`${failedBase}?reason=failed&orderId=${orderId}`, req.url)
                 );
 
             default: // 'Invalid' or unexpected
                 return NextResponse.redirect(
-                    new URL(
-                        `/membership/register/form-a?payment=invalid&orderId=${orderId}`,
-                        req.url
-                    )
+                    new URL(`${failedBase}?reason=invalid&orderId=${orderId}`, req.url)
                 );
         }
 
     } catch (error) {
         console.error('[CCAvenue] callback error:', error);
         return NextResponse.redirect(
-            new URL('/membership/register/form-a?payment=error', req.url)
+            new URL('/membership/payment/failed?reason=error', req.url)
         );
     }
 }
