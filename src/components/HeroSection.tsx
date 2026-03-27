@@ -4,21 +4,23 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, ChevronDown, FileText, Users, Building2, ShieldCheck } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { LogoMark } from './Logo';
 import { useLanguage } from './LanguageContext';
+import { ThreeCanvas } from './ThreeCanvas';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroSection() {
     const { t } = useLanguage();
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
     const targetRef = useRef(null);
+    const titleRef = useRef(null);
+    const descriptionRef = useRef(null);
+    
     const { scrollYProgress } = useScroll({
-        target: mounted ? targetRef : undefined,
+        target: targetRef,
         offset: ["start start", "end start"]
     });
 
@@ -26,10 +28,26 @@ export default function HeroSection() {
     const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
     const y = useTransform(scrollYProgress, [0, 0.5], [0, 50]);
 
-    if (!mounted) return null;
+    useEffect(() => {
+        const title = titleRef.current;
+        const description = descriptionRef.current;
+
+        gsap.fromTo(title, 
+            { opacity: 0, y: 30, filter: 'blur(10px)' }, 
+            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'power4.out', delay: 0.2 }
+        );
+
+        gsap.fromTo(description,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.5 }
+        );
+    }, []);
 
     return (
         <section ref={targetRef} className="relative min-h-[110vh] flex items-center justify-center overflow-hidden bg-white">
+            {/* 3D Background */}
+            <ThreeCanvas />
+
             {/* Dynamic Background Elements */}
             <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-40" />
 
@@ -40,37 +58,30 @@ export default function HeroSection() {
                 >
 
                     {/* Main Heading */}
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading leading-[1.1] tracking-tight text-[#1d1d1f]"
+                    <h1
+                        ref={titleRef}
+                        className="text-4xl md:text-5xl lg:text-7xl font-bold font-heading leading-[1.05] tracking-tight text-[#1d1d1f] max-w-4xl"
                     >
                         {t('hero.title')} {' '}
-                        <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">
+                        <span className="bg-gradient-to-r from-[#059669] to-[#0f766e] text-transparent bg-clip-text">
                             {t('hero.title_integrity')}
                         </span>{' '}
                         <br />
                         {t('hero.title_architecture')}
-                    </motion.h1>
+                    </h1>
 
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.5 }}
-                        className="text-[14px] md:text-[15px] text-gray-500 max-w-4xl font-medium -mt-4"
+                    <div
+                        ref={descriptionRef}
+                        className="flex flex-col items-center gap-6"
                     >
-                        {t('hero.subtitle_initiative')}
-                    </motion.p>
+                        <p className="text-[16px] md:text-[18px] text-gray-500 max-w-3xl font-medium">
+                            {t('hero.subtitle_initiative')}
+                        </p>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.6 }}
-                        className="text-[15px] md:text-[16px] text-gray-900 max-w-4xl font-light leading-[1.8] whitespace-pre-wrap"
-                    >
-                        {t('hero.description')}
-                    </motion.div>
+                        <div className="text-[16px] md:text-[18px] text-gray-900 max-w-4xl font-light leading-[1.8] whitespace-pre-wrap opacity-80">
+                            {t('hero.description')}
+                        </div>
+                    </div>
 
                     {/* New CTA Buttons */}
                     <motion.div

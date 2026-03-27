@@ -4,42 +4,9 @@ import { useState, useEffect, Suspense, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, User, Building2, ShieldCheck, CheckSquare, Upload, Search, Briefcase, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
-import Script from 'next/script';
-import { useRouter } from 'next/navigation';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useSearchParams } from 'next/navigation';
-
-// Razorpay type declaration
-declare global {
-  interface Window {
-    Razorpay: new (options: RazorpayOptions) => RazorpayInstance;
-  }
-}
-
-interface RazorpayOptions {
-  key: string;
-  amount: number;
-  currency: string;
-  name: string;
-  description: string;
-  order_id: string;
-  prefill: { name: string; email: string; contact: string };
-  theme: { color: string };
-  handler: (response: RazorpayResponse) => void;
-  modal?: { ondismiss?: () => void };
-}
-
-interface RazorpayInstance {
-  open: () => void;
-  on: (event: string, handler: (response: { error: { description: string } }) => void) => void;
-}
-
-interface RazorpayResponse {
-  razorpay_payment_id: string;
-  razorpay_order_id: string;
-  razorpay_signature: string;
-}
 
 // Data
 const PRIMARY_SECTORS = [
@@ -119,81 +86,35 @@ function RegistrationFormContent() {
   };
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      // 1. Create a Razorpay order on the server
-      const res = await fetch('/api/razorpay/create-order', {
+      const res = await fetch('/api/payment/initiate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           amount: '5000.00',
           billingName: formData.fullName,
+          billingAddress: formData.registeredAddress,
           billingEmail: formData.email,
           billingTel: formData.mobile,
         }),
       });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to create order');
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Failed to initiate payment');
+      }
 
-      // 2. Open Razorpay Checkout popup
-      const options: RazorpayOptions = {
-        key: data.keyId,
-        amount: data.amount,
-        currency: data.currency,
-        name: 'ARIFAC',
-        description: 'Membership Registration Fee',
-        order_id: data.orderId,
-        prefill: {
-          name: formData.fullName,
-          email: formData.email,
-          contact: formData.mobile,
-        },
-        theme: { color: '#0066cc' },
-        handler: async (response: RazorpayResponse) => {
-          // 3. Verify payment on server
-          try {
-            const verifyRes = await fetch('/api/razorpay/verify', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-              }),
-            });
-
-            const verifyData = await verifyRes.json();
-
-            if (verifyData.success) {
-              router.push(`/membership/dashboard?status=success&orderId=${response.razorpay_order_id}&paymentId=${response.razorpay_payment_id}`);
-            } else {
-              alert('Payment verification failed. Please contact support.');
-              setIsSubmitting(false);
-            }
-          } catch {
-            alert('Payment verification error. Please contact support.');
-            setIsSubmitting(false);
-          }
-        },
-        modal: {
-          ondismiss: () => {
-            setIsSubmitting(false);
-          },
-        },
-      };
-
-      const rzp = new window.Razorpay(options);
-      rzp.on('payment.failed', (response: { error: { description: string } }) => {
-        alert(`Payment failed: ${response.error.description}`);
-        setIsSubmitting(false);
-      });
-      rzp.open();
+      // Server returns a self-submitting HTML form that redirects the browser
+      // to the CCAvenue hosted payment page — write it into the current document.
+      const html = await res.text();
+      document.open();
+      document.write(html);
+      document.close();
 
     } catch (err) {
       console.error('Payment initiation error:', err);
@@ -564,7 +485,6 @@ function RegistrationFormContent() {
 export default function MembershipRegistrationForm() {
   return (
     <main className="bg-gray-50 min-h-screen font-sans flex flex-col">
-      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       <Navbar />
       <Suspense fallback={<div className="flex-grow flex items-center justify-center pt-32 pb-20">Loading form...</div>}>
         <RegistrationFormContent />

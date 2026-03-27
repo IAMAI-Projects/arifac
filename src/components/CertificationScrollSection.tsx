@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { CheckCircle2, Clock, BookOpen, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
+import { CheckCircle2, Clock, BookOpen, ChevronRight, ArrowRight } from 'lucide-react';
 import { certificationLevels, CertificationLevel } from '@/data/arifac';
 import Link from 'next/link';
 import { isLoggedIn, hasPaidForCourse } from '@/lib/auth';
@@ -11,17 +11,6 @@ import { useLanguage } from './LanguageContext';
 export default function CertificationScrollSection() {
     const { t } = useLanguage();
     const [selectedLevel, setSelectedLevel] = useState<CertificationLevel | null>(null);
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    if (!mounted) return (
-        <section id="certification" className="py-32 bg-white min-h-[600px] flex items-center justify-center">
-            <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin" />
-        </section>
-    );
 
     return (
         <section id="certification" className="py-32 bg-white">
@@ -100,13 +89,22 @@ export default function CertificationScrollSection() {
                                     >
                                         {t('cert.go_to_course')} <ChevronRight size={16} />
                                     </Link>
-                                ) : (
-                                    <Link
-                                        href={`/membership/register/form-a?org=${encodeURIComponent(level.title)}`}
+                                ) : level.enrollUrl ? (
+                                    <a
+                                        href={level.enrollUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="flex items-center gap-1 text-[14px] font-bold text-[#1d1d1f] group-hover:text-[#0066cc] transition-colors"
                                     >
                                         {t('cert.enroll')} <ChevronRight size={16} />
-                                    </Link>
+                                    </a>
+                                ) : (
+                                    <button
+                                        onClick={() => setSelectedLevel(level)}
+                                        className="flex items-center gap-1 text-[14px] font-bold text-[#1d1d1f] group-hover:text-[#0066cc] transition-colors"
+                                    >
+                                        {t('cert.enroll')} <ChevronRight size={16} />
+                                    </button>
                                 )}
                             </div>
                         </div>
