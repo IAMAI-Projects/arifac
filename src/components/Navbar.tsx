@@ -9,6 +9,7 @@ import Logo from './Logo';
 import { getUser, logout } from '@/lib/auth';
 import { useLanguage } from './LanguageContext';
 import { LucideIcon } from 'lucide-react';
+import EdmingleAuthButtons from './EdmingleAuthButtons';
 
 interface NavLink {
     name: string;
@@ -52,27 +53,31 @@ export default function Navbar() {
 
         {
             name: t('Membership'),
-            href: '/member-benefits',
-
-        },
-        {
-            name: t('Certification'),
-            href: '/resources',
+            href: '/meetings',
             dropdown: [
-                { name: t('Training & Certification'), href: '/certifications', icon: Award },
-                { name: t('nav.training_leads'), href: '/training-leads', icon: GraduationCap },
-                { name: t('Become a Trainer'), href: '/training-volunteers', icon: Users2 },
-                { name: t('nav.topics'), href: '/training-topics', icon: Layers },
+                { name: t('Membership Programs'), href: '/member-benefits', icon: Calendar },
+                { name: t('Membership Structure and Fee'), href: '/member-structure-fee', icon: ImageIcon },
+
             ]
         },
         {
             name: t('Programs'),
-            href: '/meetings',
-
+            href: '#',
+            dropdown: [
+                { name: t('Training & Certification (LMS)'), href: '/certifications', icon: Award },
+                { name: t('Industry Consultationss'), href: '/meetings', icon: GraduationCap },
+                { name: t('nav.training_leads'), href: '/training-leads', icon: GraduationCap },
+                { name: t('nav.volunteers'), href: '/training-volunteers', icon: Users2 },
+                { name: t('nav.topics'), href: '/training-topics', icon: Layers },
+            ]
         },
         {
-            name: t('Updates'),
+            name: t('Regulatory Updates'),
             href: '/regulatory-updates',
+        },
+        {
+            name: t('Resources'),
+            href: '/resources',
         },
     ];
 
@@ -121,8 +126,8 @@ export default function Navbar() {
                             ))}
                         </motion.div>
                         {/* Fade mask for smooth entry/exit */}
-                        <div className="absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-[#1d1d1f] to-transparent z-10" />
-                        <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-[#1d1d1f] to-transparent z-10" />
+                        <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#1d1d1f] to-transparent z-10" />
+                        <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[#1d1d1f] to-transparent z-10" />
                     </div>
                 </div>
 
@@ -309,27 +314,23 @@ export default function Navbar() {
                                                 rel="noopener noreferrer"
                                                 className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
                                             >
-                                                {t('nav.learning_platform')}
+                                                ARIFAC Certification
                                             </a>
-                                            <Link
-                                                href="/membership/login"
-                                                className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
-                                            >
-                                                {t('nav.member_platform')}
-                                            </Link>
-
-                                            {getUser() && (
-                                                <button
-                                                    onClick={() => {
-                                                        logout();
-                                                        setActiveDropdown(null);
-                                                        window.location.href = '/';
-                                                    }}
-                                                    className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-red-600 hover:bg-red-50 rounded-xl transition-all text-left w-full"
+                                            <div className="flex items-center justify-between gap-3 px-4 py-3">
+                                                <Link
+                                                    href="/join"
+                                                    className="text-[14px] font-bold text-[#1d1d1f]/80 hover:text-accent transition-all"
+                                                    onClick={() => setActiveDropdown(null)}
                                                 >
-                                                    {t('nav.logout')}
-                                                </button>
-                                            )}
+                                                    ARIFAC Membership
+                                                </Link>
+                                                <Link
+                                                    href="/login"
+                                                    className="px-4 py-2 text-[12px] font-bold bg-[#0066cc] text-white rounded-lg hover:bg-[#0077ed] transition-all shadow-sm whitespace-nowrap"
+                                                >
+                                                    Sign In
+                                                </Link>
+                                            </div>
                                         </div>
                                     </motion.div>
                                 )}
@@ -550,13 +551,9 @@ export default function Navbar() {
                                 >
                                     {t('nav.learning_platform')}
                                 </a>
-                                <Link
-                                    href="/membership/login"
-                                    className="text-center font-bold text-[#1d1d1f] px-8 py-6 bg-white rounded-[24px] border-2 border-[#1d1d1f] hover:bg-[#1d1d1f] hover:text-white transition-all text-xl"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    {t('nav.member_platform')}
-                                </Link>
+                                <div className="text-center font-bold text-[#1d1d1f] px-8 py-6 bg-white rounded-[24px] border-2 border-[#1d1d1f] transition-all text-xl">
+                                    <EdmingleAuthButtons />
+                                </div>
                             </div>
                         </div>
                     </motion.div>
