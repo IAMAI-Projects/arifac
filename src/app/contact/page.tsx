@@ -56,18 +56,18 @@ export default function ContactPage() {
         <main className="min-h-screen bg-white flex flex-col font-heading">
             <Navbar />
 
-            <div className="flex-1 pt-48 pb-32">
+            <div className="flex-1 pt-36 pb-14">
                 <div className="container mx-auto px-6">
                     <div className="max-w-7xl mx-auto">
-                        <div className="grid lg:grid-cols-2 gap-24 lg:gap-40">
+                        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
                             {/* Left Side: Info */}
                             <motion.div
                                 initial={{ opacity: 0, x: -30 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.8, ease: "easeOut" }}
-                                className="space-y-16"
+                                className="space-y-10"
                             >
-                                <div className="space-y-8">
+                                <div className="space-y-6">
                                     <div className="flex items-center gap-3 text-accent font-bold uppercase tracking-[0.3em] text-[10px]">
                                         <Mail className="w-5 h-5" /> Connect with us
                                     </div>
@@ -86,23 +86,10 @@ export default function ContactPage() {
                                             <Mail size={24} />
                                         </div>
                                         <div>
-                                            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">Direct Email</div>
+                                            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">E-Mail</div>
                                             <a href="mailto:help.arifac@iamai.in" className="text-2xl font-bold text-[#1d1d1f] hover:text-accent transition-colors underline decoration-gray-200 underline-offset-8">
                                                 help.arifac@iamai.in
                                             </a>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-start gap-8">
-                                        <div className="w-14 h-14 bg-[#f5f5f7] rounded-2xl flex items-center justify-center shrink-0 text-accent">
-                                            <MapPin size={24} />
-                                        </div>
-                                        <div>
-                                            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">Main Office</div>
-                                            <p className="text-2xl font-bold text-[#1d1d1f] leading-snug">
-                                                IAMAI Headquarters,<br />
-                                                New Delhi, India
-                                            </p>
                                         </div>
                                     </div>
 

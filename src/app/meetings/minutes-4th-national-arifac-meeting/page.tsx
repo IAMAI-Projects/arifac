@@ -11,7 +11,7 @@ export default function FourthMeetingMinutesPage() {
         <main className="min-h-screen bg-white flex flex-col font-sans">
             <Navbar />
 
-            <div className="flex-1 pt-48 pb-32">
+            <div className="flex-1 pt-36 pb-14">
                 <div className="container mx-auto px-6">
                     <div className="max-w-4xl mx-auto">
                         {/* Back link */}

@@ -37,9 +37,9 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="bg-[#f5f5f7] pt-20 pb-10 border-t border-gray-200">
+        <footer className="bg-[#f5f5f7] pt-14 pb-8 border-t border-gray-200">
             <div className="container mx-auto px-6">
-                <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8 mb-16">
+                <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8 mb-10">
                     <div className="lg:col-span-2">
                         <Logo className="mb-1" variant="light" />
                         <p className="text-secondary text-[13px] leading-relaxed max-w-sm">

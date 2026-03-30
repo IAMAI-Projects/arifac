@@ -102,31 +102,6 @@ export default function MemberBenefitsPage() {
                 </div>
             </section>
 
-            {/* Membership Categories */}
-            <section className="py-14 bg-[#f5f5f7]">
-                <div className="container mx-auto px-6">
-                    <h2 className="text-3xl md:text-4xl font-bold font-heading mb-8 text-center">Membership Categories</h2>
-                    <div className="grid md:grid-cols-3 gap-8">
-                        {categories.map((cat, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="bg-white p-10 rounded-[48px] border border-gray-100 shadow-sm hover:shadow-xl transition-all group"
-                            >
-                                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${cat.color} flex items-center justify-center text-white mb-8 group-hover:scale-110 transition-transform`}>
-                                    <cat.icon size={28} />
-                                </div>
-                                <h3 className="text-xl font-bold mb-4">{cat.title}</h3>
-                                <p className="text-[#6e6e73] leading-relaxed font-medium">{cat.description}</p>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
             {/* What Membership Enables */}
             <section className="py-14 bg-white">
                 <div className="container mx-auto px-6">
@@ -172,9 +147,6 @@ export default function MemberBenefitsPage() {
                     </div>
 
                     <div className="max-w-4xl mx-auto relative">
-                        {/* Connecting Line (Desktop) */}
-                        <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -translate-y-1/2 hidden md:block" />
-
                         <div className="grid md:grid-cols-5 gap-8 relative z-10">
                             {processSteps.map((step, i) => (
                                 <motion.div
