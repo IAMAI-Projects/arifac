@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { CheckCircle2, Clock, BookOpen, ChevronRight, Award, ShieldCheck, Zap, Lock } from 'lucide-react';
+import { CheckCircle2, BookOpen, ChevronRight, ChevronDown, Award, ShieldCheck, Zap, Lock } from 'lucide-react';
 import { certificationLevels, CertificationLevel } from '@/data/arifac';
 import Link from 'next/link';
 import { isLoggedIn, hasPaidForCourse } from '@/lib/auth';
@@ -49,6 +49,7 @@ const addOnCourses = [
 
 export default function CertificationsPage() {
     const [selectedLevel, setSelectedLevel] = useState<CertificationLevel | null>(null);
+    const [openKnowMore, setOpenKnowMore] = useState<string | null>(null);
 
     return (
         <main className="min-h-screen bg-white font-sans">
@@ -112,7 +113,7 @@ export default function CertificationsPage() {
             {/* Courses Grid */}
             <section className="py-14 bg-white">
                 <div className="container mx-auto px-6">
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {certificationLevels.map((level, index) => (
                             <motion.div
                                 key={level.level}
@@ -120,75 +121,84 @@ export default function CertificationsPage() {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                                 viewport={{ once: true }}
-                                className="bg-[#f5f5f7] rounded-[32px] p-7 flex flex-col hover:bg-[#ebebed] transition-all duration-500 relative group"
+                                className="bg-[#f5f5f7] rounded-[24px] p-5 flex flex-col hover:bg-[#ebebed] transition-all duration-300 relative group"
                             >
-                                {/* Level Badge + Meta */}
-                                <div className="flex items-center justify-between mb-5">
-                                    <span className="text-[11px] font-bold tracking-[0.15em] uppercase text-accent bg-white border border-gray-100 px-5 py-2 rounded-full shadow-sm">
+                                {/* Level Badge */}
+                                <div className="flex items-center mb-4">
+                                    <span className="text-[11px] font-bold tracking-[0.15em] uppercase text-accent bg-white border border-gray-100 px-4 py-1.5 rounded-full shadow-sm">
                                         ACF-L{index + 1}
                                     </span>
-                                    <div className="flex items-center gap-2 text-secondary text-[12px] font-bold uppercase tracking-wider">
-                                        <Clock size={16} />
-                                        <span>{level.validity}</span>
-                                    </div>
                                 </div>
 
                                 {/* Title */}
-                                <h3 className="text-3xl font-bold text-[#1d1d1f] mb-4 tracking-tight leading-tight">
-                                    {level.title}
+                                <h3 className="text-xl font-bold text-[#1d1d1f] mb-2 tracking-tight leading-tight">
+                                    ARIFAC Certified Associate Programme (AML/CFT)
                                 </h3>
-                                <p className="text-[15px] text-secondary font-medium mb-5 leading-relaxed">{level.targetAudience}</p>
+                                <p className="text-[13px] text-secondary font-medium mb-4 leading-relaxed">{level.targetAudience}</p>
 
-                                {/* Price Tag */}
-                                <div className="mb-6">
-                                    <div className="flex items-baseline gap-1">
-                                        <span className="text-4xl font-bold text-[#1d1d1f]">₹{level.price.toLocaleString()}</span>
-                                        <span className="text-secondary text-sm font-bold">+ GST</span>
-                                    </div>
+                                {/* Know More Dropdown */}
+                                <div className="mb-4 rounded-2xl overflow-hidden border border-gray-200 bg-white">
+                                    <button
+                                        onClick={() => setOpenKnowMore(openKnowMore === level.level ? null : level.level)}
+                                        className="w-full flex items-center justify-between px-4 py-3 text-[13px] font-bold text-[#1d1d1f] hover:bg-gray-50 transition-colors"
+                                    >
+                                        <span>Know More</span>
+                                        <ChevronDown
+                                            size={16}
+                                            className={`transition-transform duration-200 text-accent ${openKnowMore === level.level ? 'rotate-180' : ''}`}
+                                        />
+                                    </button>
+                                    {openKnowMore === level.level && (
+                                        <div className="px-4 pb-4 border-t border-gray-100">
+                                            <div className="pt-3 mb-3">
+                                                <div className="flex items-baseline gap-1">
+                                                    <span className="text-2xl font-bold text-[#1d1d1f]">₹{level.price.toLocaleString()}</span>
+                                                    <span className="text-secondary text-xs font-bold">+ GST</span>
+                                                </div>
+                                            </div>
+                                            <ul className="space-y-2">
+                                                {level.features.map((feature, idx) => (
+                                                    <li key={idx} className="flex items-start gap-2.5 text-[12px] text-secondary font-medium leading-normal">
+                                                        <CheckCircle2 size={14} className="text-accent shrink-0 mt-0.5" />
+                                                        {feature}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
                                 </div>
 
-                                {/* Feature list */}
-                                <ul className="space-y-3 mb-6 flex-1">
-                                    {level.features.map((feature, idx) => (
-                                        <li key={idx} className="flex items-start gap-3.5 text-[15px] text-secondary font-medium leading-normal">
-                                            <CheckCircle2 size={20} className="text-accent shrink-0 mt-0.5" />
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
                                 {/* Actions */}
-                                <div className="flex flex-col gap-3 pt-6 border-t border-gray-200">
+                                <div className="flex flex-col gap-2 pt-4 border-t border-gray-200 mt-auto">
                                     {isLoggedIn() && hasPaidForCourse(level.level) ? (
                                         <Link
                                             href="/lms/dashboard"
-                                            className="w-full flex items-center justify-center gap-2 py-4 bg-[#0066cc] text-white rounded-2xl font-bold text-lg hover:bg-[#0077ed] transition-all"
+                                            className="w-full flex items-center justify-center gap-2 py-3 bg-[#0066cc] text-white rounded-xl font-bold text-sm hover:bg-[#0077ed] transition-all"
                                         >
-                                            Go to Course <ChevronRight size={20} />
+                                            Go to Course <ChevronRight size={16} />
                                         </Link>
                                     ) : level.enrollUrl ? (
                                         <a
                                             href={level.enrollUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-full flex items-center justify-center gap-2 py-4 bg-[#0066cc] text-white rounded-2xl font-bold text-lg hover:bg-[#0077ed] transition-all"
+                                            className="w-full flex items-center justify-center gap-2 py-3 bg-[#0066cc] text-white rounded-xl font-bold text-sm hover:bg-[#0077ed] transition-all"
                                         >
-                                            Enroll Now <ChevronRight size={20} />
+                                            Enroll Now <ChevronRight size={16} />
                                         </a>
                                     ) : (
                                         <button
                                             onClick={() => setSelectedLevel(level)}
-                                            className="w-full flex items-center justify-center gap-2 py-4 bg-[#0066cc] text-white rounded-2xl font-bold text-lg hover:bg-[#0077ed] transition-all"
+                                            className="w-full flex items-center justify-center gap-2 py-3 bg-[#0066cc] text-white rounded-xl font-bold text-sm hover:bg-[#0077ed] transition-all"
                                         >
-                                            Pre-register Now <ChevronRight size={20} />
+                                            Pre-register Now <ChevronRight size={16} />
                                         </button>
                                     )}
-
                                     <button
                                         onClick={() => setSelectedLevel(level)}
-                                        className="w-full flex items-center justify-center gap-2 py-4 bg-white text-[#1d1d1f] border border-gray-200 rounded-2xl font-bold text-lg hover:bg-gray-50 transition-all"
+                                        className="w-full flex items-center justify-center gap-2 py-3 bg-white text-[#1d1d1f] border border-gray-200 rounded-xl font-bold text-sm hover:bg-gray-50 transition-all"
                                     >
-                                        <BookOpen size={20} />
+                                        <BookOpen size={16} />
                                         View Full Syllabus
                                     </button>
                                 </div>
