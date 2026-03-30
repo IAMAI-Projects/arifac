@@ -274,7 +274,7 @@ export default function FAQsPage() {
             <Navbar />
 
             {/* Hero Section */}
-            <section className="relative pt-48 pb-24 bg-white overflow-hidden">
+            <section className="relative pt-36 pb-12 bg-white overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-[radial-gradient(circle_at_center,rgba(194,176,32,0.1),transparent_70%)] pointer-events-none" />
                 <div className="container relative mx-auto px-6">
                     <div className="max-w-4xl mx-auto text-center">
@@ -308,7 +308,7 @@ export default function FAQsPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="max-w-2xl mx-auto mt-12 relative"
+                        className="max-w-2xl mx-auto mt-8 relative"
                     >
                         <div className="relative group">
                             <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-accent transition-colors" size={24} />
@@ -325,12 +325,12 @@ export default function FAQsPage() {
             </section>
 
             {/* FAQ content */}
-            <section className="py-24">
+            <section className="py-14">
                 <div className="container mx-auto px-6">
                     <div className="max-w-5xl mx-auto">
 
                         {/* Categories */}
-                        <div className="flex flex-wrap justify-center gap-3 mb-16">
+                        <div className="flex flex-wrap justify-center gap-3 mb-8">
                             {categories.map((cat) => (
                                 <button
                                     key={cat}
@@ -358,7 +358,7 @@ export default function FAQsPage() {
                                     >
                                         <button
                                             onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                                            className="w-full px-8 py-8 flex items-center justify-between text-left group"
+                                            className="w-full px-6 py-5 flex items-center justify-between text-left group"
                                         >
                                             <div className="flex items-center gap-6">
                                                 <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-colors ${openIndex === index ? 'bg-accent text-white' : 'bg-[#f5f5f7] text-accent'}`}>
@@ -389,8 +389,8 @@ export default function FAQsPage() {
                                                     exit={{ height: 0, opacity: 0 }}
                                                     transition={{ duration: 0.3, ease: "easeInOut" }}
                                                 >
-                                                    <div className="px-24 pb-8 text-secondary text-lg font-medium leading-relaxed whitespace-pre-line">
-                                                        <div className="h-px bg-gray-100 mb-8" />
+                                                    <div className="px-16 pb-5 text-secondary text-base font-medium leading-relaxed whitespace-pre-line">
+                                                        <div className="h-px bg-gray-100 mb-5" />
                                                         {faq.answer}
                                                     </div>
                                                 </motion.div>
@@ -399,7 +399,7 @@ export default function FAQsPage() {
                                     </motion.div>
                                 ))
                             ) : (
-                                <div className="text-center py-24 bg-white rounded-[48px] border border-dashed border-gray-200">
+                                <div className="text-center py-14 bg-white rounded-[48px] border border-dashed border-gray-200">
                                     <MessageCircleQuestion className="mx-auto text-gray-300 mb-4" size={64} />
                                     <h3 className="text-2xl font-bold text-[#1d1d1f] mb-2">No questions found</h3>
                                     <p className="text-secondary">Try searching with different keywords or browse all categories.</p>
@@ -411,14 +411,14 @@ export default function FAQsPage() {
             </section>
 
             {/* Help CTA */}
-            <section className="py-24 bg-white">
+            <section className="py-14 bg-white">
                 <div className="container mx-auto px-6 text-center">
-                    <div className="max-w-4xl mx-auto bg-[#1d1d1f] rounded-[48px] p-12 md:p-20 relative overflow-hidden">
+                    <div className="max-w-4xl mx-auto bg-[#1d1d1f] rounded-[48px] p-8 md:p-12 relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 relative z-10">
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-5 relative z-10">
                             Still have questions?
                         </h2>
-                        <p className="text-xl text-white/70 mb-12 relative z-10">
+                        <p className="text-xl text-white/70 mb-8 relative z-10">
                             Our support team is here to help you with anything you need. Reach out to us directly.
                         </p>
                         <div className="flex flex-col md:flex-row items-center justify-center gap-6 relative z-10">

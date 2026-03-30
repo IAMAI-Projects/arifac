@@ -44,7 +44,7 @@ export default function ResourcesPage() {
             <Navbar />
 
             {/* Hero Section */}
-            <section className="relative pt-48 pb-24 bg-white overflow-hidden">
+            <section className="relative pt-36 pb-12 bg-white overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-[radial-gradient(circle_at_center,rgba(194,176,32,0.05),transparent_70%)] pointer-events-none" />
                 <div className="container relative mx-auto px-6 text-center">
                     <motion.div
@@ -59,7 +59,7 @@ export default function ResourcesPage() {
                             <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text italic mr-4">ARIFAC</span>
                             Resources
                         </h1>
-                        <p className="text-xl md:text-2xl text-secondary max-w-3xl mx-auto font-medium leading-relaxed mb-12">
+                        <p className="text-xl md:text-2xl text-secondary max-w-3xl mx-auto font-medium leading-relaxed mb-8">
                             Access curated materials and reference documents related to AML/CFT frameworks, industry practices, and financial crime prevention.
                         </p>
 
@@ -74,7 +74,7 @@ export default function ResourcesPage() {
             </section>
 
             {/* Resources Grid */}
-            <section className="py-24 bg-[#f5f5f7] relative overflow-hidden">
+            <section className="py-14 bg-[#f5f5f7] relative overflow-hidden">
                 <div className="container mx-auto px-6">
                     <div className="max-w-6xl mx-auto">
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -85,7 +85,7 @@ export default function ResourcesPage() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.1 }}
-                                    className="group relative bg-white p-10 rounded-[40px] border border-transparent hover:border-accent/10 transition-all hover:shadow-2xl hover:-translate-y-2 overflow-hidden"
+                                    className="group relative bg-white p-7 rounded-[32px] border border-transparent hover:border-accent/10 transition-all hover:shadow-2xl hover:-translate-y-2 overflow-hidden"
                                 >
                                     <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full translate-x-8 -translate-y-8 blur-3xl group-hover:bg-accent/10 transition-colors" />
 
@@ -112,19 +112,19 @@ export default function ResourcesPage() {
             </section>
 
             {/* Note Section */}
-            <section className="py-24 bg-white">
+            <section className="py-14 bg-white">
                 <div className="container mx-auto px-6">
                     <div className="max-w-4xl mx-auto">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            className="bg-[#1d1d1f] text-white p-12 rounded-[48px] shadow-2xl relative overflow-hidden text-center"
+                            className="bg-[#1d1d1f] text-white p-8 rounded-[40px] shadow-2xl relative overflow-hidden text-center"
                         >
                             <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                            <Lock size={48} className="mx-auto text-accent mb-6" />
-                            <h2 className="text-3xl font-bold mb-4">Membership Access</h2>
-                            <p className="text-xl text-white/70 font-medium mb-8">
+                            <Lock size={40} className="mx-auto text-accent mb-4" />
+                            <h2 className="text-2xl font-bold mb-3">Membership Access</h2>
+                            <p className="text-lg text-white/70 font-medium mb-6">
                                 Some resources, including high-level typologies and consultation papers, may be available only to registered ARIFAC members.
                             </p>
                             <button className="px-8 py-4 bg-accent text-white font-bold rounded-2xl hover:bg-white hover:text-accent transition-all shadow-lg shadow-accent/20">

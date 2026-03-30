@@ -18,7 +18,7 @@ export default function CertificationsPage() {
             <Navbar />
 
             {/* Hero Section */}
-            <section className="relative pt-48 pb-32 bg-white overflow-hidden">
+            <section className="relative pt-36 pb-12 bg-white overflow-hidden">
                 <div className="container relative mx-auto px-6 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -38,9 +38,9 @@ export default function CertificationsPage() {
             </section>
 
             {/* Framework Features */}
-            <section className="py-20 bg-[#f5f5f7] border-y border-gray-100">
+            <section className="py-12 bg-[#f5f5f7] border-y border-gray-100">
                 <div className="container mx-auto px-6">
-                    <div className="grid md:grid-cols-3 gap-12">
+                    <div className="grid md:grid-cols-3 gap-8">
                         <div className="flex flex-col items-center text-center gap-6">
                             <div className="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center shrink-0">
                                 <Award className="text-accent" size={32} />
@@ -73,7 +73,7 @@ export default function CertificationsPage() {
             </section>
 
             {/* Courses Grid */}
-            <section className="py-32 bg-white">
+            <section className="py-14 bg-white">
                 <div className="container mx-auto px-6">
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                         {certificationLevels.map((level, index) => (
@@ -83,10 +83,10 @@ export default function CertificationsPage() {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                                 viewport={{ once: true }}
-                                className="bg-[#f5f5f7] rounded-[40px] p-10 flex flex-col hover:bg-[#ebebed] transition-all duration-500 relative group"
+                                className="bg-[#f5f5f7] rounded-[32px] p-7 flex flex-col hover:bg-[#ebebed] transition-all duration-500 relative group"
                             >
                                 {/* Level Badge + Meta */}
-                                <div className="flex items-center justify-between mb-8">
+                                <div className="flex items-center justify-between mb-5">
                                     <span className="text-[11px] font-bold tracking-[0.15em] uppercase text-accent bg-white border border-gray-100 px-5 py-2 rounded-full shadow-sm">
                                         ACF-L{index + 1}
                                     </span>
@@ -100,10 +100,10 @@ export default function CertificationsPage() {
                                 <h3 className="text-3xl font-bold text-[#1d1d1f] mb-4 tracking-tight leading-tight">
                                     {level.title}
                                 </h3>
-                                <p className="text-[15px] text-secondary font-medium mb-8 leading-relaxed">{level.targetAudience}</p>
+                                <p className="text-[15px] text-secondary font-medium mb-5 leading-relaxed">{level.targetAudience}</p>
 
                                 {/* Price Tag */}
-                                <div className="mb-10">
+                                <div className="mb-6">
                                     <div className="flex items-baseline gap-1">
                                         <span className="text-4xl font-bold text-[#1d1d1f]">₹{level.price.toLocaleString()}</span>
                                         <span className="text-secondary text-sm font-bold">+ GST</span>
@@ -111,7 +111,7 @@ export default function CertificationsPage() {
                                 </div>
 
                                 {/* Feature list */}
-                                <ul className="space-y-4 mb-12 flex-1">
+                                <ul className="space-y-3 mb-6 flex-1">
                                     {level.features.map((feature, idx) => (
                                         <li key={idx} className="flex items-start gap-3.5 text-[15px] text-secondary font-medium leading-normal">
                                             <CheckCircle2 size={20} className="text-accent shrink-0 mt-0.5" />
@@ -121,7 +121,7 @@ export default function CertificationsPage() {
                                 </ul>
 
                                 {/* Actions */}
-                                <div className="flex flex-col gap-4 pt-10 border-t border-gray-200">
+                                <div className="flex flex-col gap-3 pt-6 border-t border-gray-200">
                                     {isLoggedIn() && hasPaidForCourse(level.level) ? (
                                         <Link
                                             href="/lms/dashboard"

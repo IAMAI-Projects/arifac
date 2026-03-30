@@ -230,8 +230,8 @@ export default function MeetingsPage() {
         <main className="min-h-screen bg-white flex flex-col font-sans selection:bg-[#C2B020]/30">
             <Navbar />
 
-            <div className="flex-1 pt-44 pb-16">
-                <div className="container mx-auto px-6 space-y-12">
+            <div className="flex-1 pt-36 pb-8">
+                <div className="container mx-auto px-6 space-y-8">
 
                     {/* Hero */}
                     <div className="max-w-4xl mx-auto text-center">
@@ -240,7 +240,7 @@ export default function MeetingsPage() {
                             Strengthening AML/CFT Capabilities
                         </motion.span>
                         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-                            className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading leading-tight tracking-tight text-[#1d1d1f] mb-5">
+                            className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading leading-tight tracking-tight text-[#1d1d1f] mb-3">
                             Through Structured{' '}
                             <span className="bg-gradient-to-r from-[#C2B020] to-[#8A7B0E] text-transparent bg-clip-text">Engagement</span>
                         </motion.h1>
@@ -252,7 +252,7 @@ export default function MeetingsPage() {
 
                     {/* Intro */}
                     <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-                        className="max-w-4xl mx-auto p-7 bg-[#f5f5f7] rounded-[28px] border border-gray-100/50">
+                        className="max-w-4xl mx-auto p-5 bg-[#f5f5f7] rounded-[28px] border border-gray-100/50">
                         <p className="text-[15px] text-secondary leading-relaxed text-center">
                             Through consultations, training initiatives, working groups, and knowledge-led engagement,
                             ARIFAC brings together reporting entities, fintech platforms, technology providers, and ecosystem
@@ -262,7 +262,7 @@ export default function MeetingsPage() {
 
                     {/* Program Areas */}
                     <div>
-                        <div className="mb-7">
+                        <div className="mb-4">
                             <h2 className="text-2xl md:text-3xl font-bold text-[#1d1d1f] tracking-tight">Program Areas</h2>
                             <p className="text-[14px] text-secondary font-medium mt-1">Diverse engagement formats tailored for ecosystem strengthening.</p>
                         </div>
@@ -270,12 +270,12 @@ export default function MeetingsPage() {
                             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                             {programAreas.map((area, idx) => (
                                 <motion.div key={idx} variants={itemVariants}
-                                    className="group bg-white p-7 rounded-[20px] border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all duration-300 flex flex-col">
-                                    <div className="w-11 h-11 rounded-xl bg-[#f5f5f7] flex items-center justify-center mb-4 group-hover:bg-[#C2B020]/10 transition-colors">
+                                    className="group bg-white p-5 rounded-[20px] border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all duration-300 flex flex-col">
+                                    <div className="w-10 h-10 rounded-xl bg-[#f5f5f7] flex items-center justify-center mb-3 group-hover:bg-[#C2B020]/10 transition-colors">
                                         {area.icon}
                                     </div>
-                                    <h3 className="text-[16px] font-bold text-[#1d1d1f] mb-2 tracking-tight">{area.title}</h3>
-                                    <p className="text-secondary text-[13px] font-medium mb-4 leading-relaxed">{area.description}</p>
+                                    <h3 className="text-[15px] font-bold text-[#1d1d1f] mb-1.5 tracking-tight">{area.title}</h3>
+                                    <p className="text-secondary text-[13px] font-medium mb-3 leading-relaxed">{area.description}</p>
                                     <div className="mt-auto space-y-1.5">
                                         {area.details.map((detail, dIdx) => (
                                             <div key={dIdx} className="flex items-start gap-2 text-[12px] text-secondary/80 font-medium">
@@ -384,11 +384,11 @@ export default function MeetingsPage() {
                     </div>
 
                     {/* Who + How to Participate */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
                         <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-                            className="bg-[#1d1d1f] rounded-[36px] p-9 text-white flex flex-col">
-                            <h2 className="text-2xl font-bold mb-7 tracking-tight">Who Should Participate</h2>
-                            <div className="space-y-4 flex-1">
+                            className="bg-[#1d1d1f] rounded-[28px] p-6 text-white flex flex-col">
+                            <h2 className="text-2xl font-bold mb-4 tracking-tight">Who Should Participate</h2>
+                            <div className="space-y-3 flex-1">
                                 {participants.map((item, idx) => (
                                     <div key={idx} className="flex items-center gap-3 group">
                                         <div className="w-5 h-5 rounded-full border border-white/20 flex items-center justify-center shrink-0 group-hover:border-[#C2B020] group-hover:bg-[#C2B020] transition-all">
@@ -402,24 +402,24 @@ export default function MeetingsPage() {
 
                         <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
                             className="flex flex-col">
-                            <h2 className="text-2xl font-bold text-[#1d1d1f] mb-3 tracking-tight">How to Participate</h2>
-                            <p className="text-[15px] text-secondary font-medium mb-6 leading-relaxed">
+                            <h2 className="text-2xl font-bold text-[#1d1d1f] mb-2 tracking-tight">How to Participate</h2>
+                            <p className="text-[15px] text-secondary font-medium mb-4 leading-relaxed">
                                 Participation in ARIFAC programs is available to members, with selected sessions open to invited stakeholders.
                             </p>
-                            <div className="space-y-3 flex-1 flex flex-col">
-                                <Link href="/join" className="flex items-center justify-between p-5 bg-[#f5f5f7] rounded-2xl group hover:bg-[#ebebed] transition-all">
+                            <div className="space-y-2 flex-1 flex flex-col">
+                                <Link href="/join" className="flex items-center justify-between p-4 bg-[#f5f5f7] rounded-2xl group hover:bg-[#ebebed] transition-all">
                                     <span className="text-[15px] font-bold text-[#1d1d1f]">Apply for Membership</span>
                                     <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
                                         <ArrowRight size={16} className="text-accent" />
                                     </div>
                                 </Link>
-                                <Link href="#" className="flex items-center justify-between p-5 bg-[#f5f5f7] rounded-2xl group hover:bg-[#ebebed] transition-all">
+                                <Link href="#" className="flex items-center justify-between p-4 bg-[#f5f5f7] rounded-2xl group hover:bg-[#ebebed] transition-all">
                                     <span className="text-[15px] font-bold text-[#1d1d1f]">Explore Training Programs</span>
                                     <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
                                         <ArrowRight size={16} className="text-accent" />
                                     </div>
                                 </Link>
-                                <a href="mailto:help.arifac@iamai.in" className="flex items-center justify-between p-5 bg-[#f5f5f7] rounded-2xl group hover:bg-[#ebebed] transition-all">
+                                <a href="mailto:help.arifac@iamai.in" className="flex items-center justify-between p-4 bg-[#f5f5f7] rounded-2xl group hover:bg-[#ebebed] transition-all">
                                     <div className="flex flex-col">
                                         <span className="text-[15px] font-bold text-[#1d1d1f]">Contact ARIFAC Secretariat</span>
                                         <span className="text-sm text-secondary font-medium">help.arifac@iamai.in</span>
@@ -433,8 +433,8 @@ export default function MeetingsPage() {
                     </div>
 
                     {/* Disclaimer */}
-                    <div className="max-w-4xl mx-auto space-y-5">
-                        <div className="bg-[#f5f5f7] p-5 rounded-[20px] border border-gray-100 flex gap-4">
+                    <div className="max-w-4xl mx-auto space-y-3">
+                        <div className="bg-[#f5f5f7] p-4 rounded-[16px] border border-gray-100 flex gap-4">
                             <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center shadow-sm shrink-0">
                                 <AlertCircle className="text-accent" size={18} />
                             </div>
@@ -445,7 +445,7 @@ export default function MeetingsPage() {
                                 </p>
                             </div>
                         </div>
-                        <div className="p-5 border-t border-gray-100">
+                        <div className="p-3 border-t border-gray-100">
                             <h4 className="font-bold text-[#1d1d1f] mb-2 uppercase tracking-wider text-[11px] text-center">Disclaimer</h4>
                             <p className="text-secondary/60 font-medium text-[12px] leading-relaxed text-center max-w-3xl mx-auto">
                                 ARIFAC programs are intended for industry collaboration, knowledge sharing, and capacity building.

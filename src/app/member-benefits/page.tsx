@@ -65,7 +65,7 @@ export default function MemberBenefitsPage() {
             <Navbar />
 
             {/* Hero Section */}
-            <section className="relative pt-44 pb-20 overflow-hidden">
+            <section className="relative pt-36 pb-10 overflow-hidden">
                 <div className="container mx-auto px-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -103,9 +103,9 @@ export default function MemberBenefitsPage() {
             </section>
 
             {/* Membership Categories */}
-            <section className="py-24 bg-[#f5f5f7]">
+            <section className="py-14 bg-[#f5f5f7]">
                 <div className="container mx-auto px-6">
-                    <h2 className="text-3xl md:text-4xl font-bold font-heading mb-16 text-center">Membership Categories</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold font-heading mb-8 text-center">Membership Categories</h2>
                     <div className="grid md:grid-cols-3 gap-8">
                         {categories.map((cat, i) => (
                             <motion.div
@@ -128,13 +128,13 @@ export default function MemberBenefitsPage() {
             </section>
 
             {/* What Membership Enables */}
-            <section className="py-24 bg-white">
+            <section className="py-14 bg-white">
                 <div className="container mx-auto px-6">
                     <div className="max-w-6xl mx-auto">
-                        <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div className="grid lg:grid-cols-2 gap-10 items-center">
                             <div>
-                                <h2 className="text-3xl md:text-4xl font-bold font-heading mb-8">What Membership Enables</h2>
-                                <p className="text-lg text-[#6e6e73] mb-12 leading-relaxed">
+                                <h2 className="text-3xl md:text-4xl font-bold font-heading mb-5">What Membership Enables</h2>
+                                <p className="text-lg text-[#6e6e73] mb-6 leading-relaxed">
                                     ARIFAC membership provides access to a structured ecosystem focused on capability building and collaboration:
                                 </p>
                                 <ul className="space-y-4">
@@ -164,10 +164,10 @@ export default function MemberBenefitsPage() {
             </section>
 
             {/* Membership Process */}
-            <section className="py-24 bg-[#f5f5f7]">
+            <section className="py-14 bg-[#f5f5f7]">
                 <div className="container mx-auto px-6">
-                    <div className="max-w-5xl mx-auto text-center mb-20">
-                        <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">Membership Process</h2>
+                    <div className="max-w-5xl mx-auto text-center mb-10">
+                        <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">Membership Process</h2>
                         <p className="text-lg text-[#6e6e73]">Five simple steps to join India’s premier AML/CFT ecosystem.</p>
                     </div>
 
@@ -194,7 +194,7 @@ export default function MemberBenefitsPage() {
                             ))}
                         </div>
 
-                        <p className="mt-16 text-center text-[#6e6e73] text-sm italic">
+                        <p className="mt-8 text-center text-[#6e6e73] text-sm italic">
                             Submission of an application does not guarantee membership. Approval is subject to ARIFAC’s review and discretion.
                         </p>
                     </div>
@@ -202,7 +202,7 @@ export default function MemberBenefitsPage() {
             </section>
 
             {/* Responsibilities & Policies */}
-            <section className="py-24 bg-white">
+            <section className="py-14 bg-white">
                 <div className="container mx-auto px-6">
                     <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16">
                         {/* Responsibilities */}
@@ -232,7 +232,7 @@ export default function MemberBenefitsPage() {
 
                         {/* Validity & Fees */}
                         <div className="space-y-8">
-                            <div className="p-10 bg-[#f5f5f7] rounded-[48px] border border-gray-100">
+                            <div className="p-7 bg-[#f5f5f7] rounded-[32px] border border-gray-100">
                                 <div className="flex items-center gap-4 mb-6 text-accent">
                                     <RefreshCw size={28} />
                                     <h3 className="text-2xl font-bold text-[#1d1d1f]">Validity & Renewal</h3>
@@ -253,7 +253,7 @@ export default function MemberBenefitsPage() {
                                 </ul>
                             </div>
 
-                            <div className="p-10 bg-[#f5f5f7] rounded-[48px] border border-gray-100">
+                            <div className="p-7 bg-[#f5f5f7] rounded-[32px] border border-gray-100">
                                 <div className="flex items-center gap-4 mb-6 text-accent">
                                     <ClipboardCheck size={28} />
                                     <h3 className="text-2xl font-bold text-[#1d1d1f]">Fees & Participation</h3>
@@ -274,7 +274,7 @@ export default function MemberBenefitsPage() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        className="max-w-4xl mx-auto bg-gradient-to-br from-[#1d1d1f] to-[#424245] p-12 md:p-20 rounded-[64px] text-white shadow-2xl relative overflow-hidden"
+                        className="max-w-4xl mx-auto bg-gradient-to-br from-[#1d1d1f] to-[#424245] p-8 md:p-12 rounded-[48px] text-white shadow-2xl relative overflow-hidden"
                     >
                         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(194,176,32,0.1),transparent)] pointer-events-none" />
 
@@ -290,7 +290,7 @@ export default function MemberBenefitsPage() {
 
                         </div>
 
-                        <div className="mt-12 pt-12 border-t border-white/10 flex flex-col items-center gap-4">
+                        <div className="mt-8 pt-8 border-t border-white/10 flex flex-col items-center gap-4">
                             <p className="text-white/60">Contact ARIFAC Secretariat</p>
                             <a href="mailto:help.arifac@iamai.in" className="flex items-center gap-3 text-xl font-bold hover:text-[#C2B020] transition-colors">
                                 <Mail size={24} className="text-[#C2B020]" /> help.arifac@iamai.in
@@ -301,7 +301,7 @@ export default function MemberBenefitsPage() {
             </section>
 
             {/* Privacy & Disclaimer */}
-            <section className="py-24 bg-[#f5f5f7]">
+            <section className="py-14 bg-[#f5f5f7]">
                 <div className="container mx-auto px-6">
                     <div className="max-w-5xl mx-auto">
                         <div className="grid md:grid-cols-2 gap-12">
