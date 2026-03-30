@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { CheckCircle2, BookOpen, ChevronRight, ChevronDown, Award, ShieldCheck, Zap, Lock } from 'lucide-react';
 import { certificationLevels, CertificationLevel } from '@/data/arifac';
 import Link from 'next/link';
-import { isLoggedIn, hasPaidForCourse } from '@/lib/auth';
+import { isLoggedIn } from '@/lib/auth';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SyllabusModal from '@/components/SyllabusModal';
@@ -170,14 +170,7 @@ export default function CertificationsPage() {
 
                                 {/* Actions */}
                                 <div className="flex flex-col gap-2 pt-4 border-t border-gray-200 mt-auto">
-                                    {isLoggedIn() && hasPaidForCourse(level.level) ? (
-                                        <Link
-                                            href="/lms/dashboard"
-                                            className="w-full flex items-center justify-center gap-2 py-3 bg-[#0066cc] text-white rounded-xl font-bold text-sm hover:bg-[#0077ed] transition-all"
-                                        >
-                                            Go to Course <ChevronRight size={16} />
-                                        </Link>
-                                    ) : level.enrollUrl ? (
+                                    {level.enrollUrl ? (
                                         <a
                                             href={level.enrollUrl}
                                             target="_blank"
