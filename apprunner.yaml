@@ -8,8 +8,11 @@ build:
       - pnpm prisma generate
     build:
       - DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy" pnpm build
+    post-build:
+      - cp -r public .next/standalone/public
+      - cp -r .next/static .next/standalone/.next/static
 run:
-  command: HOSTNAME=0.0.0.0 node .next/standalone/server.js
+  command: node .next/standalone/server.js
   network:
     port: 3000
   env:
