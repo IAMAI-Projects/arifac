@@ -7,7 +7,7 @@ import { PlayCircle, CheckCircle, FileText, Download, LogOut, Menu, Lock, Award,
 import { motion } from 'framer-motion';
 import Logo, { LogoMark } from '@/components/Logo';
 import { lmsCourseData, Module, Lesson } from '@/data/lms';
-import { getUser, logout, isLoggedIn, getPaidCourses, hasPaidForCourse } from '@/lib/auth';
+import { getUser, logout, isLoggedIn } from '@/lib/auth';
 import { certificationLevels, CertificationLevel } from '@/data/arifac';
 import SyllabusModal from '@/components/SyllabusModal';
 
@@ -28,13 +28,13 @@ export default function LMSDashboard() {
             return;
         }
         setUser(getUser());
-        const paid = getPaidCourses();
-        setPaidCourses(paid);
+        //const paid = getPaidCourses();
+        //setPaidCourses(paid);
 
         // If they have exactly one paid course, select it automatically
-        if (paid.length === 1) {
-            setActiveCourseLevel(paid[0]);
-        }
+        // if (paid.length === 1) {
+        //     setActiveCourseLevel(paid[0]);
+        // }
         setIsLoading(false);
     }, [router]);
 
