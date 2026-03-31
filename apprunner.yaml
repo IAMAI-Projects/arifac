@@ -11,7 +11,7 @@ build:
       - cp -r public .next/standalone/public || true
       - cp -r .next/static .next/standalone/.next/static || true
 run:
-  command: bash -c "cd .next/standalone && node server.js"
+  command: node .next/standalone/server.js
   network:
     port: 3000
   env:
