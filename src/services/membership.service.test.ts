@@ -1,7 +1,7 @@
 import { jest, describe, it, expect, beforeEach } from '@jest/globals';
 import { MembershipService } from '@/services/membership.service';
 import { prisma } from '@/lib/prisma';
-import { hashPassword } from '@/lib/auth';
+import { hashPassword } from '@/lib/server-auth';
 
 const mockPrismaClient = {
   $transaction: jest.fn((callback: any) => callback(mockPrismaClient)),
@@ -35,7 +35,7 @@ jest.mock('@/lib/prisma', () => ({
   prisma: mockPrismaClient,
 }));
 
-jest.mock('@/lib/auth', () => ({
+jest.mock('@/lib/server-auth', () => ({
   hashPassword: jest.fn(() => Promise.resolve('hashed_password')),
 }));
 
@@ -96,6 +96,103 @@ describe('MembershipService', () => {
 
       await expect(MembershipService.registerFormB(mockData as any))
         .rejects.toThrow('User with this email or username already exists');
+    });
+  });
+
+  describe('registerFormA', () => {
+    it('should waive fee and set status to UNDER_REVIEW if IAMAI member', async () => {
+      const mockData = {
+        salutation: 'Mr.',
+        fullName: 'Member User',
+        designation: 'CEO',
+        mobile: '1234567890',
+        email: 'member@example.com',
+        username: 'memberuser',
+        password: 'password123',
+        orgName: 'Member Org',
+        registeredAddress: '456 Street',
+        primarySector: 'Banking',
+        entityType: 'Private Limited Company',
+        isRegulated: 'Yes',
+        registeredWithFiu: 'No',
+        identifierType: 'PAN — Permanent Account Number',
+        identifierNumber: 'ABCDE1234F',
+        industryMemberships: ['IAMAI'],
+        iamaiCertificateUrl: '/uploads/cert.pdf',
+        totalAmount: 118000,
+        declarationAccepted: true,
+      };
+
+      (prisma.users.findFirst as any).mockResolvedValue(null);
+      (prisma.organisations.findFirst as any).mockResolvedValue(null);
+      (prisma.organisations.create as any).mockResolvedValue({ id: 'org_id' });
+      (prisma.users.create as any).mockResolvedValue({ id: 'user_id', email: 'member@example.com', full_name: 'Member User', organisation_id: 'org_id' });
+      (prisma.membership_applications.create as any).mockResolvedValue({ id: 'app_id', user_id: 'user_id' });
+      (prisma.application_details.create as any).mockResolvedValue({ id: 'detail_id' });
+
+      const result = await MembershipService.registerFormA(mockData);
+
+      expect(result.success).toBe(true);
+      expect(prisma.membership_applications.create).toHaveBeenCalledWith(expect.objectContaining({
+        data: expect.objectContaining({
+          status: 'UNDER_REVIEW',
+          fee_waived: true,
+          is_iamai_member: true,
+        })
+      }));
+      expect(prisma.application_details.create).toHaveBeenCalledWith(expect.objectContaining({
+        data: expect.objectContaining({
+          iamai_certificate_url: '/uploads/cert.pdf',
+        })
+      }));
+    });
+
+    it('should waive fee and set status to UNDER_REVIEW if IBA member (no certificate required)', async () => {
+      const mockData = {
+        salutation: 'Ms.',
+        fullName: 'IBA User',
+        designation: 'Manager',
+        mobile: '9876543210',
+        email: 'iba@example.com',
+        username: 'ibauser',
+        password: 'password123',
+        orgName: 'IBA Org',
+        registeredAddress: '789 Road',
+        primarySector: 'NBFC',
+        entityType: 'Private Limited Company',
+        isRegulated: 'Yes',
+        registeredWithFiu: 'No',
+        identifierType: 'CIN — Company Identification Number (MCA)',
+        identifierNumber: 'U12345MH2023PLC123456',
+        industryMemberships: ['IBA'],
+        ibaMembershipId: 'IBA-12345',
+        totalAmount: 59000,
+        declarationAccepted: true,
+      };
+
+      (prisma.users.findFirst as any).mockResolvedValue(null);
+      (prisma.organisations.findFirst as any).mockResolvedValue(null);
+      (prisma.organisations.create as any).mockResolvedValue({ id: 'org_iba' });
+      (prisma.users.create as any).mockResolvedValue({ id: 'user_iba', email: 'iba@example.com', full_name: 'IBA User', organisation_id: 'org_iba' });
+      (prisma.membership_applications.create as any).mockResolvedValue({ id: 'app_iba', user_id: 'user_iba' });
+      (prisma.application_details.create as any).mockResolvedValue({ id: 'detail_iba' });
+
+      const result = await MembershipService.registerFormA(mockData);
+
+      expect(result.success).toBe(true);
+      expect(prisma.membership_applications.create).toHaveBeenCalledWith(expect.objectContaining({
+        data: expect.objectContaining({
+          status: 'UNDER_REVIEW',
+          fee_waived: true,
+          is_iba_member: true,
+        })
+      }));
+      expect(prisma.application_details.create).toHaveBeenCalledWith(expect.objectContaining({
+        data: expect.objectContaining({
+          iba_membership_id: 'IBA-12345',
+          iba_certificate_url: undefined, // Explicitly check it's not sent if not needed
+        })
+      }));
     });
   });
 });

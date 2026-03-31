@@ -13,7 +13,7 @@ export const MembershipFormASchema = z.object({
 
   // Organisation Details
   orgName: z.string().min(1, 'Organisation name is required'),
-  registeredAddress: z.string().min(5, 'Registered address is required'),
+  registeredAddress: z.string().min(5, 'Registered address must be at least 5 characters'),
   orgWebsite: z.string().url('Invalid website URL').optional().or(z.literal('')),
   primarySector: z.string().min(1, 'Primary sector is required'),
   entityType: z.string().min(1, 'Entity type is required'),
@@ -27,6 +27,8 @@ export const MembershipFormASchema = z.object({
 
   // Existing Industry Memberships
   industryMemberships: z.array(z.string()),
+  iamaiCertificateUrl: z.string().optional(),
+  ibaCertificateUrl: z.string().optional(),
   ibaMembershipId: z.string().optional(),
   turnoverOrAum: z.string().optional(),
 
@@ -36,7 +38,7 @@ export const MembershipFormASchema = z.object({
   totalAmount: z.number().optional(),
 
   declarationAccepted: z.literal(true, {
-    errorMap: () => ({ message: 'You must accept the declaration' }),
+    message: 'You must accept the declaration',
   }),
 });
 

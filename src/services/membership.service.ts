@@ -83,16 +83,23 @@ export class MembershipService {
 
       // 4. Create Application
       console.log('[Service] Creating membership application');
+      const isIamaiMember = validatedData.industryMemberships.includes('IAMAI');
+      const isIbaMember = validatedData.industryMemberships.includes('IBA');
+      
+      // If either IAMAI or IBA is selected, waive the fee
+      const feeWaived = isIamaiMember || isIbaMember;
+
       const application = await tx.membership_applications.create({
         data: {
           application_type: 'PRE_APPROVED',
           organisation_id: organisation.id,
           user_id: user.id,
-          status: 'INIT',
+          status: feeWaived ? 'UNDER_REVIEW' : 'INIT',
           fee_amount: validatedData.totalAmount || 0,
+          fee_waived: feeWaived,
           aum_range: validatedData.turnoverOrAum,
-          is_iamai_member: validatedData.industryMemberships.includes('IAMAI'),
-          is_iba_member: validatedData.industryMemberships.includes('IBA'),
+          is_iamai_member: isIamaiMember,
+          is_iba_member: isIbaMember,
         }
       });
       console.log('[Service] Application created with ID:', application.id);
@@ -107,6 +114,8 @@ export class MembershipService {
           identifier_type: (MAP_IDENTIFIER_TYPE[validatedData.identifierType] || 'OTHER') as any,
           identifier_value: validatedData.identifierNumber,
           fiu_registration_number: validatedData.fiuRegNumber,
+          iamai_certificate_url: validatedData.iamaiCertificateUrl,
+          iba_certificate_url: validatedData.ibaCertificateUrl,
           iba_membership_id: validatedData.ibaMembershipId,
         }
       });

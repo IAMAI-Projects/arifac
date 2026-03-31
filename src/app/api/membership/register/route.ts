@@ -30,6 +30,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid form type' }, { status: 400 });
   } catch (error: any) {
     console.error('Registration error:', error);
+    
+    if (error.name === 'ZodError') {
+      return NextResponse.json(
+        { error: error.errors?.[0]?.message || 'Validation failed' },
+        { status: 400 }
+      );
+    }
+
     return NextResponse.json(
       { error: error.message || 'Internal server error' },
       { status: 500 }

@@ -57,6 +57,9 @@ function RegistrationFormContent() {
     // Section 5
     declarationAccepted: false, remarks: ''
   });
+  
+  const [iamaiFile, setIamaiFile] = useState<File | null>(null);
+  const iamaiFileRef = useRef<HTMLInputElement>(null);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isMembershipMenuOpen, setIsMembershipMenuOpen] = useState(false);
@@ -84,6 +87,29 @@ function RegistrationFormContent() {
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     }));
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        setError("File size must be less than 5MB");
+        return;
+      }
+      setIamaiFile(file);
+    }
+  };
+
+  const uploadFile = async (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'Upload failed');
+    return result.url;
   };
 
   const calculateAmount = () => {
@@ -116,20 +142,36 @@ function RegistrationFormContent() {
     setIsSubmitting(true);
     setError(null);
 
-    const amount = calculateAmount();
-    const paymentData = {
-      ...formData,
-      formType: 'A',
-      baseAmount: amount,
-      taxAmount: amount * 0.18,
-      totalAmount: amount * 1.18
-    };
+    const isIamai = formData.industryMemberships.includes('IAMAI');
+    const isIba = formData.industryMemberships.includes('IBA');
+    const isMembershipSelected = isIamai || isIba;
+
+    // Validate files if memberships are selected
+    if (isIamai && !iamaiFile) {
+      setError("Please upload IAMAI Membership Certificate");
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
+      let iamaiUrl = '';
+
+      if (iamaiFile) iamaiUrl = await uploadFile(iamaiFile);
+
+      const amount = calculateAmount();
+      const registrationData = {
+        ...formData,
+        formType: 'A',
+        baseAmount: amount,
+        taxAmount: amount * 0.18,
+        totalAmount: amount * 1.18,
+        iamaiCertificateUrl: iamaiUrl,
+      };
+
       const response = await fetch('/api/membership/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(paymentData),
+        body: JSON.stringify(registrationData),
       });
 
       const result = await response.json();
@@ -140,6 +182,13 @@ function RegistrationFormContent() {
 
       // Sync client-side auth state (local storage/UI)
       setClientAuth(formData.email, formData.fullName);
+
+      if (isMembershipSelected) {
+        // Special case: Skip payment for IAMAI/IBA members
+        // Redirect directly to dashboard or success page
+        window.location.href = '/membership/dashboard';
+        return;
+      }
 
       // Store only non-sensitive display data in sessionStorage
       sessionStorage.setItem('membershipPaymentData', JSON.stringify({
@@ -420,11 +469,30 @@ function RegistrationFormContent() {
                 {formData.industryMemberships.includes('IAMAI') && (
                   <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mb-6 overflow-hidden">
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Upload IAMAI Membership Certificate *</label>
-                    <div className="w-full border-2 border-dashed border-gray-300 rounded-xl p-8 flex flex-col items-center justify-center text-center bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer group">
-                      <Upload className="w-8 h-8 text-gray-400 group-hover:text-blue-500 mb-3" />
-                      <span className="text-sm font-medium text-gray-600">Click to upload or drag & drop</span>
-                      <span className="text-xs text-gray-500 mt-1">PDF, JPG, PNG (Max 5MB)</span>
-                      <input type="file" className="hidden" accept=".pdf,.png,.jpg,.jpeg" />
+                    <div 
+                      onClick={() => iamaiFileRef.current?.click()}
+                      className={`w-full border-2 border-dashed ${iamaiFile ? 'border-green-500 bg-green-50' : 'border-gray-300 bg-gray-50'} rounded-xl p-8 flex flex-col items-center justify-center text-center hover:bg-gray-100 transition-colors cursor-pointer group`}
+                    >
+                      {iamaiFile ? (
+                        <>
+                          <CheckSquare className="w-8 h-8 text-green-500 mb-3" />
+                          <span className="text-sm font-medium text-green-700">{iamaiFile.name}</span>
+                          <span className="text-xs text-green-600 mt-1">{(iamaiFile.size / 1024).toFixed(1)} KB</span>
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="w-8 h-8 text-gray-400 group-hover:text-blue-500 mb-3" />
+                          <span className="text-sm font-medium text-gray-600">Click to upload or drag & drop</span>
+                          <span className="text-xs text-gray-500 mt-1">PDF, JPG, PNG (Max 5MB)</span>
+                        </>
+                      )}
+                      <input 
+                        type="file" 
+                        ref={iamaiFileRef}
+                        className="hidden" 
+                        accept=".pdf,.png,.jpg,.jpeg" 
+                        onChange={(e) => handleFileChange(e)}
+                      />
                     </div>
                   </motion.div>
                 )}
@@ -517,7 +585,9 @@ function RegistrationFormContent() {
                   Processing...
                 </>
               ) : (
-                'Proceed to Payment'
+                formData.industryMemberships.includes('IAMAI') || formData.industryMemberships.includes('IBA') 
+                  ? 'Complete Registration' 
+                  : 'Proceed to Payment'
               )}
             </button>
           </div>
