@@ -17,7 +17,7 @@ run:
     - name: NODE_ENV
       value: production
     - name: DATABASE_URL
-      value: "postgresql://arifac_admin:7iHa9iC99tq2ivk9kF3v@arifac-db.c9imydph9opj.ap-south-1.rds.amazonaws.com:5432/arifac?sslmode=require"
+      value: "postgresql://arifac_admin:7iHa9iC99tq2ivk9kF3v@arifac-db.c9imydph9opj.ap-south-1.rds.amazonaws.com:5432/arifac"
     - name: EDMINGLE_API_URL
       value: "https://iamai-api.edmingle.com/nuSource/api/v1/"
     - name: EDMINGLE_INSTITUTION_ID
