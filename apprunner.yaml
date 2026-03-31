@@ -7,8 +7,7 @@ build:
       - npx prisma generate
     build:
       - DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy" npx next build
-    post-build:
-      - cp -r public .next/standalone/public || true
+      - mkdir -p .next/standalone/public && cp -r public/* .next/standalone/public/ || true
       - cp -r .next/static .next/standalone/.next/static || true
 run:
   command: node .next/standalone/server.js
