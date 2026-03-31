@@ -15,3 +15,19 @@ run:
   env:
     - name: NODE_ENV
       value: production
+    - name: DATABASE_URL
+      value: "postgresql://arifac_admin:7iHa9iC99tq2ivk9kF3v@arifac-db.c9imydph9opj.ap-south-1.rds.amazonaws.com:5432/arifac"
+    - name: EDMINGLE_API_URL
+      value: "https://iamai-api.edmingle.com/nuSource/api/v1/"
+    - name: EDMINGLE_INSTITUTION_ID
+      value: "9795"
+    - name: EDMINGLE_ORGANIZATION_ID
+      value: "12112"
+    - name: EDMINGLE_HOSTNAME
+      value: "arifac.iamai.in"
+    - name: EDMINGLE_SSO_SECRET
+      value: "qEmsR6M0DjlyIaHLVeowO4UiAPcGxdnz"
+    - name: SESSION_SECRET
+      value: "rf3PiRaWlZ8c3dY+MRQVPao1sMtE71trGtKIGsq61ow="
+    - name: HOSTNAME
+      value: "0.0.0.0"
