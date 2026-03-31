@@ -58,31 +58,25 @@ export default function Navbar() {
 
         {
             name: t('Membership'),
-            href: '/meetings',
-            dropdown: [
-                { name: t('Membership Programs'), href: '/member-benefits', icon: Calendar },
-                { name: t('Membership Structure and Fee'), href: '/member-structure-fee', icon: ImageIcon },
-
-            ]
+            href: '/member-benefits',
         },
         {
-            name: t('Programs'),
+            name: t('Certification'),
             href: '#',
             dropdown: [
-                { name: t('Training & Certification (LMS)'), href: '/certifications', icon: Award },
-                { name: t('Industry Consultationss'), href: '/meetings', icon: GraduationCap },
+                { name: t('Training & Certification'), href: '/certifications', icon: Award },
                 { name: t('nav.training_leads'), href: '/training-leads', icon: GraduationCap },
-                { name: t('nav.volunteers'), href: '/training-volunteers', icon: Users2 },
+                { name: t('Become a Trainer'), href: '/training-volunteers', icon: Users2 },
                 { name: t('nav.topics'), href: '/training-topics', icon: Layers },
             ]
         },
         {
-            name: t('Regulatory Updates'),
-            href: '/regulatory-updates',
+            name: t('Programs'),
+            href: '/meetings',
         },
         {
-            name: t('Resources'),
-            href: '/resources',
+            name: t('Updates'),
+            href: '/regulatory-updates',
         },
     ];
 
