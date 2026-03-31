@@ -3,14 +3,13 @@ runtime: nodejs22
 build:
   commands:
     pre-build:
-      - npm install -g pnpm
-      - pnpm install --no-frozen-lockfile
-      - pnpm prisma generate
+      - npm install
+      - npx prisma generate
     build:
-      - DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy" pnpm build
+      - DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy" npx next build
     post-build:
-      - cp -r public .next/standalone/public
-      - cp -r .next/static .next/standalone/.next/static
+      - cp -r public .next/standalone/public || true
+      - cp -r .next/static .next/standalone/.next/static || true
 run:
   command: node .next/standalone/server.js
   network:
