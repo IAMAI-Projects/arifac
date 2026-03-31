@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { CheckCircle2, Clock, BookOpen, ChevronRight, ArrowRight } from 'lucide-react';
 import { certificationLevels, CertificationLevel } from '@/data/arifac';
 import Link from 'next/link';
-import { isLoggedIn, hasPaidForCourse } from '@/lib/auth';
+import { isLoggedIn } from '@/lib/auth';
 import SyllabusModal from './SyllabusModal';
 import { useLanguage } from './LanguageContext';
 
@@ -82,7 +82,7 @@ export default function CertificationScrollSection() {
                                     {t('cert.syllabus')}
                                 </button>
 
-                                {isLoggedIn() && hasPaidForCourse(level.level) ? (
+                                {isLoggedIn() ? (
                                     <Link
                                         href="/lms/dashboard"
                                         className="flex items-center gap-1 text-[14px] font-bold text-[#0066cc] hover:underline"

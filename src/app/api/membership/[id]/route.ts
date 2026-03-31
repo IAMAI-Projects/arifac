@@ -15,7 +15,7 @@ export async function GET(
     const application = await prisma.membership_applications.findUnique({
       where: { id },
       include: {
-        organisations: true,
+        // organisations: true,
         application_details: true,
         payments: true,
       },
@@ -51,7 +51,7 @@ export async function PATCH(
 
     // In a real app, only ADMIN should be able to PATCH status
     // For now, I'll allow the user to cancel their own application or similar
-    
+
     const application = await prisma.membership_applications.findUnique({
       where: { id },
     });
