@@ -102,7 +102,7 @@ export default function HeroSection() {
                             href={user ? "/membership/dashboard" : "/membership/login"}
                             className="group flex items-center justify-center gap-2 px-6 py-2.5 bg-[#1d1d1f] text-white rounded-full font-semibold text-[14px] hover:bg-[#1d1d1f]/90 transition-all duration-300 shadow-lg shadow-black/5"
                         >
-                            {user ? t('ARIFAC Membership - Dashboard') : t('ARIFAC Membership - Login')}
+                            {t('ARIFAC Membership - Know More')}
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </motion.div>
