@@ -190,10 +190,16 @@ function RegistrationFormContent() {
         return;
       }
 
-      // Store only non-sensitive display data in sessionStorage
+      // Store non-sensitive display data in sessionStorage
       sessionStorage.setItem('membershipPaymentData', JSON.stringify({
         orgName: formData.orgName,
-        email: formData.email, // for contact display
+        registeredAddress: formData.registeredAddress,
+        orgWebsite: formData.orgWebsite,
+        primarySector: formData.primarySector,
+        entityType: formData.entityType,
+        identifierType: formData.identifierType,
+        identifierNumber: formData.identifierNumber,
+        email: formData.email,
         fullName: formData.fullName,
         designation: formData.designation,
         countryCode: formData.countryCode,
@@ -322,7 +328,7 @@ function RegistrationFormContent() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="col-span-1 md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Registered Office Address *</label>
-                  <textarea required name="registeredAddress" value={formData.registeredAddress} onChange={handleInputChange} rows={3} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none" placeholder="Enter complete registered address"></textarea>
+                  <textarea required name="registeredAddress" value={formData.registeredAddress} onChange={handleInputChange} minLength={5} rows={3} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none" placeholder="Enter complete registered address (min 5 characters)"></textarea>
                 </div>
                 <div className="col-span-1 md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Organisation Website</label>

@@ -23,7 +23,13 @@ export default function Navbar() {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+    const [user, setUser] = useState<any>(null);
     const { language: currentLang, setLanguage: setCurrentLang, t } = useLanguage();
+
+    useEffect(() => {
+        // Initial user check
+        setUser(getUser());
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -312,8 +318,9 @@ export default function Navbar() {
                                                 {t('nav.learning_platform')}
                                             </a>
                                             <Link
-                                                href="/membership/login"
+                                                href={user ? "/membership/dashboard" : "/membership/login"}
                                                 className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
+                                                onClick={() => setActiveDropdown(null)}
                                             >
                                                 {t('nav.member_platform')}
                                             </Link>
@@ -551,7 +558,7 @@ export default function Navbar() {
                                     {t('nav.learning_platform')}
                                 </a>
                                 <Link
-                                    href="/membership/login"
+                                    href={user ? "/membership/dashboard" : "/membership/login"}
                                     className="text-center font-bold text-[#1d1d1f] px-8 py-6 bg-white rounded-[24px] border-2 border-[#1d1d1f] hover:bg-[#1d1d1f] hover:text-white transition-all text-xl"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >

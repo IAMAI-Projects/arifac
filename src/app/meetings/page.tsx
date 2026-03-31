@@ -407,7 +407,7 @@ export default function MeetingsPage() {
                                 Participation in ARIFAC programs is available to members, with selected sessions open to invited stakeholders.
                             </p>
                             <div className="space-y-2 flex-1 flex flex-col">
-                                <Link href="/join" className="flex items-center justify-between p-4 bg-[#f5f5f7] rounded-2xl group hover:bg-[#ebebed] transition-all">
+                                <Link href="/membership/login" className="flex items-center justify-between p-4 bg-[#f5f5f7] rounded-2xl group hover:bg-[#ebebed] transition-all">
                                     <span className="text-[15px] font-bold text-[#1d1d1f]">Apply for Membership</span>
                                     <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
                                         <ArrowRight size={16} className="text-accent" />

@@ -31,9 +31,10 @@ export async function POST(request: Request) {
   } catch (error: any) {
     console.error('Registration error:', error);
     
-    if (error.name === 'ZodError') {
+    if (error.name === 'ZodError' || error instanceof Error && 'issues' in error) {
+      const issues = error.issues || (error as any).errors;
       return NextResponse.json(
-        { error: error.errors?.[0]?.message || 'Validation failed' },
+        { error: issues?.[0]?.message || 'Validation failed' },
         { status: 400 }
       );
     }

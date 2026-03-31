@@ -46,18 +46,31 @@ function RegistrationFormBContent() {
   };
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting || isSubmitted) return;
     setIsSubmitting(true);
     setError(null);
 
     try {
-      const response = await fetch('/api/membership/register', {
+      // Map formData to new payload structure
+      const payload = {
+        email: formData.email.trim(),
+        name: formData.fullName.trim(),
+        organisationName: formData.orgName.trim(),
+        details: {
+          ...formData, // Store everything as JSON in details
+          submittedAt: new Date().toISOString()
+        }
+      };
+
+      const response = await fetch('/api/membership/form-b', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, formType: 'B' }),
+        body: JSON.stringify(payload),
       });
 
       const result = await response.json();
@@ -66,13 +79,39 @@ function RegistrationFormBContent() {
         throw new Error(result.error || 'Registration failed');
       }
 
-      // Redirect to dashboard (User is registered but inactive maybe)
-      window.location.href = '/membership/dashboard';
+      setIsSubmitted(true);
+      // Optional: No redirect yet, show success popup
     } catch (err: any) {
       setError(err.message);
       setIsSubmitting(false);
     }
   };
+
+  if (isSubmitted) {
+    return (
+      <div className="flex-grow pt-32 pb-20 px-4 sm:px-6 flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="bg-white p-10 rounded-3xl shadow-2xl border border-blue-50 max-w-lg text-center"
+        >
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600">
+            <CheckSquare size={40} />
+          </div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Submission Successful!</h2>
+          <p className="text-gray-600 mb-8 leading-relaxed">
+            Your Form has been submitted successfully and is under review. You will be notified once approved.
+          </p>
+          <Link
+            href="/"
+            className="inline-flex items-center justify-center bg-[#0066cc] text-white px-8 py-3 rounded-full font-bold hover:bg-[#0077ed] transition-all"
+          >
+            Back to Home
+          </Link>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-grow pt-32 pb-20 px-4 sm:px-6">

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, CreditCard, ShieldCheck, CheckCircle2, Lock, Info, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Building2, User, Globe, MapPin, CheckCircle2, Lock, ShieldCheck, Mail, Phone, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -11,12 +11,6 @@ export default function PaymentPage() {
   const [paymentData, setPaymentData] = useState<any>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [cardData, setCardData] = useState({
-    cardNumber: '',
-    expiry: '',
-    cvv: '',
-    name: ''
-  });
 
   useEffect(() => {
     const data = sessionStorage.getItem('membershipPaymentData');
@@ -26,28 +20,35 @@ export default function PaymentPage() {
       // Fallback for demo if someone navigates directly
       setPaymentData({
         orgName: 'Demo Organisation',
-        baseAmount: 25000,
-        taxAmount: 4500,
-        totalAmount: 29500
+        registeredAddress: '123, Business Hub, Mumbai, Maharashtra 400001',
+        orgWebsite: 'https://example.com',
+        primarySector: 'Fintech & Digital Financial Services',
+        entityType: 'Private Limited Company',
+        identifierType: 'GST Registration Number (GSTIN)',
+        identifierNumber: '27AABCU1234F1Z5',
+        email: 'representative@example.com',
+        fullName: 'John Doe',
+        designation: 'Director',
+        countryCode: '+91',
+        mobile: '9876543210',
+        baseAmount: 50000,
+        taxAmount: 9000,
+        totalAmount: 59000
       });
     }
   }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setCardData(prev => ({ ...prev, [name]: value }));
-  };
-
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
-    
-    // Simulate payment processing (in production this would call Stripe/Razorpay)
+
+    // Simulate payment processing (In future this would redirect to CC Avenue)
+    // For now, we skip the payment step as requested
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
     setIsProcessing(false);
     setIsSuccess(true);
-    
+
     // Redirect to dashboard after success animation
     setTimeout(() => {
       window.location.href = '/membership/dashboard';
@@ -59,143 +60,115 @@ export default function PaymentPage() {
   return (
     <main className="bg-gray-50 min-h-screen font-sans flex flex-col">
       <Navbar />
-      
+
       <div className="flex-grow pt-32 pb-20 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-8">
-          
-          {/* Left Side: Payment Form */}
+
+          {/* Left Side: Review Details */}
           <div className="flex-grow lg:w-2/3">
-            <Link href="/membership/register/form-a" className="inline-flex items-center text-gray-500 hover:text-blue-600 mb-6 transition-colors">
+            <br />
+            <Link href="/membership/register/form-a" className="inline-flex items-center text-gray-500 hover:text-blue-600 mb-6 transition-colors font-medium">
               <ArrowLeft className="w-4 h-4 mr-2" /> Back to Form
             </Link>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden"
             >
               <div className="p-8 md:p-10">
                 <div className="flex items-center justify-between mb-8">
-                  <h1 className="text-3xl font-bold text-gray-900">Payment Details</h1>
+                  <h1 className="text-3xl font-bold text-gray-900">Review & Pay</h1>
                   <div className="flex gap-2">
+                    <div className="h-2 w-8 rounded-full bg-blue-600"></div>
                     <div className="h-2 w-8 rounded-full bg-blue-600"></div>
                     <div className="h-2 w-8 rounded-full bg-gray-200"></div>
                   </div>
                 </div>
 
-                <form onSubmit={handlePayment} className="space-y-6">
+                <div className="space-y-8">
+                  {/* Organisation Details Section */}
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Cardholder Name</label>
-                    <input 
-                      required 
-                      type="text" 
-                      name="name"
-                      placeholder="e.g. JOHN DOE"
-                      value={cardData.name}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-lg" 
-                    />
+                    <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                      <Building2 className="w-4 h-4" /> Organisation Details
+                    </h3>
+                    <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                      <div className="flex items-start gap-4 mb-4">
+                        <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-blue-600 border border-gray-100">
+                          <Building2 size={24} />
+                        </div>
+                        <div>
+                          <h4 className="text-xl font-bold text-gray-900">{paymentData.orgName}</h4>
+                          {paymentData.orgWebsite && (
+                            <a href={paymentData.orgWebsite} target="_blank" className="text-blue-600 text-sm flex items-center gap-1 hover:underline mt-1">
+                              {paymentData.orgWebsite} <ExternalLink size={12} />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-200">
+                        <div className="flex items-start gap-3">
+                          <MapPin className="w-5 h-5 text-gray-400 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs font-semibold text-gray-500 uppercase">Address</p>
+                            <p className="text-sm text-gray-700 leading-relaxed font-medium">{paymentData.registeredAddress}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <Globe className="w-5 h-5 text-gray-400 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs font-semibold text-gray-500 uppercase">Industry & Entity</p>
+                            <p className="text-sm text-gray-700 font-medium">{paymentData.primarySector}</p>
+                            <p className="text-xs text-gray-500">{paymentData.entityType}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
+                  {/* Representative Details Section */}
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Card Number</label>
-                    <div className="relative">
-                      <CreditCard className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-6 h-6" />
-                      <input 
-                        required 
-                        type="text" 
-                        name="cardNumber"
-                        placeholder="4242 4242 4242 4242"
-                        value={cardData.cardNumber}
-                        onChange={handleInputChange}
-                        className="w-full pl-14 pr-4 py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-lg font-mono" 
-                      />
+                    <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                      <User className="w-4 h-4" /> Representative Details
+                    </h3>
+                    <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="flex items-start gap-3">
+                          <User className="w-5 h-5 text-gray-400 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs font-semibold text-gray-500 uppercase">Authorized Person</p>
+                            <p className="text-base font-bold text-gray-900">{paymentData.fullName}</p>
+                            <p className="text-sm text-gray-600">{paymentData.designation}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <Mail className="w-5 h-5 text-gray-400 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs font-semibold text-gray-500 uppercase">Contact Information</p>
+                            <p className="text-sm text-gray-700 font-medium">{paymentData.email}</p>
+                            <p className="text-sm text-gray-700 font-medium">{paymentData.countryCode} {paymentData.mobile}</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">Expiry Date</label>
-                      <input 
-                        required 
-                        type="text" 
-                        name="expiry"
-                        placeholder="MM / YY"
-                        value={cardData.expiry}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-lg font-mono" 
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">CVV</label>
-                      <input 
-                        required 
-                        type="password" 
-                        name="cvv"
-                        placeholder="***"
-                        maxLength={3}
-                        value={cardData.cvv}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-lg font-mono" 
-                      />
-                    </div>
-                  </div>
 
-                  <div className="p-4 bg-blue-50 border border-blue-100 rounded-2xl flex gap-4">
-                    <Info className="w-6 h-6 text-blue-600 shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-sm font-medium text-blue-900">Dummy Payment Information</p>
-                      <p className="text-sm text-blue-700 mt-1">
-                        Use <span className="font-bold">4242 4242 4242 4242</span> for the card number and any future date for expiry to proceed.
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    disabled={isProcessing || isSuccess}
-                    type="submit"
-                    className="w-full bg-[#0066cc] text-white py-5 rounded-2xl font-bold text-xl hover:bg-[#0077ed] hover:shadow-2xl hover:shadow-blue-500/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3 disabled:opacity-70 disabled:hover:translate-y-0"
-                  >
-                    {isProcessing ? (
-                      <>
-                        <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-                        Processing...
-                      </>
-                    ) : isSuccess ? (
-                      <>
-                        <CheckCircle2 className="w-6 h-6" />
-                        Paid Successfully
-                      </>
-                    ) : (
-                      `Pay ₹${paymentData.totalAmount.toLocaleString('en-IN')}`
-                    )}
-                  </button>
-
-                  <div className="flex items-center justify-center gap-6 pt-4 text-gray-400">
-                    <div className="flex items-center gap-2">
-                      <Lock className="w-4 h-4" />
-                      <span className="text-xs uppercase tracking-widest font-bold">Secure SSL</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4" />
-                      <span className="text-xs uppercase tracking-widest font-bold">Encrypted</span>
-                    </div>
-                  </div>
-                </form>
+                </div>
               </div>
             </motion.div>
           </div>
 
           {/* Right Side: Order Summary */}
           <div className="lg:w-1/3">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
               className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 sticky top-32"
             >
               <h2 className="text-xl font-bold text-gray-900 mb-6">Order Summary</h2>
-              
+
               <div className="space-y-4 mb-8">
                 <div className="flex justify-between items-start">
                   <div>
@@ -226,19 +199,29 @@ export default function PaymentPage() {
                 </div>
               </div>
 
-              <div className="mt-8 pt-8 border-t border-gray-100">
-                <p className="text-sm text-gray-500 italic block mb-4">
-                  * By clicking "Pay", you agree to ARIFAC's terms and conditions.
-                </p>
-                <div className="bg-gray-50 rounded-2xl p-4 flex items-center justify-between">
-                  <span className="text-xs font-bold text-gray-400 uppercase">Powered by</span>
-                  <div className="flex gap-2">
-                    <div className="w-8 h-5 bg-gray-200 rounded"></div>
-                    <div className="w-8 h-5 bg-gray-200 rounded"></div>
-                    <div className="w-8 h-5 bg-gray-200 rounded"></div>
-                  </div>
-                </div>
-              </div>
+
+
+              <form onSubmit={handlePayment} className="pt-4">
+                <button
+                  disabled={isProcessing || isSuccess}
+                  type="submit"
+                  className="w-full bg-[#0066cc] text-white py-5 rounded-2xl font-bold text-xl hover:bg-[#0077ed] hover:shadow-2xl hover:shadow-blue-500/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3 disabled:opacity-70 disabled:hover:translate-y-0"
+                >
+                  {isProcessing ? (
+                    <>
+                      <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Processing...
+                    </>
+                  ) : isSuccess ? (
+                    <>
+                      <CheckCircle2 className="w-6 h-6" />
+                      Payment Initiated
+                    </>
+                  ) : (
+                    `Pay ₹${paymentData.totalAmount.toLocaleString('en-IN')}`
+                  )}
+                </button>
+              </form>
             </motion.div>
           </div>
         </div>
@@ -247,32 +230,32 @@ export default function PaymentPage() {
       {/* Success Modal Overlay */}
       <AnimatePresence>
         {isSuccess && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-blue-900/40 backdrop-blur-md px-4"
           >
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               className="bg-white rounded-[40px] p-10 md:p-16 max-w-lg w-full text-center shadow-2xl relative overflow-hidden"
             >
               {/* Confetti-like decoration */}
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500"></div>
-              
+
               <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
                 <CheckCircle2 className="w-12 h-12 text-green-600" />
               </div>
-              
+
               <h2 className="text-4xl font-black text-gray-900 mb-4">Payment Successful!</h2>
               <p className="text-lg text-gray-600 mb-10">
                 Welcome to ARIFAC. Your membership has been confirmed. Redirecting you to your dashboard...
               </p>
-              
+
               <div className="flex flex-col gap-4">
                 <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
-                  <motion.div 
+                  <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: "100%" }}
                     transition={{ duration: 3 }}

@@ -46,8 +46,20 @@ async function main() {
     })
   }
 
-  console.log('Seed data inserted successfully')
-}
+  const adminEmail = 'admin@arifac.in';
+  const hashedPassword = await (require('bcryptjs')).hash('Admin@123', 10);
+
+  await prisma.admin.upsert({
+    where: { email: adminEmail },
+    update: { password: hashedPassword },
+    create: {
+      email: adminEmail,
+      password: hashedPassword,
+      role: 'ARIFAC_ADMIN' as any,
+    },
+  });
+
+  console.log('Seed data inserted successfully including admin');
 
 main()
   .catch((e) => {
