@@ -64,7 +64,7 @@ export default function SectoralNodalOfficersPage() {
         <main className="min-h-screen bg-white flex flex-col font-heading">
             <Navbar />
 
-            <div className="flex-1 pt-48 pb-32">
+            <div className="flex-1 pt-36 pb-14">
                 <div className="container mx-auto px-6">
                     <div className="max-w-4xl mx-auto mb-32">
                         <motion.div 

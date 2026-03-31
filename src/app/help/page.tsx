@@ -81,7 +81,7 @@ export default function HelpPage() {
             <Navbar />
 
             {/* Hero Section */}
-            <section className="relative pt-40 pb-20 bg-gray-50 overflow-hidden">
+            <section className="relative pt-36 pb-12 bg-gray-50 overflow-hidden">
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
                 <div className="container relative mx-auto px-6 text-center">
                     <motion.div
@@ -111,7 +111,7 @@ export default function HelpPage() {
             </section>
 
             {/* Categories Section */}
-            <section className="py-20">
+            <section className="py-14">
                 <div className="container mx-auto px-6">
                     <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
                         {categories.map((cat, idx) => (
@@ -139,7 +139,7 @@ export default function HelpPage() {
             </section>
 
             {/* FAQ Section */}
-            <section className="py-20 bg-gray-50">
+            <section className="py-14 bg-gray-50">
                 <div className="container mx-auto px-6 max-w-4xl">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
@@ -183,7 +183,7 @@ export default function HelpPage() {
             </section>
 
             {/* Contact Section */}
-            <section className="py-20">
+            <section className="py-14">
                 <div className="container mx-auto px-6">
                     <div className="bg-[#1d1d1f] rounded-[3rem] p-12 md:p-20 text-white relative overflow-hidden shadow-2xl">
                         <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-[100px] -mr-48 -mt-48" />
@@ -203,15 +203,6 @@ export default function HelpPage() {
                                         <div>
                                             <p className="text-sm text-white/60">Email Support</p>
                                             <p className="font-bold text-lg">help.arifac@iamai.in</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
-                                            <Phone size={24} className="text-[#c1d82f]" />
-                                        </div>
-                                        <div>
-                                            <p className="text-sm text-white/60">Phone Support</p>
-                                            <p className="font-bold text-lg">+91 1800-ARIFAC-HELP</p>
                                         </div>
                                     </div>
                                 </div>

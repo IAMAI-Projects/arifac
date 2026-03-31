@@ -12,7 +12,7 @@ export default function AboutPage() {
             <Navbar />
 
             {/* Hero Section */}
-            <section className="relative pt-48 pb-24 bg-white overflow-hidden">
+            <section className="relative pt-36 pb-12 bg-white overflow-hidden">
                 <div className="container relative mx-auto px-6 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -39,14 +39,14 @@ export default function AboutPage() {
             </section>
 
             {/* Why ARIFAC Section */}
-            <section className="py-24 bg-[#f5f5f7] relative overflow-hidden">
+            <section className="py-14 bg-[#f5f5f7] relative overflow-hidden">
                 <div className="container mx-auto px-6">
                     <div className="max-w-6xl mx-auto">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="grid md:grid-cols-2 gap-16 items-center"
+                            className="grid md:grid-cols-2 gap-10 items-center"
                         >
                             <div>
                                 <div className="flex items-center gap-2 text-accent font-bold uppercase tracking-[0.2em] text-[12px] mb-8">
@@ -90,10 +90,10 @@ export default function AboutPage() {
             </section>
 
             {/* Core Pillars */}
-            <section className="py-24 bg-white">
+            <section className="py-14 bg-white">
                 <div className="container mx-auto px-6">
                     <div className="max-w-6xl mx-auto">
-                        <div className="text-center mb-16">
+                        <div className="text-center mb-8">
                             <h2 className="text-3xl md:text-4xl font-bold text-[#1d1d1f] mb-4">Core Pillars of ARIFAC</h2>
                         </div>
                         <div className="grid md:grid-cols-3 gap-8">
@@ -135,10 +135,10 @@ export default function AboutPage() {
             </section>
 
             {/* What ARIFAC Does */}
-            <section className="py-24 bg-[#f5f5f7]">
+            <section className="py-14 bg-[#f5f5f7]">
                 <div className="container mx-auto px-6">
                     <div className="max-w-6xl mx-auto">
-                        <div className="text-center mb-20">
+                        <div className="text-center mb-10">
                             <h2 className="text-3xl md:text-4xl font-bold text-[#1d1d1f] mb-4">What ARIFAC Does</h2>
                             <p className="text-xl text-secondary max-w-2xl mx-auto">
                                 ARIFAC operates as a collaborative platform focused on enabling industry-wide capability and coordination:
@@ -213,10 +213,10 @@ export default function AboutPage() {
             </section>
 
             {/* Framework & Who Should Engage */}
-            <section className="py-24 bg-white overflow-hidden">
+            <section className="py-14 bg-white overflow-hidden">
                 <div className="container mx-auto px-6">
                     <div className="max-w-6xl mx-auto">
-                        <div className="grid lg:grid-cols-2 gap-20">
+                        <div className="grid lg:grid-cols-2 gap-10">
                             <div>
                                 <h2 className="text-3xl font-bold text-[#1d1d1f] mb-8">ARIFAC Framework</h2>
                                 <div className="space-y-6 text-lg text-secondary leading-relaxed bg-[#f5f5f7] p-10 rounded-[40px]">
@@ -255,14 +255,14 @@ export default function AboutPage() {
             </section>
 
             {/* Closing Statement */}
-            <section className="py-24 relative">
+            <section className="py-14 relative">
                 <div className="container mx-auto px-6">
                     <div className="max-w-4xl mx-auto text-center">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            className="bg-primary text-white p-12 md:p-20 rounded-[48px] md:rounded-[64px] shadow-2xl relative overflow-hidden"
+                            className="bg-primary text-white p-8 md:p-12 rounded-[48px] shadow-2xl relative overflow-hidden"
                         >
                             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(194,176,32,0.15),transparent)] pointer-events-none" />
                             <h2 className="text-2xl md:text-3xl font-bold mb-7 leading-tight">
@@ -281,10 +281,10 @@ export default function AboutPage() {
             </section>
 
             {/* Disclaimer Section */}
-            <section className="py-24 bg-[#f5f5f7]">
+            <section className="py-14 bg-[#f5f5f7]">
                 <div className="container mx-auto px-6">
                     <div className="max-w-4xl mx-auto">
-                        <div className="p-10 md:p-16 rounded-[48px] bg-white border border-gray-100 shadow-sm">
+                        <div className="p-8 md:p-10 rounded-[32px] bg-white border border-gray-100 shadow-sm">
                             <h2 className="text-2xl font-bold text-[#1d1d1f] mb-8">Disclaimer</h2>
                             <div className="space-y-6 text-secondary font-medium leading-relaxed">
                                 <p>

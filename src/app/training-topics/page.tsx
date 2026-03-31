@@ -76,7 +76,7 @@ export default function TrainingTopicsPage() {
         <main className="min-h-screen bg-white font-sans">
             <Navbar />
 
-            <div className="pt-48 pb-32 px-6">
+            <div className="pt-36 pb-14 px-6">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-start">
                         {/* Info Section */}

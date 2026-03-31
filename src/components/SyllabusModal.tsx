@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, BookOpen, Clock, PlayCircle } from 'lucide-react';
 import { CertificationLevel } from '@/data/arifac';
-import { isLoggedIn, hasPaidForCourse } from '@/lib/auth';
+import { isLoggedIn } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
 
 interface SyllabusModalProps {
@@ -15,8 +15,6 @@ export default function SyllabusModal({ course, onClose }: SyllabusModalProps) {
     const router = useRouter();
 
     if (!course) return null;
-
-    const isPaid = isLoggedIn() && hasPaidForCourse(course.level);
 
     return (
         <AnimatePresence>

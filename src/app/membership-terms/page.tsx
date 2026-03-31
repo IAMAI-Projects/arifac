@@ -212,7 +212,7 @@ export default function MembershipTermsPage() {
             <Navbar />
 
             {/* Document Header */}
-            <section className="pt-32 pb-16 bg-[#f5f5f7] border-b border-gray-200">
+            <section className="pt-28 pb-10 bg-[#f5f5f7] border-b border-gray-200">
                 <div className="container mx-auto px-6">
                     <div className="max-w-7xl mx-auto">
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
@@ -244,7 +244,7 @@ export default function MembershipTermsPage() {
             </section>
 
             {/* Document Content */}
-            <section className="py-20">
+            <section className="py-12">
                 <div className="container mx-auto px-6">
                     <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16">
 

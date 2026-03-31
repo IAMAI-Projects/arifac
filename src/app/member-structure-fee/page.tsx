@@ -173,7 +173,7 @@ export default function MemberStructureFeePage() {
             <Navbar />
 
             {/* Hero Section */}
-            <section className="relative pt-44 pb-20 overflow-hidden">
+            <section className="relative pt-36 pb-10 overflow-hidden">
                 <div className="container mx-auto px-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -208,14 +208,14 @@ export default function MemberStructureFeePage() {
             </section>
 
             {/* Fee Structure Section */}
-            <section className="py-24 bg-[#f5f5f7]">
+            <section className="py-14 bg-[#f5f5f7]">
                 <div className="container mx-auto px-6">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-8">
                         <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">Membership Types, Eligibility & Fee Structure</h2>
                         <p className="text-[#6e6e73] font-medium">Categorized by industry segment and operational scale</p>
                     </div>
 
-                    <div className="space-y-16">
+                    <div className="space-y-10">
                         {membershipData.map((category, idx) => (
                             <motion.div
                                 key={idx}
@@ -276,13 +276,13 @@ export default function MemberStructureFeePage() {
             </section>
 
             {/* What Membership Includes */}
-            <section className="py-24 bg-white">
+            <section className="py-14 bg-white">
                 <div className="container mx-auto px-6">
                     <div className="max-w-6xl mx-auto">
-                        <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div className="grid lg:grid-cols-2 gap-10 items-center">
                             <div>
-                                <h2 className="text-3xl md:text-4xl font-bold font-heading mb-8">What Membership Includes</h2>
-                                <p className="text-lg text-[#6e6e73] mb-12 leading-relaxed">
+                                <h2 className="text-3xl md:text-4xl font-bold font-heading mb-5">What Membership Includes</h2>
+                                <p className="text-lg text-[#6e6e73] mb-6 leading-relaxed">
                                     Becoming part of ARIFAC grants access to a variety of resources and platforms designed for industry leadership:
                                 </p>
                                 <div className="grid sm:grid-cols-1 gap-4">
@@ -326,15 +326,15 @@ export default function MemberStructureFeePage() {
             </section>
 
             {/* Important Notes */}
-            <section className="py-24 bg-[#f5f5f7]">
+            <section className="py-14 bg-[#f5f5f7]">
                 <div className="container mx-auto px-6">
                     <div className="max-w-4xl mx-auto">
-                        <div className="p-10 md:p-16 bg-white rounded-[64px] border border-gray-100 shadow-xl overflow-hidden relative">
+                        <div className="p-8 md:p-10 bg-white rounded-[40px] border border-gray-100 shadow-xl overflow-hidden relative">
                             <div className="absolute top-0 right-0 p-8">
                                 <Info size={40} className="text-gray-100" />
                             </div>
-                            <h2 className="text-3xl font-bold mb-12">Important Notes</h2>
-                            <ul className="space-y-6">
+                            <h2 className="text-3xl font-bold mb-6">Important Notes</h2>
+                            <ul className="space-y-4">
                                 {notes.map((note, i) => (
                                     <li key={i} className="flex items-start gap-4">
                                         <div className="w-6 h-6 rounded-full bg-[#C2B020]/10 flex items-center justify-center mt-1 shrink-0">
@@ -345,7 +345,7 @@ export default function MemberStructureFeePage() {
                                 ))}
                             </ul>
 
-                            <div className="mt-16 p-8 bg-amber-50 rounded-[40px] border border-amber-100">
+                            <div className="mt-8 p-6 bg-amber-50 rounded-[28px] border border-amber-100">
                                 <h4 className="text-xl font-bold text-amber-900 mb-4">Not Sure Which Category Applies?</h4>
                                 <p className="text-amber-800 leading-relaxed font-medium">
                                     Submit your application and ARIFAC will determine the appropriate membership category and fee slab during the review process.
@@ -357,18 +357,18 @@ export default function MemberStructureFeePage() {
             </section>
 
             {/* CTA Section */}
-            <section className="py-24 bg-white">
+            <section className="py-14 bg-white">
                 <div className="container mx-auto px-6">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        className="max-w-5xl mx-auto bg-gradient-to-br from-[#1d1d1f] to-[#424245] p-12 md:p-24 rounded-[72px] text-white shadow-2xl relative overflow-hidden text-center"
+                        className="max-w-5xl mx-auto bg-gradient-to-br from-[#1d1d1f] to-[#424245] p-8 md:p-14 rounded-[48px] text-white shadow-2xl relative overflow-hidden text-center"
                     >
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(194,176,32,0.15),transparent)] pointer-events-none" />
 
-                        <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">Ready to Join ARIFAC?</h2>
-                        <p className="text-xl text-white/70 mb-16 max-w-2xl mx-auto font-medium">
+                        <h2 className="text-4xl md:text-5xl font-bold mb-5 tracking-tight">Ready to Join ARIFAC?</h2>
+                        <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto font-medium">
                             Join the alliance of India's reporting entities and take a lead in financial crime prevention.
                         </p>
 
@@ -381,7 +381,7 @@ export default function MemberStructureFeePage() {
                             </button>
                         </div>
 
-                        <div className="mt-20 pt-12 border-t border-white/5 flex flex-col items-center gap-6">
+                        <div className="mt-8 pt-8 border-t border-white/5 flex flex-col items-center gap-4">
                             <div className="text-center">
                                 <p className="text-white/40 mb-2 uppercase tracking-widest text-xs font-bold">Contact ARIFAC Secretariat</p>
                                 <a href="mailto:help.arifac@iamai.in" className="text-2xl md:text-3xl font-bold hover:text-[#C2B020] transition-colors flex items-center gap-4">
