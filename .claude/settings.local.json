@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git checkout:*)",
+      "Bash(npm install:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(find . -type f \\\\\\(-name *.db -o -name *.sqlite -o -name *.sqlite3 \\\\\\))",
+      "Bash(git remote:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(netstat -ano)",
+      "Bash(taskkill /F /PID 8216)",
+      "Bash(curl -s http://localhost:3002)",
+      "Bash(curl -s http://localhost:3002/meetings)",
+      "Bash(curl -s http://localhost:3002/terms-of-use)",
+      "Bash(curl -s http://localhost:3002/regulatory-updates)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run:*)",
+      "Bash(taskkill /PID 8216 /F)",
+      "Bash(Get-Process)",
+      "Bash(Where-Object {$_rocessName -eq \"node\"})"
+    ]
+  }
+}

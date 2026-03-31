@@ -103,31 +103,17 @@ export default function Navbar() {
                     </div>
 
                     <div className="relative flex-1 overflow-hidden h-full">
-                        <motion.div
-                            animate={{ x: ["5%", "-100%"] }}
-                            transition={{
-                                duration: 40,
-                                repeat: Infinity,
-                                ease: "linear",
-                            }}
-                            className="flex items-center gap-16 whitespace-nowrap pr-20 h-full"
-                        >
+                        <div className="flex items-center gap-8 whitespace-wrap pr-20 h-full flex-wrap justify-center">
                             {[
-                                "ARIFAC successfully launches the 2025 AML/CFT Certification program.",
-                                "New regulatory guidelines for Fintech reporting released for Q1 2025.",
-                                "Join our upcoming national level webinar on Virtual Digital Asset (VDA) compliance.",
-                                "Developing best practices papers and typology reports for member institutions.",
-                                "Collaborative efforts to leverage expertise of the private sector in financial integrity."
+                                "N-SAFE National Summit on Anti-Financial Crime Enforcement- 6th April 2026, New Delhi",
+                                "Launch of ARIFAC Core Certification – Level 1 (L1): Foundational AML/CFT Compliance- 17th April, 2025"
                             ].map((headline, i) => (
                                 <span key={i} className="text-white/80 text-[11px] font-medium tracking-wide flex items-center gap-3">
-                                    <div className="w-1 h-1 rounded-full bg-accent" />
-                                    {headline}
+                                    <div className="w-1 h-1 rounded-full bg-accent shrink-0" />
+                                    <span className="inline">{headline}</span>
                                 </span>
                             ))}
-                        </motion.div>
-                        {/* Fade mask for smooth entry/exit */}
-                        <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#1d1d1f] to-transparent z-10" />
-                        <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[#1d1d1f] to-transparent z-10" />
+                        </div>
                     </div>
                 </div>
 
