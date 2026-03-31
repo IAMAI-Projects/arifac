@@ -102,15 +102,15 @@ export default function Navbar() {
                         </span>
                     </div>
 
-                    <div className="relative flex-1 overflow-hidden h-full">
-                        <div className="flex flex-col items-center justify-center gap-1.5 h-full px-4">
+                    <div className="relative flex-1 overflow-hidden h-full flex items-center">
+                        <div className="flex items-center gap-6 whitespace-nowrap h-full">
                             {[
                                 "N-SAFE National Summit on Anti-Financial Crime Enforcement- 6th April 2026, New Delhi",
                                 "Launch of ARIFAC Core Certification – Level 1 (L1): Foundational AML/CFT Compliance- 17th April, 2025"
                             ].map((headline, i) => (
-                                <div key={i} className="text-white/80 text-[13px] font-medium tracking-wide flex items-center justify-center gap-2">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
-                                    <span className="text-center">{headline}</span>
+                                <div key={i} className="text-white/80 text-[11px] font-medium tracking-wide flex items-center gap-2 shrink-0">
+                                    <div className="w-1 h-1 rounded-full bg-accent shrink-0" />
+                                    <span>{headline}</span>
                                 </div>
                             ))}
                         </div>
