@@ -9,7 +9,6 @@ import Logo from './Logo';
 import { getUser, logout } from '@/lib/auth';
 import { useLanguage } from './LanguageContext';
 import { LucideIcon } from 'lucide-react';
-import EdmingleAuthButtons from './EdmingleAuthButtons';
 
 interface NavLink {
     name: string;
@@ -25,11 +24,6 @@ export default function Navbar() {
     const [searchQuery, setSearchQuery] = useState('');
     const [isLanguageOpen, setIsLanguageOpen] = useState(false);
     const { language: currentLang, setLanguage: setCurrentLang, t } = useLanguage();
-    const [user, setUser] = useState<any>(null);
-
-    useEffect(() => {
-        setUser(getUser());
-    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -59,10 +53,11 @@ export default function Navbar() {
         {
             name: t('Membership'),
             href: '/member-benefits',
+
         },
         {
             name: t('Certification'),
-            href: '#',
+            href: '/resources',
             dropdown: [
                 { name: t('Training & Certification'), href: '/certifications', icon: Award },
                 { name: t('nav.training_leads'), href: '/training-leads', icon: GraduationCap },
@@ -73,6 +68,7 @@ export default function Navbar() {
         {
             name: t('Programs'),
             href: '/meetings',
+
         },
         {
             name: t('Updates'),
@@ -101,18 +97,32 @@ export default function Navbar() {
                         </span>
                     </div>
 
-                    <div className="relative flex-1 overflow-hidden h-full flex items-center">
-                        <div className="flex items-center gap-6 whitespace-nowrap h-full">
+                    <div className="relative flex-1 overflow-hidden h-full">
+                        <motion.div
+                            animate={{ x: ["5%", "-100%"] }}
+                            transition={{
+                                duration: 40,
+                                repeat: Infinity,
+                                ease: "linear",
+                            }}
+                            className="flex items-center gap-16 whitespace-nowrap pr-20 h-full"
+                        >
                             {[
-                                "N-SAFE National Summit on Anti-Financial Crime Enforcement- 6th April 2026, New Delhi",
-                                "Launch of ARIFAC Core Certification – Level 1 (L1): Foundational AML/CFT Compliance- 17th April, 2025"
+                                "ARIFAC successfully launches the 2025 AML/CFT Certification program.",
+                                "New regulatory guidelines for Fintech reporting released for Q1 2025.",
+                                "Join our upcoming national level webinar on Virtual Digital Asset (VDA) compliance.",
+                                "Developing best practices papers and typology reports for member institutions.",
+                                "Collaborative efforts to leverage expertise of the private sector in financial integrity."
                             ].map((headline, i) => (
-                                <div key={i} className="text-white/80 text-[11px] font-medium tracking-wide flex items-center gap-2 shrink-0">
-                                    <div className="w-1 h-1 rounded-full bg-accent shrink-0" />
-                                    <span>{headline}</span>
-                                </div>
+                                <span key={i} className="text-white/80 text-[11px] font-medium tracking-wide flex items-center gap-3">
+                                    <div className="w-1 h-1 rounded-full bg-accent" />
+                                    {headline}
+                                </span>
                             ))}
-                        </div>
+                        </motion.div>
+                        {/* Fade mask for smooth entry/exit */}
+                        <div className="absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-[#1d1d1f] to-transparent z-10" />
+                        <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-[#1d1d1f] to-transparent z-10" />
                     </div>
                 </div>
 
@@ -299,18 +309,27 @@ export default function Navbar() {
                                                 rel="noopener noreferrer"
                                                 className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
                                             >
-                                                ARIFAC Certification
+                                                {t('nav.learning_platform')}
                                             </a>
-                                            <div className="flex items-center justify-between gap-3 px-4 py-3">
-                                                <Link
-                                                    href={user ? "/membership/dashboard" : "/membership/login"}
-                                                    className="text-[14px] font-bold text-[#1d1d1f]/80 hover:text-accent transition-all"
-                                                    onClick={() => setActiveDropdown(null)}
-                                                >
-                                                    {user ? "Membership Dashboard" : "ARIFAC Membership"}
-                                                </Link>
+                                            <Link
+                                                href="/membership/login"
+                                                className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
+                                            >
+                                                {t('nav.member_platform')}
+                                            </Link>
 
-                                            </div>
+                                            {getUser() && (
+                                                <button
+                                                    onClick={() => {
+                                                        logout();
+                                                        setActiveDropdown(null);
+                                                        window.location.href = '/';
+                                                    }}
+                                                    className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-red-600 hover:bg-red-50 rounded-xl transition-all text-left w-full"
+                                                >
+                                                    {t('nav.logout')}
+                                                </button>
+                                            )}
                                         </div>
                                     </motion.div>
                                 )}
@@ -531,9 +550,13 @@ export default function Navbar() {
                                 >
                                     {t('nav.learning_platform')}
                                 </a>
-                                <div className="text-center font-bold text-[#1d1d1f] px-8 py-6 bg-white rounded-[24px] border-2 border-[#1d1d1f] transition-all text-xl">
-                                    <EdmingleAuthButtons />
-                                </div>
+                                <Link
+                                    href="/membership/login"
+                                    className="text-center font-bold text-[#1d1d1f] px-8 py-6 bg-white rounded-[24px] border-2 border-[#1d1d1f] hover:bg-[#1d1d1f] hover:text-white transition-all text-xl"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    {t('nav.member_platform')}
+                                </Link>
                             </div>
                         </div>
                     </motion.div>
