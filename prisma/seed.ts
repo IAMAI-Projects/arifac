@@ -60,6 +60,7 @@ async function main() {
   });
 
   console.log('Seed data inserted successfully including admin');
+}
 
 main()
   .catch((e) => {
