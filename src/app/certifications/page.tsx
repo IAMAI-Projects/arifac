@@ -136,6 +136,7 @@ const levels: LevelData[] = [
 
 function AddOnCarousel({ addOns, levelBadge, isAvailable }: { addOns: AddOnCourse[]; levelBadge: string; isAvailable: boolean }) {
     const scrollRef = useRef<HTMLDivElement>(null);
+    const [openAddon, setOpenAddon] = useState<string | null>(null);
 
     const scroll = (dir: 'left' | 'right') => {
         if (!scrollRef.current) return;
@@ -168,21 +169,33 @@ function AddOnCarousel({ addOns, levelBadge, isAvailable }: { addOns: AddOnCours
                 {addOns.map((addon) => (
                     <div
                         key={addon.code}
-                        className={`shrink-0 w-[200px] rounded-xl p-4 flex flex-col border transition-all ${
-                            isAvailable
-                                ? 'bg-white border-gray-100 hover:border-accent/30 hover:shadow-md'
-                                : 'bg-white/60 border-gray-100 opacity-75'
-                        }`}
+                        className="shrink-0 w-[200px] rounded-xl p-3 flex flex-col border bg-white border-gray-100 hover:border-accent/30 hover:shadow-md transition-all"
                     >
-                        <span className="text-[9px] font-bold tracking-[0.12em] uppercase text-accent/70 mb-2">{addon.code}</span>
+                        <span className="text-[9px] font-bold tracking-[0.12em] uppercase text-accent/70 mb-1.5">{addon.code}</span>
                         <h4 className="text-[12px] font-bold text-[#1d1d1f] leading-snug mb-3 flex-1">{addon.title}</h4>
-                        <div className="mt-auto">
-                            {isAvailable ? (
-                                <span className="text-[10px] font-bold text-accent uppercase tracking-wider">Add-On Available</span>
-                            ) : (
-                                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider flex items-center gap-1">
-                                    <Lock size={10} /> Coming Soon
-                                </span>
+
+                        {/* Know More Dropdown */}
+                        <div className="rounded-lg overflow-hidden border border-gray-200">
+                            <button
+                                onClick={() => setOpenAddon(openAddon === addon.code ? null : addon.code)}
+                                className="w-full flex items-center justify-between px-2.5 py-1.5 text-[11px] font-bold text-[#1d1d1f] hover:bg-gray-50 transition-colors"
+                            >
+                                <span>Know More</span>
+                                <ChevronDown
+                                    size={12}
+                                    className={`transition-transform duration-200 text-accent ${openAddon === addon.code ? 'rotate-180' : ''}`}
+                                />
+                            </button>
+                            {openAddon === addon.code && (
+                                <div className="px-2.5 pb-2.5 border-t border-gray-100 pt-2 space-y-1.5">
+                                    <p className="text-[10px] text-secondary font-medium leading-relaxed">
+                                        Domain-specific add-on for {levelBadge} pathway covering {addon.title.toLowerCase()}.
+                                    </p>
+                                    <div className="flex items-center gap-1.5">
+                                        <Lock size={10} className="text-accent/60 shrink-0" />
+                                        <span className="text-[10px] font-bold text-accent/70 uppercase tracking-wider">Coming Soon</span>
+                                    </div>
+                                </div>
                             )}
                         </div>
                     </div>
@@ -297,12 +310,6 @@ export default function CertificationsPage() {
                                     <h3 className="text-[15px] font-bold text-[#1d1d1f] mb-1 leading-tight">{lvl.credential}</h3>
                                     <p className="text-[11px] text-secondary font-medium mb-1">{lvl.name} Level</p>
                                     <p className="text-[11px] text-secondary/70 mb-3 leading-relaxed">{lvl.objective}</p>
-
-                                    {/* Core course tag */}
-                                    <div className="bg-white rounded-lg px-3 py-2 border border-gray-100 mb-3">
-                                        <span className="text-[9px] font-bold text-accent/70 uppercase tracking-wider block mb-0.5">Core (Mandatory)</span>
-                                        <span className="text-[11px] font-semibold text-[#1d1d1f] leading-snug">{lvl.core.title}</span>
-                                    </div>
 
                                     {/* Know More Dropdown */}
                                     <div className="mb-3 rounded-xl overflow-hidden border border-gray-200 bg-white">
