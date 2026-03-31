@@ -4,13 +4,19 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, ChevronDown, FileText, Users, Building2, ShieldCheck } from 'lucide-react';
-import { useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { getUser } from '@/lib/auth';
 import { LogoMark } from './Logo';
 import { useLanguage } from './LanguageContext';
 
 export default function HeroSection() {
     const { t } = useLanguage();
     const targetRef = useRef(null);
+    const [user, setUser] = useState<any>(null);
+
+    useEffect(() => {
+        setUser(getUser());
+    }, []);
     const { scrollYProgress } = useScroll({
         target: targetRef,
         offset: ["start start", "end start"]
@@ -93,10 +99,10 @@ export default function HeroSection() {
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                         <Link
-                            href="/member-benefits"
+                            href={user ? "/membership/dashboard" : "/membership/login"}
                             className="group flex items-center justify-center gap-2 px-6 py-2.5 bg-[#1d1d1f] text-white rounded-full font-semibold text-[14px] hover:bg-[#1d1d1f]/90 transition-all duration-300 shadow-lg shadow-black/5"
                         >
-                            {t('ARIFAC Membership - Know More')}
+                            {user ? t('ARIFAC Membership - Dashboard') : t('ARIFAC Membership - Login')}
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </motion.div>

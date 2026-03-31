@@ -17,8 +17,8 @@ export default function EdmingleAuthButtons() {
           <span className="text-sm font-semibold">{user.name}</span>
         </div>
         <button
-          onClick={() => {
-            logout();
+          onClick={async () => {
+            await logout();
             // Optional: Also logout from Edmingle if SDK provides a method
             window.location.reload();
           }}

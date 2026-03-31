@@ -13,15 +13,63 @@ import {
   ArrowRight,
   LogOut,
   Mail,
-  Phone
+  Phone,
+  Loader2
 } from 'lucide-react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { useRef } from 'react';
 import Link from 'next/link';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { logout } from '@/lib/auth';
+import { useRouter } from 'next/navigation';
 
 export default function MembershipDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [memberData, setMemberData] = useState<any>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const certificateRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logout();
+    router.push('/membership/login');
+  };
+
+  const handleDownloadPDF = async () => {
+    if (!certificateRef.current) return;
+
+    try {
+      setIsDownloading(true);
+      const canvas = await html2canvas(certificateRef.current, {
+        scale: 2,
+        useCORS: true,
+        logging: true,
+        backgroundColor: '#ffffff',
+        width: 1123,
+        height: 794
+      });
+
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`ARIFAC-Membership-${memberData.name.replace(/\s+/g, '-')}.pdf`);
+    } catch (error) {
+      console.error('Error generating PDF detailed:', error);
+      alert('Failed to generate PDF. Please check console for details and try again.');
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -29,7 +77,7 @@ export default function MembershipDashboard() {
         const res = await fetch('/api/membership/applications');
         const data = await res.json();
         console.log("Dashboard API response:", data);
-        
+
         if (data.success && data.applications && data.applications.length > 0) {
           const mainApp = data.applications[0];
           setMemberData({
@@ -81,11 +129,17 @@ export default function MembershipDashboard() {
               <Link href="/membership/register" className="px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 font-bold hover:shadow-lg hover:shadow-blue-500/25 transition-all active:scale-95 text-center">
                 Start Registration
               </Link>
-              <button 
-                onClick={() => window.location.reload()} 
+              <button
+                onClick={() => window.location.reload()}
                 className="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 font-bold hover:bg-white/10 transition-all text-sm"
               >
                 Refresh Dashboard
+              </button>
+              <button
+                onClick={handleLogout}
+                className="px-8 py-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500 font-bold hover:bg-red-500/20 transition-all text-sm"
+              >
+                Sign Out
               </button>
             </div>
           </div>
@@ -106,7 +160,7 @@ export default function MembershipDashboard() {
 
       <div className="relative pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
-
+          <br />
           {/* Welcome Header */}
           <div className="mb-12">
             <motion.div
@@ -123,7 +177,7 @@ export default function MembershipDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 tracking-tight">
                   Welcome back, <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">{memberData.name.split(' ')[0]}</span>
                 </h1>
                 <p className="text-gray-400 text-lg max-w-2xl">
@@ -136,14 +190,13 @@ export default function MembershipDashboard() {
                 transition={{ delay: 0.2 }}
                 className="flex gap-4"
               >
-                <button className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center gap-2 text-sm font-semibold">
-                  <ExternalLink className="w-4 h-4" />
-                  View Public Profile
-                </button>
-                <Link href="/membership/login" className="px-6 py-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-400 hover:bg-red-500/30 transition-colors flex items-center gap-2 text-sm font-semibold">
+                <button
+                  onClick={handleLogout}
+                  className="px-6 py-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-400 hover:bg-red-500/30 transition-colors flex items-center gap-2 text-sm font-semibold"
+                >
                   <LogOut className="w-4 h-4" />
                   Sign Out
-                </Link>
+                </button>
               </motion.div>
             </div>
           </div>
@@ -223,6 +276,7 @@ export default function MembershipDashboard() {
 
                 <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center">
                   {/* Certificate Preview Mockup */}
+                  {/* Certificate Preview for Page */}
                   <div className="w-full md:w-1/3 aspect-[1.41] bg-white text-black rounded-lg shadow-2xl p-4 flex flex-col items-center justify-center text-center border-4 border-[#c5a059]">
                     <div className="w-12 h-12 bg-[#c5a059]/20 rounded-full flex items-center justify-center mb-3">
                       <Award className="w-6 h-6 text-[#c5a059]" />
@@ -232,6 +286,60 @@ export default function MembershipDashboard() {
                     <div className="text-[6px] text-gray-400 mb-2">Has successfully registered as an <br /> Industry Member for the year 2024-25</div>
                     <div className="w-full h-px bg-gray-100 mb-2" />
                     <div className="text-[5px] text-gray-500 uppercase">{memberData.membershipId}</div>
+                  </div>
+
+                  {/* Hidden High-Quality Certificate for PDF Generation */}
+                  <div className="absolute top-[-10000px] left-[-10000px] pointer-events-none opacity-0">
+                    <div
+                      ref={certificateRef}
+                      className="w-[1123px] h-[794px] bg-white text-black p-12 flex flex-col items-center justify-between text-center border-[24px] border-double border-[#c5a059] relative"
+                      style={{ transform: 'scale(1)', transformOrigin: 'top left' }}
+                    >
+                      {/* Background Watermark/Logo */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-[0.05] pointer-events-none">
+                        <Award className="w-[400px] h-[400px] text-[#c5a059]/10" />
+                      </div>
+
+                      <div className="relative z-10 w-full flex flex-col items-center flex-grow pt-10">
+                         <div className="w-24 h-24 bg-[#c5a059]/10 rounded-full flex items-center justify-center mb-8">
+                           <Award className="w-12 h-12 text-[#c5a059]" />
+                         </div>
+                         <h1 className="text-sm font-bold tracking-[0.5em] uppercase text-[#c5a059] mb-4">Official Certificate of Membership</h1>
+                         <h2 className="text-7xl font-serif font-bold text-gray-900 mb-8 mt-4 tracking-tighter" style={{ fontFamily: 'Georgia, serif' }}>ARIFAC</h2>
+                         <p className="text-xl text-gray-500 italic mb-8">This is to certify that</p>
+                         <h3 className="text-5xl font-bold text-gray-900 border-b-2 border-gray-100 pb-4 px-16 mb-8">
+                           {memberData.name}
+                         </h3>
+                         <p className="text-2xl font-semibold text-[#c5a059] uppercase tracking-[0.2em] mb-12">{memberData.organisation}</p>
+
+                         <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                           Has successfully registered as an <br />
+                           <strong className="text-gray-900">Industry Member</strong> for the year 2024-25, <br />
+                           demonstrating excellence and commitment to the industry standards.
+                         </p>
+                      </div>
+
+                      <div className="relative z-10 w-full flex justify-between items-end mt-16 px-16 pb-10">
+                        <div className="text-center">
+                          <div className="w-56 border-b border-gray-300 mb-3"></div>
+                          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Membership ID: {memberData.membershipId}</p>
+                        </div>
+
+                        <div className="text-center">
+                          <div className="w-32 h-32 border-2 border-dashed border-[#c5a059]/20 rounded-full flex items-center justify-center mb-3">
+                             <div className="w-24 h-24 border border-[#c5a059]/30 rounded-full flex items-center justify-center">
+                               <span className="text-[10px] font-bold text-[#c5a059]">OFFICIAL SEAL</span>
+                             </div>
+                          </div>
+                        </div>
+
+                        <div className="text-center">
+                          <p className="text-lg font-bold text-gray-900 mb-3">{memberData.memberSince}</p>
+                          <div className="w-56 border-b border-gray-300 mb-3"></div>
+                          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Date of Issue</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="flex-grow">
@@ -246,9 +354,22 @@ export default function MembershipDashboard() {
                     </p>
 
                     <div className="flex flex-wrap gap-4">
-                      <button className="px-8 py-3 rounded-xl bg-white text-black font-bold hover:bg-gray-100 transition-colors flex items-center gap-2">
-                        <Download className="w-5 h-5" />
-                        Download PDF
+                      <button
+                        onClick={handleDownloadPDF}
+                        disabled={isDownloading}
+                        className="px-8 py-3 rounded-xl bg-white text-black font-bold hover:bg-gray-100 transition-colors flex items-center gap-2 disabled:opacity-70"
+                      >
+                        {isDownloading ? (
+                          <>
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                            Processing...
+                          </>
+                        ) : (
+                          <>
+                            <Download className="w-5 h-5" />
+                            Download PDF
+                          </>
+                        )}
                       </button>
                       <button className="px-8 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center gap-2">
                         <ExternalLink className="w-5 h-5" />

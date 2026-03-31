@@ -25,6 +25,11 @@ export default function Navbar() {
     const [searchQuery, setSearchQuery] = useState('');
     const [isLanguageOpen, setIsLanguageOpen] = useState(false);
     const { language: currentLang, setLanguage: setCurrentLang, t } = useLanguage();
+    const [user, setUser] = useState<any>(null);
+
+    useEffect(() => {
+        setUser(getUser());
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -304,18 +309,13 @@ export default function Navbar() {
                                             </a>
                                             <div className="flex items-center justify-between gap-3 px-4 py-3">
                                                 <Link
-                                                    href="/join"
+                                                    href={user ? "/membership/dashboard" : "/membership/login"}
                                                     className="text-[14px] font-bold text-[#1d1d1f]/80 hover:text-accent transition-all"
                                                     onClick={() => setActiveDropdown(null)}
                                                 >
-                                                    ARIFAC Membership
+                                                    {user ? "Membership Dashboard" : "ARIFAC Membership"}
                                                 </Link>
-                                                <Link
-                                                    href="/login"
-                                                    className="px-4 py-2 text-[12px] font-bold bg-[#0066cc] text-white rounded-lg hover:bg-[#0077ed] transition-all shadow-sm whitespace-nowrap"
-                                                >
-                                                    Sign In
-                                                </Link>
+
                                             </div>
                                         </div>
                                     </motion.div>

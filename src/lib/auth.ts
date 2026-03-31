@@ -5,11 +5,17 @@ export function login(email: string, name: string) {
   }
 }
 
-export function logout() {
+export async function logout() {
   if (typeof window !== 'undefined') {
     localStorage.removeItem('user');
     // Also clear session storage used for registration flow
     sessionStorage.removeItem('membershipPaymentData');
+    
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+    } catch (err) {
+      console.error('Failed to clear server session:', err);
+    }
   }
 }
 

@@ -1,5 +1,7 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+import { getUser } from '@/lib/auth';
 import { motion } from 'framer-motion';
 import { membershipCategories } from '@/data/arifac';
 import { Users, ArrowRight } from 'lucide-react';
@@ -8,6 +10,11 @@ import Link from 'next/link';
 
 export default function MembershipSection() {
     const { t } = useLanguage();
+    const [user, setUser] = useState<any>(null);
+
+    useEffect(() => {
+        setUser(getUser());
+    }, []);
 
     // Mapping keys for translated content
     const memberKeys: Record<string, string> = {
@@ -67,8 +74,11 @@ export default function MembershipSection() {
                         </p>
                     </div>
 
-                    <Link href="/member-benefits" className="bg-white text-[#1d1d1f] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all flex items-center gap-2">
-                        {t('member.fee_btn')}
+                    <Link
+                        href={user ? "/membership/dashboard" : "/membership/login"}
+                        className="bg-white text-[#1d1d1f] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all flex items-center gap-2"
+                    >
+                        {user ? t('ARIFAC Membership - Dashboard') : t('ARIFAC Membership - Login')}
                         <ArrowRight className="w-5 h-5" />
                     </Link>
                 </div>

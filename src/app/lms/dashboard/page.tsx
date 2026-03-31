@@ -74,8 +74,8 @@ export default function LMSDashboard() {
         }
     };
 
-    const handleLogout = () => {
-        logout();
+    const handleLogout = async () => {
+        await logout();
         router.push('/');
     };
 
