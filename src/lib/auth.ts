@@ -25,3 +25,27 @@ export function isLoggedIn() {
   return !!getUser();
 }
 
+export function markCourseAsPaid(level: string) {
+  if (typeof window !== 'undefined') {
+    const user = getUser();
+    if (user) {
+      const paidCourses = JSON.parse(localStorage.getItem('paidCourses') || '[]');
+      if (!paidCourses.includes(level)) {
+        paidCourses.push(level);
+        localStorage.setItem('paidCourses', JSON.stringify(paidCourses));
+      }
+    }
+  }
+}
+
+export function getPaidCourses(): string[] {
+  if (typeof window !== 'undefined') {
+    return JSON.parse(localStorage.getItem('paidCourses') || '[]');
+  }
+  return [];
+}
+
+export function hasPaidForCourse(level: string): boolean {
+  return getPaidCourses().includes(level);
+}
+

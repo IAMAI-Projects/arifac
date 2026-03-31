@@ -15,7 +15,8 @@ export async function GET(
     const application = await prisma.membership_applications.findUnique({
       where: { id },
       include: {
-        // organisations: true,
+        // @ts-ignore - Prisma client needs regeneration
+        organisations: true,
         application_details: true,
         payments: true,
       },
