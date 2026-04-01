@@ -2,6 +2,8 @@
 import { prisma } from '@/lib/prisma';
 import { UserStatus, FormBStatus, ApprovalStage, ApprovalStatus } from '@prisma/client';
 import crypto from 'crypto';
+import { hashPassword } from '@/lib/server-auth';
+import { MAP_IDENTIFIER_TYPE } from '@/lib/constants';
 
 export class WorkflowService {
   /**
@@ -9,17 +11,24 @@ export class WorkflowService {
    */
   static async submitFormB(data: { email: string; name: string; organisationName: string; details: any }) {
     return await prisma.$transaction(async (tx) => {
+      let hashedPassword;
+      if (data.details.password) {
+        hashedPassword = await hashPassword(data.details.password);
+      }
+      
       // Create or Update User
       const user = await tx.user.upsert({
         where: { email: data.email },
         update: { 
           name: data.name,
-          status: UserStatus.UNDER_ADMIN_REVIEW 
+          status: UserStatus.UNDER_ADMIN_REVIEW,
+          ...(hashedPassword ? { password: hashedPassword } : {})
         },
         create: {
           email: data.email,
           name: data.name,
-          status: UserStatus.UNDER_ADMIN_REVIEW
+          status: UserStatus.UNDER_ADMIN_REVIEW,
+          ...(hashedPassword ? { password: hashedPassword } : {})
         }
       });
 
@@ -156,17 +165,20 @@ export class WorkflowService {
    * STEP 4: Post-Approval Submission
    */
   static async submitPostApproval(userId: string, additionalDetails: any) {
-    return await prisma.$transaction(async (tx) => {
-      const user = await tx.user.findUnique({ where: { id: userId } });
+    return await prisma.$transaction(async (tx: any) => {
+      const user = await tx.user.findUnique({ 
+        where: { id: userId },
+        include: { formB: true }
+      });
       if (!user) throw new Error('User not found');
 
-      // Update user status
+      // 1. Update Set 2 user status
       await tx.user.update({
         where: { id: userId },
         data: { status: UserStatus.POST_FORM_SUBMITTED }
       });
 
-      // Create Final Approval Record
+      // 2. Create Final Approval Record (Set 2)
       await tx.approval.create({
         data: {
           userId: userId,
@@ -175,6 +187,92 @@ export class WorkflowService {
           remarks: 'Post-Approval Form Submitted'
         }
       });
+
+      // 3. INTEGRATION: Create Set 1 Records for Dashboard Visibility
+      const formBDetails = user.formB?.details as any || {};
+      const idenType = (MAP_IDENTIFIER_TYPE[additionalDetails.identifierType] || 'OTHER') as any;
+      const idenValue = additionalDetails.identifierNumber || 'Pending';
+      
+      // A. Create Organisation (Set 1) if not exists
+      let organisation = await tx.organisations.findUnique({
+        where: {
+          identifier_type_identifier_value: {
+            identifier_type: idenType,
+            identifier_value: idenValue,
+          }
+        }
+      });
+
+      if (!organisation) {
+        organisation = await tx.organisations.create({
+          data: {
+            name: user.formB?.organisationName || 'Unknown',
+            website: formBDetails.orgWebsite || '',
+            sector: additionalDetails.primarySector || 'Other',
+            entity_type: additionalDetails.entityType || 'Others',
+            registered_address: formBDetails.registeredAddress || 'Pending',
+            regulated_entity: formBDetails.isRegulated === 'Yes',
+            identifier_type: idenType, 
+            identifier_value: idenValue,
+          }
+        });
+      }
+
+      // B. Create User (Set 1) if not exists
+      let dbUser = await tx.users.findUnique({
+        where: { email: user.email }
+      });
+
+      if (!dbUser) {
+        dbUser = await tx.users.create({
+          data: {
+            organisation_id: organisation.id,
+            full_name: user.name,
+            designation: formBDetails.designation || 'Member',
+            email: user.email,
+            mobile: formBDetails.mobile || '0000000000',
+            username: formBDetails.username || user.email.split('@')[0], 
+            password_hash: user.password || (formBDetails.password ? await hashPassword(formBDetails.password) : 'RESUMED_USER'), 
+            is_active: false,
+          }
+        });
+      }
+
+      // C. Create Membership Application (Set 1) if not exists
+      let application = await tx.membership_applications.findFirst({
+        where: { organisation_id: organisation.id, user_id: dbUser.id }
+      });
+
+      if (!application) {
+        application = await tx.membership_applications.create({
+          data: {
+            application_type: 'NON_PRE_APPROVED',
+            organisation_id: organisation.id,
+            user_id: dbUser.id,
+            status: 'UNDER_REVIEW',
+            fee_amount: additionalDetails.totalAmount || 0,
+            fee_waived: false,
+          }
+        });
+      }
+
+      // D. Create Application Details (Set 1) if not exists
+      const existingDetails = await tx.application_details.findFirst({
+        where: { application_id: application.id }
+      });
+
+      if (!existingDetails) {
+        await tx.application_details.create({
+          data: {
+            application_id: application.id,
+            sector: additionalDetails.primarySector,
+            entity_type: additionalDetails.entityType,
+            identifier_type: idenType,
+            identifier_value: idenValue,
+            iamai_certificate_url: additionalDetails.iamaiCertificateUrl,
+          }
+        });
+      }
 
       return user;
     });

@@ -1,6 +1,7 @@
 
 import { NextResponse } from 'next/server';
 import { WorkflowService } from '@/services/workflow.service';
+import { createToken, setAuthCookie } from '@/lib/server-auth';
 
 export async function GET(req: Request) {
   try {
@@ -15,10 +16,20 @@ export async function GET(req: Request) {
     try {
       const user = await WorkflowService.resumeFlow(token);
       
+      // 1. Generate JWT for the user
+      const authToken = await createToken({
+        userId: user.id,
+        email: user.email,
+        name: user.name,
+        orgId: null // User model doesn't have orgId directly
+      });
+
+      // 2. Set HTTP-only cookie
+      await setAuthCookie(authToken);
+
       // Successfully resumed
-      // Redirect the user to the registration/dashboard page
-      // In a real app, this should also set a session cookie or redirect to a login with the token context
-      const redirectUrl = new URL('/dashboard', req.url); // Use dashboard or appropriate step
+      // Redirect to Dedicated Post-Approval Form instead of General Form A
+      const redirectUrl = new URL('/membership/register/post-approval', req.url);
       redirectUrl.searchParams.set('resumed', 'true');
       
       return NextResponse.redirect(redirectUrl);

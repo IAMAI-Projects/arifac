@@ -22,7 +22,7 @@ export class EmailService {
    * Send Resume Email with Retry Logic
    */
   static async sendResumeEmail(email: string, name: string, token: string, retries = 3) {
-    const domain = process.env.NEXT_PUBLIC_APP_URL || 'https://arifac.in';
+    const domain = process.env.NEXT_PUBLIC_APP_URL || (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://arifac.in');
     const resumeLink = `${domain}/api/resume?token=${token}`; // Updated to point to resume API
 
     const mailOptions = {
@@ -56,7 +56,7 @@ export class EmailService {
    * Send Password Reset Email
    */
   static async sendPasswordResetEmail(email: string, name: string, token: string, retries = 3) {
-    const domain = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const domain = process.env.NEXT_PUBLIC_APP_URL || (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://arifac.in');
     const resetLink = `${domain}/membership/reset-password/${token}`;
 
     const mailOptions = {

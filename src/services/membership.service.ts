@@ -2,22 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { hashPassword } from '@/lib/server-auth';
 import { MembershipFormASchema, MembershipFormBSchema } from '@/lib/validations/membership.schema';
 
-const MAP_IDENTIFIER_TYPE: Record<string, string> = {
-  "CIN - Company Identification Number (MCA)": "CIN",
-  "LLP Identification Number": "LLPIN",
-  "TAN - Tax Deduction Account Number": "TAN",
-  "GST Registration Number (GSTIN)": "GST",
-  "PAN - Permanent Account Number": "PAN",
-  "Trust Registration Number": "OTHER",
-  "Society Registration Number": "OTHER",
-  "Co-operative Society Registration Number": "OTHER",
-  "IRDAI Registration Number": "IRDAI",
-  "SEBI Registration Number": "SEBI",
-  "RBI Registration / Licence Number": "RBI",
-  "IFSCA Registration Number": "OTHER",
-  "FIU-IND Registration Number": "FIU_REG",
-  "Other Regulatory Licence / Registration Number": "OTHER"
-};
+import { MAP_IDENTIFIER_TYPE } from '@/lib/constants';
 
 export class MembershipService {
   static async registerFormA(data: any) {
@@ -155,20 +140,29 @@ export class MembershipService {
         throw new Error('User with this email or username already exists');
       }
 
-      // 2. Create Organisation
-      console.log('[Service] Creating organisation for Form B');
-      const organisation = await tx.organisations.create({
-        data: {
-          name: validatedData.orgName,
-          website: validatedData.orgWebsite,
-          registered_address: validatedData.registeredAddress,
-          regulated_entity: validatedData.isRegulated === 'Yes',
-          sector: 'Unknown',
-          entity_type: 'Unknown',
-          identifier_type: 'OTHER',
-          identifier_value: 'PENDING',
-        }
+      // 2. Find or Create Organisation for Form B
+      console.log('[Service] Finding or creating organisation for Form B');
+      // For Form B, we use a more unique pending value if we can't find by name
+      const pendingIdenValue = `PENDING_${validatedData.email}`;
+      
+      let organisation = await tx.organisations.findFirst({
+        where: { name: validatedData.orgName }
       });
+
+      if (!organisation) {
+        organisation = await tx.organisations.create({
+          data: {
+            name: validatedData.orgName,
+            website: validatedData.orgWebsite,
+            registered_address: validatedData.registeredAddress,
+            regulated_entity: validatedData.isRegulated === 'Yes',
+            sector: 'Unknown',
+            entity_type: 'Unknown',
+            identifier_type: 'OTHER',
+            identifier_value: pendingIdenValue,
+          }
+        });
+      }
 
       // 3. Create User
       console.log('[Service] Creating user for Form B:', validatedData.email);

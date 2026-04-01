@@ -24,8 +24,10 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Protect API routes (except auth)
-  if (pathname.startsWith('/api/membership') && !pathname.endsWith('/register')) {
+  // Protect API routes (except auth and public registration steps)
+  const isPublicApi = pathname.endsWith('/register') || pathname.endsWith('/form-b') || pathname.includes('/resume');
+  
+  if (pathname.startsWith('/api/membership') && !isPublicApi) {
     if (!token) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
