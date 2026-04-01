@@ -1,12 +1,13 @@
 const { Client } = require('pg');
 
 const client = new Client({
-  connectionString: "postgresql://postgres:postgres@localhost:5432/arifac-membership"
+  connectionString: process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/arifac-membership"
 });
 
 const sql = `
 DO $$ 
 BEGIN
+    -- Set 1 Enums
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'application_status') THEN
         CREATE TYPE application_status AS ENUM ('INIT', 'BASIC_SUBMITTED', 'UNDER_REVIEW', 'REJECTED', 'APPROVED', 'FULL_FORM_PENDING', 'FULL_FORM_SUBMITTED', 'VERIFIED', 'FEE_CALCULATED', 'PAYMENT_PENDING', 'PAYMENT_SUCCESS', 'ACTIVATION_PENDING', 'ACTIVE');
     END IF;
@@ -22,8 +23,29 @@ BEGIN
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'payment_status') THEN
         CREATE TYPE payment_status AS ENUM ('INITIATED', 'SUCCESS', 'FAILED', 'REFUNDED');
     END IF;
+
+    -- Set 2 Enums
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'UserStatus') THEN
+        CREATE TYPE "UserStatus" AS ENUM ('INITIATED', 'FORM_B_SUBMITTED', 'UNDER_ADMIN_REVIEW', 'APPROVED_STAGE1', 'RESUME_PENDING', 'IAMAI_PENDING', 'PAYMENT_PENDING', 'POST_FORM_SUBMITTED', 'FINAL_REVIEW', 'ACTIVE');
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'FormBStatus') THEN
+        CREATE TYPE "FormBStatus" AS ENUM ('PENDING', 'APPROVED', 'REJECTED');
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'ApprovalStage') THEN
+        CREATE TYPE "ApprovalStage" AS ENUM ('FORM_B', 'FINAL');
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'ApprovalStatus') THEN
+        CREATE TYPE "ApprovalStatus" AS ENUM ('PENDING', 'APPROVED', 'REJECTED');
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'AdminRole') THEN
+        CREATE TYPE "AdminRole" AS ENUM ('ARIFAC_ADMIN', 'Admin');
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'PaymentStatus') THEN
+        CREATE TYPE "PaymentStatus" AS ENUM ('PENDING', 'SUCCESS', 'FAILED');
+    END IF;
 END $$;
 
+-- Set 1 Tables
 CREATE TABLE IF NOT EXISTS organisations (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
@@ -88,6 +110,7 @@ CREATE TABLE IF NOT EXISTS application_details (
   identifier_value TEXT,
   fiu_registration_number TEXT,
   iamai_certificate_url TEXT,
+  iba_certificate_url TEXT,
   iba_membership_id TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );

@@ -10,7 +10,7 @@ build:
       - mkdir -p .next/standalone/public && cp -r public/* .next/standalone/public/ || true
       - cp -r .next/static .next/standalone/.next/static || true
 run:
-  command: node .next/standalone/server.js
+  command: npx prisma db push --accept-data-loss && node .next/standalone/server.js
   network:
     port: 3000
   env:

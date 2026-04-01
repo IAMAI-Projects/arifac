@@ -76,6 +76,7 @@ export default function PaymentPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           amount: paymentData.totalAmount,
+          applicationId: paymentData.applicationId,
           billingName: paymentData.fullName || paymentData.orgName,
           billingEmail: paymentData.email,
           billingTel: paymentData.mobile ? `${paymentData.countryCode || ''}${paymentData.mobile}` : '',
