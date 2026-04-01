@@ -70,7 +70,7 @@ export default function MemberBenefitsPage() {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="max-w-4xl"
+                        className="max-w-4xl mx-auto text-center"
                     >
                         <h1 className="text-3xl md:text-5xl font-bold font-heading leading-tight tracking-tight mb-6">
                             Membership at <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">ARIFAC</span>

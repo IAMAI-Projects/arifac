@@ -112,7 +112,7 @@ const translations: Record<Language, Record<string, string>> = {
         'hero.pillar2_desc': '(Closed-room consultations, typologies)',
         'hero.pillar3_title': 'Regulatory Alignment',
         'hero.pillar3_desc': '(FIU-IND, PMLA, FATF frameworks)',
-        'hero.disclaimer': 'ARIFAC is a non-regulatory industry platform and does not grant approvals, licenses, or compliance certifications.',
+        'hero.disclaimer': 'ARIFAC is an industry-led platform and does not grant approvals, licenses, or compliance certifications.',
 
         // Meetings Section
         'meetings.engagements': 'Engagements',
@@ -161,9 +161,9 @@ const translations: Record<Language, Record<string, string>> = {
 
         // Footer
         'footer.desc': "Empowering India's financial ecosystem through unified compliance standards, expert certification, and strategic regulatory dialogue.",
-        'footer.iamai_aegis': 'Operating under the aegis of',
+        'footer.iamai_aegis': 'Operated by',
         'footer.iamai_full': 'Internet & Mobile Association of India',
-        'footer.iamai_desc': "ARIFAC is developed and maintained by IAMAI as part of India's commitment to strengthening financial integrity frameworks.",
+        'footer.iamai_desc': "ARIFAC is an IAMAI initiative as part of India's commitment to strengthening financial integrity frameworks.",
         'footer.rights': 'All rights reserved.',
         'footer.privacy': 'Privacy Policy',
         'footer.terms': 'Terms of Use',

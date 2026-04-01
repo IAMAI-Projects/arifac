@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { parseCCavenueResponse } from '@/lib/ccavenue';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 /**
  * POST /api/payment/ccavenue/response
@@ -35,36 +35,8 @@ export async function POST(request: NextRequest) {
     console.log(`[CCAvenue Response] Order: ${orderId}, Status: ${orderStatus}, Tracking: ${trackingId}, Amount: ${amount}`);
 
     if (orderStatus === 'Success') {
-      // Record payment and update application status
-      if (applicationId) {
-        try {
-          // Create payment record
-          await prisma.payments.create({
-            data: {
-              application_id: applicationId,
-              amount: parseFloat(amount),
-              currency: 'INR',
-              status: 'SUCCESS',
-              provider: 'ccavenue',
-              provider_payment_id: trackingId,
-              provider_order_id: orderId,
-              paid_at: new Date(),
-            },
-          });
-
-          // Update application status to UNDER_REVIEW
-          await prisma.membership_applications.update({
-            where: { id: applicationId },
-            data: {
-              status: 'UNDER_REVIEW',
-              updated_at: new Date(),
-            },
-          });
-        } catch (dbError) {
-          console.error('[CCAvenue] Database update failed:', dbError);
-          // Payment was successful even if DB update fails — log and continue
-        }
-      }
+      // Log payment success (DB operations skipped for now)
+      console.log('[CCAvenue] Payment Success logged - DB operations disabled');
 
       // Redirect to success page
       const redirectUrl = paymentType === 'certification'
@@ -73,45 +45,15 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.redirect(new URL(redirectUrl, request.url));
     } else if (orderStatus === 'Aborted') {
-      // Record failed payment
-      if (applicationId) {
-        try {
-          await prisma.payments.create({
-            data: {
-              application_id: applicationId,
-              amount: parseFloat(amount || '0'),
-              currency: 'INR',
-              status: 'FAILED',
-              provider: 'ccavenue',
-              provider_order_id: orderId,
-            },
-          });
-        } catch (dbError) {
-          console.error('[CCAvenue] Failed payment recording error:', dbError);
-        }
-      }
+      // Log payment cancellation (DB operations skipped for now)
+      console.log('[CCAvenue] Payment Aborted - DB operations disabled');
 
       return NextResponse.redirect(
         new URL(`/membership/register/payment?status=cancelled&order=${orderId}&message=${encodeURIComponent(statusMessage)}`, request.url)
       );
     } else {
-      // Failure — record it
-      if (applicationId) {
-        try {
-          await prisma.payments.create({
-            data: {
-              application_id: applicationId,
-              amount: parseFloat(amount || '0'),
-              currency: 'INR',
-              status: 'FAILED',
-              provider: 'ccavenue',
-              provider_order_id: orderId,
-            },
-          });
-        } catch (dbError) {
-          console.error('[CCAvenue] Failed payment recording error:', dbError);
-        }
-      }
+      // Log payment failure (DB operations skipped for now)
+      console.log('[CCAvenue] Payment Failed - DB operations disabled');
 
       return NextResponse.redirect(
         new URL(`/membership/register/payment?status=failed&order=${orderId}&message=${encodeURIComponent(statusMessage)}`, request.url)

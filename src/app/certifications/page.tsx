@@ -272,12 +272,6 @@ export default function CertificationsPage() {
             {/* Course Grid — 4 rows, each: Core card + Add-on carousel */}
             <section className="py-14 bg-white">
                 <div className="container mx-auto px-6">
-                    <div className="text-center mb-10">
-                        <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-3 block">Certification Catalogue</span>
-                        <h2 className="text-2xl md:text-3xl font-bold text-[#1d1d1f] tracking-tight">ARIFAC LMS Course Framework</h2>
-                        <p className="text-secondary font-medium mt-2 max-w-2xl mx-auto text-sm">4 levels from Foundation to Leadership — each with a mandatory core course and domain-specific add-ons.</p>
-                    </div>
-
                     <div className="flex flex-col gap-8">
                         {levels.map((lvl, rowIdx) => (
                             <motion.div
@@ -369,31 +363,6 @@ export default function CertificationsPage() {
                                     <AddOnCarousel addOns={lvl.addOns} levelBadge={lvl.badge} isAvailable={lvl.isAvailable} />
                                 </div>
                             </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* CPD / Short Programs */}
-            <section className="py-10 bg-[#f5f5f7] border-t border-gray-100">
-                <div className="container mx-auto px-6">
-                    <div className="text-center mb-8">
-                        <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-3 block">Continuous Development</span>
-                        <h2 className="text-xl md:text-2xl font-bold text-[#1d1d1f] tracking-tight">Cross-Cutting CPD Programs</h2>
-                        <p className="text-secondary text-sm font-medium mt-1">For recurring LMS engagement</p>
-                    </div>
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-3 max-w-4xl mx-auto">
-                        {[
-                            { code: "CPD-REF-AML", title: "Annual AML Refresher" },
-                            { code: "CPD-TYP", title: "Emerging Typologies Quarterly" },
-                            { code: "CPD-REG", title: "Regulatory Updates (FIU/RBI/SEBI)" },
-                            { code: "CPD-CASE", title: "Case Study Workshops" },
-                            { code: "CPD-TECH", title: "New Tech & Fraud Trends" },
-                        ].map((cpd) => (
-                            <div key={cpd.code} className="bg-white rounded-xl p-3 border border-gray-100 text-center">
-                                <span className="text-[9px] font-bold text-accent/70 uppercase tracking-wider block mb-1">{cpd.code}</span>
-                                <span className="text-[11px] font-bold text-[#1d1d1f] leading-snug">{cpd.title}</span>
-                            </div>
                         ))}
                     </div>
                 </div>

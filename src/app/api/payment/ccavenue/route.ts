@@ -33,7 +33,9 @@ export async function POST(request: NextRequest) {
     }
 
     const orderId = generateOrderId();
-    const baseUrl = request.headers.get('origin') || process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    // Use NEXT_PUBLIC_BASE_URL for callback so CCAvenue (awardsbackend.local) can reach us
+    // 'origin' header = localhost when testing locally; we need our network IP instead
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || request.headers.get('origin') || 'http://localhost:3000';
 
     const { encRequest, accessCode, postUrl } = buildCCavenueRequest({
       orderId,

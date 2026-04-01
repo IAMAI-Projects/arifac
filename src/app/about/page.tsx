@@ -254,32 +254,6 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Closing Statement */}
-            <section className="py-14 relative">
-                <div className="container mx-auto px-6">
-                    <div className="max-w-4xl mx-auto text-center">
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            className="bg-primary text-white p-8 md:p-12 rounded-[48px] shadow-2xl relative overflow-hidden"
-                        >
-                            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(194,176,32,0.15),transparent)] pointer-events-none" />
-                            <h2 className="text-2xl md:text-3xl font-bold mb-7 leading-tight">
-                                Building a Trusted Financial Ecosystem
-                            </h2>
-                            <p className="text-xl md:text-xl text-white/80 leading-relaxed mb-6 font-small">
-                                ARIFAC enables stakeholders to come together to strengthen capabilities, share knowledge, and align approaches to financial crime prevention.
-                            </p>
-                            <div className="h-px bg-white/20 mb-9" />
-                            <p className="text-xl md:text-xl text-white/80 leading-relaxed mb-6 font-small">
-                                Through collaboration, capacity building, and regulatory alignment, ARIFAC contributes to building a more resilient, compliant, and trusted financial system in India.
-                            </p>
-                        </motion.div>
-                    </div>
-                </div>
-            </section>
-
             {/* Disclaimer Section */}
             <section className="py-14 bg-[#f5f5f7]">
                 <div className="container mx-auto px-6">

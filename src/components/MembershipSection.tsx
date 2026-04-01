@@ -67,8 +67,8 @@ export default function MembershipSection() {
                 </div>
 
                 <div className="mt-20 bg-[#1d1d1f] rounded-[32px] p-10 md:p-16 flex flex-col items-center text-center gap-8">
-                    <div className="max-w-2xl">
-                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">{t('ARIFAC Membership')}</h3>
+                    <div className="max-w-2xl text-center">
+                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 text-center">{t('ARIFAC Membership')}</h3>
                         <p className="text-gray-400 text-lg font-medium leading-relaxed">
                             {t('member.benefits_desc')}
                         </p>

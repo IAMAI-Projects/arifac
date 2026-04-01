@@ -85,7 +85,7 @@ export default function MembersPage() {
                             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-[#1d1d1f] mb-4">
                                 Our <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Members</span>
                             </h1>
-                            <p className="text-gray-600">Representing over {membersData.length} leading organizations in the ecosystem.</p>
+                            <p className="text-gray-600">Our Members — {membersData.length} leading organizations in the ecosystem.</p>
                         </div>
                         <div className="flex gap-4">
                             <div className="relative">
@@ -108,11 +108,8 @@ export default function MembersPage() {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: Math.min((idx % 20) * 0.02, 0.4) }}
-                                className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md transition-shadow flex items-center gap-4"
+                                className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md transition-shadow flex items-center"
                             >
-                                <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center text-accent shrink-0 font-bold text-sm">
-                                    {name.charAt(0).match(/[0-9]/) ? '#' : name.charAt(0)}
-                                </div>
                                 <h3 className="text-sm font-bold text-primary line-clamp-2 leading-snug">{name}</h3>
                             </motion.div>
                         ))}

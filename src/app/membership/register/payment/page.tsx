@@ -67,52 +67,44 @@ export default function PaymentPage() {
     setPaymentError(null);
 
     try {
-      // Call our API to get encrypted CCAvenue request
-      const response = await fetch('/api/payment/ccavenue', {
+      console.log('[MembershipPayment] Initiating payment for:', paymentData.orgName, 'amount:', paymentData.totalAmount);
+
+      // Call our API to initiate payment — returns a self-submitting HTML page
+      const response = await fetch('/api/payment/initiate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           amount: paymentData.totalAmount,
-          customerName: paymentData.fullName || paymentData.orgName,
-          customerEmail: paymentData.email,
-          customerPhone: paymentData.mobile,
-          billingAddress: paymentData.registeredAddress,
+          billingName: paymentData.fullName || paymentData.orgName,
+          billingEmail: paymentData.email,
+          billingTel: paymentData.mobile ? `${paymentData.countryCode || ''}${paymentData.mobile}` : '',
+          billingAddress: paymentData.registeredAddress || '',
           billingCity: paymentData.billingCity || '',
           billingState: paymentData.billingState || '',
           billingZip: paymentData.billingZip || '',
-          applicationId: paymentData.applicationId || '',
-          paymentType: 'membership',
+          billingCountry: 'India',
         }),
       });
 
+      console.log('[MembershipPayment] Response status:', response.status, 'Content-Type:', response.headers.get('content-type'));
+
       if (!response.ok) {
-        throw new Error('Failed to initiate payment');
+        // Error responses come back as JSON
+        const error = await response.json();
+        console.error('[MembershipPayment] Server error:', error);
+        throw new Error(error.error || 'Failed to initiate payment');
       }
 
-      const { encRequest, accessCode, postUrl } = await response.json();
-
-      // Create and submit the CCAvenue form
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = postUrl;
-
-      const encRequestInput = document.createElement('input');
-      encRequestInput.type = 'hidden';
-      encRequestInput.name = 'encRequest';
-      encRequestInput.value = encRequest;
-      form.appendChild(encRequestInput);
-
-      const accessCodeInput = document.createElement('input');
-      accessCodeInput.type = 'hidden';
-      accessCodeInput.name = 'access_code';
-      accessCodeInput.value = accessCode;
-      form.appendChild(accessCodeInput);
-
-      document.body.appendChild(form);
-      form.submit();
+      // Success: server returns a self-submitting HTML form
+      // Write it to the document so the browser renders & auto-submits to CCAvenue
+      const html = await response.text();
+      console.log('[MembershipPayment] Received HTML redirect page, writing to document...');
+      document.open();
+      document.write(html);
+      document.close();
     } catch (error) {
-      console.error('Payment initiation error:', error);
-      setPaymentError('Failed to initiate payment. Please try again.');
+      console.error('[MembershipPayment] Error:', error);
+      setPaymentError(error instanceof Error ? error.message : 'Failed to initiate payment. Please try again.');
       setIsProcessing(false);
     }
   };

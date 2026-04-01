@@ -122,7 +122,7 @@ export default function TrainingLeadsPage() {
                                                         {lead.institution}
                                                     </h3>
                                                     <div className="flex flex-col">
-                                                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Designated Officer</span>
+                                                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">MLROs or Principal Officer</span>
                                                         <span className="text-[17px] font-bold text-[#1d1d1f]">{lead.name}</span>
                                                     </div>
                                                 </div>

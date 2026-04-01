@@ -4,7 +4,9 @@ import React, { useState, useMemo } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from 'framer-motion';
-import { ExternalLink, AlertCircle, Info, Filter } from 'lucide-react';
+import { ExternalLink, AlertCircle, Info, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+
+const ITEMS_PER_PAGE = 10;
 
 /* ─── 7 canonical categories ─────────────────────────────── */
 const CATEGORIES = [
@@ -268,6 +270,7 @@ export default function RegulatoryUpdatesPage() {
     const [filterAuthority, setFilterAuthority] = useState("All Regulators");
     const [filterCategory, setFilterCategory] = useState("All Categories");
     const [filterSort, setFilterSort] = useState("newest");
+    const [currentPage, setCurrentPage] = useState(1);
 
     const filtered = useMemo(() => {
         let list = [...allCirculars];
@@ -276,6 +279,16 @@ export default function RegulatoryUpdatesPage() {
         list.sort((a, b) => filterSort === "newest" ? b.timestamp - a.timestamp : a.timestamp - b.timestamp);
         return list;
     }, [filterAuthority, filterCategory, filterSort]);
+
+    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    const paginatedItems = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+    const startItem = (currentPage - 1) * ITEMS_PER_PAGE + 1;
+    const endItem = Math.min(currentPage * ITEMS_PER_PAGE, filtered.length);
+
+    const handleFilterChange = (setter: (v: string) => void) => (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setter(e.target.value);
+        setCurrentPage(1);
+    };
 
     return (
         <main className="min-h-screen bg-white font-sans">
@@ -307,23 +320,23 @@ export default function RegulatoryUpdatesPage() {
                             <div>
                                 <h2 className="text-2xl md:text-3xl font-bold text-[#1d1d1f] mb-1">Recent Circulars &amp; Notifications</h2>
                                 <p className="text-secondary text-sm">
-                                    Showing <span className="font-bold text-accent">{filtered.length}</span> of {allCirculars.length} circulars
+                                    Showing <span className="font-bold text-accent">{filtered.length > 0 ? `${startItem}–${endItem}` : '0'}</span> of <span className="font-bold">{filtered.length}</span> circulars
                                 </p>
                             </div>
 
                             <div className="flex flex-wrap items-center gap-1.5 bg-[#f5f5f7] p-1.5 rounded-xl border border-gray-100">
                                 <Filter size={13} className="text-secondary ml-1.5" />
-                                <select value={filterAuthority} onChange={e => setFilterAuthority(e.target.value)}
+                                <select value={filterAuthority} onChange={handleFilterChange(setFilterAuthority)}
                                     className="bg-transparent px-2.5 py-1.5 font-bold text-[12px] text-secondary focus:outline-none cursor-pointer">
                                     {AUTHORITIES.map(a => <option key={a}>{a}</option>)}
                                 </select>
                                 <div className="w-px h-4 bg-gray-200" />
-                                <select value={filterCategory} onChange={e => setFilterCategory(e.target.value)}
+                                <select value={filterCategory} onChange={handleFilterChange(setFilterCategory)}
                                     className="bg-transparent px-2.5 py-1.5 font-bold text-[12px] text-secondary focus:outline-none cursor-pointer">
                                     {CATEGORIES.map(c => <option key={c}>{c}</option>)}
                                 </select>
                                 <div className="w-px h-4 bg-gray-200" />
-                                <select value={filterSort} onChange={e => setFilterSort(e.target.value)}
+                                <select value={filterSort} onChange={handleFilterChange(setFilterSort)}
                                     className="bg-transparent px-2.5 py-1.5 font-bold text-[12px] text-secondary focus:outline-none cursor-pointer">
                                     <option value="newest">Newest First</option>
                                     <option value="oldest">Oldest First</option>
@@ -335,39 +348,79 @@ export default function RegulatoryUpdatesPage() {
                         {filtered.length === 0 ? (
                             <div className="py-16 text-center text-secondary font-medium">No circulars found for the selected filters.</div>
                         ) : (
-                            <div className="space-y-3">
-                                {filtered.map((c, i) => (
-                                    <motion.div key={`${c.circularNo}-${i}`}
-                                        initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true }} transition={{ delay: Math.min(i * 0.03, 0.25) }}
-                                        className="px-6 py-4 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group">
-                                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-                                            <div className="space-y-1.5 flex-1 min-w-0">
-                                                {/* Badges */}
-                                                <div className="flex flex-wrap items-center gap-2 text-[11px] font-bold uppercase tracking-wide">
-                                                    <span className={`px-2.5 py-0.5 rounded-full border ${BADGE[c.authority] ?? "bg-gray-100 text-gray-600 border-gray-200"}`}>
-                                                        {c.authority}
-                                                    </span>
-                                                    <span className="bg-gray-100 text-gray-500 px-2.5 py-0.5 rounded-full border border-gray-200">
-                                                        {c.category}
-                                                    </span>
-                                                    <span className="text-secondary font-medium normal-case text-[12px]">{c.date}</span>
+                            <>
+                                <div className="space-y-3">
+                                    {paginatedItems.map((c, i) => (
+                                        <motion.div key={`${c.circularNo}-${i}`}
+                                            initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: Math.min(i * 0.03, 0.25) }}
+                                            className="px-6 py-4 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group">
+                                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                                                <div className="space-y-1.5 flex-1 min-w-0">
+                                                    {/* Badges */}
+                                                    <div className="flex flex-wrap items-center gap-2 text-[11px] font-bold uppercase tracking-wide">
+                                                        <span className={`px-2.5 py-0.5 rounded-full border ${BADGE[c.authority] ?? "bg-gray-100 text-gray-600 border-gray-200"}`}>
+                                                            {c.authority}
+                                                        </span>
+                                                        <span className="bg-gray-100 text-gray-500 px-2.5 py-0.5 rounded-full border border-gray-200">
+                                                            {c.category}
+                                                        </span>
+                                                        <span className="text-secondary font-medium normal-case text-[12px]">{c.date}</span>
+                                                    </div>
+                                                    {/* Title */}
+                                                    <h3 className="text-[15px] font-bold text-[#1d1d1f] group-hover:text-accent transition-colors leading-snug">
+                                                        {c.title}
+                                                    </h3>
+                                                    {/* Ref number */}
+                                                    <p className="text-[11px] text-secondary/60 font-mono truncate">{c.circularNo}</p>
                                                 </div>
-                                                {/* Title */}
-                                                <h3 className="text-[15px] font-bold text-[#1d1d1f] group-hover:text-accent transition-colors leading-snug">
-                                                    {c.title}
-                                                </h3>
-                                                {/* Ref number */}
-                                                <p className="text-[11px] text-secondary/60 font-mono truncate">{c.circularNo}</p>
+                                                <a href={c.viewUrl} target="_blank" rel="noopener noreferrer"
+                                                    className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-gray-200 text-xs font-bold text-secondary hover:bg-[#1d1d1f] hover:text-white hover:border-[#1d1d1f] transition-all uppercase tracking-tight whitespace-nowrap">
+                                                    View Circular <ExternalLink size={11} />
+                                                </a>
                                             </div>
-                                            <a href={c.viewUrl} target="_blank" rel="noopener noreferrer"
-                                                className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-gray-200 text-xs font-bold text-secondary hover:bg-[#1d1d1f] hover:text-white hover:border-[#1d1d1f] transition-all uppercase tracking-tight whitespace-nowrap">
-                                                View Circular <ExternalLink size={11} />
-                                            </a>
+                                        </motion.div>
+                                    ))}
+                                </div>
+
+                                {/* Pagination */}
+                                {totalPages > 1 && (
+                                    <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
+                                        <p className="text-sm text-secondary font-medium">
+                                            Showing <span className="font-bold text-[#1d1d1f]">{startItem}–{endItem}</span> of <span className="font-bold text-[#1d1d1f]">{filtered.length}</span> circulars
+                                        </p>
+                                        <div className="flex items-center gap-2">
+                                            <button
+                                                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                                disabled={currentPage === 1}
+                                                className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-secondary hover:bg-[#1d1d1f] hover:text-white hover:border-[#1d1d1f] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                                            >
+                                                <ChevronLeft size={14} />
+                                            </button>
+                                            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                                                <button
+                                                    key={page}
+                                                    onClick={() => setCurrentPage(page)}
+                                                    className={`w-8 h-8 rounded-full text-xs font-bold transition-all ${
+                                                        page === currentPage
+                                                            ? 'bg-[#1d1d1f] text-white'
+                                                            : 'border border-gray-200 text-secondary hover:border-[#1d1d1f] hover:text-[#1d1d1f]'
+                                                    }`}
+                                                >
+                                                    {page}
+                                                </button>
+                                            ))}
+                                            <button
+                                                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                                disabled={currentPage === totalPages}
+                                                className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-secondary hover:bg-[#1d1d1f] hover:text-white hover:border-[#1d1d1f] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                                            >
+                                                <ChevronRight size={14} />
+                                            </button>
                                         </div>
-                                    </motion.div>
-                                ))}
-                            </div>
+                                    </div>
+                                )}
+                            </>
                         )}
                     </div>
                 </div>

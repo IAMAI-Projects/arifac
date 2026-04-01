@@ -70,43 +70,6 @@ export default function HeroSection() {
                         {t('hero.description')}
                     </motion.div>
 
-                    {/* New CTA Buttons */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.7 }}
-                        className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 w-full max-w-3xl mx-auto"
-                    >
-                        <Link
-                            href="/membership/register"
-                            className="group flex items-center justify-center gap-2 px-6 py-2.5 bg-[#1d1d1f] text-white rounded-full font-semibold text-[14px] hover:bg-[#1d1d1f]/90 transition-all duration-300 shadow-lg shadow-black/5"
-                        >
-                            {t('Apply for Membership')}
-                            <ArrowUpRight className="w-4 h-4 text-[#bef264] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                        </Link>
-                        <Link
-                            href="/certifications"
-                            className="group flex items-center justify-center gap-2 px-6 py-2.5 border-2 border-[#1d1d1f]/10 bg-white text-[#1d1d1f] rounded-full font-semibold text-[14px] hover:bg-gray-50 transition-all duration-300 shadow-sm"
-                        >
-                            {t('Access AML/CFT Learning Programs')}
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                        <Link
-                            href="/meetings"
-                            className="group flex items-center justify-center gap-2 px-6 py-2.5 border-2 border-[#1d1d1f]/10 bg-white text-[#1d1d1f] rounded-full font-semibold text-[14px] hover:bg-gray-50 transition-all duration-300 shadow-sm"
-                        >
-                            {t('Participate in Industry Consultations')}
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                        <Link
-                            href={user ? "/membership/dashboard" : "/membership/login"}
-                            className="group flex items-center justify-center gap-2 px-6 py-2.5 bg-[#1d1d1f] text-white rounded-full font-semibold text-[14px] hover:bg-[#1d1d1f]/90 transition-all duration-300 shadow-lg shadow-black/5"
-                        >
-                            {t('ARIFAC Membership - Know More')}
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                    </motion.div>
-
                     {/* Pillars Section */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -146,17 +109,24 @@ export default function HeroSection() {
                             </div>
                         </div>
 
-                        <div className="mt-6 pt-6 border-t border-gray-100 max-w-4xl mx-auto">
-                            <motion.p
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 1, delay: 1.2 }}
-                                className="text-[13px] text-[#1d1d1f]/90 font-bold leading-relaxed max-w-4xl mx-auto text-center"
-                            >
-                                <span className="text-[#C2B020] mr-2 inline-block font-black uppercase tracking-[0.1em] text-[10px] bg-[#C2B020]/10 px-2 py-0.5 rounded-sm">Note:</span>
-                                {t('hero.disclaimer')}
-                            </motion.p>
-                        </div>
+                    </motion.div>
+
+                    {/* Note - Moved to End */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 1.0 }}
+                        className="w-full max-w-4xl mt-16 pt-12 border-t border-gray-100"
+                    >
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1, delay: 1.2 }}
+                            className="text-[13px] text-[#1d1d1f]/90 font-bold leading-relaxed max-w-4xl mx-auto text-center"
+                        >
+                            <span className="text-[#C2B020] mr-2 inline-block font-black uppercase tracking-[0.1em] text-[10px] bg-[#C2B020]/10 px-2 py-0.5 rounded-sm">Note:</span>
+                            {t('hero.disclaimer')}
+                        </motion.p>
                     </motion.div>
 
                 </motion.div>

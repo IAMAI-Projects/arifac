@@ -205,7 +205,7 @@ const pastAnnualMeetings = [
         date: "August 4, 2023", location: "New Delhi",
         cta: { label: "View Proceedings", href: "#" }
     }
-];
+].reverse();
 
 const participants = [
     "Banks and NBFCs",
@@ -236,7 +236,7 @@ export default function MeetingsPage() {
                     {/* Hero */}
                     <div className="max-w-4xl mx-auto text-center">
                         <motion.span initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                            className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-3 block">
+                            className="text-accent text-[14px] font-bold tracking-[0.2em] uppercase mb-3 block font-heading">
                             Strengthening AML/CFT Capabilities
                         </motion.span>
                         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
@@ -350,10 +350,10 @@ export default function MeetingsPage() {
                             </table>
                         </div>
 
-                        {/* Past Annual Meetings - Table Format */}
+                        {/* Annual Meetings - Table Format */}
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-1 h-6 bg-emerald-500 rounded-full" />
-                            <h2 className="text-xl font-bold text-[#1d1d1f] tracking-tight">Past Annual Meetings</h2>
+                            <h2 className="text-xl font-bold text-[#1d1d1f] tracking-tight">Annual Meetings</h2>
                         </div>
                         <div className="overflow-x-auto bg-white rounded-lg border border-gray-100">
                             <table className="w-full text-sm">
@@ -381,55 +381,6 @@ export default function MeetingsPage() {
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-
-                    {/* Who + How to Participate */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
-                        <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-                            className="bg-[#1d1d1f] rounded-[28px] p-6 text-white flex flex-col">
-                            <h2 className="text-2xl font-bold mb-4 tracking-tight">Who Should Participate</h2>
-                            <div className="space-y-3 flex-1">
-                                {participants.map((item, idx) => (
-                                    <div key={idx} className="flex items-center gap-3 group">
-                                        <div className="w-5 h-5 rounded-full border border-white/20 flex items-center justify-center shrink-0 group-hover:border-[#C2B020] group-hover:bg-[#C2B020] transition-all">
-                                            <CheckCircle2 size={11} className="text-white" />
-                                        </div>
-                                        <span className="text-[15px] text-white/80 font-medium group-hover:text-white transition-colors">{item}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </motion.div>
-
-                        <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-                            className="flex flex-col">
-                            <h2 className="text-2xl font-bold text-[#1d1d1f] mb-2 tracking-tight">How to Participate</h2>
-                            <p className="text-[15px] text-secondary font-medium mb-4 leading-relaxed">
-                                Participation in ARIFAC programs is available to members, with selected sessions open to invited stakeholders.
-                            </p>
-                            <div className="space-y-2 flex-1 flex flex-col">
-                                <Link href="/membership/login" className="flex items-center justify-between p-4 bg-[#f5f5f7] rounded-2xl group hover:bg-[#ebebed] transition-all">
-                                    <span className="text-[15px] font-bold text-[#1d1d1f]">Apply for Membership</span>
-                                    <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                                        <ArrowRight size={16} className="text-accent" />
-                                    </div>
-                                </Link>
-                                <Link href="#" className="flex items-center justify-between p-4 bg-[#f5f5f7] rounded-2xl group hover:bg-[#ebebed] transition-all">
-                                    <span className="text-[15px] font-bold text-[#1d1d1f]">Explore Training Programs</span>
-                                    <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                                        <ArrowRight size={16} className="text-accent" />
-                                    </div>
-                                </Link>
-                                <a href="mailto:help.arifac@iamai.in" className="flex items-center justify-between p-4 bg-[#f5f5f7] rounded-2xl group hover:bg-[#ebebed] transition-all">
-                                    <div className="flex flex-col">
-                                        <span className="text-[15px] font-bold text-[#1d1d1f]">Contact ARIFAC Secretariat</span>
-                                        <span className="text-sm text-secondary font-medium">help.arifac@iamai.in</span>
-                                    </div>
-                                    <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                                        <MessageSquare size={16} className="text-accent" />
-                                    </div>
-                                </a>
-                            </div>
-                        </motion.div>
                     </div>
 
                     {/* Disclaimer */}
