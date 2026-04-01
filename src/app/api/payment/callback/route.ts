@@ -4,6 +4,15 @@ import { decrypt } from '@/lib/ccavutil';
 export const dynamic = 'force-dynamic';
 
 /**
+ * The base URL for frontend redirects after payment.
+ * CCAvenue posts back to awardsbackend.local (mapped via /etc/hosts),
+ * but the user's browser must be redirected to localhost:3000.
+ */
+function getFrontendBase(): string {
+    return process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000';
+}
+
+/**
  * POST /api/payment/callback
  *
  * CCAvenue posts the encrypted response here after the user completes (or
@@ -12,15 +21,15 @@ export const dynamic = 'force-dynamic';
  *   2. Decrypts it with the working key.
  *   3. Parses order_status, order_id, tracking_id, etc.
  *   4. Saves the result to the database (stub — add your DB call here).
- *   5. Redirects the user to the appropriate frontend page.
- *
- * Possible order_status values from CCAvenue:
- *   Success | Aborted | Failure | Invalid
+ *   5. Redirects the user to http://localhost:3000/membership/register/payment
  */
 export async function POST(req: NextRequest) {
+    const frontendBase = getFrontendBase();
+
     try {
         console.log('[CCAvenue] callback: received POST from CCAvenue');
         console.log('[CCAvenue] callback: request URL:', req.url);
+        console.log('[CCAvenue] callback: frontend redirect base:', frontendBase);
 
         const formData   = await req.formData();
         const encResp    = formData.get('encResp') as string | null;
@@ -37,7 +46,7 @@ export async function POST(req: NextRequest) {
                 workingKey: workingKey ? 'SET' : 'MISSING',
             });
             return NextResponse.redirect(
-                new URL('/membership/register/payment?status=error&message=Missing+response+data', req.url)
+                `${frontendBase}/membership/register/payment?status=error&message=Missing+response+data`
             );
         }
 
@@ -49,7 +58,7 @@ export async function POST(req: NextRequest) {
         } catch (decryptErr) {
             console.error('[CCAvenue] callback: DECRYPTION FAILED:', decryptErr);
             return NextResponse.redirect(
-                new URL('/membership/register/payment?status=error&message=Decryption+failed', req.url)
+                `${frontendBase}/membership/register/payment?status=error&message=Decryption+failed`
             );
         }
 
@@ -64,13 +73,7 @@ export async function POST(req: NextRequest) {
         const paymentMode = params.get('payment_mode')  ?? '';
 
         console.log('[CCAvenue] callback: parsed response', {
-            orderStatus,
-            orderId,
-            trackingId,
-            amount,
-            bankRefNo,
-            statusMsg,
-            paymentMode,
+            orderStatus, orderId, trackingId, amount, bankRefNo, statusMsg, paymentMode,
         });
 
         // ── Database update (add your Supabase / Frappe call here) ──────────────
@@ -81,23 +84,22 @@ export async function POST(req: NextRequest) {
         //   });
         // ────────────────────────────────────────────────────────────────────────
 
-        // All statuses redirect to the payment page with relevant query params.
-        // The payment page shows the result and auto-redirects to dashboard on success.
-        const paymentPageUrl = new URL('/membership/register/payment', req.url);
-        paymentPageUrl.searchParams.set('status', orderStatus.toLowerCase());
-        paymentPageUrl.searchParams.set('orderId', orderId);
-        if (trackingId) paymentPageUrl.searchParams.set('trackingId', trackingId);
-        if (amount) paymentPageUrl.searchParams.set('amount', amount);
-        if (statusMsg) paymentPageUrl.searchParams.set('message', statusMsg);
+        // Build redirect to localhost:3000/membership/register/payment
+        const redirectUrl = new URL('/membership/register/payment', frontendBase);
+        redirectUrl.searchParams.set('status', orderStatus.toLowerCase());
+        redirectUrl.searchParams.set('orderId', orderId);
+        if (trackingId) redirectUrl.searchParams.set('trackingId', trackingId);
+        if (amount) redirectUrl.searchParams.set('amount', amount);
+        if (statusMsg) redirectUrl.searchParams.set('message', statusMsg);
 
-        console.log('[CCAvenue] callback: redirecting to', paymentPageUrl.pathname + paymentPageUrl.search);
+        console.log('[CCAvenue] callback: redirecting to', redirectUrl.toString());
 
-        return NextResponse.redirect(paymentPageUrl);
+        return NextResponse.redirect(redirectUrl.toString());
 
     } catch (error) {
         console.error('[CCAvenue] callback error:', error);
         return NextResponse.redirect(
-            new URL('/membership/register/payment?status=error&message=Processing+error', req.url)
+            `${frontendBase}/membership/register/payment?status=error&message=Processing+error`
         );
     }
 }
