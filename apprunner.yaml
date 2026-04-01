@@ -32,3 +32,11 @@ run:
       value: "rf3PiRaWlZ8c3dY+MRQVPao1sMtE71trGtKIGsq61ow="
     - name: HOSTNAME
       value: "0.0.0.0"
+    - name: CCAVENUE_MERCHANT_ID
+      value: "2834571"
+    - name: CCAVENUE_ACCESS_CODE
+      value: "AVYV02KF82CG93VYGC"
+    - name: CCAVENUE_WORKING_KEY
+      value: "8E7B2B8E079E35DE3BAD559E67C92742"
+    - name: CCAVENUE_POST_URL
+      value: "https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction"

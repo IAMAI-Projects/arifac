@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Building2, User, Globe, MapPin, CheckCircle2, Lock, ShieldCheck, Mail, Phone, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Building2, User, Globe, MapPin, CheckCircle2, Lock, ShieldCheck, Mail, Phone, ExternalLink, AlertCircle, XCircle } from 'lucide-react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -11,6 +12,28 @@ export default function PaymentPage() {
   const [paymentData, setPaymentData] = useState<any>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
+  const ccavenueFormRef = useRef<HTMLFormElement>(null);
+  const searchParams = useSearchParams();
+
+  // Check for CCAvenue callback status
+  useEffect(() => {
+    const status = searchParams.get('status');
+    const message = searchParams.get('message');
+    const orderId = searchParams.get('order');
+    const trackingId = searchParams.get('tracking');
+
+    if (status === 'success') {
+      setIsSuccess(true);
+      setTimeout(() => {
+        window.location.href = '/membership/dashboard';
+      }, 3000);
+    } else if (status === 'failed' || status === 'error') {
+      setPaymentError(message || 'Payment failed. Please try again.');
+    } else if (status === 'cancelled') {
+      setPaymentError('Payment was cancelled. You can try again.');
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const data = sessionStorage.getItem('membershipPaymentData');
@@ -41,18 +64,57 @@ export default function PaymentPage() {
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
+    setPaymentError(null);
 
-    // Simulate payment processing (In future this would redirect to CC Avenue)
-    // For now, we skip the payment step as requested
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      // Call our API to get encrypted CCAvenue request
+      const response = await fetch('/api/payment/ccavenue', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: paymentData.totalAmount,
+          customerName: paymentData.fullName || paymentData.orgName,
+          customerEmail: paymentData.email,
+          customerPhone: paymentData.mobile,
+          billingAddress: paymentData.registeredAddress,
+          billingCity: paymentData.billingCity || '',
+          billingState: paymentData.billingState || '',
+          billingZip: paymentData.billingZip || '',
+          applicationId: paymentData.applicationId || '',
+          paymentType: 'membership',
+        }),
+      });
 
-    setIsProcessing(false);
-    setIsSuccess(true);
+      if (!response.ok) {
+        throw new Error('Failed to initiate payment');
+      }
 
-    // Redirect to dashboard after success animation
-    setTimeout(() => {
-      window.location.href = '/membership/dashboard';
-    }, 3000);
+      const { encRequest, accessCode, postUrl } = await response.json();
+
+      // Create and submit the CCAvenue form
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = postUrl;
+
+      const encRequestInput = document.createElement('input');
+      encRequestInput.type = 'hidden';
+      encRequestInput.name = 'encRequest';
+      encRequestInput.value = encRequest;
+      form.appendChild(encRequestInput);
+
+      const accessCodeInput = document.createElement('input');
+      accessCodeInput.type = 'hidden';
+      accessCodeInput.name = 'access_code';
+      accessCodeInput.value = accessCode;
+      form.appendChild(accessCodeInput);
+
+      document.body.appendChild(form);
+      form.submit();
+    } catch (error) {
+      console.error('Payment initiation error:', error);
+      setPaymentError('Failed to initiate payment. Please try again.');
+      setIsProcessing(false);
+    }
   };
 
   if (!paymentData) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
@@ -201,6 +263,20 @@ export default function PaymentPage() {
 
 
 
+              {/* Payment Error Display */}
+              {paymentError && (
+                <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-2xl flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-semibold text-red-800">Payment Issue</p>
+                    <p className="text-sm text-red-600 mt-1">{paymentError}</p>
+                  </div>
+                  <button onClick={() => setPaymentError(null)} className="ml-auto shrink-0">
+                    <XCircle className="w-4 h-4 text-red-400 hover:text-red-600" />
+                  </button>
+                </div>
+              )}
+
               <form onSubmit={handlePayment} className="pt-4">
                 <button
                   disabled={isProcessing || isSuccess}
@@ -210,17 +286,28 @@ export default function PaymentPage() {
                   {isProcessing ? (
                     <>
                       <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Processing...
+                      Redirecting to CCAvenue...
                     </>
                   ) : isSuccess ? (
                     <>
                       <CheckCircle2 className="w-6 h-6" />
-                      Payment Initiated
+                      Payment Successful
                     </>
                   ) : (
                     `Pay ₹${paymentData.totalAmount.toLocaleString('en-IN')}`
                   )}
                 </button>
+
+                <div className="flex items-center justify-center gap-6 pt-4 text-gray-400">
+                  <div className="flex items-center gap-2">
+                    <Lock className="w-4 h-4" />
+                    <span className="text-xs uppercase tracking-widest font-bold">Secure SSL</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4" />
+                    <span className="text-xs uppercase tracking-widest font-bold">CCAvenue</span>
+                  </div>
+                </div>
               </form>
             </motion.div>
           </div>
