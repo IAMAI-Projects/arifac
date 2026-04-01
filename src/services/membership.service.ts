@@ -3,11 +3,11 @@ import { hashPassword } from '@/lib/server-auth';
 import { MembershipFormASchema, MembershipFormBSchema } from '@/lib/validations/membership.schema';
 
 const MAP_IDENTIFIER_TYPE: Record<string, string> = {
-  "CIN — Company Identification Number (MCA)": "CIN",
+  "CIN - Company Identification Number (MCA)": "CIN",
   "LLP Identification Number": "LLPIN",
-  "TAN — Tax Deduction Account Number": "TAN",
+  "TAN - Tax Deduction Account Number": "TAN",
   "GST Registration Number (GSTIN)": "GST",
-  "PAN — Permanent Account Number": "PAN",
+  "PAN - Permanent Account Number": "PAN",
   "Trust Registration Number": "OTHER",
   "Society Registration Number": "OTHER",
   "Co-operative Society Registration Number": "OTHER",
