@@ -20,18 +20,19 @@ export default function PaymentPage() {
   useEffect(() => {
     const status = searchParams.get('status');
     const message = searchParams.get('message');
-    const orderId = searchParams.get('order');
-    const trackingId = searchParams.get('tracking');
 
     if (status === 'success') {
       setIsSuccess(true);
+      // Redirect to dashboard after 1 second
       setTimeout(() => {
         window.location.href = '/membership/dashboard';
-      }, 3000);
-    } else if (status === 'failed' || status === 'error') {
+      }, 1000);
+    } else if (status === 'failure' || status === 'failed' || status === 'error') {
       setPaymentError(message || 'Payment failed. Please try again.');
-    } else if (status === 'cancelled') {
-      setPaymentError('Payment was cancelled. You can try again.');
+    } else if (status === 'aborted' || status === 'cancelled') {
+      setPaymentError(message || 'Payment was cancelled. You can try again.');
+    } else if (status === 'invalid') {
+      setPaymentError(message || 'Invalid payment response. Please contact support.');
     }
   }, [searchParams]);
 
@@ -337,7 +338,7 @@ export default function PaymentPage() {
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: "100%" }}
-                    transition={{ duration: 3 }}
+                    transition={{ duration: 1 }}
                     className="h-full bg-blue-600"
                   />
                 </div>

@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
                 workingKey: workingKey ? 'SET' : 'MISSING',
             });
             return NextResponse.redirect(
-                new URL('/membership/register/form-a?payment=error', req.url)
+                new URL('/membership/register/payment?status=error&message=Missing+response+data', req.url)
             );
         }
 
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
         } catch (decryptErr) {
             console.error('[CCAvenue] callback: DECRYPTION FAILED:', decryptErr);
             return NextResponse.redirect(
-                new URL('/membership/register/form-a?payment=error&reason=decryption_failed', req.url)
+                new URL('/membership/register/payment?status=error&message=Decryption+failed', req.url)
             );
         }
 
@@ -81,48 +81,23 @@ export async function POST(req: NextRequest) {
         //   });
         // ────────────────────────────────────────────────────────────────────────
 
-        switch (orderStatus) {
-            case 'Success':
-                console.log('[CCAvenue] callback: SUCCESS — redirecting to dashboard');
-                return NextResponse.redirect(
-                    new URL(
-                        `/membership/dashboard?status=success&orderId=${orderId}&trackingId=${trackingId}`,
-                        req.url
-                    )
-                );
+        // All statuses redirect to the payment page with relevant query params.
+        // The payment page shows the result and auto-redirects to dashboard on success.
+        const paymentPageUrl = new URL('/membership/register/payment', req.url);
+        paymentPageUrl.searchParams.set('status', orderStatus.toLowerCase());
+        paymentPageUrl.searchParams.set('orderId', orderId);
+        if (trackingId) paymentPageUrl.searchParams.set('trackingId', trackingId);
+        if (amount) paymentPageUrl.searchParams.set('amount', amount);
+        if (statusMsg) paymentPageUrl.searchParams.set('message', statusMsg);
 
-            case 'Aborted':
-                console.log('[CCAvenue] callback: ABORTED — redirecting to form-a');
-                return NextResponse.redirect(
-                    new URL(
-                        `/membership/register/form-a?payment=aborted&orderId=${orderId}`,
-                        req.url
-                    )
-                );
+        console.log('[CCAvenue] callback: redirecting to', paymentPageUrl.pathname + paymentPageUrl.search);
 
-            case 'Failure':
-                console.log('[CCAvenue] callback: FAILURE — redirecting to form-a');
-                return NextResponse.redirect(
-                    new URL(
-                        `/membership/register/form-a?payment=failed&orderId=${orderId}`,
-                        req.url
-                    )
-                );
-
-            default: // 'Invalid' or unexpected
-                console.log('[CCAvenue] callback: INVALID/UNKNOWN status:', orderStatus, '— redirecting to form-a');
-                return NextResponse.redirect(
-                    new URL(
-                        `/membership/register/form-a?payment=invalid&orderId=${orderId}`,
-                        req.url
-                    )
-                );
-        }
+        return NextResponse.redirect(paymentPageUrl);
 
     } catch (error) {
         console.error('[CCAvenue] callback error:', error);
         return NextResponse.redirect(
-            new URL('/membership/register/form-a?payment=error', req.url)
+            new URL('/membership/register/payment?status=error&message=Processing+error', req.url)
         );
     }
 }
