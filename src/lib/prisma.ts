@@ -30,5 +30,4 @@ export const prisma =
     },
   })
 
-// Reloading prisma client
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
