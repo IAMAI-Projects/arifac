@@ -114,11 +114,8 @@ export default function Navbar() {
                             className="flex items-center gap-16 whitespace-nowrap pr-20 h-full"
                         >
                             {[
-                                "ARIFAC successfully launches the 2025 AML/CFT Certification program.",
-                                "New regulatory guidelines for Fintech reporting released for Q1 2025.",
-                                "Join our upcoming national level webinar on Virtual Digital Asset (VDA) compliance.",
-                                "Developing best practices papers and typology reports for member institutions.",
-                                "Collaborative efforts to leverage expertise of the private sector in financial integrity."
+                                "N-SAFE National Summit on Anti-Financial Crime Enforcement- 6th April 2026, New Delhi",
+                                "Launch of ARIFAC Core Certification – Level 1 (L1): Foundational AML/CFT Compliance- 17th April, 2025",
                             ].map((headline, i) => (
                                 <span key={i} className="text-white/80 text-[11px] font-medium tracking-wide flex items-center gap-3">
                                     <div className="w-1 h-1 rounded-full bg-accent" />
