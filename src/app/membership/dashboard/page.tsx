@@ -313,37 +313,33 @@ export default function MembershipDashboard() {
                   <ShieldCheck className="w-12 h-12 text-green-500 mb-6 opacity-40" />
                   <h3 className="text-xl font-bold mb-3">Account Status</h3>
                   <div className="space-y-4 mb-8 flex-grow">
-                    <div className={`p-3 rounded-xl border flex items-center justify-between ${
-                      memberData.status === 'ACTIVE' || memberData.status === 'PAYMENT_SUCCESS' || memberData.status === 'VERIFIED'
+                    {/* <div className={`p-3 rounded-xl border flex items-center justify-between ${memberData.status === 'ACTIVE' || memberData.status === 'PAYMENT_SUCCESS' || memberData.status === 'VERIFIED'
                         ? 'bg-green-500/5 border-green-500/10'
                         : 'bg-amber-500/5 border-amber-500/10'
-                    }`}>
+                      }`}>
                       <div className="flex items-center gap-3">
-                        <div className={`w-2 h-2 rounded-full animate-pulse ${
-                          memberData.status === 'ACTIVE' || memberData.status === 'PAYMENT_SUCCESS' || memberData.status === 'VERIFIED'
+                        <div className={`w-2 h-2 rounded-full animate-pulse ${memberData.status === 'ACTIVE' || memberData.status === 'PAYMENT_SUCCESS' || memberData.status === 'VERIFIED'
                             ? 'bg-green-500'
                             : 'bg-amber-500'
-                        }`} />
-                        <span className={`text-sm font-bold uppercase ${
-                          memberData.status === 'ACTIVE' || memberData.status === 'PAYMENT_SUCCESS' || memberData.status === 'VERIFIED'
+                          }`} />
+                        <span className={`text-sm font-bold uppercase ${memberData.status === 'ACTIVE' || memberData.status === 'PAYMENT_SUCCESS' || memberData.status === 'VERIFIED'
                             ? 'text-green-500'
                             : 'text-amber-500'
-                        }`}>
+                          }`}>
                           {memberData.status?.replace(/_/g, ' ') || 'PENDING'}
                         </span>
                       </div>
-                      <span className={`text-[10px] px-2 py-0.5 rounded border font-bold uppercase ${
-                        memberData.status === 'ACTIVE' || memberData.status === 'PAYMENT_SUCCESS' || memberData.status === 'VERIFIED'
+                      <span className={`text-[10px] px-2 py-0.5 rounded border font-bold uppercase ${memberData.status === 'ACTIVE' || memberData.status === 'PAYMENT_SUCCESS' || memberData.status === 'VERIFIED'
                           ? 'bg-green-500/10 text-green-500 border-green-500/20'
                           : 'bg-amber-500/10 text-amber-500 border-amber-500/20'
-                      }`}>
+                        }`}>
                         {memberData.status === 'ACTIVE' || memberData.status === 'VERIFIED' ? 'Verified' : 'In Review'}
                       </span>
-                    </div>
-                    <div>
+                    </div> */}
+                    {/* <div>
                       <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-1">MEMBER TYPE</p>
                       <p className="text-sm font-medium">{memberData.type}</p>
-                    </div>
+                    </div> */}
                     <div>
                       <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-1">MEMBERSHIP ID</p>
                       <p className="text-sm font-mono text-blue-400">{memberData.membershipId}</p>
