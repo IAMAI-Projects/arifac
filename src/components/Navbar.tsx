@@ -306,14 +306,10 @@ export default function Navbar() {
                                             <p className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.15em] pl-2">{t('nav.platform_access')}</p>
                                         </div>
                                         <div className="p-3 flex flex-col gap-1.5">
-                                            <a
-                                                href="https://arifac.iamai.in/courses"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
-                                            >
-                                                {t('nav.learning_platform')}
-                                            </a>
+                                            <div className="flex items-center justify-between px-4 py-3.5 rounded-xl">
+                                                <span className="text-[14px] font-bold text-[#1d1d1f]/40">{t('nav.learning_platform')}</span>
+                                                <span className="text-[10px] font-bold text-accent bg-accent/10 px-2 py-0.5 rounded-full uppercase tracking-wider">Launching Soon</span>
+                                            </div>
                                             <Link
                                                 href="/membership/launching-soon"
                                                 className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
@@ -545,15 +541,10 @@ export default function Navbar() {
 
                             <div className="flex flex-col gap-6 pb-20">
                                 <p className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] pl-1">Platform Access</p>
-                                <a
-                                    href="https://arifac.iamai.in/courses"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-center font-bold text-white px-8 py-6 bg-accent rounded-[24px] shadow-2xl shadow-accent/20 hover:scale-[1.02] transition-all text-xl"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    {t('nav.learning_platform')}
-                                </a>
+                                <div className="text-center px-8 py-6 bg-accent/20 rounded-[24px] text-xl">
+                                    <span className="font-bold text-[#1d1d1f]/40">{t('nav.learning_platform')}</span>
+                                    <span className="ml-3 text-[11px] font-bold text-accent bg-accent/10 px-2 py-0.5 rounded-full uppercase tracking-wider">Launching Soon</span>
+                                </div>
                                 <Link
                                     href="/membership/launching-soon"
                                     className="text-center font-bold text-[#1d1d1f] px-8 py-6 bg-white rounded-[24px] border-2 border-[#1d1d1f] hover:bg-[#1d1d1f] hover:text-white transition-all text-xl"

@@ -328,14 +328,9 @@ export default function CertificationsPage() {
                                     {/* Actions */}
                                     <div className="flex flex-col gap-2 mt-auto">
                                         {lvl.isAvailable ? (
-                                            <a
-                                                href={lvl.enrollUrl}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="w-full flex items-center justify-center gap-1.5 py-2.5 bg-[#0066cc] text-white rounded-xl font-bold text-[12px] hover:bg-[#0077ed] transition-all"
-                                            >
-                                                Enroll Now <ChevronRight size={14} />
-                                            </a>
+                                            <div className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-accent/10 text-accent font-bold text-[12px]">
+                                                Launching Soon
+                                            </div>
                                         ) : (
                                             <div className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-gray-100 text-gray-400 font-bold text-[12px]">
                                                 <Lock size={14} /> Coming Soon
@@ -344,14 +339,7 @@ export default function CertificationsPage() {
                                     </div>
                                 </div>
 
-                                {/* ── Columns 2-4: Add-on Carousel ── */}
-                                <div className="flex-1 min-w-0 flex flex-col">
-                                    <div className="flex items-center gap-2 mb-2 px-2">
-                                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{lvl.badge} Domain Add-Ons</span>
-                                        <span className="text-[10px] text-gray-300 font-medium">({lvl.addOns.length} programmes)</span>
-                                    </div>
-                                    <AddOnGrid addOns={lvl.addOns} levelBadge={lvl.badge} />
-                                </div>
+                                {/* Add-on courses hidden — only core courses visible */}
                             </motion.div>
                         ))}
                     </div>
