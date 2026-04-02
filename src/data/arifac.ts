@@ -164,11 +164,6 @@ export const partnersData: PartnerCategory[] = [
     {
         title: "Strategic Guidance",
         partners: ["Financial Intelligence Unit - India (FIU-IND)"]
-    },
-
-    {
-        title: "Knowledge Partners",
-        partners: ["Leading Law Firms", "Global Consultancies", "Academic Institutions"]
     }
 ];
 

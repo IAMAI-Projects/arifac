@@ -16,7 +16,6 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <PartnersSection />
-
       {/* Disclaimer Note */}
       <section className="py-6 bg-white border-t border-gray-100">
         <div className="container mx-auto px-6 text-center">

@@ -8,15 +8,12 @@ export default function PartnersSection() {
     const { t } = useLanguage();
 
     const partnerKeys: Record<string, string> = {
-        "Strategic Guidance": "data.partner.strategic",
-        "Knowledge Partners": "data.partner.knowledge"
+        "Strategic Guidance": "data.partner.strategic"
     };
 
     const partnerItems: Record<string, string> = {
         "Financial Intelligence Unit - India (FIU-IND)": "data.partner.fiu",
-        "Leading Law Firms": "data.partner.law",
-        "Global Consultancies": "data.partner.global",
-        "Academic Institutions": "data.partner.acad"
+
     };
 
     return (
