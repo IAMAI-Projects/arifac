@@ -67,7 +67,7 @@ export default function AboutPage() {
                                     {[
                                         "The Prevention of Money Laundering Act (PMLA)",
                                         "Reporting requirements under FIU-IND",
-                                        "Global standards such as the Financial Action Task Force (FATF)"
+                                        "Decoding global standards for AML, FATF Recommendations, International Monetary Fund, Basel Committee, Egmont Group etc."
                                     ].map((item, i) => (
                                         <li key={i} className="flex items-center gap-4 text-[#1d1d1f] font-semibold">
                                             <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center text-accent">
@@ -236,11 +236,11 @@ export default function AboutPage() {
                                         "Banks and NBFCs",
                                         "Payment Aggregators & PSPs",
                                         "Fintech Platforms",
-                                        "Virtual Asset Providers (VASPs)",
-                                        "PMLA Intermediaries",
+                                        "Virtual Asset Service Providers (VASPs)",
+                                        "All Intermediaries under PMLA, 2002",
                                         "Compliance Officers & MLROs",
                                         "Risk Professionals",
-                                        "Investigators"
+                                        "AML Investigators"
                                     ].map((stakeholder, i) => (
                                         <div key={i} className="px-6 py-4 rounded-2xl bg-white border border-gray-100 shadow-sm flex items-center gap-3">
                                             <div className="w-2 h-2 rounded-full bg-accent" />

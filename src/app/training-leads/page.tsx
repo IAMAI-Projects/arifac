@@ -7,16 +7,16 @@ import { Award, Star, Search } from 'lucide-react';
 import { useState, useMemo } from 'react';
 
 const allLeads = [
-    { institution: "IndiaIdeas.com Limited (BillDesk)", name: "Ms Jyothi N M", specialty: "Digital Payments Compliance" },
+    { institution: "IndiaIdeas.com Limited (BillDesk)", name: "Ms Jyothi N M", specialty: "PA/PACB, BBPS AML Framework" },
     { institution: "ICICI Bank", name: "Ms Rakhee Sengupta", specialty: "Retail Banking AML" },
-    { institution: "HDFC Bank", name: "Mr Gyan Gotan", specialty: "Corporate Banking Standards" },
-    { institution: "State Bank of India", name: "Principal Officer", specialty: "Public Sector Compliance" },
-    { institution: "Citibank NA", name: "Mr Nihal Shah", specialty: "Multisectoral AML Frameworks" },
-    { institution: "JP Morgan Chase Bank NA", name: "Mr Hemang Sheth", specialty: "International Payments Policy" },
+    { institution: "HDFC Bank", name: "Mr Gyan Gotan", specialty: "Private Banking AML Framework" },
+    { institution: "State Bank of India", name: "Principal Officer", specialty: "Public Banking AML Framework" },
+    { institution: "Citibank NA", name: "Mr Nihal Shah", specialty: "Foreign Banks AML Framework" },
+    { institution: "JP Morgan Chase Bank NA", name: "Mr Hemang Sheth", specialty: "Foreign Banks AML Framework" },
     { institution: "HDFC AMC", name: "Mr Sameer Seksaria", specialty: "Asset Management Compliance" },
-    { institution: "Jio Financial Services", name: "Mr Prashant Sinha", specialty: "Fintech Risk Governance" },
-    { institution: "Karad Urban Co-Operative Bank", name: "Mr Amit Madhusudan Retharekar", specialty: "Co-operative Banking Audit" },
-    { institution: "Fintelekt Advisory Services Pvt Ltd", name: "Mr Shirish Pathak", specialty: "Professional AML Pedagogy" }
+    { institution: "Jio Financial Services", name: "Mr Prashant Sinha", specialty: "Private Banking AML Framework" },
+    { institution: "Karad Urban Co-Operative Bank", name: "Mr Amit Madhusudan Retharekar", specialty: "Cooperative Banking AML Framework" },
+    { institution: "Fintelekt Advisory Services Pvt Ltd", name: "Mr Shirish Pathak", specialty: "" }
 ];
 
 export default function TrainingLeadsPage() {
@@ -127,12 +127,14 @@ export default function TrainingLeadsPage() {
                                                     </div>
                                                 </div>
 
+                                                {lead.specialty && (
                                                 <div className="mt-auto pt-6 border-t border-gray-200/50">
                                                     <div className="flex flex-col gap-1">
                                                         <span className="text-[9px] font-bold text-accent uppercase tracking-widest">Specialization</span>
                                                         <span className="text-[14px] font-bold text-gray-500 group-hover:text-[#1d1d1f] transition-colors">{lead.specialty}</span>
                                                     </div>
                                                 </div>
+                                                )}
                                             </motion.div>
                                         ))}
                                     </div>
