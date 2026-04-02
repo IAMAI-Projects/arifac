@@ -3,6 +3,14 @@ import { encrypt } from '@/lib/ccavutil';
 
 export const dynamic = 'force-dynamic';
 
+function firstDefinedEnv(keys: string[]): string | undefined {
+    for (const key of keys) {
+        const value = process.env[key];
+        if (value && value.trim() !== '') return value.trim();
+    }
+    return undefined;
+}
+
 /**
  * POST /api/payment/initiate
  *
@@ -22,9 +30,22 @@ export async function POST(req: NextRequest) {
             billingTel: billingTel || '(empty)',
         });
 
-        const merchantId  = process.env.CCAVENUE_MERCHANT_ID;
-        const accessCode  = process.env.CCAVENUE_ACCESS_CODE;
-        const workingKey  = process.env.CCAVENUE_WORKING_KEY;
+        // Support multiple env key variants to avoid deployment-time naming drift.
+        const merchantId = firstDefinedEnv([
+            'CCAVENUE_MERCHANT_ID',
+            'CCA_MERCHANT_ID',
+            'NEXT_PUBLIC_CCAVENUE_MERCHANT_ID',
+        ]);
+        const accessCode = firstDefinedEnv([
+            'CCAVENUE_ACCESS_CODE',
+            'CCA_ACCESS_CODE',
+            'NEXT_PUBLIC_CCAVENUE_ACCESS_CODE',
+        ]);
+        const workingKey = firstDefinedEnv([
+            'CCAVENUE_WORKING_KEY',
+            'CCA_WORKING_KEY',
+            'NEXT_PUBLIC_CCAVENUE_WORKING_KEY',
+        ]);
         const gatewayUrl  = process.env.CCAVENUE_POST_URL ||
             'https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction';
 
@@ -35,14 +56,32 @@ export async function POST(req: NextRequest) {
             gatewayUrl,
         });
 
-        if (!merchantId || !accessCode || !workingKey) {
+        const missing: string[] = [];
+        if (!merchantId) missing.push('CCAVENUE_MERCHANT_ID');
+        if (!accessCode) missing.push('CCAVENUE_ACCESS_CODE');
+        if (!workingKey) missing.push('CCAVENUE_WORKING_KEY');
+
+        if (missing.length > 0) {
             console.error('[CCAvenue] initiate: MISSING ENV VARS', {
-                CCAVENUE_MERCHANT_ID: merchantId ? 'SET' : 'MISSING',
-                CCAVENUE_ACCESS_CODE: accessCode ? 'SET' : 'MISSING',
-                CCAVENUE_WORKING_KEY: workingKey ? 'SET' : 'MISSING',
+                required: {
+                    CCAVENUE_MERCHANT_ID: merchantId ? 'SET' : 'MISSING',
+                    CCAVENUE_ACCESS_CODE: accessCode ? 'SET' : 'MISSING',
+                    CCAVENUE_WORKING_KEY: workingKey ? 'SET' : 'MISSING',
+                },
+                fallbackDetected: {
+                    CCA_MERCHANT_ID: !!process.env.CCA_MERCHANT_ID,
+                    CCA_ACCESS_CODE: !!process.env.CCA_ACCESS_CODE,
+                    CCA_WORKING_KEY: !!process.env.CCA_WORKING_KEY,
+                    NEXT_PUBLIC_CCAVENUE_MERCHANT_ID: !!process.env.NEXT_PUBLIC_CCAVENUE_MERCHANT_ID,
+                    NEXT_PUBLIC_CCAVENUE_ACCESS_CODE: !!process.env.NEXT_PUBLIC_CCAVENUE_ACCESS_CODE,
+                    NEXT_PUBLIC_CCAVENUE_WORKING_KEY: !!process.env.NEXT_PUBLIC_CCAVENUE_WORKING_KEY,
+                },
             });
             return NextResponse.json(
-                { error: 'CCAvenue server configuration is incomplete.' },
+                {
+                    error: 'CCAvenue server configuration is incomplete.',
+                    missing,
+                },
                 { status: 500 }
             );
         }
@@ -84,7 +123,7 @@ export async function POST(req: NextRequest) {
             `merchant_param1=${body.applicationId || ''}`,
         ].join('&');
 
-        const encRequest = encrypt(params, workingKey);
+        const encRequest = encrypt(params, workingKey as string);
 
         console.log('[CCAvenue] initiate: encryption complete', {
             orderId,
