@@ -167,7 +167,7 @@ export default function GalleryPage() {
                                 <Link href="/meetings" className="flex-1 bg-accent text-[#1d1d1f] px-8 py-4 rounded-2xl font-bold text-center hover:bg-white transition-all duration-300 flex items-center justify-center gap-2 group">
                                     Explore Programs <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                 </Link>
-                                <Link href="/membership/register" className="flex-1 border border-white/20 text-white px-8 py-4 rounded-2xl font-bold text-center hover:bg-white hover:text-[#1d1d1f] transition-all duration-300">
+                                <Link href="/membership/launching-soon" className="flex-1 border border-white/20 text-white px-8 py-4 rounded-2xl font-bold text-center hover:bg-white hover:text-[#1d1d1f] transition-all duration-300">
                                     Membership
                                 </Link>
                             </div>

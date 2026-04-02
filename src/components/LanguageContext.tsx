@@ -147,8 +147,8 @@ const translations: Record<Language, Record<string, string>> = {
         'engage.participate': 'Participate',
 
         // Partners Section
-        'partners.title': 'Strategic Ecosystem',
-        'partners.description': 'Operating under the aegis of IAMAI, with strategic guidance from FIU-IND and collaboration with key regulators.',
+        'partners.title': 'Built on shared standards',
+        'partners.description': 'ARIFAC unites regulatory bodies, industry stakeholders, legal experts, and academic thought leaders to strengthen every dimension of financial compliance.',
         'partners.disclaimer': '"ARIFAC certifications are professional development credentials and do not substitute statutory compliance obligations."',
 
         // Resources Section
@@ -357,8 +357,8 @@ const translations: Record<Language, Record<string, string>> = {
         'engage.participate': 'भाग लें',
 
         // Partners Section
-        'partners.title': 'रणनीतिक पारिस्थितिकी तंत्र',
-        'partners.description': 'IAMAI के तत्वावधान में संचालित, FIU-IND के रणनीतिक मार्गदर्शन और प्रमुख नियामकों के सहयोग से।',
+        'partners.title': 'साझा मानकों पर आधारित',
+        'partners.description': 'ARIFAC नियामक निकायों, उद्योग हितधारकों, कानूनी विशेषज्ञों और शैक्षणिक विचारकों को वित्तीय अनुपालन के हर आयाम को मजबूत करने के लिए एकजुट करता है।',
         'partners.disclaimer': '"ARIFAC प्रमाणपत्र पेशेवर विकास क्रेडेंशियल हैं और वैधानिक अनुपालन दायित्वों का विकल्प नहीं हैं।"',
 
         // Resources Section

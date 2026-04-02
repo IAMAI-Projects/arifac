@@ -94,7 +94,7 @@ export default function MemberBenefitsPage() {
                             <div>
                                 <h2 className="text-3xl md:text-4xl font-bold font-heading mb-5">What Membership Enables</h2>
                                 <p className="text-lg text-[#6e6e73] mb-6 leading-relaxed">
-                                    A focused on capability building and collaboration:
+                                    A focused approach to capacity building and collaboration:
                                 </p>
                                 <ul className="space-y-4">
                                     {benefits.map((benefit, i) => (
@@ -240,7 +240,7 @@ export default function MemberBenefitsPage() {
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
-                            <button onClick={() => window.location.href = "/membership/register"} className="px-10 py-5 bg-[#C2B020] hover:bg-[#A3941B] text-[#1d1d1f] font-bold rounded-2xl transition-all flex items-center gap-3 w-full sm:w-auto justify-center">
+                            <button onClick={() => window.location.href = "/membership/launching-soon"} className="px-10 py-5 bg-[#C2B020] hover:bg-[#A3941B] text-[#1d1d1f] font-bold rounded-2xl transition-all flex items-center gap-3 w-full sm:w-auto justify-center">
                                 Apply for Membership <ArrowRight size={20} />
                             </button>
 
