@@ -130,7 +130,7 @@ export default function TrainingLeadsPage() {
                                                 {lead.specialty && (
                                                 <div className="mt-auto pt-6 border-t border-gray-200/50">
                                                     <div className="flex flex-col gap-1">
-                                                        <span className="text-[9px] font-bold text-accent uppercase tracking-widest">Specialization</span>
+                                                        <span className="text-[9px] font-bold text-accent uppercase tracking-widest">Specialisation</span>
                                                         <span className="text-[14px] font-bold text-gray-500 group-hover:text-[#1d1d1f] transition-colors">{lead.specialty}</span>
                                                     </div>
                                                 </div>

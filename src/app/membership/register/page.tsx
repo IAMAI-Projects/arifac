@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-// Dummy data for pre-approved organizations
+// Dummy data for pre-approved organisations
 const PRE_APPROVED_ORGS = [
   "ICICI Bank", "HDFC Bank", "Axis Bank"
 ];
@@ -90,7 +90,7 @@ export default function MembershipRegistrationStep1() {
                   professionals committed to upholding the highest standards of financial integrity.
                 </p>
                 <p>
-                  Members gain exclusive access to specialized training modules, certification
+                  Members gain exclusive access to specialised training modules, certification
                   programmes, policy dialogue forums, and a vast network of industry experts. By joining
                   ARIFAC, you contribute to a collective effort against money laundering and the
                   financing of terrorism.

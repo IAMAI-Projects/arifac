@@ -26,7 +26,7 @@ const programAreas = [
     {
         title: "Industry Consultations",
         icon: <Users className="text-[#C2B020]" size={24} />,
-        description: "Structured consultations and closed-room discussions on AML/CFT operational challenges, emerging risks, and implementation perspectives.",
+        description: "Addressing emerging financial risks and operational challenges within the AML/CFT",
         details: ["Closed-door roundtables", "Multi-stakeholder consultations", "Thematic discussions on emerging risks", "Sector-specific implementation dialogues"]
     },
     {
@@ -173,9 +173,18 @@ const pastAnnualMeetings = [
         type: "MEETING", tag: "National Chapter Meeting",
         tagColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
         accentColor: "bg-emerald-500",
-        title: "4th National Chapter Meeting",
+        title: "5th National Chapter Meeting",
         description: "Hosted by IAMAI",
         date: "December 10, 2025", location: "Mumbai",
+        cta: { label: "View Proceedings", href: "#" }
+    },
+    {
+        type: "MEETING", tag: "National Chapter Meeting",
+        tagColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+        accentColor: "bg-emerald-500",
+        title: "4th National Chapter Meeting",
+        description: "Hosted by IAMAI",
+        date: "March 07, 2025", location: "Mumbai",
         cta: { label: "View Proceedings", href: "/meetings/minutes-4th-national-arifac-meeting" }
     },
     {
@@ -241,7 +250,7 @@ export default function MeetingsPage() {
                         </motion.span>
                         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
                             className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading leading-tight tracking-tight text-[#1d1d1f] mb-3">
-                            Through Structured{' '}
+                            Through Programme-led{' '}
                             <span className="bg-gradient-to-r from-[#C2B020] to-[#8A7B0E] text-transparent bg-clip-text">Engagement</span>
                         </motion.h1>
                         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
@@ -254,17 +263,14 @@ export default function MeetingsPage() {
                     <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
                         className="max-w-4xl mx-auto p-5 bg-[#f5f5f7] rounded-[28px] border border-gray-100/50">
                         <p className="text-[15px] text-secondary leading-relaxed text-center">
-                            Through consultations, training initiatives, working groups, and knowledge-led engagement,
-                            ARIFAC brings together reporting entities, fintech platforms, technology providers, and ecosystem
-                            stakeholders to address evolving financial crime risks and strengthen implementation readiness.
+                            ARIFAC addresses evolving financial crime risks through consultations, training initiatives, working groups and knowledge-led engagement. It brings together reporting entities, fintech platforms, technology providers, and ecosystem stakeholders to strengthen implementation readiness.
                         </p>
                     </motion.div>
 
                     {/* Program Areas */}
                     <div>
                         <div className="mb-4">
-                            <h2 className="text-2xl md:text-3xl font-bold text-[#1d1d1f] tracking-tight">Programme Areas</h2>
-                            <p className="text-[14px] text-secondary font-medium mt-1">Diverse engagement formats tailored for ecosystem strengthening.</p>
+                            <h2 className="text-2xl md:text-3xl font-bold text-[#1d1d1f] tracking-tight">Diverse engagement formats tailored for ecosystem strengthening.</h2>
                         </div>
                         <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}
                             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -383,28 +389,6 @@ export default function MeetingsPage() {
                         </div>
                     </div>
 
-                    {/* Disclaimer */}
-                    <div className="max-w-4xl mx-auto space-y-3">
-                        <div className="bg-[#f5f5f7] p-4 rounded-[16px] border border-gray-100 flex gap-4">
-                            <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center shadow-sm shrink-0">
-                                <AlertCircle className="text-accent" size={18} />
-                            </div>
-                            <div>
-                                <h4 className="font-bold text-[#1d1d1f] mb-1 uppercase tracking-wider text-[11px]">Important Note</h4>
-                                <p className="text-secondary font-medium text-[13px] leading-relaxed">
-                                    Access to specific programmes, working groups, training pathways, or consultations may be subject to eligibility, participation criteria, and availability.
-                                </p>
-                            </div>
-                        </div>
-                        <div className="p-3 border-t border-gray-100">
-                            <h4 className="font-bold text-[#1d1d1f] mb-2 uppercase tracking-wider text-[11px] text-center">Disclaimer</h4>
-                            <p className="text-secondary/60 font-medium text-[12px] leading-relaxed text-center max-w-3xl mx-auto">
-                                ARIFAC programmes are intended for industry collaboration, knowledge sharing, and capacity building.
-                                They do not constitute legal advice, regulatory guidance, or compliance certification.
-                                Participants are advised to refer to applicable laws and official regulatory communications for compliance requirements.
-                            </p>
-                        </div>
-                    </div>
 
                 </div>
             </div>

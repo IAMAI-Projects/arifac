@@ -20,7 +20,7 @@ const membership_terms = [
         num: 1,
         title: "Nature and Purpose of Membership",
         content: [
-            "a. Membership in ARIFAC (Alliance of Reporting Entities in India for AML/CFT) is voluntary and is designed to facilitate structured collaboration, knowledge sharing, and capacity building among organizations participating in the AML/CFT ecosystem.",
+            "a. Membership in ARIFAC (Alliance of Reporting Entities in India for AML/CFT) is voluntary and is designed to facilitate structured collaboration, knowledge sharing, and capacity building among organisations participating in the AML/CFT ecosystem.",
             "b. ARIFAC operates as an industry-led initiative under the guidance of the Financial Intelligence Unit – India (FIU-IND) and is administered by the Internet and Mobile Association of India (IAMAI).",
             "c. Membership in ARIFAC does not confer any regulatory status, recognition, endorsement, or exemption under applicable laws, nor does it create any agency or representative relationship with ARIFAC, IAMAI, FIU-IND, or any regulatory authority."
         ]
@@ -30,7 +30,7 @@ const membership_terms = [
         num: 2,
         title: "Eligibility for Membership",
         content: [
-            "a. Membership is open to organizations that are part of or contribute to the AML/CFT ecosystem, including but not limited to reporting entities such as banks, NBFCs, payment system operators, fintech companies, insurance entities, capital market intermediaries, virtual digital asset service providers, and RegTech or compliance tech solution providers."
+            "a. Membership is open to organisations that are part of or contribute to the AML/CFT ecosystem, including but not limited to reporting entities such as banks, NBFCs, payment system operators, fintech companies, insurance entities, capital market intermediaries, virtual digital asset service providers, and RegTech or compliance tech solution providers."
         ]
     },
     {
@@ -49,8 +49,8 @@ const membership_terms = [
         num: 4,
         title: "Membership Activation and Onboarding",
         content: [
-            "a. Membership shall become effective upon approval of the application by ARIFAC, completion of onboarding formalities, submission of required organizational information, acceptance of these Terms, and payment of applicable fees.",
-            "b. All member organizations shall be required to provide accurate and complete information at the time of registration and onboarding. ARIFAC reserves the right to verify such information and request additional documentation where required."
+            "a. Membership shall become effective upon approval of the application by ARIFAC, completion of onboarding formalities, submission of required organisational information, acceptance of these Terms, and payment of applicable fees.",
+            "b. All member organisations shall be required to provide accurate and complete information at the time of registration and onboarding. ARIFAC reserves the right to verify such information and request additional documentation where required."
         ]
     },
     {
@@ -58,7 +58,7 @@ const membership_terms = [
         num: 5,
         title: "Rights and Benefits of Membership",
         content: [
-            "a. Membership entitles organizations to participate in ARIFAC initiatives, including industry consultations, capacity-building programmes, certification opportunities, and working groups.",
+            "a. Membership entitles organisations to participate in ARIFAC initiatives, including industry consultations, capacity-building programmes, certification opportunities, and working groups.",
             "b. Members may nominate employees for participation in training and certification programmes, and may be provided with tools or access to track participation and engagement.",
             "c. ARIFAC may also maintain and publish a list of certified individuals for verification and industry reference purposes, and members may use such information for internal validation and compliance support."
         ]
@@ -69,7 +69,7 @@ const membership_terms = [
         title: "Responsibilities and Obligations",
         content: [
             "a. Members shall act in good faith and maintain the highest standards of integrity, professionalism, and ethical conduct in all ARIFAC engagements.",
-            "b. Members shall ensure that participation in ARIFAC does not conflict with applicable laws, regulatory obligations, or internal organizational policies.",
+            "b. Members shall ensure that participation in ARIFAC does not conflict with applicable laws, regulatory obligations, or internal organisational policies.",
             "c. Members shall maintain strict confidentiality of all non-public information shared within ARIFAC forums, including discussions, case studies, regulatory interactions, and industry insights.",
             "d. Members shall not disclose customer-specific, institution-specific, or regulator-sensitive information unless permitted under applicable law.",
             "e. Members shall comply with all applicable AML/CFT laws and regulations, including obligations under the Prevention of Money Laundering Act, 2002, and related regulatory frameworks."
@@ -80,7 +80,7 @@ const membership_terms = [
         num: 7,
         title: "Code of Conduct and Ethical Participation",
         content: [
-            "a. Members shall conduct themselves in a professional and respectful manner in all ARIFAC activities. Members shall avoid conflicts of interest, refrain from unauthorized solicitation or commercial promotion within ARIFAC forums, and ensure that ARIFAC platforms are used solely for legitimate and constructive purposes.",
+            "a. Members shall conduct themselves in a professional and respectful manner in all ARIFAC activities. Members shall avoid conflicts of interest, refrain from unauthorised solicitation or commercial promotion within ARIFAC forums, and ensure that ARIFAC platforms are used solely for legitimate and constructive purposes.",
             "b. Members shall not misuse ARIFAC affiliation, branding, or participation for misleading representation or commercial gain without prior authorization."
         ]
     },
@@ -96,9 +96,9 @@ const membership_terms = [
     {
         id: "org-responsibility",
         num: 9,
-        title: "Organizational Responsibility",
+        title: "Organisational Responsibility",
         content: [
-            "a. Member organizations shall be responsible for the conduct of their employees, representatives, and nominees participating in ARIFAC programmes.",
+            "a. Member organisations shall be responsible for the conduct of their employees, representatives, and nominees participating in ARIFAC programmes.",
             "b. Organizations shall ensure that such individuals comply with all applicable ARIFAC Terms, including LMP and Examination Terms where applicable.",
             "c. Any misuse of ARIFAC platforms or breach of Terms by a nominated individual may result in action against the member organization, including suspension or termination of membership."
         ]
@@ -126,7 +126,7 @@ const membership_terms = [
         num: 12,
         title: "Fees, Charges, and Refund Policy",
         content: [
-            "a. Membership fees, once paid, are non-refundable. Additional fees may be applicable for training programmes, certification, events, or specialized services offered by ARIFAC.",
+            "a. Membership fees, once paid, are non-refundable. Additional fees may be applicable for training programmes, certification, events, or specialised services offered by ARIFAC.",
             "b. ARIFAC reserves the right to revise fees and introduce new fee categories from time to time."
         ]
     },
@@ -317,7 +317,7 @@ export default function MembershipTermsPage() {
                                     <div className="relative z-10">
                                         <h3 className="text-2xl font-bold mb-4">Membership Declaration</h3>
                                         <p className="text-white/70 text-lg leading-relaxed mb-8">
-                                            By applying for or renewing ARIFAC membership, your organization agrees to be bound by these Institutional Membership Terms & Conditions.
+                                            By applying for or renewing ARIFAC membership, your organisation agrees to be bound by these Institutional Membership Terms & Conditions.
                                         </p>
                                         <div className="flex flex-wrap gap-4">
                                             <div className="px-5 py-2 rounded-full bg-white/10 text-white/90 text-sm font-medium border border-white/10">

@@ -198,7 +198,7 @@ export default function TrainingVolunteersPage() {
                                             required
                                         />
                                         <span className="text-[13px] text-secondary font-medium leading-relaxed group-hover:text-[#1d1d1f] transition-colors">
-                                            I confirm the information provided is accurate and I am authorized to volunteer on behalf of my expertise.
+                                            I confirm the information provided is accurate and I am authorised to volunteer on behalf of my expertise.
                                         </span>
                                     </label>
 

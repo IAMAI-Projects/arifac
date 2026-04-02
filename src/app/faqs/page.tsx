@@ -45,7 +45,7 @@ const faqs = [
     },
     {
         question: "How can an entity apply?",
-        answer: "Through the ARIFAC portal by submitting required organizational details and completing the application process.",
+        answer: "Through the ARIFAC portal by submitting required organisational details and completing the application process.",
         category: "Membership"
     },
     {
@@ -125,7 +125,7 @@ const faqs = [
     },
     {
         question: "How do I enroll in a course?",
-        answer: "Through LMS dashboard or via organization nomination.",
+        answer: "Through LMS dashboard or via organisation nomination.",
         category: "LMS"
     },
     {

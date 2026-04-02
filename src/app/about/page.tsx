@@ -254,44 +254,6 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Disclaimer Section */}
-            <section className="py-14 bg-[#f5f5f7]">
-                <div className="container mx-auto px-6">
-                    <div className="max-w-4xl mx-auto">
-                        <div className="p-8 md:p-10 rounded-[32px] bg-white border border-gray-100 shadow-sm">
-                            <h2 className="text-2xl font-bold text-[#1d1d1f] mb-8">Disclaimer</h2>
-                            <div className="space-y-6 text-secondary font-medium leading-relaxed">
-                                <p>
-                                    ARIFAC is an industry initiative operated by IAMAI and does not function as a regulator, supervisory authority, or enforcement agency. Participation in ARIFAC programmes does not constitute regulatory approval or compliance certification. Users are advised to refer to applicable laws and official regulatory guidance for compliance requirements.
-                                </p>
-                                <div className="grid md:grid-cols-2 gap-6 pt-6 border-t border-gray-100">
-                                    <ul className="space-y-4">
-                                        <li className="flex items-start gap-4">
-                                            <div className="mt-2 w-1.5 h-1.5 rounded-full bg-red-400 shrink-0" />
-                                            <span>ARIFAC does not function as a regulator or supervisory authority</span>
-                                        </li>
-                                        <li className="flex items-start gap-4">
-                                            <div className="mt-2 w-1.5 h-1.5 rounded-full bg-red-400 shrink-0" />
-                                            <span>ARIFAC does not grant licenses, approvals, or compliance certifications</span>
-                                        </li>
-                                    </ul>
-                                    <ul className="space-y-4">
-                                        <li className="flex items-start gap-4">
-                                            <div className="mt-2 w-1.5 h-1.5 rounded-full bg-red-400 shrink-0" />
-                                            <span>ARIFAC does not act on behalf of FIU-IND or any government authority</span>
-                                        </li>
-                                        <li className="flex items-start gap-4">
-                                            <div className="mt-2 w-1.5 h-1.5 rounded-full bg-red-400 shrink-0" />
-                                            <span>Participation in ARIFAC programmes does not substitute regulatory compliance obligations</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <Footer />
         </main>
     );

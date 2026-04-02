@@ -46,7 +46,7 @@ const terms_content = [
         num: 4,
         title: "Prohibited Conduct",
         content: [
-            "a. Users shall not misuse the Platform or engage in any activity that may compromise its integrity, including attempting unauthorized access, disrupting system operations, scraping data, reverse engineering, or misrepresenting affiliation with ARIFAC, IAMAI, FIU-IND, or any associated stakeholders."
+            "a. Users shall not misuse the Platform or engage in any activity that may compromise its integrity, including attempting unauthorised access, disrupting system operations, scraping data, reverse engineering, or misrepresenting affiliation with ARIFAC, IAMAI, FIU-IND, or any associated stakeholders."
         ]
     },
     {

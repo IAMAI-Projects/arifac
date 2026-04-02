@@ -207,7 +207,7 @@ export default function CertificationsPage() {
                             Elevate Your <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Expertise</span>
                         </h1>
                         <p className="text-2xl md:text-3xl text-secondary max-w-3xl mx-auto font-medium leading-relaxed">
-                            A comprehensive, multi-level certification programme designed to standardize financial integrity expertise across the Indian financial ecosystem.
+                            A comprehensive, multi-level certification programme designed to standardise financial integrity expertise across the Indian financial ecosystem.
                         </p>
                     </motion.div>
                 </div>
@@ -222,7 +222,7 @@ export default function CertificationsPage() {
                                 <Award className="text-accent" size={24} />
                             </div>
                             <div className="max-w-xs">
-                                <h3 className="text-base font-bold text-[#1d1d1f] mb-2">Recognized Standards</h3>
+                                <h3 className="text-base font-bold text-[#1d1d1f] mb-2">Recognised Standards</h3>
                                 <p className="text-secondary text-sm font-medium leading-relaxed">Aligned with global FATF standards and Indian regulatory requirements.</p>
                             </div>
                         </div>

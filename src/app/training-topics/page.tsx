@@ -198,7 +198,7 @@ export default function TrainingTopicsPage() {
                                             required
                                         />
                                         <span className="text-[13px] text-secondary font-medium leading-relaxed group-hover:text-[#1d1d1f] transition-colors">
-                                            I confirm I am submitting this request as an authorized representative or interested professional.
+                                            I confirm I am submitting this request as an authorised representative or interested professional.
                                         </span>
                                     </label>
 
