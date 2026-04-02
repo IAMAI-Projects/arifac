@@ -148,6 +148,67 @@ CREATE TABLE IF NOT EXISTS audit_logs (
   metadata JSONB,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+-- Set 2 Tables
+CREATE TABLE IF NOT EXISTS "User" (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email TEXT UNIQUE NOT NULL,
+  name TEXT NOT NULL,
+  password TEXT,
+  status "UserStatus" DEFAULT 'INITIATED',
+  "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  "updatedAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS "FormB" (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  "userId" UUID UNIQUE NOT NULL REFERENCES "User"(id) ON DELETE CASCADE,
+  "organisationName" TEXT NOT NULL,
+  details JSONB NOT NULL,
+  status "FormBStatus" DEFAULT 'PENDING',
+  "submittedAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS "Admin" (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  role "AdminRole" DEFAULT 'Admin'
+);
+
+CREATE TABLE IF NOT EXISTS "Approval" (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  "userId" UUID NOT NULL REFERENCES "User"(id) ON DELETE CASCADE,
+  stage "ApprovalStage" NOT NULL,
+  status "ApprovalStatus" DEFAULT 'PENDING',
+  "reviewedBy" TEXT,
+  remarks TEXT,
+  "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  token TEXT UNIQUE NOT NULL,
+  expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS "ResumeToken" (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  "userId" UUID UNIQUE NOT NULL REFERENCES "User"(id) ON DELETE CASCADE,
+  token TEXT UNIQUE NOT NULL,
+  "expiresAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+  used BOOLEAN DEFAULT false
+);
+
+CREATE TABLE IF NOT EXISTS "Payment" (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  "userId" UUID UNIQUE NOT NULL REFERENCES "User"(id) ON DELETE CASCADE,
+  status "PaymentStatus" DEFAULT 'PENDING',
+  amount DECIMAL(12, 2) NOT NULL,
+  "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
 `;
 
 async function main() {

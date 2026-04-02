@@ -40,3 +40,7 @@ run:
       value: "A2BAC1B094BE588FB33ECF61A412794E"
     - name: CCAVENUE_POST_URL
       value: "https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction"
+    - name: CCAVENUE_CALLBACK_BASE_URL
+      value: "https://demoarifac.iamai.in"
+    - name: NEXT_PUBLIC_FRONTEND_URL
+      value: "https://demoarifac.iamai.in"
