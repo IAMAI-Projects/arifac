@@ -81,7 +81,7 @@ const translations: Record<Language, Record<string, string>> = {
         'data.about.feat.nat.title': 'National Coordination',
         'data.about.feat.nat.desc': 'Unifying diverse reporting entities under a common compliance framework.',
         'data.about.feat.cap.title': 'Capability Development',
-        'data.about.feat.cap.desc': 'Standardizing competency through tiered professional certifications.',
+        'data.about.feat.cap.desc': 'Standardising competency through tiered professional certifications.',
         'data.about.feat.dialogue.title': 'Industry-Regulator Dialogue',
         'data.about.feat.dialogue.desc': 'Facilitating constructive feedback loops between industry and regulators.',
         'data.about.feat.know.title': 'Collaborative Knowledge',
@@ -92,14 +92,14 @@ const translations: Record<Language, Record<string, string>> = {
         'hero.title': 'Strengthening India’s',
         'hero.title_integrity': 'Financial Integrity',
         'hero.title_architecture': 'Through Industry Collaboration',
-        'hero.subtitle_initiative': 'An industry initiative operated by IAMAI, aligned with India’s financial intelligence and AML/CFT framework',
-        'hero.description': "\nARIFAC (Alliance of Reporting Entities in India for AML/CFT) is an industry-led initiative operated by IAMAI under the guidance of FIU-IND, enabling collaboration, capacity building, and coordinated action to strengthen India’s financial crime prevention ecosystem.",
+        'hero.subtitle_initiative': "An industry initiative, aligned with India’s financial intelligence and Anti-Money Laundering / Combatting the financing of terrorism (AML/CFT) framework",
+        'hero.description': "ARIFAC (Alliance of Reporting Entities in India for AML/CFT) under the guidance of FIU-IND, enables collaboration, capacity building, and coordinated action to strengthen India’s financial crime prevention ecosystem.",
         'hero.btn_explore': 'Explore Certification',
         'hero.btn_join': 'Become a Member',
         'hero.nav_membership': 'Apply for Membership',
         'ARIFAC Membership - Login': 'ARIFAC Membership - Login',
         'ARIFAC Membership - Dashboard': 'ARIFAC Membership - Dashboard',
-        'hero.nav_learning': 'Access AML/CFT Learning Programs',
+        'hero.nav_learning': 'Access AML/CFT Learning Programmes',
         'hero.nav_consultations': 'Participate in Industry Consultations',
         'hero.stats_entities': 'Reporting Entities',
         'hero.stats_professionals': 'Certified Professionals',
@@ -123,7 +123,7 @@ const translations: Record<Language, Record<string, string>> = {
         // Certifications Section
         'cert.title': 'Professional',
         'cert.title_framework': 'Certification Framework',
-        'cert.description': 'A tiered competency model designed to standardize financial integrity expertise across the national ecosystem.',
+        'cert.description': 'A tiered competency model designed to standardise financial integrity expertise across the national ecosystem.',
         'cert.all': 'View All Courses',
         'cert.level': 'Level',
         'cert.validity': 'validity',
@@ -215,7 +215,7 @@ const translations: Record<Language, Record<string, string>> = {
 
         // Data: Certifications
         'data.cert.course1.title': 'Certified AML & Financial Crime Professional',
-        'data.cert.course1.desc': 'Specialized certification for reporting entities in the Indian financial sector.',
+        'data.cert.course1.desc': 'Specialised certification for reporting entities in the Indian financial sector.',
 
         // Generic
         'common.no_results': 'No results found',

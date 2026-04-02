@@ -90,7 +90,7 @@ export default function TrainingTopicsPage() {
                                 Request a <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Topic</span>
                             </h1>
                             <p className="text-2xl text-secondary font-medium leading-relaxed mb-12">
-                                Help us tailor our training programs to the specific needs of your institution or sector.
+                                Help us tailor our training programmes to the needs of your institution or sector.
                             </p>
 
                             <div className="space-y-10">
@@ -100,7 +100,7 @@ export default function TrainingTopicsPage() {
                                     </div>
                                     <div className="flex-1">
                                         <h3 className="text-xl font-bold text-[#1d1d1f] mb-2">Member Driven</h3>
-                                        <p className="text-secondary font-medium leading-relaxed">Our syllabus is continuously updated based on member feedback and industry needs.</p>
+                                        <p className="text-secondary font-medium leading-relaxed">Our syllabus is regularly updated based on member feedback and industry needs</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-6 group">
@@ -109,7 +109,7 @@ export default function TrainingTopicsPage() {
                                     </div>
                                     <div className="flex-1">
                                         <h3 className="text-xl font-bold text-[#1d1d1f] mb-2">Strategic Focus</h3>
-                                        <p className="text-secondary font-medium leading-relaxed">Suggesting topics helps core stakeholders focus on emerging risks and new typologies.</p>
+                                        <p className="text-secondary font-medium leading-relaxed">Suggesting topics helps core stakeholders focus on emerging risks and new typologies</p>
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@ export default function TrainingTopicsPage() {
                                             required
                                         />
                                         <span className="text-[13px] text-secondary font-medium leading-relaxed group-hover:text-[#1d1d1f] transition-colors">
-                                            I confirm I am submitting this request as an authorized representative or interested professional.
+                                            I confirm I am submitting this request as an authorised representative or interested professional.
                                         </span>
                                     </label>
 

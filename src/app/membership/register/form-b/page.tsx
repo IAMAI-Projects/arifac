@@ -278,7 +278,7 @@ function RegistrationFormBContent() {
               </div>
 
               <div className="bg-blue-50 rounded-xl p-5 text-blue-800 text-sm border border-blue-100">
-                <strong>Note:</strong> Upon submission, your application will be reviewed by the Secretariat. If approved, credentials will be shared and you will be directed to complete your full organisational profile via the Post-Approval Form.
+                <strong>Note:</strong> Upon submission, your application will be reviewed by the Secretariat. If approved, credentials will be shared and you will be directed to complete your full organisational profile via the post-approval Form.
               </div>
             </div>
           </div>

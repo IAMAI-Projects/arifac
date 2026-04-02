@@ -30,7 +30,7 @@ const faqs = [
     },
     {
         question: "What are ARIFAC’s key focus areas?",
-        answer: "• AML/CFT compliance capacity building\n• Certification and training programs\n• Industry-regulator collaboration\n• Financial crime risk awareness and best practices",
+        answer: "• AML/CFT compliance capacity building\n• Certification and training programmes\n• Industry-regulator collaboration\n• Financial crime risk awareness and best practices",
         category: "General"
     },
     {
@@ -45,7 +45,7 @@ const faqs = [
     },
     {
         question: "How can an entity apply?",
-        answer: "Through the ARIFAC portal by submitting required organizational details and completing the application process.",
+        answer: "Through the ARIFAC portal by submitting required organisational details and completing the application process.",
         category: "Membership"
     },
     {
@@ -70,7 +70,7 @@ const faqs = [
     },
     {
         question: "Can multiple users be registered under one entity?",
-        answer: "Yes. Entities can nominate multiple users for LMS programs and participation.",
+        answer: "Yes. Entities can nominate multiple users for LMS programmes and participation.",
         category: "Membership"
     },
     {
@@ -85,7 +85,7 @@ const faqs = [
     },
     {
         question: "What happens if membership expires?",
-        answer: "• Access to LMS and programs may be restricted\n• Certifications may not be accessible for new enrolments\n• Renewal is required for reactivation",
+        answer: "• Access to LMS and programmes may be restricted\n• Certifications may not be accessible for new enrolments\n• Renewal is required for reactivation",
         category: "Membership"
     },
     {
@@ -109,8 +109,8 @@ const faqs = [
         category: "LMS"
     },
     {
-        question: "What programs are available?",
-        answer: "Structured certification programs:\ni. Level 1 to Level 5\nii. Domain-specific add-ons (Wealth, Insurance, Payments, VDA, etc.)",
+        question: "What programmes are available?",
+        answer: "Structured certification programmes:\ni. Level 1 to Level 5\nii. Domain-specific add-ons (Wealth, Insurance, Payments, VDA, etc.)",
         category: "LMS"
     },
     {
@@ -125,7 +125,7 @@ const faqs = [
     },
     {
         question: "How do I enroll in a course?",
-        answer: "Through LMS dashboard or via organization nomination.",
+        answer: "Through LMS dashboard or via organisation nomination.",
         category: "LMS"
     },
     {
@@ -175,12 +175,12 @@ const faqs = [
     },
     {
         question: "What happens if I fail?",
-        answer: "You may reattempt the exam as per program guidelines.",
+        answer: "You may reattempt the exam as per programme guidelines.",
         category: "Certifications"
     },
     {
         question: "How many attempts are allowed?",
-        answer: "Generally one additional attempt. Defined within each program.",
+        answer: "Generally one additional attempt. Defined within each programme.",
         category: "Certifications"
     },
     {
@@ -244,7 +244,7 @@ const faqs = [
         category: "Specialized"
     },
     {
-        question: "Can customized programs be offered?",
+        question: "Can customised programmes be offered?",
         answer: "Yes. ARIFAC may support tailored training for institutions.",
         category: "Specialized"
     },
@@ -299,7 +299,7 @@ export default function FAQsPage() {
                             transition={{ delay: 0.2 }}
                             className="text-xl text-secondary max-w-2xl mx-auto font-medium"
                         >
-                            Everything you need to know about ARIFAC membership, programs, and AML/CFT compliance capacity building.
+                            Everything you need to know about ARIFAC membership, programmes, and AML/CFT compliance capacity building.
                         </motion.p>
                     </div>
 

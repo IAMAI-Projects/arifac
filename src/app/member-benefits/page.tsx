@@ -16,8 +16,6 @@ import {
     Download,
     Mail,
     ArrowRight,
-    Info,
-    AlertCircle
 } from 'lucide-react';
 
 const categories = [
@@ -29,13 +27,13 @@ const categories = [
     },
     {
         title: "Associate Members",
-        description: "RegTech companies, compliance technology providers, consulting firms, legal and advisory organizations supporting AML/CFT functions.",
+        description: "RegTech companies, compliance technology providers, consulting firms, legal and advisory organisations supporting AML/CFT functions.",
         icon: Users,
         color: "from-[#59626E] to-[#8A97A8]"
     },
     {
         title: "Knowledge & Ecosystem Partners",
-        description: "Industry associations, academic institutions, research organizations, and ecosystem enablers contributing to financial crime prevention.",
+        description: "Industry associations, academic institutions, research organisations, and ecosystem enablers contributing to financial crime prevention.",
         icon: GraduationCap,
         color: "from-[#1d1d1f] to-[#424245]"
     }
@@ -43,12 +41,12 @@ const categories = [
 
 const benefits = [
     "Participation in industry consultations and closed-room discussions",
-    "Access to AML/CFT training and certification programs",
+    "Access to AML/CFT training and certification programmes",
     "Inclusion in working groups and knowledge forums",
     "Access to typologies, insights, and industry best practices",
     "Ability to nominate employees for training and certification pathways",
     "Access to verification of certified professionals (where applicable)",
-    "Pricing discount on Learning Programs"
+    "Pricing discount on Learning Programmes"
 ];
 
 const processSteps = [
@@ -56,7 +54,7 @@ const processSteps = [
     { title: "Review & Approval", desc: "ARIFAC reviews the application for alignment and eligibility." },
     { title: "Onboarding", desc: "Complete necessary formalities and documentation." },
     { title: "Fee Payment", desc: "Payment of the applicable membership fees." },
-    { title: "Activation", desc: "Full access to ARIFAC platforms, programs, and forums." }
+    { title: "Activation", desc: "Full access to ARIFAC platforms, programmes, and forums." }
 ];
 
 export default function MemberBenefitsPage() {
@@ -75,28 +73,14 @@ export default function MemberBenefitsPage() {
                         <h1 className="text-3xl md:text-5xl font-bold font-heading leading-tight tracking-tight mb-6">
                             Membership at <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">ARIFAC</span>
                         </h1>
-                        <p className="text-xl md:text-2xl text-[#6e6e73] font-medium mb-10 leading-relaxed max-w-3xl">
+                        <p className="text-xl md:text-2xl text-[#6e6e73] font-medium mb-10 leading-relaxed max-w-3xl text-center mx-auto">
                             India’s Industry Platform for Financial Crime Prevention
                         </p>
 
                         <div className="bg-[#f5f5f7] p-8 md:p-10 rounded-[40px] border border-gray-100 mb-12">
-                            <p className="text-lg leading-relaxed text-[#1d1d1f] mb-6">
-                                ARIFAC (Alliance of Reporting Entities in India for AML/CFT) brings together organizations across India’s financial and digital ecosystem to strengthen capabilities, enable collaboration, and align approaches to financial crime prevention.
+                            <p className="text-lg leading-relaxed text-[#1d1d1f]">
+                                Membership is designed for reporting entities and stakeholders in India’s digital and financial ecosystem seeking to engage in industry consultations, capacity building, and knowledge sharing aligned with AML/CFT frameworks.
                             </p>
-                            <p className="text-lg leading-relaxed text-[#1d1d1f] font-medium">
-                                Membership is designed for reporting entities and ecosystem stakeholders seeking to engage in industry consultations, capacity building, and knowledge sharing aligned with AML/CFT frameworks.
-                            </p>
-                        </div>
-
-                        {/* Important Clarification */}
-                        <div className="flex items-start gap-4 p-6 bg-amber-50 rounded-3xl border border-amber-100">
-                            <Info className="text-[#C2B020] shrink-0 mt-1" size={24} />
-                            <div>
-                                <h3 className="font-bold text-amber-900 mb-1">Important Clarification</h3>
-                                <p className="text-amber-800 leading-relaxed text-sm">
-                                    ARIFAC is an industry initiative operated by IAMAI and does not function as a regulator or supervisory authority. Membership does not confer any regulatory status, approval, or compliance certification.
-                                </p>
-                            </div>
                         </div>
                     </motion.div>
                 </div>
@@ -110,7 +94,7 @@ export default function MemberBenefitsPage() {
                             <div>
                                 <h2 className="text-3xl md:text-4xl font-bold font-heading mb-5">What Membership Enables</h2>
                                 <p className="text-lg text-[#6e6e73] mb-6 leading-relaxed">
-                                    ARIFAC membership provides access to a structured ecosystem focused on capability building and collaboration:
+                                    A focused on capability building and collaboration:
                                 </p>
                                 <ul className="space-y-4">
                                     {benefits.map((benefit, i) => (
@@ -231,7 +215,7 @@ export default function MemberBenefitsPage() {
                                     <h3 className="text-2xl font-bold text-[#1d1d1f]">Fees & Participation</h3>
                                 </div>
                                 <p className="text-secondary font-medium leading-relaxed">
-                                    Membership categories and applicable fee structures are published separately and may be updated from time to time. Additional fees may apply for training programs, certifications, and specialized events.
+                                    Membership categories and applicable fee structures are published separately and may be updated from time to time. Additional fees may apply for training programmes, certifications, and specialised events.
                                 </p>
                             </div>
                         </div>
@@ -252,7 +236,7 @@ export default function MemberBenefitsPage() {
 
                         <h2 className="text-2xl md:text-4xl font-bold mb-6">Apply for Membership</h2>
                         <p className="text-xl text-white/80 mb-12 max-w-xl mx-auto">
-                            Join ARIFAC to be part of India’s evolving financial crime prevention ecosystem.
+                            Join ARIFAC to be a part of India’s evolving financial crime prevention ecosystem.
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
@@ -272,28 +256,12 @@ export default function MemberBenefitsPage() {
                 </div>
             </section>
 
-            {/* Privacy & Disclaimer */}
-            <section className="py-14 bg-[#f5f5f7]">
+            {/* End-of-page notices */}
+            <section className="py-8 bg-white">
                 <div className="container mx-auto px-6">
-                    <div className="max-w-5xl mx-auto">
-                        <div className="grid md:grid-cols-2 gap-12">
-                            <div className="p-10 bg-white rounded-[40px] border border-gray-100 shadow-sm">
-                                <h4 className="text-xl font-bold mb-6 flex items-center gap-3">
-                                    <Lock className="text-[#C2B020]" size={24} /> Data Protection & Consent
-                                </h4>
-                                <p className="text-[#6e6e73] leading-relaxed font-medium">
-                                    By submitting a membership application, you consent to the collection and processing of your information in accordance with ARIFAC’s Privacy Policy and applicable data protection laws.
-                                </p>
-                            </div>
-                            <div className="p-10 bg-white rounded-[40px] border border-gray-100 shadow-sm">
-                                <h4 className="text-xl font-bold mb-6 flex items-center gap-3">
-                                    <AlertCircle className="text-[#C2B020]" size={24} /> Disclaimer
-                                </h4>
-                                <p className="text-[#6e6e73] leading-relaxed font-medium">
-                                    ARIFAC membership is intended for industry collaboration, knowledge sharing, and capacity building. It does not substitute regulatory compliance obligations under applicable laws. ARIFAC does not provide legal or regulatory advice.
-                                </p>
-                            </div>
-                        </div>
+                    <div className="max-w-4xl mx-auto space-y-4 text-xs text-[#6e6e73]">
+                        <p><strong>Important Clarification:</strong> ARIFAC is an industry initiative operated by IAMAI and does not function as a regulator or supervisory authority. Membership does not confer any regulatory status, approval, or compliance certification.</p>
+                        <p><strong>Data Protection &amp; Consent:</strong> By submitting a membership application, you consent to the collection and processing of your information in accordance with ARIFAC's Privacy Policy and applicable data protection laws.</p>
                     </div>
                 </div>
             </section>

@@ -100,7 +100,7 @@ export default function TrainingVolunteersPage() {
                                     </div>
                                     <div className="flex-1">
                                         <h3 className="text-xl font-bold text-[#1d1d1f] mb-2">Expert Sessions</h3>
-                                        <p className="text-secondary font-medium leading-relaxed">Conduct high-impact training for reporting entities across sectors.</p>
+                                        <p className="text-secondary font-medium leading-relaxed">Conduct high-impact training for reporting entities across sectors</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-6 group">
@@ -109,7 +109,7 @@ export default function TrainingVolunteersPage() {
                                     </div>
                                     <div className="flex-1">
                                         <h3 className="text-xl font-bold text-[#1d1d1f] mb-2">Knowledge Dissemination</h3>
-                                        <p className="text-secondary font-medium leading-relaxed">Contribute to typology reports and strategic guidance notes for members.</p>
+                                        <p className="text-secondary font-medium leading-relaxed">Contribute to typology reports and strategic guidance notes for members</p>
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@ export default function TrainingVolunteersPage() {
                                             required
                                         />
                                         <span className="text-[13px] text-secondary font-medium leading-relaxed group-hover:text-[#1d1d1f] transition-colors">
-                                            I confirm the information provided is accurate and I am authorized to volunteer on behalf of my expertise.
+                                            I confirm the information provided is accurate and I am authorised to volunteer on behalf of my expertise.
                                         </span>
                                     </label>
 

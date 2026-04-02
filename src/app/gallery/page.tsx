@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { Star, ArrowRight, Shield, Users, Briefcase, Calendar, Info } from 'lucide-react';
+import { Star, ArrowRight, Shield, Users, Briefcase, Calendar } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -188,17 +188,6 @@ export default function GalleryPage() {
                             </div>
                         </div>
 
-                        <div className="flex flex-col md:flex-row gap-8 items-start">
-                            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-500">
-                                <Info className="w-6 h-6" />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-bold text-[#1d1d1f] mb-3">Disclaimer</h3>
-                                <p className="text-gray-500 leading-relaxed italic">
-                                    Images are used for documentation and illustrative purposes. Participation in ARIFAC programs may imply consent for non-commercial use of photographs unless otherwise notified.
-                                </p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

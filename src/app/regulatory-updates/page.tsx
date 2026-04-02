@@ -426,36 +426,6 @@ export default function RegulatoryUpdatesPage() {
                 </div>
             </section>
 
-            {/* Disclaimer */}
-            <section className="py-10 bg-[#f5f5f7]">
-                <div className="container mx-auto px-6">
-                    <div className="max-w-4xl mx-auto space-y-6">
-                        <div className="flex gap-5 items-start">
-                            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm shrink-0">
-                                <Info size={20} className="text-accent" />
-                            </div>
-                            <div>
-                                <h4 className="text-base font-bold text-[#1d1d1f] mb-1">Important Note</h4>
-                                <p className="text-secondary leading-relaxed font-medium text-sm">
-                                    This section is intended as a repository for easy reference and awareness. Latest regulatory circulars, advisories, and reference documents are maintained here for member access.
-                                </p>
-                            </div>
-                        </div>
-                        <div className="flex gap-5 items-start">
-                            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm shrink-0">
-                                <AlertCircle size={20} className="text-amber-500" />
-                            </div>
-                            <div>
-                                <h4 className="text-base font-bold text-[#1d1d1f] mb-1">Disclaimer</h4>
-                                <p className="text-secondary leading-relaxed font-medium text-sm italic">
-                                    Content hosted on this page is for informational purposes only. Users should refer to the original circulars, notifications, and official communications issued by the relevant authority for statutory compliance.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Explore More */}
             <section className="py-14 bg-white border-t border-gray-100">
                 <div className="container mx-auto px-6">

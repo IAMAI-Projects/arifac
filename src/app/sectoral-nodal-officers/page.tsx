@@ -24,7 +24,7 @@ const sectors = [
     {
         category: "Networks",
         officers: [
-            { institution: "NPCI", name: "Ms Swati Salvi" }
+            { institution: "NPCI", name: "Principal Officer" }
         ]
     },
     {
@@ -127,7 +127,7 @@ export default function SectoralNodalOfficersPage() {
                                                     {officer.institution}
                                                 </h3>
                                                 <div className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em]">
-                                                    Principal Representative
+                                                    Principal Officer
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-6">

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef } from 'react';
-import { CheckCircle2, BookOpen, ChevronRight, ChevronDown, ChevronLeft, Award, ShieldCheck, Zap, Lock } from 'lucide-react';
+import { useState } from 'react';
+import { CheckCircle2, BookOpen, ChevronRight, ChevronDown, Award, ShieldCheck, Zap, Lock } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -24,6 +24,8 @@ interface LevelData {
     addOns: AddOnCourse[];
     enrollUrl?: string;
     isAvailable: boolean;
+    knowMoreLines?: string[];
+    pricing?: string;
 }
 
 const levels: LevelData[] = [
@@ -36,6 +38,11 @@ const levels: LevelData[] = [
         core: { code: "ACF-L1-CORE", title: "AML/CFT Foundations & Regulatory Framework" },
         enrollUrl: "https://arifac.iamai.in/course/CertifiedAMLFinancialCrimeProfessionalIndia-105418",
         isAvailable: true,
+        knowMoreLines: [
+            "Build a strong foundation in AML/CFT with practical understanding of KYC, transaction monitoring, and financial crime risk indicators within the Indian regulatory framework.",
+            "Designed for entry-level professionals across reporting entities and learners aspiring to build a career in compliance, risk, and financial crime prevention.",
+        ],
+        pricing: "₹5000 + applicable taxes (for individuals employed with ARIFAC Members) | ₹6000 + applicable taxes (for others)",
         addOns: [
             { code: "ACF-L1-PAY", title: "AML in Payments & PPIs" },
             { code: "ACF-L1-UPI", title: "UPI Fraud & Transaction Monitoring Basics" },
@@ -132,75 +139,55 @@ const levels: LevelData[] = [
     },
 ];
 
-/* ─── Carousel Component ─── */
+/* ─── Add-On Grid Component (5×2 grid with carousel for >10) ─── */
 
-function AddOnCarousel({ addOns, levelBadge, isAvailable }: { addOns: AddOnCourse[]; levelBadge: string; isAvailable: boolean }) {
-    const scrollRef = useRef<HTMLDivElement>(null);
-    const [openAddon, setOpenAddon] = useState<string | null>(null);
+const TILES_PER_PAGE = 10;
+const GRID_COLS = 5;
 
-    const scroll = (dir: 'left' | 'right') => {
-        if (!scrollRef.current) return;
-        const cardWidth = 220;
-        scrollRef.current.scrollBy({ left: dir === 'left' ? -cardWidth : cardWidth, behavior: 'smooth' });
-    };
+function AddOnGrid({ addOns, levelBadge }: { addOns: AddOnCourse[]; levelBadge: string }) {
+    const [page, setPage] = useState(0);
+    const needsCarousel = addOns.length > TILES_PER_PAGE;
+    const totalPages = Math.ceil(addOns.length / TILES_PER_PAGE);
+    const visible = needsCarousel
+        ? addOns.slice(page * TILES_PER_PAGE, (page + 1) * TILES_PER_PAGE)
+        : addOns;
 
     return (
-        <div className="relative flex-1 min-w-0">
-            {/* Scroll buttons */}
-            <button
-                onClick={() => scroll('left')}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center hover:bg-gray-50 transition-colors -ml-3"
-            >
-                <ChevronLeft size={14} />
-            </button>
-            <button
-                onClick={() => scroll('right')}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center hover:bg-gray-50 transition-colors -mr-3"
-            >
-                <ChevronRight size={14} />
-            </button>
-
-            {/* Scrollable container */}
-            <div
-                ref={scrollRef}
-                className="flex gap-3 overflow-x-auto scrollbar-hide px-2 py-1"
-                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
-                {addOns.map((addon) => (
+        <div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                {visible.map((addon) => (
                     <div
                         key={addon.code}
-                        className="shrink-0 w-[200px] rounded-xl p-3 flex flex-col border bg-white border-gray-100 hover:border-accent/30 hover:shadow-md transition-all"
+                        className="rounded-xl p-3 flex flex-col border bg-white border-gray-100 hover:border-accent/30 hover:shadow-md transition-all"
                     >
                         <span className="text-[9px] font-bold tracking-[0.12em] uppercase text-accent/70 mb-1.5">{addon.code}</span>
                         <h4 className="text-[12px] font-bold text-[#1d1d1f] leading-snug mb-3 flex-1">{addon.title}</h4>
-
-                        {/* Know More Dropdown */}
-                        <div className="rounded-lg overflow-hidden border border-gray-200">
-                            <button
-                                onClick={() => setOpenAddon(openAddon === addon.code ? null : addon.code)}
-                                className="w-full flex items-center justify-between px-2.5 py-1.5 text-[11px] font-bold text-[#1d1d1f] hover:bg-gray-50 transition-colors"
-                            >
-                                <span>Know More</span>
-                                <ChevronDown
-                                    size={12}
-                                    className={`transition-transform duration-200 text-accent ${openAddon === addon.code ? 'rotate-180' : ''}`}
-                                />
-                            </button>
-                            {openAddon === addon.code && (
-                                <div className="px-2.5 pb-2.5 border-t border-gray-100 pt-2 space-y-1.5">
-                                    <p className="text-[10px] text-secondary font-medium leading-relaxed">
-                                        Domain-specific add-on for {levelBadge} pathway covering {addon.title.toLowerCase()}.
-                                    </p>
-                                    <div className="flex items-center gap-1.5">
-                                        <Lock size={10} className="text-accent/60 shrink-0" />
-                                        <span className="text-[10px] font-bold text-accent/70 uppercase tracking-wider">Coming Soon</span>
-                                    </div>
-                                </div>
-                            )}
+                        <div className="flex items-center gap-1.5">
+                            <Lock size={10} className="text-accent/60 shrink-0" />
+                            <span className="text-[10px] font-bold text-accent/70 uppercase tracking-wider">Coming Soon</span>
                         </div>
                     </div>
                 ))}
             </div>
+            {needsCarousel && (
+                <div className="flex items-center justify-center gap-4 mt-3">
+                    <button
+                        onClick={() => setPage(p => Math.max(0, p - 1))}
+                        disabled={page === 0}
+                        className="px-3 py-1 rounded-lg text-[11px] font-bold border border-gray-200 bg-white hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                    >
+                        ← Prev
+                    </button>
+                    <span className="text-[10px] text-gray-400 font-medium">{page + 1} / {totalPages}</span>
+                    <button
+                        onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
+                        disabled={page === totalPages - 1}
+                        className="px-3 py-1 rounded-lg text-[11px] font-bold border border-gray-200 bg-white hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                    >
+                        Next →
+                    </button>
+                </div>
+            )}
         </div>
     );
 }
@@ -223,12 +210,12 @@ export default function CertificationsPage() {
                         transition={{ duration: 0.6 }}
                         className="max-w-4xl mx-auto"
                     >
-                        <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-6 block">Professional Growth</span>
-                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-[#1d1d1f] tracking-tight mb-8 leading-[1.1]">
-                            Elevate Your <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Expertise</span>
+                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-[#1d1d1f] tracking-tight mb-4 leading-[1.1]">
+                            Elevate Your Level of <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Expertise</span>
                         </h1>
+                        <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-8 block">Grow Professionally</span>
                         <p className="text-2xl md:text-3xl text-secondary max-w-3xl mx-auto font-medium leading-relaxed">
-                            A comprehensive, multi-level certification program designed to standardize financial integrity expertise across the Indian financial ecosystem.
+                            A comprehensive, multi-level certification programme designed to standardise and boost financial integrity expertise across the Indian financial ecosystem.
                         </p>
                     </motion.div>
                 </div>
@@ -243,8 +230,8 @@ export default function CertificationsPage() {
                                 <Award className="text-accent" size={24} />
                             </div>
                             <div className="max-w-xs">
-                                <h3 className="text-base font-bold text-[#1d1d1f] mb-2">Recognized Standards</h3>
-                                <p className="text-secondary text-sm font-medium leading-relaxed">Aligned with global FATF standards and Indian regulatory requirements.</p>
+                                <h3 className="text-base font-bold text-[#1d1d1f] mb-2">Recognised Standards</h3>
+                                <p className="text-secondary text-sm font-medium leading-relaxed">Aligned with global FATF standards and Indian regulatory requirements</p>
                             </div>
                         </div>
                         <div className="flex flex-col items-center text-center gap-4">
@@ -253,7 +240,7 @@ export default function CertificationsPage() {
                             </div>
                             <div className="max-w-xs">
                                 <h3 className="text-base font-bold text-[#1d1d1f] mb-2">Industry Validated</h3>
-                                <p className="text-secondary text-sm font-medium leading-relaxed">Curriculum vetted by leading subject matter experts.</p>
+                                <p className="text-secondary text-sm font-medium leading-relaxed">Curriculum vetted by leading subject matter experts</p>
                             </div>
                         </div>
                         <div className="flex flex-col items-center text-center gap-4">
@@ -262,7 +249,7 @@ export default function CertificationsPage() {
                             </div>
                             <div className="max-w-xs">
                                 <h3 className="text-base font-bold text-[#1d1d1f] mb-2">Career Growth</h3>
-                                <p className="text-secondary text-sm font-medium leading-relaxed">Structured pathway from foundational knowledge to leadership.</p>
+                                <p className="text-secondary text-sm font-medium leading-relaxed">Structured pathway from foundational knowledge to leadership</p>
                             </div>
                         </div>
                     </div>
@@ -305,35 +292,38 @@ export default function CertificationsPage() {
                                     <p className="text-[11px] text-secondary font-medium mb-1">{lvl.name} Level</p>
                                     <p className="text-[11px] text-secondary/70 mb-3 leading-relaxed">{lvl.objective}</p>
 
-                                    {/* Know More Dropdown */}
-                                    <div className="mb-3 rounded-xl overflow-hidden border border-gray-200 bg-white">
-                                        <button
-                                            onClick={() => setOpenKnowMore(openKnowMore === lvl.badge ? null : lvl.badge)}
-                                            className="w-full flex items-center justify-between px-3 py-2 text-[12px] font-bold text-[#1d1d1f] hover:bg-gray-50 transition-colors"
-                                        >
-                                            <span>Know More</span>
-                                            <ChevronDown
-                                                size={14}
-                                                className={`transition-transform duration-200 text-accent ${openKnowMore === lvl.badge ? 'rotate-180' : ''}`}
-                                            />
-                                        </button>
-                                        {openKnowMore === lvl.badge && (
-                                            <div className="px-3 pb-3 border-t border-gray-100 text-[11px] text-secondary space-y-2 pt-2">
-                                                <p className="font-medium leading-relaxed">
-                                                    This {lvl.name.toLowerCase()}-level certification covers {lvl.core.title.toLowerCase()} with {lvl.addOns.length} domain-specific add-on modules available.
-                                                </p>
-                                                <div className="flex items-baseline gap-1">
-                                                    <span className="text-lg font-bold text-[#1d1d1f]">₹5,000</span>
-                                                    <span className="text-secondary text-[10px] font-bold">+ GST</span>
+                                    {/* Know More Dropdown — L1 only */}
+                                    {lvl.isAvailable && lvl.knowMoreLines && (
+                                        <div className="mb-3 rounded-xl overflow-hidden border border-gray-200 bg-white">
+                                            <button
+                                                onClick={() => setOpenKnowMore(openKnowMore === lvl.badge ? null : lvl.badge)}
+                                                className="w-full flex items-center justify-between px-3 py-2 text-[12px] font-bold text-[#1d1d1f] hover:bg-gray-50 transition-colors"
+                                            >
+                                                <span>Know More</span>
+                                                <ChevronDown
+                                                    size={14}
+                                                    className={`transition-transform duration-200 text-accent ${openKnowMore === lvl.badge ? 'rotate-180' : ''}`}
+                                                />
+                                            </button>
+                                            {openKnowMore === lvl.badge && (
+                                                <div className="px-3 pb-3 border-t border-gray-100 text-[11px] text-secondary space-y-2 pt-2">
+                                                    {lvl.knowMoreLines.map((line, i) => (
+                                                        <p key={i} className="font-medium leading-relaxed">{line}</p>
+                                                    ))}
+                                                    {lvl.pricing && (
+                                                        <div className="pt-1 space-y-1">
+                                                            <p className="font-medium text-[#1d1d1f] leading-relaxed">
+                                                                <span className="font-bold">₹5000</span> + applicable taxes (for individuals employed with ARIFAC Members)
+                                                            </p>
+                                                            <p className="font-medium text-[#1d1d1f] leading-relaxed">
+                                                                <span className="font-bold">₹6000</span> + applicable taxes (for others)
+                                                            </p>
+                                                        </div>
+                                                    )}
                                                 </div>
-                                                <ul className="space-y-1">
-                                                    <li className="flex items-start gap-1.5"><CheckCircle2 size={12} className="text-accent shrink-0 mt-0.5" />Self-paced online learning</li>
-                                                    <li className="flex items-start gap-1.5"><CheckCircle2 size={12} className="text-accent shrink-0 mt-0.5" />Industry-recognized credential</li>
-                                                    <li className="flex items-start gap-1.5"><CheckCircle2 size={12} className="text-accent shrink-0 mt-0.5" />FATF-aligned curriculum</li>
-                                                </ul>
-                                            </div>
-                                        )}
-                                    </div>
+                                            )}
+                                        </div>
+                                    )}
 
                                     {/* Actions */}
                                     <div className="flex flex-col gap-2 mt-auto">
@@ -358,9 +348,9 @@ export default function CertificationsPage() {
                                 <div className="flex-1 min-w-0 flex flex-col">
                                     <div className="flex items-center gap-2 mb-2 px-2">
                                         <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{lvl.badge} Domain Add-Ons</span>
-                                        <span className="text-[10px] text-gray-300 font-medium">({lvl.addOns.length} programs)</span>
+                                        <span className="text-[10px] text-gray-300 font-medium">({lvl.addOns.length} programmes)</span>
                                     </div>
-                                    <AddOnCarousel addOns={lvl.addOns} levelBadge={lvl.badge} isAvailable={lvl.isAvailable} />
+                                    <AddOnGrid addOns={lvl.addOns} levelBadge={lvl.badge} />
                                 </div>
                             </motion.div>
                         ))}

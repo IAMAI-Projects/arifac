@@ -57,7 +57,14 @@
       "Bash(curl -s -X POST http://localhost:3000/api/payment/initiate -H \"Content-Type: application/json\" -d '{}')",
       "Bash(curl -s -o /dev/null -w \"HTTP Status: %{http_code}, Content-Type: %{content_type}, Size: %{size_download} bytes\" -X POST http://localhost:3000/api/payment/initiate -H \"Content-Type: application/json\" -d '{\"\"amount\"\": 100}')",
       "Bash(curl -s -o /dev/null -w \"HTTP Status: %{http_code}, Content-Type: %{content_type}, Size: %{size_download} bytes\" -X POST http://localhost:3000/api/payment/initiate -H \"Content-Type: application/json\" -d '{\"\"amount\"\": 5000, \"\"billingName\"\": \"\"Test\"\", \"\"billingEmail\"\": \"\"t@t.com\"\", \"\"billingTel\"\": \"\"9999999999\"\"}')",
-      "Bash(curl -s -X POST http://localhost:3000/api/payment/initiate -H \"Content-Type: application/json\" -d '{\"\"amount\"\": 5000, \"\"billingName\"\": \"\"Manish\"\", \"\"billingEmail\"\": \"\"manish@icicibank.com\"\", \"\"billingTel\"\": \"\"9903198887\"\", \"\"billingAddress\"\": \"\"ICICI Bank Tower, BKC, Mumbai 400051\"\", \"\"billingCity\"\": \"\"Mumbai\"\", \"\"billingState\"\": \"\"Maharashtra\"\", \"\"billingZip\"\": \"\"400051\"\", \"\"billingCountry\"\": \"\"India\"\"}')"
+      "Bash(curl -s -X POST http://localhost:3000/api/payment/initiate -H \"Content-Type: application/json\" -d '{\"\"amount\"\": 5000, \"\"billingName\"\": \"\"Manish\"\", \"\"billingEmail\"\": \"\"manish@icicibank.com\"\", \"\"billingTel\"\": \"\"9903198887\"\", \"\"billingAddress\"\": \"\"ICICI Bank Tower, BKC, Mumbai 400051\"\", \"\"billingCity\"\": \"\"Mumbai\"\", \"\"billingState\"\": \"\"Maharashtra\"\", \"\"billingZip\"\": \"\"400051\"\", \"\"billingCountry\"\": \"\"India\"\"}')",
+      "Bash(findstr LISTENING)",
+      "Bash(taskkill /PID 9320 /F)",
+      "Bash(cmd //c \"taskkill /PID 9320 /F\")",
+      "Bash(curl -s -X POST http://localhost:3000/api/payment/initiate -H \"Content-Type: application/json\" -d '{\"\"\"\"amount\"\"\"\":100,\"\"\"\"billingName\"\"\"\":\"\"\"\"Test\"\"\"\"}')",
+      "Bash(curl -s -X POST http://localhost:3000/api/payment/initiate -H \"Content-Type: application/json\" -d '{\"\"amount\"\":100,\"\"billingName\"\":\"\"Test\"\"}')",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(ls -la .env*)"
     ]
   }
 }

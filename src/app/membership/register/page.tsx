@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-// Dummy data for pre-approved organizations
+// Dummy data for pre-approved organisations
 const PRE_APPROVED_ORGS = [
   "ICICI Bank", "HDFC Bank", "Axis Bank"
 ];
@@ -90,8 +90,8 @@ export default function MembershipRegistrationStep1() {
                   professionals committed to upholding the highest standards of financial integrity.
                 </p>
                 <p>
-                  Members gain exclusive access to specialized training modules, certification
-                  programs, policy dialogue forums, and a vast network of industry experts. By joining
+                  Members gain exclusive access to specialised training modules, certification
+                  programmes, policy dialogue forums, and a vast network of industry experts. By joining
                   ARIFAC, you contribute to a collective effort against money laundering and the
                   financing of terrorism.
                 </p>
@@ -108,19 +108,16 @@ export default function MembershipRegistrationStep1() {
               </h2>
 
               <div className="bg-white p-6 rounded-xl border border-gray-200 text-gray-600 leading-relaxed mb-8">
-                <ul className="list-disc pl-5 space-y-2 mb-6">
-                  <li>Must be a reporting entity or an authorized professional in the financial sector.</li>
-                  <li>The registration must be completed by an Authorised Representative of the entity.</li>
-                  <li>Must adhere to the guidelines set forth by FIU-India and other regulatory bodies.</li>
-                  <li>Requires commitment to continuous learning and sharing of best practices in AML/CFT.</li>
-                </ul>
+                <p className="mb-6">
+                  Membership is designed for reporting entities and stake holders in India's digital and financial ecosystem seeking to engage in industry consultations, capacity building, and knowledge sharing aligned with AML/CFT frameworks.
+                </p>
 
                 <hr className="my-6 border-gray-100" />
 
                 {/* Organisation Search */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-900 mb-2">Search your Organisation *</label>
-                  <p className="text-sm text-gray-500 mb-4">Select your organisation if it appears in the list. If not, type your organisation name to proceed as a new entry.</p>
+                  <p className="text-sm text-gray-500 mb-4">Select your organisation if it appears on the list. If not, type your organisation name to proceed as a new entry.</p>
 
                   <div className="relative">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
@@ -157,9 +154,6 @@ export default function MembershipRegistrationStep1() {
                           ))
                         ) : (
                           <div className="px-5 py-4 bg-gray-50 flex flex-col gap-3">
-                            <div className="text-sm text-gray-600">
-                              Organisation not found in pre-approved list.
-                            </div>
                             <label className="flex items-start gap-3 cursor-pointer p-3 rounded-lg border border-gray-200 bg-white hover:border-gray-300 transition-colors">
                               <div className="flex-shrink-0 pt-0.5">
                                 <input
@@ -173,7 +167,7 @@ export default function MembershipRegistrationStep1() {
                                 />
                               </div>
                               <span className="text-sm font-semibold text-gray-700 leading-tight">
-                                I confirm my organisation is not listed. Proceed to register "{searchQuery}" as a new organisation.
+                                I confirm my organisation does not appear on the list. Proceed to register "{searchQuery}" as a new organisation.
                               </span>
                             </label>
                           </div>

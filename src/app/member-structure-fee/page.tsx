@@ -152,10 +152,10 @@ const membershipData = [
 
 const benefits = [
     "Participation in industry consultations and closed-room discussions",
-    "Access to training and certification programs",
+    "Access to training and certification programmes",
     "Inclusion in working groups and expert forums",
     "Access to typologies, insights, and knowledge resources",
-    "Ability to nominate employees for learning programs",
+    "Ability to nominate employees for learning programmes",
     "Membership certificate and recognition"
 ];
 
@@ -189,7 +189,7 @@ export default function MemberStructureFeePage() {
 
                         <div className="bg-[#f5f5f7] p-8 md:p-10 rounded-[40px] border border-gray-100 mb-12">
                             <p className="text-lg leading-relaxed text-[#1d1d1f]">
-                                ARIFAC (Alliance of Reporting Entities in India for AML/CFT) offers structured membership to organizations across India’s financial and digital ecosystem to enable collaboration, capacity building, and regulatory alignment in financial crime prevention.
+                                ARIFAC (Alliance of Reporting Entities in India for AML/CFT) offers structured membership to organisations across India’s financial and digital ecosystem to enable collaboration, capacity building, and regulatory alignment in financial crime prevention.
                             </p>
                         </div>
 
@@ -212,7 +212,7 @@ export default function MemberStructureFeePage() {
                 <div className="container mx-auto px-6">
                     <div className="text-center mb-8">
                         <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">Membership Types, Eligibility & Fee Structure</h2>
-                        <p className="text-[#6e6e73] font-medium">Categorized by industry segment and operational scale</p>
+                        <p className="text-[#6e6e73] font-medium">Categorised by industry segment and operational scale</p>
                     </div>
 
                     <div className="space-y-10">
@@ -393,16 +393,6 @@ export default function MemberStructureFeePage() {
                 </div>
             </section>
 
-            {/* Disclaimer */}
-            <section className="py-16 bg-[#f5f5f7]">
-                <div className="container mx-auto px-6">
-                    <div className="max-w-4xl mx-auto text-center">
-                        <p className="text-[#6e6e73] text-sm leading-relaxed font-medium italic">
-                            Disclaimer: ARIFAC membership is intended for industry collaboration, knowledge sharing, and capacity building. It does not substitute regulatory compliance obligations under applicable laws. ARIFAC does not provide legal or regulatory advice.
-                        </p>
-                    </div>
-                </div>
-            </section>
 
             <Footer />
         </main>
