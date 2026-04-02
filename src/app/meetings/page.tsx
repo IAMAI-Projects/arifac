@@ -32,14 +32,14 @@ const programAreas = [
     {
         title: "Training & Capacity Building",
         icon: <BookOpen className="text-[#C2B020]" size={24} />,
-        description: "Programs to strengthen internal capabilities across compliance, risk, legal, operations, and business functions.",
-        details: ["Foundational and advanced AML/CFT programs", "Role-based training modules", "Institutional capability-building initiatives", "Continuous learning programs"]
+        description: "Programmes to strengthen internal capabilities across compliance, risk, legal, operations, and business functions.",
+        details: ["Foundational and advanced AML/CFT programmes", "Role-based training modules", "Institutional capability-building initiatives", "Continuous learning programmes"]
     },
     {
         title: "Certification & Learning Pathways",
         icon: <ShieldCheck className="text-[#C2B020]" size={24} />,
         description: "Structured learning pathways to build internal expertise and support professional development of AML/CFT teams.",
-        details: ["Certification-linked learning programs", "Role-based progression pathways", "Participation tracking and learning completion", "Integration with ARIFAC learning ecosystem"]
+        details: ["Certification-linked learning programmes", "Role-based progression pathways", "Participation tracking and learning completion", "Integration with ARIFAC learning ecosystem"]
     },
     {
         title: "Working Groups",
@@ -57,7 +57,7 @@ const programAreas = [
         title: "Flagship Engagements",
         icon: <Trophy className="text-[#C2B020]" size={24} />,
         description: "Larger ecosystem engagements to enable broader industry participation and collaboration on financial integrity.",
-        details: ["National-level summits and forums", "Sector-focused roundtables", "Collaborative industry initiatives", "Multi-stakeholder special programs"]
+        details: ["National-level summits and forums", "Sector-focused roundtables", "Collaborative industry initiatives", "Multi-stakeholder special programmes"]
     }
 ];
 
@@ -246,7 +246,7 @@ export default function MeetingsPage() {
                         </motion.h1>
                         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
                             className="text-lg text-secondary max-w-3xl mx-auto font-medium leading-relaxed">
-                            ARIFAC's programs enable collaboration, capacity building, and regulatory alignment across India's financial and digital ecosystem.
+                            ARIFAC's programmes enable collaboration, capacity building, and regulatory alignment across India's financial and digital ecosystem.
                         </motion.p>
                     </div>
 
@@ -263,7 +263,7 @@ export default function MeetingsPage() {
                     {/* Program Areas */}
                     <div>
                         <div className="mb-4">
-                            <h2 className="text-2xl md:text-3xl font-bold text-[#1d1d1f] tracking-tight">Program Areas</h2>
+                            <h2 className="text-2xl md:text-3xl font-bold text-[#1d1d1f] tracking-tight">Programme Areas</h2>
                             <p className="text-[14px] text-secondary font-medium mt-1">Diverse engagement formats tailored for ecosystem strengthening.</p>
                         </div>
                         <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}
@@ -293,13 +293,13 @@ export default function MeetingsPage() {
                     <div>
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-1 h-6 bg-[#C2B020] rounded-full" />
-                            <h2 className="text-xl font-bold text-[#1d1d1f] tracking-tight">Upcoming Programs</h2>
+                            <h2 className="text-xl font-bold text-[#1d1d1f] tracking-tight">Upcoming Programmes</h2>
                         </div>
                         <div className="overflow-x-auto bg-white rounded-lg border border-gray-100">
                             <table className="w-full text-sm">
                                 <thead>
                                     <tr className="bg-[#f5f5f7] border-b border-gray-100">
-                                        <th className="px-4 py-3 text-left font-bold text-[#1d1d1f] text-xs uppercase tracking-wide">Program</th>
+                                        <th className="px-4 py-3 text-left font-bold text-[#1d1d1f] text-xs uppercase tracking-wide">Programme</th>
                                         <th className="px-4 py-3 text-left font-bold text-[#1d1d1f] text-xs uppercase tracking-wide">Type</th>
                                         <th className="px-4 py-3 text-left font-bold text-[#1d1d1f] text-xs uppercase tracking-wide">Date</th>
                                         <th className="px-4 py-3 text-center font-bold text-[#1d1d1f] text-xs uppercase tracking-wide">Action</th>
@@ -327,19 +327,19 @@ export default function MeetingsPage() {
                     <div>
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-1 h-6 bg-[#59626E] rounded-full" />
-                            <h2 className="text-xl font-bold text-[#1d1d1f] tracking-tight">Past Programs</h2>
+                            <h2 className="text-xl font-bold text-[#1d1d1f] tracking-tight">Past Programmes</h2>
                         </div>
                         <div className="overflow-x-auto bg-white rounded-lg border border-gray-100 mb-6">
                             <table className="w-full text-sm">
                                 <thead>
                                     <tr className="bg-[#f5f5f7] border-b border-gray-100">
-                                        <th className="px-4 py-3 text-left font-bold text-[#1d1d1f] text-xs uppercase tracking-wide">Program</th>
+                                        <th className="px-4 py-3 text-left font-bold text-[#1d1d1f] text-xs uppercase tracking-wide">Programme</th>
                                         <th className="px-4 py-3 text-left font-bold text-[#1d1d1f] text-xs uppercase tracking-wide">Type</th>
                                         <th className="px-4 py-3 text-left font-bold text-[#1d1d1f] text-xs uppercase tracking-wide">Date</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-100">
-                                    {pastPrograms.map((program, idx) => (
+                                    {pastPrograms.slice().reverse().map((program, idx) => (
                                         <tr key={idx} className="hover:bg-[#f5f5f7] transition-colors">
                                             <td className="px-4 py-3 font-medium text-[#1d1d1f]">{program.title}</td>
                                             <td className="px-4 py-3 text-secondary text-xs font-semibold">{program.tag}</td>
@@ -392,14 +392,14 @@ export default function MeetingsPage() {
                             <div>
                                 <h4 className="font-bold text-[#1d1d1f] mb-1 uppercase tracking-wider text-[11px]">Important Note</h4>
                                 <p className="text-secondary font-medium text-[13px] leading-relaxed">
-                                    Access to specific programs, working groups, training pathways, or consultations may be subject to eligibility, participation criteria, and availability.
+                                    Access to specific programmes, working groups, training pathways, or consultations may be subject to eligibility, participation criteria, and availability.
                                 </p>
                             </div>
                         </div>
                         <div className="p-3 border-t border-gray-100">
                             <h4 className="font-bold text-[#1d1d1f] mb-2 uppercase tracking-wider text-[11px] text-center">Disclaimer</h4>
                             <p className="text-secondary/60 font-medium text-[12px] leading-relaxed text-center max-w-3xl mx-auto">
-                                ARIFAC programs are intended for industry collaboration, knowledge sharing, and capacity building.
+                                ARIFAC programmes are intended for industry collaboration, knowledge sharing, and capacity building.
                                 They do not constitute legal advice, regulatory guidance, or compliance certification.
                                 Participants are advised to refer to applicable laws and official regulatory communications for compliance requirements.
                             </p>

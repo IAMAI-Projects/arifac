@@ -90,7 +90,7 @@ export default function TrainingTopicsPage() {
                                 Request a <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Topic</span>
                             </h1>
                             <p className="text-2xl text-secondary font-medium leading-relaxed mb-12">
-                                Help us tailor our training programs to the specific needs of your institution or sector.
+                                Help us tailor our training programmes to the specific needs of your institution or sector.
                             </p>
 
                             <div className="space-y-10">

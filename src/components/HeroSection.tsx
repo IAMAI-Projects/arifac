@@ -111,24 +111,6 @@ export default function HeroSection() {
 
                     </motion.div>
 
-                    {/* Note - Moved to End */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 1.0 }}
-                        className="w-full max-w-4xl mt-16 pt-12 border-t border-gray-100"
-                    >
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 1, delay: 1.2 }}
-                            className="text-[13px] text-[#1d1d1f]/90 font-bold leading-relaxed max-w-4xl mx-auto text-center"
-                        >
-                            <span className="text-[#C2B020] mr-2 inline-block font-black uppercase tracking-[0.1em] text-[10px] bg-[#C2B020]/10 px-2 py-0.5 rounded-sm">Note:</span>
-                            {t('hero.disclaimer')}
-                        </motion.p>
-                    </motion.div>
-
                 </motion.div>
             </div>
 

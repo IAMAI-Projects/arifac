@@ -152,10 +152,10 @@ const membershipData = [
 
 const benefits = [
     "Participation in industry consultations and closed-room discussions",
-    "Access to training and certification programs",
+    "Access to training and certification programmes",
     "Inclusion in working groups and expert forums",
     "Access to typologies, insights, and knowledge resources",
-    "Ability to nominate employees for learning programs",
+    "Ability to nominate employees for learning programmes",
     "Membership certificate and recognition"
 ];
 

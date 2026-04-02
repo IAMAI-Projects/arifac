@@ -43,12 +43,12 @@ const categories = [
 
 const benefits = [
     "Participation in industry consultations and closed-room discussions",
-    "Access to AML/CFT training and certification programs",
+    "Access to AML/CFT training and certification programmes",
     "Inclusion in working groups and knowledge forums",
     "Access to typologies, insights, and industry best practices",
     "Ability to nominate employees for training and certification pathways",
     "Access to verification of certified professionals (where applicable)",
-    "Pricing discount on Learning Programs"
+    "Pricing discount on Learning Programmes"
 ];
 
 const processSteps = [
@@ -56,7 +56,7 @@ const processSteps = [
     { title: "Review & Approval", desc: "ARIFAC reviews the application for alignment and eligibility." },
     { title: "Onboarding", desc: "Complete necessary formalities and documentation." },
     { title: "Fee Payment", desc: "Payment of the applicable membership fees." },
-    { title: "Activation", desc: "Full access to ARIFAC platforms, programs, and forums." }
+    { title: "Activation", desc: "Full access to ARIFAC platforms, programmes, and forums." }
 ];
 
 export default function MemberBenefitsPage() {
@@ -231,7 +231,7 @@ export default function MemberBenefitsPage() {
                                     <h3 className="text-2xl font-bold text-[#1d1d1f]">Fees & Participation</h3>
                                 </div>
                                 <p className="text-secondary font-medium leading-relaxed">
-                                    Membership categories and applicable fee structures are published separately and may be updated from time to time. Additional fees may apply for training programs, certifications, and specialized events.
+                                    Membership categories and applicable fee structures are published separately and may be updated from time to time. Additional fees may apply for training programmes, certifications, and specialized events.
                                 </p>
                             </div>
                         </div>

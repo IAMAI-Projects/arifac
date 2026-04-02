@@ -72,7 +72,7 @@ export default function Navbar() {
             ]
         },
         {
-            name: t('Programs'),
+            name: 'Programmes',
             href: '/meetings',
 
         },

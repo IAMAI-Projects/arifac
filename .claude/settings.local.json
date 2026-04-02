@@ -63,7 +63,8 @@
       "Bash(cmd //c \"taskkill /PID 9320 /F\")",
       "Bash(curl -s -X POST http://localhost:3000/api/payment/initiate -H \"Content-Type: application/json\" -d '{\"\"\"\"amount\"\"\"\":100,\"\"\"\"billingName\"\"\"\":\"\"\"\"Test\"\"\"\"}')",
       "Bash(curl -s -X POST http://localhost:3000/api/payment/initiate -H \"Content-Type: application/json\" -d '{\"\"amount\"\":100,\"\"billingName\"\":\"\"Test\"\"}')",
-      "Bash(curl -s http://localhost:3000)"
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(ls -la .env*)"
     ]
   }
 }

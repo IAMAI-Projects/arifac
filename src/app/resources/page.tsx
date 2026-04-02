@@ -32,7 +32,7 @@ export default function ResourcesPage() {
         },
         {
             title: "FAQs",
-            desc: "Frequently asked questions regarding reporting obligations, compliance requirements, and ARIFAC programs.",
+            desc: "Frequently asked questions regarding reporting obligations, compliance requirements, and ARIFAC programmes.",
             icon: MessageCircleQuestion,
             color: "purple",
             href: "/faqs"

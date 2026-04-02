@@ -100,7 +100,7 @@ export default function AboutPage() {
                             {[
                                 {
                                     title: "Capacity Building",
-                                    desc: "Strengthening AML/CFT capabilities through structured learning programs, certification pathways, and role-based training for compliance and risk professionals.",
+                                    desc: "Strengthening AML/CFT capabilities through structured learning programmes, certification pathways, and role-based training for compliance and risk professionals.",
                                     icon: GraduationCap
                                 },
                                 {
@@ -160,7 +160,7 @@ export default function AboutPage() {
                                     title: "Training & Certification",
                                     icon: Award,
                                     items: [
-                                        "AML/CFT learning programs",
+                                        "AML/CFT learning programmes",
                                         "Certification and continuous professional development pathways",
                                         "Role-based training aligned to compliance and operational functions"
                                     ]
@@ -262,7 +262,7 @@ export default function AboutPage() {
                             <h2 className="text-2xl font-bold text-[#1d1d1f] mb-8">Disclaimer</h2>
                             <div className="space-y-6 text-secondary font-medium leading-relaxed">
                                 <p>
-                                    ARIFAC is an industry initiative operated by IAMAI and does not function as a regulator, supervisory authority, or enforcement agency. Participation in ARIFAC programs does not constitute regulatory approval or compliance certification. Users are advised to refer to applicable laws and official regulatory guidance for compliance requirements.
+                                    ARIFAC is an industry initiative operated by IAMAI and does not function as a regulator, supervisory authority, or enforcement agency. Participation in ARIFAC programmes does not constitute regulatory approval or compliance certification. Users are advised to refer to applicable laws and official regulatory guidance for compliance requirements.
                                 </p>
                                 <div className="grid md:grid-cols-2 gap-6 pt-6 border-t border-gray-100">
                                     <ul className="space-y-4">
@@ -282,7 +282,7 @@ export default function AboutPage() {
                                         </li>
                                         <li className="flex items-start gap-4">
                                             <div className="mt-2 w-1.5 h-1.5 rounded-full bg-red-400 shrink-0" />
-                                            <span>Participation in ARIFAC programs does not substitute regulatory compliance obligations</span>
+                                            <span>Participation in ARIFAC programmes does not substitute regulatory compliance obligations</span>
                                         </li>
                                     </ul>
                                 </div>

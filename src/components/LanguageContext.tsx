@@ -99,7 +99,7 @@ const translations: Record<Language, Record<string, string>> = {
         'hero.nav_membership': 'Apply for Membership',
         'ARIFAC Membership - Login': 'ARIFAC Membership - Login',
         'ARIFAC Membership - Dashboard': 'ARIFAC Membership - Dashboard',
-        'hero.nav_learning': 'Access AML/CFT Learning Programs',
+        'hero.nav_learning': 'Access AML/CFT Learning Programmes',
         'hero.nav_consultations': 'Participate in Industry Consultations',
         'hero.stats_entities': 'Reporting Entities',
         'hero.stats_professionals': 'Certified Professionals',

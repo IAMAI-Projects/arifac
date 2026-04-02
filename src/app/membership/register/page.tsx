@@ -91,7 +91,7 @@ export default function MembershipRegistrationStep1() {
                 </p>
                 <p>
                   Members gain exclusive access to specialized training modules, certification
-                  programs, policy dialogue forums, and a vast network of industry experts. By joining
+                  programmes, policy dialogue forums, and a vast network of industry experts. By joining
                   ARIFAC, you contribute to a collective effort against money laundering and the
                   financing of terrorism.
                 </p>
@@ -108,12 +108,9 @@ export default function MembershipRegistrationStep1() {
               </h2>
 
               <div className="bg-white p-6 rounded-xl border border-gray-200 text-gray-600 leading-relaxed mb-8">
-                <ul className="list-disc pl-5 space-y-2 mb-6">
-                  <li>Must be a reporting entity or an authorized professional in the financial sector.</li>
-                  <li>The registration must be completed by an Authorised Representative of the entity.</li>
-                  <li>Must adhere to the guidelines set forth by FIU-India and other regulatory bodies.</li>
-                  <li>Requires commitment to continuous learning and sharing of best practices in AML/CFT.</li>
-                </ul>
+                <p className="mb-6">
+                  Membership is designed for reporting entities and stake holders in India's digital and financial ecosystem seeking to engage in industry consultations, capacity building, and knowledge sharing aligned with AML/CFT frameworks.
+                </p>
 
                 <hr className="my-6 border-gray-100" />
 

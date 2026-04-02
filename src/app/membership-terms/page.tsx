@@ -41,7 +41,7 @@ const membership_terms = [
             "a. Membership categories, eligibility criteria, and applicable fee structures shall be as published on the ARIFAC website and may be revised from time to time.",
             "b. Members are required to refer to the Fee section of the website for the latest applicable structure.",
             "c. Continued participation, renewal, or use of ARIFAC services shall constitute acceptance of any revisions to such fee structures.",
-            "d. Membership may provide access to ARIFAC programs, working groups, knowledge sessions, and certification pathways, subject to applicable conditions."
+            "d. Membership may provide access to ARIFAC programmes, working groups, knowledge sessions, and certification pathways, subject to applicable conditions."
         ]
     },
     {
@@ -58,8 +58,8 @@ const membership_terms = [
         num: 5,
         title: "Rights and Benefits of Membership",
         content: [
-            "a. Membership entitles organizations to participate in ARIFAC initiatives, including industry consultations, capacity-building programs, certification opportunities, and working groups.",
-            "b. Members may nominate employees for participation in training and certification programs, and may be provided with tools or access to track participation and engagement.",
+            "a. Membership entitles organizations to participate in ARIFAC initiatives, including industry consultations, capacity-building programmes, certification opportunities, and working groups.",
+            "b. Members may nominate employees for participation in training and certification programmes, and may be provided with tools or access to track participation and engagement.",
             "c. ARIFAC may also maintain and publish a list of certified individuals for verification and industry reference purposes, and members may use such information for internal validation and compliance support."
         ]
     },
@@ -98,7 +98,7 @@ const membership_terms = [
         num: 9,
         title: "Organizational Responsibility",
         content: [
-            "a. Member organizations shall be responsible for the conduct of their employees, representatives, and nominees participating in ARIFAC programs.",
+            "a. Member organizations shall be responsible for the conduct of their employees, representatives, and nominees participating in ARIFAC programmes.",
             "b. Organizations shall ensure that such individuals comply with all applicable ARIFAC Terms, including LMP and Examination Terms where applicable.",
             "c. Any misuse of ARIFAC platforms or breach of Terms by a nominated individual may result in action against the member organization, including suspension or termination of membership."
         ]
@@ -109,7 +109,7 @@ const membership_terms = [
         title: "Membership Validity and Renewal",
         content: [
             "a. Membership shall be valid for the duration specified at the time of onboarding and shall be subject to renewal in accordance with ARIFAC policies.",
-            "b. Upon expiry of membership, access to ARIFAC services, including Learning Management Program (LMP), certification programs, and participation in forums, may be restricted or suspended until renewal is completed."
+            "b. Upon expiry of membership, access to ARIFAC services, including Learning Management Programme (LMP), certification programmes, and participation in forums, may be restricted or suspended until renewal is completed."
         ]
     },
     {
@@ -126,7 +126,7 @@ const membership_terms = [
         num: 12,
         title: "Fees, Charges, and Refund Policy",
         content: [
-            "a. Membership fees, once paid, are non-refundable. Additional fees may be applicable for training programs, certification, events, or specialized services offered by ARIFAC.",
+            "a. Membership fees, once paid, are non-refundable. Additional fees may be applicable for training programmes, certification, events, or specialized services offered by ARIFAC.",
             "b. ARIFAC reserves the right to revise fees and introduce new fee categories from time to time."
         ]
     },
@@ -154,7 +154,7 @@ const membership_terms = [
         content: [
             "a. ARIFAC shall not be liable for any direct, indirect, incidental, or consequential damages arising from participation in ARIFAC activities, including reliance on discussions, materials, or insights shared through the platform.",
             "b. Members acknowledge that ARIFAC provides industry-level knowledge sharing and capacity building, and does not provide legal or regulatory advice.",
-            "c. ARIFAC shall not be responsible for any regulatory actions, compliance failures, penalties, or legal consequences arising from reliance on ARIFAC discussions, materials, or programs. Members remain solely responsible for compliance with applicable laws and regulations and for seeking independent professional advice where required."
+            "c. ARIFAC shall not be responsible for any regulatory actions, compliance failures, penalties, or legal consequences arising from reliance on ARIFAC discussions, materials, or programmes. Members remain solely responsible for compliance with applicable laws and regulations and for seeking independent professional advice where required."
         ]
     },
     {
