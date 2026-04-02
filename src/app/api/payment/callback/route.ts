@@ -71,18 +71,57 @@ export async function POST(req: NextRequest) {
         const bankRefNo   = params.get('bank_ref_no')  ?? '';
         const statusMsg   = params.get('status_message') ?? '';
         const paymentMode = params.get('payment_mode')  ?? '';
+        const applicationId = params.get('merchant_param1');
 
         console.log('[CCAvenue] callback: parsed response', {
-            orderStatus, orderId, trackingId, amount, bankRefNo, statusMsg, paymentMode,
+            orderStatus, orderId, trackingId, amount, bankRefNo, statusMsg, paymentMode, applicationId
         });
 
-        // ── Database update (add your Supabase / Frappe call here) ──────────────
-        // Example:
-        //   await supabase.from('payments').insert({
-        //       order_id: orderId, tracking_id: trackingId,
-        //       status: orderStatus, amount, bank_ref_no: bankRefNo,
-        //   });
-        // ────────────────────────────────────────────────────────────────────────
+        // Update database if applicationId is present
+        if (applicationId) {
+            try {
+                const { prisma } = await import('@/lib/prisma');
+                
+                await prisma.$transaction(async (tx) => {
+                    // 1. Create or Update Payment record
+                    await tx.payments.upsert({
+                        where: { provider_payment_id: trackingId || orderId },
+                        update: {
+                            status: orderStatus === 'Success' ? 'SUCCESS' : 'FAILED',
+                            paid_at: orderStatus === 'Success' ? new Date() : null,
+                            provider_order_id: orderId,
+                        },
+                        create: {
+                            application_id: applicationId,
+                            amount: parseFloat(amount) || 0,
+                            currency: 'INR',
+                            status: orderStatus === 'Success' ? 'SUCCESS' : 'FAILED',
+                            provider: 'CCAVENUE',
+                            provider_payment_id: trackingId || orderId,
+                            provider_order_id: orderId,
+                            paid_at: orderStatus === 'Success' ? new Date() : null,
+                        }
+                    });
+
+                    // 2. Update Application Status
+                    if (orderStatus === 'Success') {
+                        await tx.membership_applications.update({
+                            where: { id: applicationId },
+                            data: { status: 'PAYMENT_SUCCESS' }
+                        });
+                    } else if (orderStatus === 'Aborted' || orderStatus === 'Failure') {
+                        // Current status might already be INIT or PAYMENT_PENDING
+                        // Maybe dont mark it as FAILED application, just payment failure
+                    }
+                });
+                console.log('[CCAvenue] callback: DB update successful for application:', applicationId);
+            } catch (dbErr) {
+                console.error('[CCAvenue] callback: DB UPDATE FAILED:', dbErr);
+                // Continue with redirect even if DB update fails so user doesn't see blank page
+            }
+        } else {
+            console.warn('[CCAvenue] callback: missing applicationId (merchant_param1)');
+        }
 
         // Build redirect to localhost:3000/membership/register/payment
         const redirectUrl = new URL('/membership/register/payment', frontendBase);

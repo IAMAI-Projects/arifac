@@ -81,6 +81,7 @@ export async function POST(req: NextRequest) {
             `billing_country=${billingCountry || 'India'}`,
             `billing_tel=${billingTel         || ''}`,
             `billing_email=${billingEmail     || ''}`,
+            `merchant_param1=${body.applicationId || ''}`,
         ].join('&');
 
         const encRequest = encrypt(params, workingKey);

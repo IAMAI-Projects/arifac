@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Building2, User, Globe, MapPin, CheckCircle2, Lock, ShieldCheck, Mail, Phone, ExternalLink, AlertCircle, XCircle } from 'lucide-react';
 import Link from 'next/link';
@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-export default function PaymentPage() {
+function PaymentContent() {
   const [paymentData, setPaymentData] = useState<any>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -76,6 +76,7 @@ export default function PaymentPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           amount: paymentData.totalAmount,
+          applicationId: paymentData.applicationId,
           billingName: paymentData.fullName || paymentData.orgName,
           billingEmail: paymentData.email,
           billingTel: paymentData.mobile ? `${paymentData.countryCode || ''}${paymentData.mobile}` : '',
@@ -214,7 +215,7 @@ export default function PaymentPage() {
             </motion.div>
           </div>
 
-          {/* Right Side: Order Summary */}
+          {/* Order Summary */}
           <div className="lg:w-1/3">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -355,3 +356,12 @@ export default function PaymentPage() {
     </main>
   );
 }
+
+export default function PaymentPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading payment...</div>}>
+      <PaymentContent />
+    </Suspense>
+  );
+}
+

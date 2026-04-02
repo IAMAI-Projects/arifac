@@ -10,7 +10,7 @@ build:
       - mkdir -p .next/standalone/public && cp -r public/* .next/standalone/public/ || true
       - cp -r .next/static .next/standalone/.next/static || true
 run:
-  command: node .next/standalone/server.js
+  command: npx prisma db push --accept-data-loss && node .next/standalone/server.js
   network:
     port: 3000
   env:
@@ -32,6 +32,7 @@ run:
       value: "rf3PiRaWlZ8c3dY+MRQVPao1sMtE71trGtKIGsq61ow="
     - name: HOSTNAME
       value: "0.0.0.0"
+
     - name: CCAVENUE_MERCHANT_ID
       value: "11116"
     - name: CCAVENUE_ACCESS_CODE
@@ -39,4 +40,4 @@ run:
     - name: CCAVENUE_WORKING_KEY
       value: "A2BAC1B094BE588FB33ECF61A412794E"
     - name: CCAVENUE_POST_URL
-      value: "https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction"
+      value: "http://awardsbackend.local"

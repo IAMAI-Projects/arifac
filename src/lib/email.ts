@@ -88,6 +88,65 @@ export class EmailService {
   }
 
   /**
+   * Send Admin Notification Email for New Form B Submission
+   */
+  static async sendAdminNotificationEmail(adminEmail: string, userDetails: any, retries = 3) {
+    const domain = process.env.NEXT_PUBLIC_APP_URL || (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://arifac.in');
+    const loginLink = `http://localhost:3000/admin/login`; // As per user request
+
+    const mailOptions = {
+      from: process.env.SMTP_FROM || process.env.SMTP_USER || 'help.arifac@iamai.in',
+      to: adminEmail,
+      subject: 'New Form-B Application for Review - ARIFAC',
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 10px;">
+          <h2 style="color: #333;">New Form-B Submission!</h2>
+          <p>A new user has submitted a Form-B application for review. Here are the details:</p>
+          
+          <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold; width: 150px;">Full Name:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">${userDetails.salutation || ''} ${userDetails.fullName || userDetails.name}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Organisation:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">${userDetails.orgName || userDetails.organisationName}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Designation:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">${userDetails.designation || 'N/A'}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Email:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">${userDetails.email}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Mobile:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">${userDetails.countryCode || ''} ${userDetails.mobile || 'N/A'}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Regulated Entity:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">${userDetails.isRegulated || 'N/A'}</td>
+            </tr>
+          </table>
+
+          <div style="margin: 30px 0; text-align: center;">
+            <a href="${loginLink}" style="background-color: #0066cc; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
+              Login to Admin Panel
+            </a>
+          </div>
+          
+          <p style="color: #666; font-size: 14px;">Review the application in the admin registry to approve or reject.</p>
+          <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;" />
+          <p style="font-size: 12px; color: #999;">This is an automated notification from ARIFAC System.</p>
+        </div>
+      `,
+    };
+
+    await this.sendEmail(mailOptions, adminEmail, retries);
+  }
+
+  /**
    * Helper method to send email with retry logic
    */
   private static async sendEmail(mailOptions: any, email: string, retries: number) {
