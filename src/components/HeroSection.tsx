@@ -77,6 +77,7 @@ export default function HeroSection() {
                         transition={{ duration: 0.8, delay: 0.8 }}
                         className="w-full max-w-4xl mt-12 pt-12 border-t border-gray-100"
                     >
+                        <h2 className="text-xl md:text-2xl font-bold text-[#1d1d1f] mb-8 tracking-tight">Core Pillars</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
                             <div className="flex flex-col items-center gap-3">
                                 <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center">

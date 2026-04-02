@@ -14,13 +14,13 @@ export async function middleware(request: NextRequest) {
   // Protect dashboard routes
   if (pathname.startsWith('/membership/dashboard')) {
     if (!token) {
-      return NextResponse.redirect(new URL('/membership/login', request.url));
+      return NextResponse.redirect(new URL('/membership/launching-soon', request.url));
     }
     try {
       await jwtVerify(token, JWT_SECRET);
       return NextResponse.next();
     } catch (err) {
-      return NextResponse.redirect(new URL('/membership/login', request.url));
+      return NextResponse.redirect(new URL('/membership/launching-soon', request.url));
     }
   }
 

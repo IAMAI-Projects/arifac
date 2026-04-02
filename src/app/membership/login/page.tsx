@@ -162,7 +162,7 @@ export default function LoginPage() {
               <div className="mt-8 pt-8 border-t border-gray-100 text-center">
                 <p className="text-gray-500 font-medium">
                   Not a member yet?{' '}
-                  <Link href="/membership/register" className="text-accent font-bold hover:underline">
+                  <Link href="/membership/launching-soon" className="text-accent font-bold hover:underline">
                     Apply for Membership
                   </Link>
                 </p>

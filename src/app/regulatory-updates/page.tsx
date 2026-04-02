@@ -436,7 +436,7 @@ export default function RegulatoryUpdatesPage() {
                                 <h5 className="font-bold text-base mb-1 group-hover:text-accent transition-colors">Explore ARIFAC Programs</h5>
                                 <div className="h-0.5 w-10 bg-accent mx-auto scale-x-0 group-hover:scale-x-100 transition-transform origin-center" />
                             </a>
-                            <a href="/membership/register" className="group">
+                            <a href="/membership/launching-soon" className="group">
                                 <h5 className="font-bold text-base mb-1 group-hover:text-accent transition-colors">Apply for Membership</h5>
                                 <div className="h-0.5 w-10 bg-accent mx-auto scale-x-0 group-hover:scale-x-100 transition-transform origin-center" />
                             </a>
