@@ -4,13 +4,11 @@ import { UserStatus, FormBStatus, ApprovalStage, ApprovalStatus } from '@prisma/
 import crypto from 'crypto';
 import { hashPassword } from '@/lib/server-auth';
 import { MAP_IDENTIFIER_TYPE } from '@/lib/constants';
+import { EmailService } from '@/lib/email';
 
 export class WorkflowService {
-  /**
-   * STEP 1: Form B Submission
-   */
   static async submitFormB(data: { email: string; name: string; organisationName: string; details: any }) {
-    return await prisma.$transaction(async (tx) => {
+    const user = await prisma.$transaction(async (tx) => {
       let hashedPassword;
       if (data.details.password) {
         hashedPassword = await hashPassword(data.details.password);
@@ -50,7 +48,6 @@ export class WorkflowService {
         }
       });
 
-      // Create Approval Record
       await tx.approval.create({
         data: {
           userId: user.id,
@@ -62,6 +59,29 @@ export class WorkflowService {
 
       return user;
     });
+
+    // Notify Admins
+    try {
+      const admins = await prisma.admin.findMany({ select: { email: true } });
+      if (admins.length > 0) {
+        const emailPromises = admins.map(admin => 
+          EmailService.sendAdminNotificationEmail(admin.email, {
+            ...data.details,
+            name: data.name,
+            organisationName: data.organisationName,
+            email: data.email
+          })
+        );
+        // Fire and forget or wait?
+        // Let's at least wait for them to be triggered to ensure we log any immediate errors
+        await Promise.allSettled(emailPromises);
+      }
+    } catch (emailError) {
+      console.error('[WorkflowService] Failed to notify admins:', emailError);
+      // No need to throw here as the user's registration is already successful in DB
+    }
+
+    return user;
   }
 
   /**
