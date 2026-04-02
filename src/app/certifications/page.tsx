@@ -139,47 +139,55 @@ const levels: LevelData[] = [
     },
 ];
 
-/* ─── Add-On Grid Component (5×2 grid layout) ─── */
+/* ─── Add-On Grid Component (5×2 grid with carousel for >10) ─── */
 
-function AddOnGrid({ addOns, levelBadge, isAvailable }: { addOns: AddOnCourse[]; levelBadge: string; isAvailable: boolean }) {
-    const [openAddon, setOpenAddon] = useState<string | null>(null);
+const TILES_PER_PAGE = 10;
+const GRID_COLS = 5;
+
+function AddOnGrid({ addOns, levelBadge }: { addOns: AddOnCourse[]; levelBadge: string }) {
+    const [page, setPage] = useState(0);
+    const needsCarousel = addOns.length > TILES_PER_PAGE;
+    const totalPages = Math.ceil(addOns.length / TILES_PER_PAGE);
+    const visible = needsCarousel
+        ? addOns.slice(page * TILES_PER_PAGE, (page + 1) * TILES_PER_PAGE)
+        : addOns;
 
     return (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-            {addOns.map((addon) => (
-                <div
-                    key={addon.code}
-                    className="rounded-xl p-3 flex flex-col border bg-white border-gray-100 hover:border-accent/30 hover:shadow-md transition-all"
-                >
-                    <span className="text-[9px] font-bold tracking-[0.12em] uppercase text-accent/70 mb-1.5">{addon.code}</span>
-                    <h4 className="text-[12px] font-bold text-[#1d1d1f] leading-snug mb-3 flex-1">{addon.title}</h4>
-
-                    {/* Know More Dropdown */}
-                    <div className="rounded-lg overflow-hidden border border-gray-200">
-                        <button
-                            onClick={() => setOpenAddon(openAddon === addon.code ? null : addon.code)}
-                            className="w-full flex items-center justify-between px-2.5 py-1.5 text-[11px] font-bold text-[#1d1d1f] hover:bg-gray-50 transition-colors"
-                        >
-                            <span>Know More</span>
-                            <ChevronDown
-                                size={12}
-                                className={`transition-transform duration-200 text-accent ${openAddon === addon.code ? 'rotate-180' : ''}`}
-                            />
-                        </button>
-                        {openAddon === addon.code && (
-                            <div className="px-2.5 pb-2.5 border-t border-gray-100 pt-2 space-y-1.5">
-                                <p className="text-[10px] text-secondary font-medium leading-relaxed">
-                                    Domain-specific add-on for {levelBadge} pathway covering {addon.title.toLowerCase()}.
-                                </p>
-                                <div className="flex items-center gap-1.5">
-                                    <Lock size={10} className="text-accent/60 shrink-0" />
-                                    <span className="text-[10px] font-bold text-accent/70 uppercase tracking-wider">Coming Soon</span>
-                                </div>
-                            </div>
-                        )}
+        <div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                {visible.map((addon) => (
+                    <div
+                        key={addon.code}
+                        className="rounded-xl p-3 flex flex-col border bg-white border-gray-100 hover:border-accent/30 hover:shadow-md transition-all"
+                    >
+                        <span className="text-[9px] font-bold tracking-[0.12em] uppercase text-accent/70 mb-1.5">{addon.code}</span>
+                        <h4 className="text-[12px] font-bold text-[#1d1d1f] leading-snug mb-3 flex-1">{addon.title}</h4>
+                        <div className="flex items-center gap-1.5">
+                            <Lock size={10} className="text-accent/60 shrink-0" />
+                            <span className="text-[10px] font-bold text-accent/70 uppercase tracking-wider">Coming Soon</span>
+                        </div>
                     </div>
+                ))}
+            </div>
+            {needsCarousel && (
+                <div className="flex items-center justify-center gap-4 mt-3">
+                    <button
+                        onClick={() => setPage(p => Math.max(0, p - 1))}
+                        disabled={page === 0}
+                        className="px-3 py-1 rounded-lg text-[11px] font-bold border border-gray-200 bg-white hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                    >
+                        ← Prev
+                    </button>
+                    <span className="text-[10px] text-gray-400 font-medium">{page + 1} / {totalPages}</span>
+                    <button
+                        onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
+                        disabled={page === totalPages - 1}
+                        className="px-3 py-1 rounded-lg text-[11px] font-bold border border-gray-200 bg-white hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                    >
+                        Next →
+                    </button>
                 </div>
-            ))}
+            )}
         </div>
     );
 }
@@ -202,12 +210,12 @@ export default function CertificationsPage() {
                         transition={{ duration: 0.6 }}
                         className="max-w-4xl mx-auto"
                     >
-                        <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-6 block">Professional Growth</span>
-                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-[#1d1d1f] tracking-tight mb-8 leading-[1.1]">
-                            Elevate Your <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Expertise</span>
+                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-[#1d1d1f] tracking-tight mb-4 leading-[1.1]">
+                            Elevate Your Level of <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text">Expertise</span>
                         </h1>
+                        <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-8 block">Grow Professionally</span>
                         <p className="text-2xl md:text-3xl text-secondary max-w-3xl mx-auto font-medium leading-relaxed">
-                            A comprehensive, multi-level certification programme designed to standardise financial integrity expertise across the Indian financial ecosystem.
+                            A comprehensive, multi-level certification programme designed to standardise and boost financial integrity expertise across the Indian financial ecosystem.
                         </p>
                     </motion.div>
                 </div>
@@ -223,7 +231,7 @@ export default function CertificationsPage() {
                             </div>
                             <div className="max-w-xs">
                                 <h3 className="text-base font-bold text-[#1d1d1f] mb-2">Recognised Standards</h3>
-                                <p className="text-secondary text-sm font-medium leading-relaxed">Aligned with global FATF standards and Indian regulatory requirements.</p>
+                                <p className="text-secondary text-sm font-medium leading-relaxed">Aligned with global FATF standards and Indian regulatory requirements</p>
                             </div>
                         </div>
                         <div className="flex flex-col items-center text-center gap-4">
@@ -232,7 +240,7 @@ export default function CertificationsPage() {
                             </div>
                             <div className="max-w-xs">
                                 <h3 className="text-base font-bold text-[#1d1d1f] mb-2">Industry Validated</h3>
-                                <p className="text-secondary text-sm font-medium leading-relaxed">Curriculum vetted by leading subject matter experts.</p>
+                                <p className="text-secondary text-sm font-medium leading-relaxed">Curriculum vetted by leading subject matter experts</p>
                             </div>
                         </div>
                         <div className="flex flex-col items-center text-center gap-4">
@@ -241,7 +249,7 @@ export default function CertificationsPage() {
                             </div>
                             <div className="max-w-xs">
                                 <h3 className="text-base font-bold text-[#1d1d1f] mb-2">Career Growth</h3>
-                                <p className="text-secondary text-sm font-medium leading-relaxed">Structured pathway from foundational knowledge to leadership.</p>
+                                <p className="text-secondary text-sm font-medium leading-relaxed">Structured pathway from foundational knowledge to leadership</p>
                             </div>
                         </div>
                     </div>
@@ -284,48 +292,38 @@ export default function CertificationsPage() {
                                     <p className="text-[11px] text-secondary font-medium mb-1">{lvl.name} Level</p>
                                     <p className="text-[11px] text-secondary/70 mb-3 leading-relaxed">{lvl.objective}</p>
 
-                                    {/* Know More Dropdown */}
-                                    <div className="mb-3 rounded-xl overflow-hidden border border-gray-200 bg-white">
-                                        <button
-                                            onClick={() => setOpenKnowMore(openKnowMore === lvl.badge ? null : lvl.badge)}
-                                            className="w-full flex items-center justify-between px-3 py-2 text-[12px] font-bold text-[#1d1d1f] hover:bg-gray-50 transition-colors"
-                                        >
-                                            <span>Know More</span>
-                                            <ChevronDown
-                                                size={14}
-                                                className={`transition-transform duration-200 text-accent ${openKnowMore === lvl.badge ? 'rotate-180' : ''}`}
-                                            />
-                                        </button>
-                                        {openKnowMore === lvl.badge && (
-                                            <div className="px-3 pb-3 border-t border-gray-100 text-[11px] text-secondary space-y-2 pt-2">
-                                                {lvl.knowMoreLines ? (
-                                                    <>
-                                                        {lvl.knowMoreLines.map((line, i) => (
-                                                            <p key={i} className="font-medium leading-relaxed">{line}</p>
-                                                        ))}
-                                                        {lvl.pricing && (
-                                                            <p className="font-semibold text-[#1d1d1f] leading-relaxed pt-1">{lvl.pricing}</p>
-                                                        )}
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <p className="font-medium leading-relaxed">
-                                                            This {lvl.name.toLowerCase()}-level certification covers {lvl.core.title.toLowerCase()} with {lvl.addOns.length} domain-specific add-on modules available.
-                                                        </p>
-                                                        <div className="flex items-baseline gap-1">
-                                                            <span className="text-lg font-bold text-[#1d1d1f]">₹5,000</span>
-                                                            <span className="text-secondary text-[10px] font-bold">+ GST</span>
+                                    {/* Know More Dropdown — L1 only */}
+                                    {lvl.isAvailable && lvl.knowMoreLines && (
+                                        <div className="mb-3 rounded-xl overflow-hidden border border-gray-200 bg-white">
+                                            <button
+                                                onClick={() => setOpenKnowMore(openKnowMore === lvl.badge ? null : lvl.badge)}
+                                                className="w-full flex items-center justify-between px-3 py-2 text-[12px] font-bold text-[#1d1d1f] hover:bg-gray-50 transition-colors"
+                                            >
+                                                <span>Know More</span>
+                                                <ChevronDown
+                                                    size={14}
+                                                    className={`transition-transform duration-200 text-accent ${openKnowMore === lvl.badge ? 'rotate-180' : ''}`}
+                                                />
+                                            </button>
+                                            {openKnowMore === lvl.badge && (
+                                                <div className="px-3 pb-3 border-t border-gray-100 text-[11px] text-secondary space-y-2 pt-2">
+                                                    {lvl.knowMoreLines.map((line, i) => (
+                                                        <p key={i} className="font-medium leading-relaxed">{line}</p>
+                                                    ))}
+                                                    {lvl.pricing && (
+                                                        <div className="pt-1 space-y-1">
+                                                            <p className="font-medium text-[#1d1d1f] leading-relaxed">
+                                                                <span className="font-bold">₹5000</span> + applicable taxes (for individuals employed with ARIFAC Members)
+                                                            </p>
+                                                            <p className="font-medium text-[#1d1d1f] leading-relaxed">
+                                                                <span className="font-bold">₹6000</span> + applicable taxes (for others)
+                                                            </p>
                                                         </div>
-                                                        <ul className="space-y-1">
-                                                            <li className="flex items-start gap-1.5"><CheckCircle2 size={12} className="text-accent shrink-0 mt-0.5" />Self-paced online learning</li>
-                                                            <li className="flex items-start gap-1.5"><CheckCircle2 size={12} className="text-accent shrink-0 mt-0.5" />Industry-recognised credential</li>
-                                                            <li className="flex items-start gap-1.5"><CheckCircle2 size={12} className="text-accent shrink-0 mt-0.5" />FATF-aligned curriculum</li>
-                                                        </ul>
-                                                    </>
-                                                )}
-                                            </div>
-                                        )}
-                                    </div>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
 
                                     {/* Actions */}
                                     <div className="flex flex-col gap-2 mt-auto">
@@ -352,7 +350,7 @@ export default function CertificationsPage() {
                                         <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{lvl.badge} Domain Add-Ons</span>
                                         <span className="text-[10px] text-gray-300 font-medium">({lvl.addOns.length} programmes)</span>
                                     </div>
-                                    <AddOnGrid addOns={lvl.addOns} levelBadge={lvl.badge} isAvailable={lvl.isAvailable} />
+                                    <AddOnGrid addOns={lvl.addOns} levelBadge={lvl.badge} />
                                 </div>
                             </motion.div>
                         ))}

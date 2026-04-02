@@ -4,7 +4,7 @@ import React from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from 'framer-motion';
-import { Quote, Target, Award, Users, Shield, Globe, ArrowRight, GraduationCap, Lightbulb, Handshake } from 'lucide-react';
+import { Target, Award, Users, Globe, Lightbulb, Handshake } from 'lucide-react';
 
 export default function AboutPage() {
     return (
@@ -27,11 +27,8 @@ export default function AboutPage() {
                         </p>
 
                         <div className="max-w-3xl mx-auto text-lg text-secondary leading-relaxed bg-[#f5f5f7]/50 p-8 rounded-[32px] border border-gray-100">
-                            <p className="mb-6">
-                                ARIFAC (Alliance of Reporting Entities in India for AML/CFT) is an industry-led initiative operated by the Internet and Mobile Association of India (IAMAI), working in alignment with India's financial intelligence and AML/CFT framework.
-                            </p>
-                            <p className="font-semibold text-[#1d1d1f]">
-                                ARIFAC serves as a national platform to enable collaboration, capacity building, and regulatory alignment across reporting entities, financial institutions, fintech platforms, and ecosystem stakeholders to strengthen financial crime prevention in India.
+                            <p>
+                                ARIFAC serves as a national platform for reporting entities, financial institutions, fintech platforms, and ecosystem stakeholders. It facilitates collaboration, capacity building, and regulatory alignment to strengthen financial crime prevention in India by working in alignment with India's financial intelligence and AML/CFT framework.
                             </p>
                         </div>
                     </motion.div>
@@ -85,51 +82,6 @@ export default function AboutPage() {
                                 </p>
                             </div>
                         </motion.div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Core Pillars */}
-            <section className="py-14 bg-white">
-                <div className="container mx-auto px-6">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="text-center mb-8">
-                            <h2 className="text-3xl md:text-4xl font-bold text-[#1d1d1f] mb-4">Core Pillars of ARIFAC</h2>
-                        </div>
-                        <div className="grid md:grid-cols-3 gap-8">
-                            {[
-                                {
-                                    title: "Capacity Building",
-                                    desc: "Strengthening AML/CFT capabilities through structured learning programmes, certification pathways, and role-based training for compliance and risk professionals.",
-                                    icon: GraduationCap
-                                },
-                                {
-                                    title: "Industry Collaboration",
-                                    desc: "Enabling closed-room consultations, knowledge sharing, and multi-stakeholder engagement to address operational challenges and emerging financial crime risks.",
-                                    icon: Users
-                                },
-                                {
-                                    title: "Regulatory Alignment",
-                                    desc: "Facilitating industry understanding of regulatory frameworks and supporting consistent interpretation of AML/CFT requirements under Indian and global standards.",
-                                    icon: Shield
-                                }
-                            ].map((pillar, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: i * 0.1 }}
-                                    className="p-10 rounded-[40px] bg-[#f5f5f7] border border-transparent hover:border-accent/10 transition-all hover:shadow-xl group"
-                                >
-                                    <div className="w-14 h-14 rounded-[20px] bg-white flex items-center justify-center text-accent mb-8 shadow-sm group-hover:scale-110 transition-transform">
-                                        <pillar.icon size={28} />
-                                    </div>
-                                    <h3 className="text-xl font-bold text-[#1d1d1f] mb-4">{pillar.title}</h3>
-                                    <p className="text-secondary leading-relaxed font-medium">{pillar.desc}</p>
-                                </motion.div>
-                            ))}
-                        </div>
                     </div>
                 </div>
             </section>
@@ -212,43 +164,27 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Framework & Who Should Engage */}
+            {/* Who Should Engage */}
             <section className="py-14 bg-white overflow-hidden">
                 <div className="container mx-auto px-6">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="grid lg:grid-cols-2 gap-10">
-                            <div>
-                                <h2 className="text-3xl font-bold text-[#1d1d1f] mb-8">ARIFAC Framework</h2>
-                                <div className="space-y-6 text-lg text-secondary leading-relaxed bg-[#f5f5f7] p-10 rounded-[40px]">
-                                    <p>
-                                        ARIFAC operates under the aegis of the Internet and Mobile Association of India (IAMAI), which serves as its secretariat.
-                                    </p>
-                                    <p>
-                                        The platform works in alignment with India's financial intelligence ecosystem and supports industry readiness in implementing AML/CFT obligations under the PMLA and related regulatory frameworks.
-                                    </p>
+                    <div className="max-w-4xl mx-auto">
+                        <h2 className="text-3xl md:text-4xl font-bold text-[#1d1d1f] mb-8 text-center">Who Should Engage</h2>
+                        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+                            {[
+                                "Banks and NBFCs",
+                                "Payment Aggregators & PSPs",
+                                "Fintech Platforms",
+                                "Virtual Asset Service Providers (VASPs)",
+                                "All Intermediaries under PMLA, 2002",
+                                "Compliance Officers & MLROs",
+                                "Risk Professionals",
+                                "AML Investigators"
+                            ].map((stakeholder, i) => (
+                                <div key={i} className="px-6 py-4 rounded-2xl bg-white border border-gray-100 shadow-sm flex items-center gap-3">
+                                    <div className="w-2 h-2 rounded-full bg-accent" />
+                                    <span className="font-bold text-[#1d1d1f] text-[15px]">{stakeholder}</span>
                                 </div>
-                            </div>
-
-                            <div>
-                                <h2 className="text-3xl font-bold text-[#1d1d1f] mb-8">Who Should Engage</h2>
-                                <div className="grid sm:grid-cols-2 gap-4">
-                                    {[
-                                        "Banks and NBFCs",
-                                        "Payment Aggregators & PSPs",
-                                        "Fintech Platforms",
-                                        "Virtual Asset Service Providers (VASPs)",
-                                        "All Intermediaries under PMLA, 2002",
-                                        "Compliance Officers & MLROs",
-                                        "Risk Professionals",
-                                        "AML Investigators"
-                                    ].map((stakeholder, i) => (
-                                        <div key={i} className="px-6 py-4 rounded-2xl bg-white border border-gray-100 shadow-sm flex items-center gap-3">
-                                            <div className="w-2 h-2 rounded-full bg-accent" />
-                                            <span className="font-bold text-[#1d1d1f] text-[15px]">{stakeholder}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </div>

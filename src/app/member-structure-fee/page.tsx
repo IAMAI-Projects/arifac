@@ -393,16 +393,6 @@ export default function MemberStructureFeePage() {
                 </div>
             </section>
 
-            {/* Disclaimer */}
-            <section className="py-16 bg-[#f5f5f7]">
-                <div className="container mx-auto px-6">
-                    <div className="max-w-4xl mx-auto text-center">
-                        <p className="text-[#6e6e73] text-sm leading-relaxed font-medium italic">
-                            Disclaimer: ARIFAC membership is intended for industry collaboration, knowledge sharing, and capacity building. It does not substitute regulatory compliance obligations under applicable laws. ARIFAC does not provide legal or regulatory advice.
-                        </p>
-                    </div>
-                </div>
-            </section>
 
             <Footer />
         </main>

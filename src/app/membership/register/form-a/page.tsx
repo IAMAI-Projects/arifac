@@ -11,16 +11,69 @@ import { login as setClientAuth } from '@/lib/auth';
 
 // Data
 const PRIMARY_SECTORS = [
-  "Banking", "NBFC", "Payments & Forex", "Insurance", "Securities & Capital Markets",
-  "Virtual Digital Assets", "Fintech & Digital Financial Services",
-  "DNFBP — Real Estate", "DNFBP — Precious Metals & Stones",
-  "DNFBP — Legal & Accounting Professionals", "DNFBP — Trust & Company Services",
-  "DNFBP — Casinos", "RegTech / Technology", "Other"
+  "Banking",
+  "Securities & Capital Markets",
+  "Payments, Remittance & Foreign Exchange",
+  "Insurance",
+  "Non-Banking",
+  "Fintech & Digital Finance",
+  "Designated Non-Financial Businesses and Professions - DNFBP",
+  "Fiduciary, Custodial & Data Infrastructure",
+  "VDA Ecosystem",
+  "AML/CFT Tech & Advisory",
 ];
 
 const ENTITY_TYPES = [
-  "Public Limited Company", "Private Limited Company", "Limited Liability Partnership (LLP)",
-  "Partnership Firm", "Proprietorship", "Trust", "Society", "Co-operative Society", "Others"
+  "Scheduled Commercial Bank (Public, Private & Foreign)",
+  "Urban, Rural & Co-operative Bank",
+  "Stock Exchange",
+  "Clearing Corporation",
+  "Depository",
+  "Stock Broker",
+  "AMC",
+  "Mutual Fund",
+  "AIF",
+  "Portfolio Manager",
+  "Investment Adviser",
+  "Research Analyst",
+  "Payment Aggregator",
+  "Payment Gateway",
+  "Payment Operator",
+  "PPI Issuers",
+  "Business Correspondent",
+  "Cross-border remittance provider",
+  "Authorised Dealer & Money Changer",
+  "Life Insurer",
+  "NBFCs",
+  "Housing Finance Company",
+  "Microfinance Institution",
+  "Regulated fintech platform",
+  "General Insurer",
+  "Health Insurer",
+  "Reinsurance Company",
+  "Insurance Intermediary",
+  "Insurance Broker & Corporate Agent",
+  "Regulated Fintech Platforms",
+  "Account Aggregators",
+  "Regulated data-sharing intermediary",
+  "Technology-enabled financial service provider",
+  "DNFBP- Real estate developer, dealer or broker",
+  "DNFBP- Dealer in precious metals, stones & bullion",
+  "Trustee",
+  "Fiduciary service providers",
+  "Custodial & escrow service provider",
+  "Credit Information Company",
+  "Credit Bureau",
+  "Virtual Digital Asset Service Provider (VDASP)",
+  "Virtual asset exchange",
+  "Custodial wallet provider",
+  "AML/KYC, transaction monitoring or fraud-detection technology service providers",
+  "RegTech",
+  "SupTech",
+  "Data Analytics firm",
+  "Legal Firm",
+  "Audit Firm",
+  "Advisory firms specialising in AML/CFT",
 ];
 
 const IDENTIFIER_TYPES = [
@@ -328,7 +381,7 @@ function RegistrationFormContent() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="col-span-1 md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Registered Office Address *</label>
-                  <textarea required name="registeredAddress" value={formData.registeredAddress} onChange={handleInputChange} minLength={5} rows={3} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none" placeholder="Enter complete registered address (min 5 characters)"></textarea>
+                  <textarea required name="registeredAddress" value={formData.registeredAddress} onChange={handleInputChange} minLength={5} rows={3} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none" placeholder="Enter complete registered address"></textarea>
                 </div>
                 <div className="col-span-1 md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Organisation Website</label>
@@ -407,7 +460,7 @@ function RegistrationFormContent() {
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Identifier Number *</label>
-                  <input required name="identifierNumber" value={formData.identifierNumber} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-mono" placeholder="Enter Registration/Tax ID number" />
+                  <input required name="identifierNumber" value={formData.identifierNumber} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-mono" placeholder="Enter Identifier Number" />
                 </div>
               </div>
             </div>
@@ -422,7 +475,7 @@ function RegistrationFormContent() {
               <h2 className="text-xl font-bold text-gray-900">4. Existing Industry Memberships</h2>
             </div>
             <div className="p-6 sm:p-8 space-y-6">
-              <label className="block text-sm font-semibold text-gray-700 mb-3">Is your organisation a current member of IAMAI or IBA? *</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">Is your organisation a member of IAMAI or IBA? *</label>
               <div className="relative mb-6" ref={dropdownRef}>
                 <div
                   className={`w-full px-4 py-3 rounded-xl border ${isMembershipMenuOpen ? 'border-blue-500 ring-2 ring-blue-500' : 'border-gray-300'} transition-all bg-white cursor-pointer flex justify-between items-center`}

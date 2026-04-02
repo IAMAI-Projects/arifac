@@ -48,6 +48,23 @@ const disclaimerSections = [
         ]
     },
     {
+        id: "resources",
+        icon: FileText,
+        title: "Resources & Materials Disclaimer",
+        content: [
+            "The materials provided in the resources section are for informational purposes only and do not constitute legal or regulatory advice.",
+            "Reporting entities are advised to refer to official sources, including FIU-IND circulars and relevant statutes, to ensure statutory compliance."
+        ]
+    },
+    {
+        id: "media",
+        icon: Info,
+        title: "Media & Gallery Disclaimer",
+        content: [
+            "Images are used for documentation and illustrative purposes. Participation in ARIFAC programmes may imply consent for non-commercial use of photographs unless otherwise notified."
+        ]
+    },
+    {
         id: "liability",
         icon: Shield,
         title: "Limitation of Liability",

@@ -117,7 +117,7 @@ export default function MembershipRegistrationStep1() {
                 {/* Organisation Search */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-900 mb-2">Search your Organisation *</label>
-                  <p className="text-sm text-gray-500 mb-4">Select your organisation if it appears in the list. If not, type your organisation name to proceed as a new entry.</p>
+                  <p className="text-sm text-gray-500 mb-4">Select your organisation if it appears on the list. If not, type your organisation name to proceed as a new entry.</p>
 
                   <div className="relative">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
@@ -154,9 +154,6 @@ export default function MembershipRegistrationStep1() {
                           ))
                         ) : (
                           <div className="px-5 py-4 bg-gray-50 flex flex-col gap-3">
-                            <div className="text-sm text-gray-600">
-                              Organisation not found in pre-approved list.
-                            </div>
                             <label className="flex items-start gap-3 cursor-pointer p-3 rounded-lg border border-gray-200 bg-white hover:border-gray-300 transition-colors">
                               <div className="flex-shrink-0 pt-0.5">
                                 <input
@@ -170,7 +167,7 @@ export default function MembershipRegistrationStep1() {
                                 />
                               </div>
                               <span className="text-sm font-semibold text-gray-700 leading-tight">
-                                I confirm my organisation is not listed. Proceed to register "{searchQuery}" as a new organisation.
+                                I confirm my organisation does not appear on the list. Proceed to register "{searchQuery}" as a new organisation.
                               </span>
                             </label>
                           </div>

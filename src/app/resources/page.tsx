@@ -11,7 +11,6 @@ import {
     Lightbulb,
     BarChart3,
     MessageCircleQuestion,
-    ShieldAlert,
     Lock,
     ArrowRight,
     Search
@@ -135,27 +134,6 @@ export default function ResourcesPage() {
                 </div>
             </section>
 
-            {/* Disclaimer Section */}
-            <section className="py-16 bg-white border-t border-gray-100">
-                <div className="container mx-auto px-6">
-                    <div className="max-w-3xl mx-auto">
-                        <div className="p-8 rounded-2xl bg-[#f5f5f7] border border-gray-200/50">
-                            <div className="flex items-center gap-3 mb-4 text-gray-500">
-                                <ShieldAlert size={20} />
-                                <h2 className="text-sm font-bold uppercase tracking-wider">Disclaimer</h2>
-                            </div>
-                            <div className="space-y-4 text-secondary text-sm md:text-base leading-relaxed">
-                                <p>
-                                    The materials provided in this section are for informational purposes only and do not constitute legal or regulatory advice.
-                                </p>
-                                <p className="text-gray-500 italic font-medium">
-                                    Reporting entities are advised to refer to official sources, including FIU-IND circulars and relevant statutes, to ensure statutory compliance.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             <Footer />
         </main>
