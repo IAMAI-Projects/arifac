@@ -8,7 +8,7 @@ FROM base AS deps
 WORKDIR /app
 COPY package.json pnpm-lock.yaml prisma.config.ts ./
 COPY prisma ./prisma/
-RUN pnpm install --frozen-lockfile && pnpm approve-builds prisma @prisma/engines && pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 # --- Builder ---
 FROM base AS builder
