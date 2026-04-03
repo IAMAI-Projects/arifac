@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, HelpCircle, Search, User, ShoppingCart, Linkedin, Info, Users, Star, Handshake, Calendar, Image as ImageIcon, MapPin, Bell, FileText, Building, Wrench, Video, Newspaper, Lightbulb, BookOpen, Award, BookMarked, CheckCircle, GraduationCap, Users2, Layers } from 'lucide-react';
+import { Menu, X, ChevronDown, HelpCircle, Search, User, ShoppingCart, Linkedin, LogOut, Info, Users, Star, Handshake, Calendar, Image as ImageIcon, MapPin, Bell, FileText, Building, Wrench, Video, Newspaper, Lightbulb, BookOpen, Award, BookMarked, CheckCircle, GraduationCap, Users2, Layers } from 'lucide-react';
 import Logo from './Logo';
 import { getUser, logout } from '@/lib/auth';
 import { useLanguage } from './LanguageContext';
@@ -63,7 +63,7 @@ export default function Navbar() {
         },
         {
             name: t('Certification'),
-            href: '/resources',
+            href: '/certifications',
             dropdown: [
                 { name: t('Training & Certification'), href: '/certifications', icon: Award },
                 { name: t('nav.training_leads'), href: '/training-leads', icon: GraduationCap },
@@ -90,7 +90,7 @@ export default function Navbar() {
         <>
             {/* IAMAI Partnership Top Bar */}
             <div
-                className="absolute top-0 left-0 right-0 z-[60] h-8 bg-[#1d1d1f]/90 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-6"
+                className="fixed top-0 left-0 right-0 z-[110] h-8 bg-[#1d1d1f]/90 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-6"
             >
                 {/* Left side area to balance the news ticker */}
                 <div className="flex-1 flex items-center justify-start min-w-[20px] md:min-w-[140px]" />
@@ -188,34 +188,34 @@ export default function Navbar() {
             </div>
 
             <nav
-                className={`absolute left-0 right-0 z-50 transition-all duration-500 border-b border-gray-100/50 ${activeDropdown || isMobileMenuOpen ? 'bg-white' : 'bg-white/90 backdrop-blur-xl'
-                    } top-8 py-3`}
+                className={`fixed left-0 right-0 z-[120] transition-all duration-500 border-b border-gray-100/50 ${activeDropdown || isMobileMenuOpen ? 'bg-white' : 'bg-white/90 backdrop-blur-xl'
+                    } ${isScrolled ? 'top-0' : 'top-8'} py-3`}
                 onMouseLeave={() => {
                     if (activeDropdown !== 'account') setActiveDropdown(null);
                 }}
             >
                 <div className="container mx-auto px-6 flex items-center justify-between">
-                    <div className="flex items-center gap-6 shrink-0">
+                    <div className="flex items-center gap-3 md:gap-6 shrink-0">
                         <a
                             href="https://fiuindia.gov.in/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="h-22 bg-white shrink-0 flex items-center justify-center hover:opacity-90 transition-opacity"
+                            className="h-16 md:h-22 bg-white shrink-0 flex items-center justify-center hover:opacity-90 transition-opacity"
                         >
                             <Image
                                 src="/images/fiu-logo.png"
                                 alt="FIU-IND"
-                                width={100}
-                                height={44}
-                                className="object-contain h-full w-auto"
+                                width={80}
+                                height={35}
+                                className="object-contain h-full w-auto md:w-[100px]"
                             />
                         </a>
-                        <div className="w-px h-10 bg-gray-200 shrink-0" />
+                        <div className="w-px h-8 md:h-10 bg-gray-200 shrink-0" />
                         <Link href="/" className="group flex items-center">
-                            <Logo variant="light" className="scale-105 origin-left" />
+                            <Logo variant="light" className="scale-95 md:scale-105 origin-left" />
                         </Link>
 
-                        <div className="w-px h-10 bg-gray-200 shrink-0 ml-2" />
+                        <div className="w-px h-8 md:h-10 bg-gray-200 shrink-0 ml-1 md:ml-2" />
                     </div>
 
                     {/* Desktop Navigation */}
@@ -318,7 +318,7 @@ export default function Navbar() {
                                                 {t('nav.member_platform')}
                                             </Link>
 
-                                            {getUser() && (
+                                            {/* {getUser() && (
                                                 <button
                                                     onClick={() => {
                                                         logout();
@@ -329,7 +329,7 @@ export default function Navbar() {
                                                 >
                                                     {t('nav.logout')}
                                                 </button>
-                                            )}
+                                            )} */}
                                         </div>
                                     </motion.div>
                                 )}
@@ -477,29 +477,53 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        className="fixed inset-x-0 top-0 bottom-0 z-[90] lg:hidden bg-white pt-32 px-8 overflow-y-auto"
+                        className="fixed inset-0 z-[100] lg:hidden bg-white pt-32 px-8 overflow-y-auto"
                     >
                         <div className="container mx-auto py-8 flex flex-col gap-12">
                             {/* Mobile Search Trigger */}
-                            <button
-                                onClick={() => {
-                                    setIsSearchOpen(true);
-                                    setIsMobileMenuOpen(false);
-                                }}
-                                className="flex items-center gap-6 px-8 py-6 bg-[#f5f5f7] rounded-[32px] text-gray-400 hover:bg-gray-100 transition-all text-left group"
-                            >
-                                <Search size={28} className="text-accent" />
-                                <span className="text-xl font-bold">{t('nav.search_placeholder')}</span>
-                            </button>
+                            <div className="flex items-center gap-4">
+                                <button
+                                    onClick={() => {
+                                        setIsSearchOpen(true);
+                                        setIsMobileMenuOpen(false);
+                                    }}
+                                    className="flex-1 flex items-center gap-6 px-8 py-6 bg-[#f5f5f7] rounded-[32px] text-gray-400 hover:bg-gray-100 transition-all text-left group"
+                                >
+                                    <Search size={28} className="text-accent" />
+                                    <span className="text-xl font-bold">{t('nav.search_placeholder')}</span>
+                                </button>
+                                <a
+                                    href="https://www.linkedin.com/company/arifacpanindia/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-6 bg-[#f5f5f7] rounded-[32px] text-accent"
+                                >
+                                    <Linkedin size={28} />
+                                </a>
+                                <button className="p-6 bg-[#f5f5f7] rounded-[32px] text-[#1d1d1f]/60 relative">
+                                    <ShoppingCart size={28} />
+                                    <span className="absolute top-4 right-4 w-5 h-5 bg-accent text-white text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
+                                </button>
+                            </div>
 
                             {/* Mobile Links */}
                             <div className="flex flex-col gap-10">
                                 {navLinks.map((link) => (
                                     <div key={link.name} className="flex flex-col gap-6">
                                         <div className="flex items-center justify-between">
-                                            <span className="text-2xl font-bold text-[#1d1d1f] tracking-tight">
-                                                {link.name}
-                                            </span>
+                                            {link.href ? (
+                                                <Link
+                                                    href={link.href}
+                                                    className="text-2xl font-bold text-[#1d1d1f] tracking-tight hover:text-accent transition-colors"
+                                                    onClick={() => setIsMobileMenuOpen(false)}
+                                                >
+                                                    {link.name}
+                                                </Link>
+                                            ) : (
+                                                <span className="text-2xl font-bold text-[#1d1d1f] tracking-tight">
+                                                    {link.name}
+                                                </span>
+                                            )}
                                         </div>
                                         <div className="flex flex-col gap-6 pl-6 border-l-2 border-[#f5f5f7]">
                                             {link.sections ? (
@@ -511,9 +535,13 @@ export default function Navbar() {
                                                                 <Link
                                                                     key={subItem.name}
                                                                     href={subItem.href}
-                                                                    className="text-lg font-bold text-secondary hover:text-accent transition-colors"
+                                                                    className="flex items-center gap-3 text-lg font-bold text-secondary hover:text-accent transition-colors group"
                                                                     onClick={() => setIsMobileMenuOpen(false)}
                                                                 >
+                                                                    <div className="w-10 h-10 rounded-full bg-[#f5f5f7] flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all">
+                                                                        {subItem.icon && <subItem.icon size={20} />}
+                                                                        {!subItem.icon && <div className="w-2 h-2 rounded-full bg-gray-300" />}
+                                                                    </div>
                                                                     {subItem.name}
                                                                 </Link>
                                                             ))}
@@ -525,9 +553,13 @@ export default function Navbar() {
                                                     <Link
                                                         key={subItem.name}
                                                         href={subItem.href}
-                                                        className="text-xl font-bold text-secondary hover:text-accent transition-colors"
+                                                        className="flex items-center gap-4 text-xl font-bold text-secondary hover:text-accent transition-colors group"
                                                         onClick={() => setIsMobileMenuOpen(false)}
                                                     >
+                                                        <div className="w-12 h-12 rounded-full bg-[#f5f5f7] flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all">
+                                                            {subItem.icon && <subItem.icon size={24} />}
+                                                            {!subItem.icon && <div className="w-2 h-2 rounded-full bg-gray-300" />}
+                                                        </div>
                                                         {subItem.name}
                                                     </Link>
                                                 ))
@@ -540,18 +572,42 @@ export default function Navbar() {
                             <div className="h-px bg-[#f5f5f7] w-full" />
 
                             <div className="flex flex-col gap-6 pb-20">
-                                <p className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] pl-1">Platform Access</p>
-                                <div className="text-center px-8 py-6 bg-accent/20 rounded-[24px] text-xl">
-                                    <span className="font-bold text-[#1d1d1f]/40">{t('nav.learning_platform')}</span>
-                                    <span className="ml-3 text-[11px] font-bold text-accent bg-accent/10 px-2 py-0.5 rounded-full uppercase tracking-wider">Launching Soon</span>
+                                <p className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] pl-1">{t('nav.platform_access')}</p>
+                                <div className="flex items-center gap-4 px-8 py-6 bg-accent/20 rounded-[24px] text-xl">
+                                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent">
+                                        <GraduationCap size={24} />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="font-bold text-[#1d1d1f]/40">{t('nav.learning_platform')}</span>
+                                        <span className="text-[10px] font-bold text-accent bg-accent/10 px-2 py-0.5 rounded-full uppercase tracking-wider w-fit mt-1">Launching Soon</span>
+                                    </div>
                                 </div>
                                 <Link
                                     href="/membership/launching-soon"
-                                    className="text-center font-bold text-[#1d1d1f] px-8 py-6 bg-white rounded-[24px] border-2 border-[#1d1d1f] hover:bg-[#1d1d1f] hover:text-white transition-all text-xl"
+                                    className="flex items-center gap-4 font-bold text-[#1d1d1f] px-8 py-6 bg-white rounded-[24px] border-2 border-[#1d1d1f] hover:bg-[#1d1d1f] hover:text-white transition-all text-xl"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
+                                    <div className="w-12 h-12 rounded-full bg-[#1d1d1f]/5 flex items-center justify-center">
+                                        <Users size={24} />
+                                    </div>
                                     {t('nav.member_platform')}
                                 </Link>
+
+                                {/* {getUser() && (
+                                    <button
+                                        onClick={() => {
+                                            logout();
+                                            setIsMobileMenuOpen(false);
+                                            window.location.href = '/';
+                                        }}
+                                        className="text-center font-bold text-red-600 px-8 py-6 bg-red-50 rounded-[24px] hover:bg-red-100 transition-all text-xl"
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <LogOut size={20} />
+                                            {t('nav.logout')}
+                                        </div>
+                                    </button>
+                                )} */}
                             </div>
                         </div>
                     </motion.div>
