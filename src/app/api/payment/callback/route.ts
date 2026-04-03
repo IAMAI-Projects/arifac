@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
                         // Current status might already be INIT or PAYMENT_PENDING
                         // Maybe dont mark it as FAILED application, just payment failure
                     }
-                }, { maxWait: 10000, timeout: 30000 });
+                });
                 console.log('[CCAvenue] callback: DB update successful for application:', applicationId);
             } catch (dbErr) {
                 console.error('[CCAvenue] callback: DB UPDATE FAILED:', dbErr);

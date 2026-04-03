@@ -126,7 +126,7 @@ const pastPrograms = [
         tagColor: "bg-blue-50 text-blue-700 border-blue-200",
         accentColor: "bg-blue-500",
         title: "PMLA Requirements, Screening & Transaction Monitoring for PAs",
-        description: "In-depth coverage of PMLA obligations, screening frameworks, and transaction monitoring for Payment Aggregators.",
+        description: "Session 1 — In-depth coverage of PMLA obligations, screening frameworks, and transaction monitoring for Payment Aggregators.",
         date: "22 Jan 2026", location: "",
         cta: { label: "Completed", href: "#" }
     },
@@ -135,7 +135,7 @@ const pastPrograms = [
         tagColor: "bg-blue-50 text-blue-700 border-blue-200",
         accentColor: "bg-blue-500",
         title: "Follow-up Q&A: PMLA Requirements, Screening & Transaction Monitoring for PAs",
-        description: "Interactive Q&A addressing practitioner questions on PMLA for Payment Aggregators.",
+        description: "Session 1 Follow-up — Interactive Q&A addressing practitioner questions on PMLA for Payment Aggregators.",
         date: "27 Jan 2026", location: "",
         cta: { label: "Completed", href: "#" }
     },
@@ -144,7 +144,7 @@ const pastPrograms = [
         tagColor: "bg-blue-50 text-blue-700 border-blue-200",
         accentColor: "bg-blue-500",
         title: "Central KYC Records Registry – Compliance by REs, Issues & Challenges",
-        description: "CKYC Registry compliance requirements, implementation issues, and operational challenges for Reporting Entities.",
+        description: "Session 2 — CKYC Registry compliance requirements, implementation issues, and operational challenges for Reporting Entities.",
         date: "30 Jan 2026", location: "",
         cta: { label: "Completed", href: "#" }
     },
@@ -153,7 +153,7 @@ const pastPrograms = [
         tagColor: "bg-blue-50 text-blue-700 border-blue-200",
         accentColor: "bg-blue-500",
         title: "Artificial Intelligence in AML, Fraud Monitoring & Compliance Functions",
-        description: "Practical applications of AI and ML in AML transaction monitoring, fraud detection, and compliance automation.",
+        description: "Training 3 — Practical applications of AI and ML in AML transaction monitoring, fraud detection, and compliance automation.",
         date: "20 Feb 2026", location: "",
         cta: { label: "Completed", href: "#" }
     },
@@ -162,7 +162,7 @@ const pastPrograms = [
         tagColor: "bg-blue-50 text-blue-700 border-blue-200",
         accentColor: "bg-blue-500",
         title: "AML and Compliance in Mutual Fund Industry",
-        description: "By Sameer Seksarai, Principal Officer, HDFC AMC. Sector-specific AML compliance practices in the mutual fund industry.",
+        description: "Training 4 — By Sameer Seksarai, Principal Officer, HDFC AMC. Sector-specific AML compliance practices in the mutual fund industry.",
         date: "27 Feb 2026", location: "",
         cta: { label: "Completed", href: "#" }
     }
@@ -270,7 +270,7 @@ export default function MeetingsPage() {
                     {/* Program Areas */}
                     <div>
                         <div className="mb-4">
-                            <h2 className="text-2xl md:text-3xl font-bold text-[#1d1d1f] tracking-tight">Diverse engagement formats tailored for ecosystem strengthening</h2>
+                            <h2 className="text-2xl md:text-3xl font-bold text-[#1d1d1f] tracking-tight">Diverse engagement formats tailored for ecosystem strengthening.</h2>
                         </div>
                         <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}
                             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

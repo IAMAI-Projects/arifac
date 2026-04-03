@@ -23,7 +23,6 @@ export default function Footer() {
             title: 'Membership',
             links: [
                 { name: 'Member Directory', href: '/members' },
-                { name: 'Membership Terms', href: '/membership-terms' },
             ],
         },
         {

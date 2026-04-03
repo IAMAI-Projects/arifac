@@ -128,7 +128,7 @@ export default function TrainingTopicsPage() {
                                         <input
                                             id="firstName"
                                             type="text"
-                                            placeholder="First name"
+                                            placeholder="John"
                                             className="w-full bg-white rounded-2xl px-6 py-4 border-none shadow-sm focus:ring-2 focus:ring-accent/20 outline-none transition-all text-[#1d1d1f] font-bold text-lg placeholder:text-gray-300"
                                             value={formData.firstName}
                                             onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
@@ -140,7 +140,7 @@ export default function TrainingTopicsPage() {
                                         <input
                                             id="lastName"
                                             type="text"
-                                            placeholder="Last name"
+                                            placeholder="Doe"
                                             className="w-full bg-white rounded-2xl px-6 py-4 border-none shadow-sm focus:ring-2 focus:ring-accent/20 outline-none transition-all text-[#1d1d1f] font-bold text-lg placeholder:text-gray-300"
                                             value={formData.lastName}
                                             onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
@@ -155,7 +155,7 @@ export default function TrainingTopicsPage() {
                                         <input
                                             id="email"
                                             type="email"
-                                            placeholder="Your email address"
+                                            placeholder="john@institution.com"
                                             className="w-full bg-white rounded-2xl px-6 py-4 border-none shadow-sm focus:ring-2 focus:ring-accent/20 outline-none transition-all text-[#1d1d1f] font-bold text-lg placeholder:text-gray-300"
                                             value={formData.email}
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}

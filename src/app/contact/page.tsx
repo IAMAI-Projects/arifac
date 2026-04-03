@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, CheckCircle2, Loader2, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, CheckCircle2, Loader2, Send } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { LogoMark } from '@/components/Logo';
@@ -93,6 +93,15 @@ export default function ContactPage() {
                                         </div>
                                     </div>
 
+                                    <div className="flex items-start gap-8">
+                                        <div className="w-14 h-14 bg-[#f5f5f7] rounded-2xl flex items-center justify-center shrink-0 text-accent">
+                                            <Phone size={24} />
+                                        </div>
+                                        <div>
+                                            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">Response Time</div>
+                                            <p className="text-2xl font-bold text-[#1d1d1f]">Within 48 hours</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </motion.div>
 
@@ -131,11 +140,11 @@ export default function ContactPage() {
                                             <div className="grid md:grid-cols-2 gap-8">
                                                 <div>
                                                     <label htmlFor="name" className={labelClass}>Full Name</label>
-                                                    <input id="name" name="name" type="text" required placeholder="Your full name" className={inputClass} />
+                                                    <input id="name" name="name" type="text" required placeholder="John Doe" className={inputClass} />
                                                 </div>
                                                 <div>
                                                     <label htmlFor="email" className={labelClass}>Email Address</label>
-                                                    <input id="email" name="email" type="email" required placeholder="Your email address" className={inputClass} />
+                                                    <input id="email" name="email" type="email" required placeholder="john@example.com" className={inputClass} />
                                                 </div>
                                             </div>
 
