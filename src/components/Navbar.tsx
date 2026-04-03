@@ -57,8 +57,12 @@ export default function Navbar() {
         },
 
         {
-            name: t('Membership'),
+            name: t('Engage'),
             href: '/member-benefits',
+            dropdown: [
+                { name: t('ARIFAC Membership'), href: '/member-benefits', icon: Award },
+                { name: t('Register with ARIFAC'), href: '/register-with-arifac', icon: GraduationCap }
+            ]
 
         },
         {
@@ -308,10 +312,9 @@ export default function Navbar() {
                                         <div className="p-3 flex flex-col gap-1.5">
                                             <div className="flex items-center justify-between px-4 py-3.5 rounded-xl">
                                                 <span className="text-[14px] font-bold text-[#1d1d1f]/40">{t('nav.learning_platform')}</span>
-                                                <span className="text-[10px] font-bold text-accent bg-accent/10 px-2 py-0.5 rounded-full uppercase tracking-wider">Launching Soon</span>
                                             </div>
                                             <Link
-                                                href="/membership/launching-soon"
+                                                href="/membership/login"
                                                 className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
                                                 onClick={() => setActiveDropdown(null)}
                                             >
