@@ -99,6 +99,7 @@ const translations: Record<Language, Record<string, string>> = {
         'hero.nav_membership': 'Apply for Membership',
         'ARIFAC Membership - Login': 'ARIFAC Membership - Login',
         'ARIFAC Membership - Dashboard': 'ARIFAC Membership - Dashboard',
+        'Register with ARIFAC': 'Register with ARIFAC',
         'hero.nav_learning': 'Access AML/CFT Learning Programmes',
         'hero.nav_consultations': 'Participate in Industry Consultations',
         'hero.stats_entities': 'Reporting Entities',
@@ -220,6 +221,28 @@ const translations: Record<Language, Record<string, string>> = {
         // Generic
         'common.no_results': 'No results found',
         'common.search': 'Search...',
+
+        // Register with ARIFAC Page
+        'register.title': 'Register with ARIFAC',
+        'register.subtitle': 'ARIFAC brings together institutions and professionals at the forefront of financial intelligence in India. Registering with us places you within an evolving ecosystem of regulators, practitioners, and policymakers in the AML/CFT ecosystem',
+        'register.foundation': 'Building a foundation for you to learn, engage, and grow via access to:',
+        'register.item1_title': 'Knowledge & Intelligence',
+        'register.item1_desc': "Get started with ARIFAC's foundational resources and materials curated to build your understanding of the regulatory and financial intelligence landscape.",
+        'register.item2_title': 'Typology & Risk Alerts',
+        'register.item2_desc': 'Receive FIU-driven insights and alerts, keeping you informed on emerging financial crime typologies and risk developments as they unfold.',
+        'register.item3_title': 'Events & Summits',
+        'register.item3_desc': 'Gain access to flagship ARIFAC events (Eg: N-SAFE) on an event-by-event basis. An entry point into the region\'s most important regulatory gatherings.',
+        'register.item4_title': 'Webinars & Awareness Sessions',
+        'register.item4_desc': 'Participate in webinars and awareness programmes, connecting you with timely topics and thought leadership across the ecosystem.',
+        'register.item5_title': 'Reports',
+        'register.item5_desc': "Full access to ARIFAC's published reports",
+        'register.item6_title': 'Training & Certification',
+        'register.item6_desc': "Access ARIFAC's training and certification programmes at standard pricing, building credentials recognised across the industry.",
+        'register.item7_title': 'Closed-Door Interactions',
+        'register.item7_desc': 'Select access to closed-door sessions, offering a first look into more exclusive ARIFAC engagements.',
+        'register.free': 'Registering with ARIFAC is open and free for all',
+        'register.seamless': 'A seamless first step into one of the India’s leading financial intelligence communities.',
+        'register.proceed': 'Proceed to Register',
     },
     HI: {
         // Navbar
@@ -430,6 +453,11 @@ const translations: Record<Language, Record<string, string>> = {
         // Generic
         'common.no_results': 'कोई परिणाम नहीं मिला',
         'common.search': 'खोजें...',
+
+        // ARIFAC के साथ रजिस्टर करें (Register with ARIFAC)
+        'Register with ARIFAC': 'ARIFAC के साथ रजिस्टर करें',
+        'register.title': 'ARIFAC के साथ रजिस्टर करें',
+        'register.proceed': 'रजिस्टर करने के लिए आगे बढ़ें',
     }
 };
 

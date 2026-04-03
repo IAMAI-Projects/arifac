@@ -57,8 +57,12 @@ export default function Navbar() {
         },
 
         {
-            name: t('Membership'),
+            name: t('Engage'),
             href: '/member-benefits',
+            dropdown: [
+                { name: t('ARIFAC Membership'), href: '/member-benefits', icon: Award },
+                { name: t('Register with ARIFAC'), href: '/register-with-arifac', icon: GraduationCap }
+            ]
 
         },
         {
@@ -306,12 +310,15 @@ export default function Navbar() {
                                             <p className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.15em] pl-2">{t('nav.platform_access')}</p>
                                         </div>
                                         <div className="p-3 flex flex-col gap-1.5">
-                                            <div className="flex items-center justify-between px-4 py-3.5 rounded-xl">
-                                                <span className="text-[14px] font-bold text-[#1d1d1f]/40">{t('nav.learning_platform')}</span>
-                                                <span className="text-[10px] font-bold text-accent bg-accent/10 px-2 py-0.5 rounded-full uppercase tracking-wider">Launching Soon</span>
-                                            </div>
                                             <Link
                                                 href="/membership/launching-soon"
+                                                className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
+                                                onClick={() => setActiveDropdown(null)}
+                                            >
+                                                ARIFAC Certification
+                                            </Link>
+                                            <Link
+                                                href="/membership/login"
                                                 className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
                                                 onClick={() => setActiveDropdown(null)}
                                             >
@@ -577,13 +584,17 @@ export default function Navbar() {
                                     <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent">
                                         <GraduationCap size={24} />
                                     </div>
-                                    <div className="flex flex-col">
-                                        <span className="font-bold text-[#1d1d1f]/40">{t('nav.learning_platform')}</span>
-                                        <span className="text-[10px] font-bold text-accent bg-accent/10 px-2 py-0.5 rounded-full uppercase tracking-wider w-fit mt-1">Launching Soon</span>
-                                    </div>
+                                    <a
+                                        href="https://arifac.iamai.in/courses"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        {t('nav.learning_platform')}
+                                    </a>
                                 </div>
                                 <Link
-                                    href="/membership/launching-soon"
+                                    href="/membership/login"
                                     className="flex items-center gap-4 font-bold text-[#1d1d1f] px-8 py-6 bg-white rounded-[24px] border-2 border-[#1d1d1f] hover:bg-[#1d1d1f] hover:text-white transition-all text-xl"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >

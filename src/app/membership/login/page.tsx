@@ -45,7 +45,7 @@ export default function LoginPage() {
 
       // Success
       setClientAuth(data.user.email, data.user.name);
-      
+
       // Redirect to dashboard
       router.push('/membership/dashboard');
       router.refresh();
@@ -59,7 +59,7 @@ export default function LoginPage() {
   return (
     <main className="bg-white min-h-screen flex flex-col font-jakarta">
       <Navbar />
-      
+
       <div className="flex-1 flex items-center justify-center px-6 py-24 sm:py-32">
         <div className="w-full max-w-md">
           <motion.div
@@ -74,7 +74,7 @@ export default function LoginPage() {
 
             <div className="relative z-10">
               <div className="mb-8">
-                <motion.div 
+                <motion.div
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ delay: 0.2, duration: 0.5 }}
@@ -162,7 +162,7 @@ export default function LoginPage() {
               <div className="mt-8 pt-8 border-t border-gray-100 text-center">
                 <p className="text-gray-500 font-medium">
                   Not a member yet?{' '}
-                  <Link href="/membership/launching-soon" className="text-accent font-bold hover:underline">
+                  <Link href="/membership/register" className="text-accent font-bold hover:underline">
                     Apply for Membership
                   </Link>
                 </p>

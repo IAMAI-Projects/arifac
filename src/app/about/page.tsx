@@ -169,16 +169,18 @@ export default function AboutPage() {
                 <div className="container mx-auto px-6">
                     <div className="max-w-4xl mx-auto">
                         <h2 className="text-3xl md:text-4xl font-bold text-[#1d1d1f] mb-8 text-center">Who Should Engage</h2>
-                        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="grid sm:grid-cols-2 md:grid-cols-5 gap-4">
                             {[
-                                "Banks and NBFCs",
-                                "Payment Aggregators & PSPs",
-                                "Fintech Platforms",
-                                "Virtual Asset Service Providers (VASPs)",
-                                "All Intermediaries under PMLA, 2002",
-                                "Compliance Officers & MLROs",
-                                "Risk Professionals",
-                                "AML Investigators"
+                                "Banking",
+                                "Securities & Capital Markets",
+                                "Payments, Remittance, Foreign Exchange, MTSS",
+                                "Insurance",
+                                "Non-Banking",
+                                "Fintech & Digital Finance",
+                                "DNFBP, DPMS",
+                                "Fiduciary, Custodial & Data Infrastructure",
+                                "VDAs",
+                                "All Intermediaries under PMLA, 2002"
                             ].map((stakeholder, i) => (
                                 <div key={i} className="px-6 py-4 rounded-2xl bg-white border border-gray-100 shadow-sm flex items-center gap-3">
                                     <div className="w-2 h-2 rounded-full bg-accent" />

@@ -40,13 +40,43 @@ const categories = [
 ];
 
 const benefits = [
-    "Participation in industry consultations and closed-room discussions",
-    "Access to AML/CFT training and certification programmes",
-    "Inclusion in working groups and knowledge forums",
-    "Access to typologies, insights, and industry best practices",
-    "Ability to nominate employees for training and certification pathways",
-    "Access to verification of certified professionals (where applicable)",
-    "Pricing discount on Learning Programmes"
+    {
+        category: "Engagement & Governance",
+        color: "bg-blue-50 text-blue-600",
+        items: [
+            { title: "Regulatory Engagement", description: "Direct participation in consultations, policy dialogues, and expert forums alongside regulators and policymakers." },
+            { title: "Governance Participation", description: "Full voting rights within ARIFAC — eligible to elect and be elected to the Steering Committee and Working Groups." },
+            { title: "Closed-Door Interactions", description: "Exclusive access to policy and regulatory closed-room sessions, structured by domain." }
+        ]
+    },
+    {
+        category: "Learning & Capacity",
+        color: "bg-amber-50 text-amber-600",
+        items: [
+            { title: "Training & Certification", description: "Access to L1–L5 certification programmes at preferential member pricing." },
+            { title: "Workshops & Masterclasses", description: "Full access to advanced sessions led by practitioners and subject matter experts." },
+            { title: "Webinars & Awareness", description: "Unrestricted access to all webinars and awareness sessions." }
+        ]
+    },
+    {
+        category: "Intelligence & Research",
+        color: "bg-emerald-50 text-emerald-600",
+        items: [
+            { title: "Knowledge & Intelligence", description: "Comprehensive access to typologies, case studies, learnings, and risk intelligence curated for the industry." },
+            { title: "Typology & Risk Alerts", description: "Real-time FIU-driven insights and alerts to stay ahead of emerging risks." },
+            { title: "Reports", description: "Full access to all ARIFAC published reports." },
+            { title: "Participation in Reports", description: "Preferential inclusion in whitepapers, industry reports, and key ecosystem initiatives." }
+        ]
+    },
+    {
+        category: "Ecosystem & Visibility",
+        color: "bg-purple-50 text-purple-600",
+        items: [
+            { title: "Events & Summits", description: "Participation and speaking opportunities at ARIFAC, IAMAI, PCI and FCC- organised summits (Eg: N-SAFE and GFF)" },
+            { title: "Ecosystem Directory", description: "Full access to the directory of member institutions and certified professionals." },
+            { title: "Brand Visibility", description: "Recognised as an ARIFAC Member across the website and all publications." }
+        ]
+    }
 ];
 
 const processSteps = [
@@ -87,43 +117,60 @@ export default function MemberBenefitsPage() {
             </section>
 
             {/* What Membership Enables */}
-            <section className="py-14 bg-white">
+            <section className="py-20 bg-white">
                 <div className="container mx-auto px-6">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="grid lg:grid-cols-2 gap-10 items-center">
-                            <div>
-                                <h2 className="text-3xl md:text-4xl font-bold font-heading mb-5">What Membership Enables</h2>
-                                <p className="text-lg text-[#6e6e73] mb-6 leading-relaxed">
-                                    A focused approach to capacity building and collaboration:
-                                </p>
-                                <ul className="space-y-4">
-                                    {benefits.map((benefit, i) => (
-                                        <li key={i} className="flex items-start gap-4 text-[#1d1d1f] font-medium text-lg leading-snug">
-                                            <CheckCircle2 className="text-[#C2B020] shrink-0 mt-1" size={24} />
-                                            {benefit}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <div className="relative">
-                                <div className="aspect-square bg-gradient-to-br from-[#f5f5f7] to-white rounded-[64px] border border-gray-100 flex items-center justify-center p-12 overflow-hidden">
-                                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#C2B020]/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
-                                    <div className="grid grid-cols-2 gap-4 relative z-10 w-full h-full">
-                                        {[Shield, Lock, Users, GraduationCap].map((Icon, i) => (
-                                            <div key={i} className="bg-white rounded-[32px] border border-gray-100 shadow-sm flex items-center justify-center">
-                                                <Icon size={40} className="text-[#59626E]" />
+                    <div className="max-w-7xl mx-auto">
+                        <div className="text-center mb-16">
+                            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">What Membership Enables</h2>
+                            <p className="text-xl text-[#6e6e73] max-w-3xl mx-auto leading-relaxed">
+                                A focused approach to capacity building and collaboration across the financial intelligence ecosystem.
+                            </p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {benefits.map((group, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.1 }}
+                                    className="bg-[#f5f5f7] rounded-[40px] p-8 md:p-10 border border-gray-100 flex flex-col h-full"
+                                >
+                                    <h3 className="text-2xl font-bold mb-8 flex items-center gap-4">
+                                        <span className={`w-2 h-8 rounded-full ${group.color.split(' ')[1].replace('text-', 'bg-')}`} />
+                                        {group.category}
+                                    </h3>
+
+                                    <div className="space-y-8 flex-grow">
+                                        {group.items.map((item, j) => (
+                                            <div key={j} className="flex gap-4 group/item">
+                                                <div className="mt-1">
+                                                    <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-colors ${group.color}`}>
+                                                        <CheckCircle2 size={16} />
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-bold text-lg text-[#1d1d1f] mb-1 group-hover/item:text-[#C2B020] transition-colors">
+                                                        {item.title}
+                                                    </h4>
+                                                    <p className="text-[#6e6e73] text-sm leading-relaxed">
+                                                        {item.description}
+                                                    </p>
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
-                                </div>
-                            </div>
+                                </motion.div>
+                            ))}
                         </div>
+
                     </div>
                 </div>
             </section>
 
             {/* Membership Process */}
-            <section className="py-14 bg-[#f5f5f7]">
+            {/* <section className="py-14 bg-[#f5f5f7]">
                 <div className="container mx-auto px-6">
                     <div className="max-w-5xl mx-auto text-center mb-10">
                         <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">Membership Process</h2>
@@ -150,12 +197,9 @@ export default function MemberBenefitsPage() {
                             ))}
                         </div>
 
-                        <p className="mt-8 text-center text-[#6e6e73] text-sm italic">
-                            Submission of an application does not guarantee membership. Approval is subject to ARIFAC’s review and discretion.
-                        </p>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* Responsibilities & Policies */}
             <section className="py-14 bg-white">
@@ -212,10 +256,13 @@ export default function MemberBenefitsPage() {
                             <div className="p-7 bg-[#f5f5f7] rounded-[32px] border border-gray-100">
                                 <div className="flex items-center gap-4 mb-6 text-accent">
                                     <ClipboardCheck size={28} />
-                                    <h3 className="text-2xl font-bold text-[#1d1d1f]">Fees & Participation</h3>
+                                    <h3 className="text-2xl font-bold text-[#1d1d1f]">Fees</h3>
                                 </div>
                                 <p className="text-secondary font-medium leading-relaxed">
-                                    Membership categories and applicable fee structures are published separately and may be updated from time to time. Additional fees may apply for training programmes, certifications, and specialised events.
+                                    Membership categories and applicable fee structures are detailed in our{' '}
+                                    <a href="/membership-terms" className="text-accent font-bold hover:underline">
+                                        Membership Terms &amp; Conditions
+                                    </a>.
                                 </p>
                             </div>
                         </div>
@@ -241,7 +288,7 @@ export default function MemberBenefitsPage() {
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
                             <button onClick={() => window.location.href = "/membership/launching-soon"} className="px-10 py-5 bg-[#C2B020] hover:bg-[#A3941B] text-[#1d1d1f] font-bold rounded-2xl transition-all flex items-center gap-3 w-full sm:w-auto justify-center">
-                                Apply for Membership <ArrowRight size={20} />
+                                Proceed to become a member <ArrowRight size={20} />
                             </button>
 
                         </div>
@@ -260,7 +307,7 @@ export default function MemberBenefitsPage() {
             <section className="py-8 bg-white">
                 <div className="container mx-auto px-6">
                     <div className="max-w-4xl mx-auto space-y-4 text-xs text-[#6e6e73]">
-                        <p><strong>Important Clarification:</strong> ARIFAC is an industry initiative operated by IAMAI and does not function as a regulator or supervisory authority. Membership does not confer any regulatory status, approval, or compliance certification.</p>
+                        <p><strong>Important Clarification:</strong> Submission of an application does not guarantee membership. Approval is subject to ARIFAC’s review and discretion. Additionally, ARIFAC does not function as a regulatory or supervisory authority, hence membership does not confer any regulatory status, approval, or compliance certification.</p>
                         <p><strong>Data Protection &amp; Consent:</strong> By submitting a membership application, you consent to the collection and processing of your information in accordance with ARIFAC's Privacy Policy and applicable data protection laws.</p>
                     </div>
                 </div>

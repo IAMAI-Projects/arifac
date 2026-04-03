@@ -80,7 +80,7 @@ const IDENTIFIER_TYPES = [
   "PAN — Permanent Account Number",
 ];
 
-function RegistrationFormContent() {
+function RegistrationFormCContent() {
   const searchParams = useSearchParams();
   const prefilledOrg = searchParams.get('org') || '';
   const [formData, setFormData] = useState({
@@ -97,7 +97,7 @@ function RegistrationFormContent() {
     // Section 5
     declarationAccepted: false, remarks: ''
   });
-  
+
   const [iamaiFile, setIamaiFile] = useState<File | null>(null);
   const iamaiFileRef = useRef<HTMLInputElement>(null);
 
@@ -152,27 +152,6 @@ function RegistrationFormContent() {
     return result.url;
   };
 
-  const calculateAmount = () => {
-    const isBankOrNBFC = formData.primarySector === 'Banking' || formData.primarySector === 'NBFC';
-    const range = formData.turnoverOrAum;
-
-    if (isBankOrNBFC) {
-      if (range === "Up to ₹500 Cr") return 25000;
-      if (range === "₹500 Cr – ₹1,000 Cr") return 50000;
-      if (range === "₹1,000 Cr – ₹10,000 Cr") return 100000;
-      if (range === "₹10,000 Cr – ₹50,000 Cr") return 150000;
-      if (range === "₹50,000 Cr – ₹1,00,000 Cr") return 300000;
-      if (range === "Above ₹1,00,000 Cr") return 500000;
-    } else {
-      if (range === "Up to ₹5 Cr") return 25000;
-      if (range === "₹5 Cr – ₹25 Cr") return 50000;
-      if (range === "₹25 Cr – ₹100 Cr") return 100000;
-      if (range === "₹100 Cr – ₹500 Cr") return 150000;
-      if (range === "₹500 Cr – ₹2,000 Cr") return 300000;
-      if (range === "Above ₹2,000 Cr") return 500000;
-    }
-    return 25000; // Default fallback
-  };
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -198,13 +177,12 @@ function RegistrationFormContent() {
 
       if (iamaiFile) iamaiUrl = await uploadFile(iamaiFile);
 
-      const amount = calculateAmount();
       const registrationData = {
         ...formData,
-        formType: 'A',
-        baseAmount: amount,
-        taxAmount: amount * 0.18,
-        totalAmount: amount * 1.18,
+        formType: 'C',
+        baseAmount: 0,
+        taxAmount: 0,
+        totalAmount: 0,
         iamaiCertificateUrl: iamaiUrl,
       };
 
@@ -223,35 +201,8 @@ function RegistrationFormContent() {
       // Sync client-side auth state (local storage/UI)
       setClientAuth(formData.email, formData.fullName);
 
-      if (isMembershipSelected) {
-        // Special case: Skip payment for IAMAI/IBA members
-        // Redirect directly to dashboard or success page
-        window.location.href = '/membership/dashboard';
-        return;
-      }
-
-      // Store non-sensitive display data in sessionStorage
-      sessionStorage.setItem('membershipPaymentData', JSON.stringify({
-        orgName: formData.orgName,
-        registeredAddress: formData.registeredAddress,
-        orgWebsite: formData.orgWebsite,
-        primarySector: formData.primarySector,
-        entityType: formData.entityType,
-        identifierType: formData.identifierType,
-        identifierNumber: formData.identifierNumber,
-        email: formData.email,
-        fullName: formData.fullName,
-        designation: formData.designation,
-        countryCode: formData.countryCode,
-        mobile: formData.mobile,
-        baseAmount: amount,
-        taxAmount: amount * 0.18,
-        totalAmount: amount * 1.18,
-        applicationId: result.applicationId
-      }));
-
-      // Redirect to payment page
-      window.location.href = '/membership/register/payment';
+      // Redirect directly to dashboard or success page for Form C (Free)
+      window.location.href = '/membership/dashboard';
     } catch (err: any) {
       setError(err.message);
       setIsSubmitting(false);
@@ -268,13 +219,13 @@ function RegistrationFormContent() {
             <ArrowLeft className="w-4 h-4 mr-2" /> Back to Programme Overview
           </Link>
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 font-medium text-sm mb-4">
-            Step 2 of 4
+            Step 2 of 2
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            Registration Form
+            ARIFAC Registration
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-gray-600">
-            Please provide the details below. All fields marked with an asterisk (*) are mandatory.
+            Please provide the details below for Form registration. All fields marked with an asterisk (*) are mandatory.
           </motion.p>
         </div>
 
@@ -515,7 +466,7 @@ function RegistrationFormContent() {
                 {formData.industryMemberships.includes('IAMAI') && (
                   <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mb-6 overflow-hidden">
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Upload IAMAI Membership Certificate *</label>
-                    <div 
+                    <div
                       onClick={() => iamaiFileRef.current?.click()}
                       className={`w-full border-2 border-dashed ${iamaiFile ? 'border-green-500 bg-green-50' : 'border-gray-300 bg-gray-50'} rounded-xl p-8 flex flex-col items-center justify-center text-center hover:bg-gray-100 transition-colors cursor-pointer group`}
                     >
@@ -532,11 +483,11 @@ function RegistrationFormContent() {
                           <span className="text-xs text-gray-500 mt-1">PDF, JPG, PNG (Max 5MB)</span>
                         </>
                       )}
-                      <input 
-                        type="file" 
+                      <input
+                        type="file"
                         ref={iamaiFileRef}
-                        className="hidden" 
-                        accept=".pdf,.png,.jpg,.jpeg" 
+                        className="hidden"
+                        accept=".pdf,.png,.jpg,.jpeg"
                         onChange={(e) => handleFileChange(e)}
                       />
                     </div>
@@ -548,50 +499,7 @@ function RegistrationFormContent() {
                     <input required name="ibaMembershipId" value={formData.ibaMembershipId} onChange={handleInputChange} type="text" className="w-full md:w-1/2 px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-mono" placeholder="Enter IBA Membership ID" />
                   </motion.div>
                 )}
-                {formData.industryMemberships.includes('None') && (
-                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-                    {(() => {
-                      const isBankOrNBFC = formData.primarySector === 'Banking' || formData.primarySector === 'NBFC';
-                      return (
-                        <div className="p-1">
-                          <label className="block text-sm font-semibold text-gray-700 mb-2">
-                            {isBankOrNBFC
-                              ? "What is your organisation's total Assets Under Management (AUM)? *"
-                              : "What is your organisation's Annual Turnover? *"}
-                          </label>
-                          <select
-                            required
-                            name="turnoverOrAum"
-                            value={formData.turnoverOrAum}
-                            onChange={handleInputChange}
-                            className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
-                          >
-                            <option value="" disabled>Select applicable range</option>
-                            {isBankOrNBFC ? (
-                              <>
-                                <option value="Up to ₹500 Cr">Up to ₹500 Cr</option>
-                                <option value="₹500 Cr – ₹1,000 Cr">₹500 Cr – ₹1,000 Cr</option>
-                                <option value="₹1,000 Cr – ₹10,000 Cr">₹1,000 Cr – ₹10,000 Cr</option>
-                                <option value="₹10,000 Cr – ₹50,000 Cr">₹10,000 Cr – ₹50,000 Cr</option>
-                                <option value="₹50,000 Cr – ₹1,00,000 Cr">₹50,000 Cr – ₹1,00,000 Cr</option>
-                                <option value="Above ₹1,00,000 Cr">Above ₹1,00,000 Cr</option>
-                              </>
-                            ) : (
-                              <>
-                                <option value="Up to ₹5 Cr">Up to ₹5 Cr</option>
-                                <option value="₹5 Cr – ₹25 Cr">₹5 Cr – ₹25 Cr</option>
-                                <option value="₹25 Cr – ₹100 Cr">₹25 Cr – ₹100 Cr</option>
-                                <option value="₹100 Cr – ₹500 Cr">₹100 Cr – ₹500 Cr</option>
-                                <option value="₹500 Cr – ₹2,000 Cr">₹500 Cr – ₹2,000 Cr</option>
-                                <option value="Above ₹2,000 Cr">Above ₹2,000 Cr</option>
-                              </>
-                            )}
-                          </select>
-                        </div>
-                      );
-                    })()}
-                  </motion.div>
-                )}
+                    {/* Turnover section removed for Form C as it is free */}
               </AnimatePresence>
             </div>
           </div>
@@ -631,9 +539,7 @@ function RegistrationFormContent() {
                   Processing...
                 </>
               ) : (
-                formData.industryMemberships.includes('IAMAI') || formData.industryMemberships.includes('IBA') 
-                  ? 'Complete Registration' 
-                  : 'Proceed to Payment'
+                'Complete Registration'
               )}
             </button>
           </div>
@@ -644,12 +550,12 @@ function RegistrationFormContent() {
   );
 }
 
-export default function MembershipRegistrationForm() {
+export default function MembershipRegistrationFormC() {
   return (
     <main className="bg-gray-50 min-h-screen font-sans flex flex-col">
       <Navbar />
       <Suspense fallback={<div className="flex-grow flex items-center justify-center pt-32 pb-20">Loading form...</div>}>
-        <RegistrationFormContent />
+        <RegistrationFormCContent />
       </Suspense>
       <Footer />
     </main>
