@@ -34,10 +34,22 @@ export async function POST(request: Request) {
       return NextResponse.json(result);
     } else if (formType === 'B') {
       const result = await MembershipService.registerFormB(data);
+
+      // Send membership emails (admin notification + user acknowledgement)
+      if (result.success) {
+        EmailService.sendMembershipEnquiryEmail({
+          name: data.fullName || data.name,
+          email: data.email,
+          organisation: data.orgName,
+          designation: data.designation,
+          mobile: data.mobile,
+        }).catch((err: unknown) => console.error('[Membership Email Error - Form B]', err));
+      }
+
       return NextResponse.json(result);
     } else if (formType === 'C') {
       const result = await MembershipService.registerFormC(data);
-      
+
       // Auto-login for Form C (Free)
       if (result.success && result.user) {
         const token = await createToken({
@@ -47,8 +59,17 @@ export async function POST(request: Request) {
           orgId: result.user.orgId
         });
         await setAuthCookie(token);
+
+        // Send membership emails (admin notification + user acknowledgement)
+        EmailService.sendMembershipEnquiryEmail({
+          name: result.user.name,
+          email: result.user.email,
+          organisation: data.orgName,
+          designation: data.designation,
+          mobile: data.mobile,
+        }).catch((err: unknown) => console.error('[Membership Email Error - Form C]', err));
       }
-      
+
       return NextResponse.json(result);
     }
 
