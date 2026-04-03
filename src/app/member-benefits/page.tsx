@@ -141,7 +141,7 @@ export default function MemberBenefitsPage() {
                                         <span className={`w-2 h-8 rounded-full ${group.color.split(' ')[1].replace('text-', 'bg-')}`} />
                                         {group.category}
                                     </h3>
-                                    
+
                                     <div className="space-y-8 flex-grow">
                                         {group.items.map((item, j) => (
                                             <div key={j} className="flex gap-4 group/item">
@@ -165,20 +165,12 @@ export default function MemberBenefitsPage() {
                             ))}
                         </div>
 
-                        <div className="mt-16 text-center">
-                            <button
-                                onClick={() => window.location.href = "/register-with-arifac"}
-                                className="px-10 py-5 bg-[#C2B020] hover:bg-[#A3941B] text-[#1d1d1f] font-bold rounded-2xl transition-all inline-flex items-center gap-3 shadow-lg hover:shadow-xl active:scale-95"
-                            >
-                                Proceed to become a member <ArrowRight size={20} />
-                            </button>
-                        </div>
                     </div>
                 </div>
             </section>
 
             {/* Membership Process */}
-            <section className="py-14 bg-[#f5f5f7]">
+            {/* <section className="py-14 bg-[#f5f5f7]">
                 <div className="container mx-auto px-6">
                     <div className="max-w-5xl mx-auto text-center mb-10">
                         <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">Membership Process</h2>
@@ -205,12 +197,9 @@ export default function MemberBenefitsPage() {
                             ))}
                         </div>
 
-                        <p className="mt-8 text-center text-[#6e6e73] text-sm italic">
-                            Submission of an application does not guarantee membership. Approval is subject to ARIFAC’s review and discretion.
-                        </p>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* Responsibilities & Policies */}
             <section className="py-14 bg-white">
@@ -295,7 +284,7 @@ export default function MemberBenefitsPage() {
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
-                            <button onClick={() => window.location.href = "/register-with-arifac"} className="px-10 py-5 bg-[#C2B020] hover:bg-[#A3941B] text-[#1d1d1f] font-bold rounded-2xl transition-all flex items-center gap-3 w-full sm:w-auto justify-center">
+                            <button onClick={() => window.location.href = "membership/login"} className="px-10 py-5 bg-[#C2B020] hover:bg-[#A3941B] text-[#1d1d1f] font-bold rounded-2xl transition-all flex items-center gap-3 w-full sm:w-auto justify-center">
                                 Proceed to become a member <ArrowRight size={20} />
                             </button>
 
@@ -315,7 +304,7 @@ export default function MemberBenefitsPage() {
             <section className="py-8 bg-white">
                 <div className="container mx-auto px-6">
                     <div className="max-w-4xl mx-auto space-y-4 text-xs text-[#6e6e73]">
-                        <p><strong>Important Clarification:</strong> ARIFAC is an industry initiative operated by IAMAI and does not function as a regulator or supervisory authority. Membership does not confer any regulatory status, approval, or compliance certification.</p>
+                        <p><strong>Important Clarification:</strong> Submission of an application does not guarantee membership. Approval is subject to ARIFAC’s review and discretion. Additionally, ARIFAC does not function as a regulatory or supervisory authority, hence membership does not confer any regulatory status, approval, or compliance certification.</p>
                         <p><strong>Data Protection &amp; Consent:</strong> By submitting a membership application, you consent to the collection and processing of your information in accordance with ARIFAC's Privacy Policy and applicable data protection laws.</p>
                     </div>
                 </div>

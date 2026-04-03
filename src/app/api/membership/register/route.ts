@@ -25,6 +25,21 @@ export async function POST(request: Request) {
     } else if (formType === 'B') {
       const result = await MembershipService.registerFormB(data);
       return NextResponse.json(result);
+    } else if (formType === 'C') {
+      const result = await MembershipService.registerFormC(data);
+      
+      // Auto-login for Form C (Free)
+      if (result.success && result.user) {
+        const token = await createToken({
+          userId: result.user.id,
+          email: result.user.email,
+          name: result.user.name,
+          orgId: result.user.orgId
+        });
+        await setAuthCookie(token);
+      }
+      
+      return NextResponse.json(result);
     }
 
     return NextResponse.json({ error: 'Invalid form type' }, { status: 400 });

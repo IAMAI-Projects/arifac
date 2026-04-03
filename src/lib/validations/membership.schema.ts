@@ -64,3 +64,5 @@ export const MembershipFormBSchema = z.object({
   remarks: z.string().optional(),
   declarationAccepted: z.literal(true),
 });
+
+export const MembershipFormCSchema = MembershipFormASchema;

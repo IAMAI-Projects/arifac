@@ -4,14 +4,14 @@ import React from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from 'framer-motion';
-import { 
-    BookOpen, 
-    Bell, 
-    Calendar, 
-    Video, 
-    FileText, 
-    Award, 
-    Lock, 
+import {
+    BookOpen,
+    Bell,
+    Calendar,
+    Video,
+    FileText,
+    Award,
+    Lock,
     ArrowRight,
     GraduationCap
 } from 'lucide-react';
@@ -37,15 +37,13 @@ export default function RegisterARIFACPage() {
             {/* Hero Section */}
             <section className="relative pt-44 pb-16 overflow-hidden">
                 <div className="container mx-auto px-6">
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="max-w-4xl mx-auto text-center"
                     >
-                        <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8">
-                             <GraduationCap size={40} className="text-accent" />
-                        </div>
-                        <h1 className="text-4xl md:text-6xl font-bold font-heading leading-tight tracking-tight mb-8">
+
+                        <h1 className="text-3xl md:text-5xl font-bold font-heading leading-tight tracking-tight mb-8">
                             {t('register.title')}
                         </h1>
                         <p className="text-xl md:text-2xl text-[#6e6e73] font-medium mb-12 leading-relaxed max-w-3xl mx-auto">
@@ -100,20 +98,20 @@ export default function RegisterARIFACPage() {
                         <div className="bg-gradient-to-br from-[#1d1d1f] to-[#3a3a3c] p-12 md:p-24 rounded-[64px] text-white relative overflow-hidden shadow-2xl">
                             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-[100px]" />
                             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#C2B020]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-[100px]" />
-                            
+
                             <h2 className="text-3xl md:text-5xl font-bold mb-8 tracking-tight">
                                 {t('register.free')}
                             </h2>
                             <p className="text-xl md:text-2xl text-white/80 mb-16 font-medium max-w-2xl mx-auto leading-relaxed">
                                 {t('register.seamless')}
                             </p>
-                            
+
                             <div className="flex justify-center">
-                                <button 
-                                    onClick={() => window.location.href = "/membership/register/form-b"}
+                                <button
+                                    onClick={() => window.location.href = "/membership/register/form-c"}
                                     className="group px-12 py-6 bg-accent hover:bg-accent/90 text-white font-bold rounded-[24px] transition-all flex items-center gap-4 text-xl shadow-xl hover:shadow-accent/40 active:scale-95"
                                 >
-                                    {t('register.proceed')} 
+                                    {t('register.proceed')}
                                     <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:translate-x-1 transition-transform">
                                         <ArrowRight size={20} />
                                     </div>

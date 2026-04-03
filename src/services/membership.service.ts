@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { hashPassword } from '@/lib/server-auth';
-import { MembershipFormASchema, MembershipFormBSchema } from '@/lib/validations/membership.schema';
+import { MembershipFormASchema, MembershipFormBSchema, MembershipFormCSchema } from '@/lib/validations/membership.schema';
 
 import { MAP_IDENTIFIER_TYPE } from '@/lib/constants';
 
@@ -158,6 +158,107 @@ export class MembershipService {
         success: true, 
         applicationId: formB.id, 
         userId: user.id 
+      };
+    });
+  }
+
+  static async registerFormC(data: any) {
+    // For now, Form C is identical to Form A
+    const validatedData = MembershipFormCSchema.parse(data);
+    const idenType = (MAP_IDENTIFIER_TYPE[validatedData.identifierType] || 'OTHER') as any;
+
+    return await prisma.$transaction(async (tx) => {
+      // 1. Create or Update Organisation
+      const organisation = await tx.organisations.upsert({
+        where: {
+          identifier_type_identifier_value: {
+            identifier_type: idenType,
+            identifier_value: validatedData.identifierNumber,
+          }
+        },
+        update: {
+          name: validatedData.orgName,
+          website: validatedData.orgWebsite || '',
+          sector: validatedData.primarySector,
+          entity_type: validatedData.entityType,
+          registered_address: validatedData.registeredAddress,
+          regulated_entity: validatedData.isRegulated === 'Yes',
+        },
+        create: {
+          name: validatedData.orgName,
+          website: validatedData.orgWebsite || '',
+          sector: validatedData.primarySector,
+          entity_type: validatedData.entityType,
+          registered_address: validatedData.registeredAddress,
+          regulated_entity: validatedData.isRegulated === 'Yes',
+          identifier_type: idenType,
+          identifier_value: validatedData.identifierNumber,
+        }
+      });
+
+      // 2. Create or Update User
+      const hashedPassword = await hashPassword(validatedData.password);
+      const user = await tx.users.upsert({
+        where: { email: validatedData.email },
+        update: {
+          full_name: validatedData.fullName,
+          designation: validatedData.designation,
+          mobile: validatedData.mobile,
+          username: validatedData.username,
+          password_hash: hashedPassword,
+          organisation_id: organisation.id,
+        },
+        create: {
+          full_name: validatedData.fullName,
+          designation: validatedData.designation,
+          email: validatedData.email,
+          mobile: validatedData.mobile,
+          username: validatedData.username,
+          password_hash: hashedPassword,
+          organisation_id: organisation.id,
+          is_active: false,
+          is_primary: true
+        }
+      });
+
+      // 3. Create Membership Application
+      const application = await tx.membership_applications.create({
+        data: {
+          application_type: 'NON_PRE_APPROVED', // Form C uses same type as Form A for now
+          organisation_id: organisation.id,
+          user_id: user.id,
+          status: 'INIT',
+          fee_amount: 0,
+          fee_waived: true,
+          is_iamai_member: validatedData.industryMemberships.includes('IAMAI'),
+          is_iba_member: validatedData.industryMemberships.includes('IBA'),
+        }
+      });
+
+      // 4. Create Application Details
+      await tx.application_details.create({
+        data: {
+          application_id: application.id,
+          sector: validatedData.primarySector,
+          entity_type: validatedData.entityType,
+          identifier_type: idenType,
+          identifier_value: validatedData.identifierNumber,
+          iamai_certificate_url: validatedData.iamaiCertificateUrl,
+          iba_membership_id: validatedData.ibaMembershipId,
+        }
+      });
+
+      console.log('[Service] Form C registration completed with Application ID:', application.id);
+      return {
+        success: true,
+        applicationId: application.id,
+        userId: user.id,
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.full_name,
+          orgId: organisation.id
+        }
       };
     });
   }
