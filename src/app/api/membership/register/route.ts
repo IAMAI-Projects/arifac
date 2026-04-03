@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { MembershipService } from '@/services/membership.service';
 import { createToken, setAuthCookie } from '@/lib/server-auth';
+import { EmailService } from '@/lib/email';
 
 export async function POST(request: Request) {
   try {
@@ -9,7 +10,7 @@ export async function POST(request: Request) {
 
     if (formType === 'A') {
       const result = await MembershipService.registerFormA(data);
-      
+
       // Auto-login for pre-approved members
       if (result.success && result.user) {
         const token = await createToken({
@@ -19,8 +20,17 @@ export async function POST(request: Request) {
           orgId: result.user.orgId
         });
         await setAuthCookie(token);
+
+        // Send membership emails (admin notification + user acknowledgement)
+        EmailService.sendMembershipEnquiryEmail({
+          name: result.user.name,
+          email: result.user.email,
+          organisation: data.orgName,
+          designation: data.designation,
+          mobile: data.mobile,
+        }).catch((err: unknown) => console.error('[Membership Email Error]', err));
       }
-      
+
       return NextResponse.json(result);
     } else if (formType === 'B') {
       const result = await MembershipService.registerFormB(data);
