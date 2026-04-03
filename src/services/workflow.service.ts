@@ -60,25 +60,44 @@ export class WorkflowService {
       return user;
     }, { maxWait: 20000, timeout: 60000 });
 
-    // Notify Admins
+    // Send emails after successful DB transaction
+    const emailDetails = {
+      ...data.details,
+      name: data.name,
+      organisationName: data.organisationName,
+      email: data.email
+    };
+
+    // 1. Notify Admins
     try {
       const admins = await prisma.admin.findMany({ select: { email: true } });
       if (admins.length > 0) {
-        const emailPromises = admins.map(admin => 
-          EmailService.sendAdminNotificationEmail(admin.email, {
-            ...data.details,
-            name: data.name,
-            organisationName: data.organisationName,
-            email: data.email
-          })
+        const emailPromises = admins.map(admin =>
+          EmailService.sendAdminNotificationEmail(admin.email, emailDetails)
         );
-        // Fire and forget or wait?
-        // Let's at least wait for them to be triggered to ensure we log any immediate errors
         await Promise.allSettled(emailPromises);
+      } else {
+        // Always notify the primary admin inbox even if no admin records exist
+        await EmailService.sendAdminNotificationEmail('help.arifac@iamai.in', emailDetails);
       }
     } catch (emailError) {
       console.error('[WorkflowService] Failed to notify admins:', emailError);
-      // No need to throw here as the user's registration is already successful in DB
+    }
+
+    // 2. Send Form B user acknowledgement email (under-review template)
+    try {
+      await EmailService.sendFormBEmail({
+        name: data.name,
+        email: data.email,
+        organisation: data.organisationName,
+        designation: data.details?.designation,
+        mobile: data.details?.countryCode
+          ? `${data.details.countryCode} ${data.details.mobile || ''}`
+          : data.details?.mobile,
+        salutation: data.details?.salutation,
+      });
+    } catch (emailError) {
+      console.error('[WorkflowService] Failed to send Form B user acknowledgement:', emailError);
     }
 
     return user;
