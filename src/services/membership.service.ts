@@ -8,6 +8,7 @@ export class MembershipService {
   static async registerFormA(data: any) {
     const validatedData = MembershipFormASchema.parse(data);
     const idenType = (MAP_IDENTIFIER_TYPE[validatedData.identifierType] || 'OTHER') as any;
+    const hashedPassword = await hashPassword(validatedData.password);
 
     return await prisma.$transaction(async (tx) => {
       // 1. Create or Update Organisation
@@ -39,7 +40,6 @@ export class MembershipService {
       });
 
       // 2. Create or Update User
-      const hashedPassword = await hashPassword(validatedData.password);
       const user = await tx.users.upsert({
         where: { email: validatedData.email },
         update: {
@@ -102,15 +102,15 @@ export class MembershipService {
           orgId: organisation.id
         }
       };
-    });
+    }, { maxWait: 20000, timeout: 60000 });
   }
 
   static async registerFormB(data: any) {
     const validatedData = MembershipFormBSchema.parse(data);
+    const hashedPassword = await hashPassword(validatedData.password);
 
     return await prisma.$transaction(async (tx) => {
       // Create User (Set 2)
-      const hashedPassword = await hashPassword(validatedData.password);
       const user = await tx.user.upsert({
         where: { email: validatedData.email },
         update: {
@@ -159,13 +159,14 @@ export class MembershipService {
         applicationId: formB.id, 
         userId: user.id 
       };
-    });
+    }, { maxWait: 20000, timeout: 60000 });
   }
 
   static async registerFormC(data: any) {
     // For now, Form C is identical to Form A
     const validatedData = MembershipFormCSchema.parse(data);
     const idenType = (MAP_IDENTIFIER_TYPE[validatedData.identifierType] || 'OTHER') as any;
+    const hashedPassword = await hashPassword(validatedData.password);
 
     return await prisma.$transaction(async (tx) => {
       // 1. Create or Update Organisation
@@ -197,7 +198,6 @@ export class MembershipService {
       });
 
       // 2. Create or Update User
-      const hashedPassword = await hashPassword(validatedData.password);
       const user = await tx.users.upsert({
         where: { email: validatedData.email },
         update: {
@@ -260,7 +260,7 @@ export class MembershipService {
           orgId: organisation.id
         }
       };
-    });
+    }, { maxWait: 20000, timeout: 60000 });
   }
 
   static async getApplicationsByUser(userId: string, email?: string) {

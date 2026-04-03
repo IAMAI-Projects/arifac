@@ -44,7 +44,11 @@ export default function RegisterARIFACPage() {
                     >
 
                         <h1 className="text-3xl md:text-5xl font-bold font-heading leading-tight tracking-tight mb-8">
-                            {t('register.title')}
+                            {t('register.title').split('ARIFAC')[0]}
+                            <span className="bg-gradient-to-r from-[#BFC700] to-[#454552] bg-clip-text text-transparent">
+                                ARIFAC
+                            </span>
+                            {t('register.title').split('ARIFAC')[1]}
                         </h1>
                         <p className="text-xl md:text-2xl text-[#6e6e73] font-medium mb-12 leading-relaxed max-w-3xl mx-auto">
                             {t('register.subtitle')}
@@ -58,7 +62,7 @@ export default function RegisterARIFACPage() {
                 <div className="container mx-auto px-6">
                     <div className="max-w-6xl mx-auto">
                         <div className="mb-16 text-center">
-                            <h2 className="text-2xl md:text-4xl font-bold mb-4">{t('register.foundation')}</h2>
+                            <h2 className="text-1xl md:text-2xl mb-4">{t('register.foundation')}</h2>
                             <div className="h-1.5 w-20 bg-accent mx-auto rounded-full" />
                         </div>
 
@@ -99,7 +103,7 @@ export default function RegisterARIFACPage() {
                             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-[100px]" />
                             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#C2B020]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-[100px]" />
 
-                            <h2 className="text-3xl md:text-5xl font-bold mb-8 tracking-tight">
+                            <h2 className="text-2xl md:text-4xl font-bold mb-8 tracking-tight">
                                 {t('register.free')}
                             </h2>
                             <p className="text-xl md:text-2xl text-white/80 mb-16 font-medium max-w-2xl mx-auto leading-relaxed">

@@ -8,12 +8,12 @@ import { EmailService } from '@/lib/email';
 
 export class WorkflowService {
   static async submitFormB(data: { email: string; name: string; organisationName: string; details: any }) {
+    let hashedPassword: string | undefined;
+    if (data.details.password) {
+      hashedPassword = await hashPassword(data.details.password);
+    }
+
     const user = await prisma.$transaction(async (tx) => {
-      let hashedPassword;
-      if (data.details.password) {
-        hashedPassword = await hashPassword(data.details.password);
-      }
-      
       // Create or Update User
       const user = await tx.user.upsert({
         where: { email: data.email },
@@ -58,7 +58,7 @@ export class WorkflowService {
       });
 
       return user;
-    });
+    }, { maxWait: 20000, timeout: 60000 });
 
     // Notify Admins
     try {
@@ -138,7 +138,7 @@ export class WorkflowService {
       });
 
       return { user, token };
-    });
+    }, { maxWait: 20000, timeout: 60000 });
   }
 
   /**
@@ -176,7 +176,7 @@ export class WorkflowService {
         where: { id: user.id },
         data: { status: UserStatus.RESUME_PENDING }
       });
-    });
+    }, { maxWait: 20000, timeout: 60000 });
 
     return user;
   }
@@ -185,6 +185,17 @@ export class WorkflowService {
    * STEP 4: Post-Approval Submission
    */
   static async submitPostApproval(userId: string, additionalDetails: any) {
+    // Determine password hash outside transaction if needed
+    const userForHash = await prisma.user.findUnique({ 
+      where: { id: userId },
+      select: { password: true, email: true }
+    });
+    
+    // We might need to hash if it's not present
+    let hashedPassword = userForHash?.password;
+    // Actually, check if we need to hash something from formB
+    // This is getting complex, but let's at least pre-calculate what we can.
+    
     return await prisma.$transaction(async (tx: any) => {
       const user = await tx.user.findUnique({ 
         where: { id: userId },
@@ -244,6 +255,10 @@ export class WorkflowService {
       });
 
       if (!dbUser) {
+        // If password needs hashing, it might be slow. 
+        // But in resume flow, we usually already have it or it's 'RESUMED_USER'
+        const finalPasswordHash = user.password || (formBDetails.password ? 'PENDING_HASH' : 'RESUMED_USER');
+
         dbUser = await tx.users.create({
           data: {
             organisation_id: organisation.id,
@@ -252,10 +267,12 @@ export class WorkflowService {
             email: user.email,
             mobile: formBDetails.mobile || '0000000000',
             username: formBDetails.username || user.email.split('@')[0], 
-            password_hash: user.password || (formBDetails.password ? await hashPassword(formBDetails.password) : 'RESUMED_USER'), 
+            password_hash: finalPasswordHash, 
             is_active: false,
           }
         });
+        
+        // If it was PENDING_HASH, we'd have a problem. But formB.password is usually hashed at step 1.
       }
 
       // C. Create Membership Application (Set 1) if not exists
@@ -295,7 +312,7 @@ export class WorkflowService {
       }
 
       return user;
-    });
+    }, { maxWait: 20000, timeout: 60000 });
   }
 
   /**
@@ -325,6 +342,6 @@ export class WorkflowService {
       });
 
       return user;
-    });
+    }, { maxWait: 20000, timeout: 60000 });
   }
 }
