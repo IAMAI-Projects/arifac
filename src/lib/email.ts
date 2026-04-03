@@ -315,6 +315,96 @@ export class EmailService {
   }
 
   /* ══════════════════════════════════════════════════════════
+     4. FORM B — NEW ORGANISATION MEMBERSHIP APPLICATION
+     Admin notification + User under-review acknowledgement
+  ══════════════════════════════════════════════════════════ */
+
+  static async sendFormBEmail(
+    data: {
+      name: string;
+      email: string;
+      organisation: string;
+      designation?: string;
+      mobile?: string;
+      salutation?: string;
+    },
+    retries = 3,
+  ) {
+    const displayName = data.salutation ? `${data.salutation} ${data.name}` : data.name;
+
+    // Email 1 — Admin notification (in addition to the existing sendAdminNotificationEmail)
+    await sendEmail({
+      from: `"ARIFAC Membership" <${process.env.SMTP_USER}>`,
+      replyTo: `"${displayName}" <${data.email}>`,
+      to: ADMIN_INBOX,
+      subject: `[ARIFAC Form B] New Organisation Application — ${data.organisation}`,
+      html: `
+        <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
+          ${HEADER('New Form B — Organisation Membership Application')}
+          <div style="background:#f9fafb;padding:32px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 8px 8px;">
+            <table style="width:100%;border-collapse:collapse;">
+              ${row('Name', displayName)}
+              ${row('Email', `<a href="mailto:${data.email}" style="color:#2563eb;">${data.email}</a>`)}
+              ${row('Organisation', data.organisation)}
+              ${data.designation ? row('Designation', data.designation) : ''}
+              ${data.mobile ? row('Mobile', data.mobile) : ''}
+            </table>
+            <p style="font-size:13px;color:#6b7280;margin-top:20px;">
+              This application requires admin review before activation. Please log in to the admin panel to review and approve.
+            </p>
+            ${FOOTER_NOTE}
+          </div>
+        </div>`,
+    }, retries);
+
+    // Email 2 — User acknowledgement
+    await sendEmail({
+      from: `"ARIFAC" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+      to: data.email,
+      subject: 'Your ARIFAC Membership Application is Under Review',
+      html: `
+        <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
+          ${USER_HEADER}
+          <div style="background:#f9fafb;padding:32px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 8px 8px;">
+            <p style="font-size:16px;color:#111827;margin:0 0 16px;">Dear ${displayName},</p>
+            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 16px;">
+              Thank you for submitting your ARIFAC membership application on behalf of
+              <strong>${data.organisation}</strong>. We have received your application and it is currently
+              <strong>under review by our secretariat team</strong>.
+            </p>
+            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 24px;">
+              You will receive a separate email once your application has been reviewed. If approved,
+              you will be guided through the next steps of the registration process.
+            </p>
+            <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:16px 20px;margin-bottom:24px;">
+              <p style="font-size:13px;color:#856404;margin:0;">
+                ⏳ <strong>What happens next?</strong> Our team reviews all applications within 3–5 working days.
+                Please keep an eye on your inbox for our response.
+              </p>
+            </div>
+            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:20px 24px;margin-bottom:24px;">
+              <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#6b7280;margin:0 0 8px;">Your Submission Summary</p>
+              <table style="width:100%;border-collapse:collapse;">
+                ${row('Name', displayName)}
+                ${row('Organisation', data.organisation)}
+                ${data.designation ? row('Designation', data.designation) : ''}
+              </table>
+            </div>
+            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 4px;">
+              If you have any questions, please contact us at
+              <a href="mailto:help.arifac@iamai.in" style="color:#2563eb;">help.arifac@iamai.in</a>.
+            </p>
+            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 8px;">
+              Warm regards,<br/>
+              <strong>The ARIFAC Secretariat</strong>
+            </p>
+            ${FOOTER_NOTE}
+          </div>
+        </div>`,
+    }, retries);
+  }
+
+  /* ══════════════════════════════════════════════════════════
      SYSTEM EMAILS (resume link, password reset, admin notify)
   ══════════════════════════════════════════════════════════ */
 
