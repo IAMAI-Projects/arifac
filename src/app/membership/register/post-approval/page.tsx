@@ -2,11 +2,14 @@
 
 import { useState, useEffect, Suspense, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, User, Building2, ShieldCheck, CheckSquare, Upload, Briefcase, ChevronDown, AlertCircle, Loader2 } from 'lucide-react';
+import { ArrowLeft, User, Building2, ShieldCheck, CheckSquare, Upload, Briefcase, ChevronDown, AlertCircle, Loader2, Search } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useRouter } from 'next/navigation';
+import { PostApprovalFormSchema } from '@/lib/validations/membership.schema';
+import FormErrorMessage from '@/components/FormErrorMessage';
+import { z } from 'zod';
 
 // Data
 const PRIMARY_SECTORS = [
@@ -57,6 +60,7 @@ function PostApprovalFormContent() {
     declarationAccepted: false
   });
   
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [iamaiFile, setIamaiFile] = useState<File | null>(null);
   const iamaiFileRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -95,10 +99,21 @@ function PostApprovalFormContent() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
+    const finalValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    
     setFormData(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+      [name]: finalValue
     }));
+
+    // Clear error when user types
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -150,13 +165,33 @@ function PostApprovalFormContent() {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
+    setErrors({});
+
+    // Validate with Zod
+    try {
+      PostApprovalFormSchema.parse(formData);
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        const fieldErrors: Record<string, string> = {};
+        err.errors.forEach((error) => {
+          if (error.path) {
+            fieldErrors[error.path[0]] = error.message;
+          }
+        });
+        setErrors(fieldErrors);
+        setError("Please fix the errors in the form.");
+        setIsSubmitting(false);
+        return;
+      }
+    }
 
     const isIamaiSelected = formData.industryMemberships.includes('IAMAI');
     const isIbaSelected = formData.industryMemberships.includes('IBA');
     const isMembershipSelected = isIamaiSelected || isIbaSelected;
 
     if (isIamaiSelected && !iamaiFile) {
-      setError("Please upload IAMAI Membership Certificate");
+      setErrors(prev => ({ ...prev, iamaiFile: "Please upload IAMAI Membership Certificate" }));
+      setError("Please upload required documents.");
       setIsSubmitting(false);
       return;
     }
@@ -278,17 +313,19 @@ function PostApprovalFormContent() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Primary Sector / Industry *</label>
-                  <select required name="primarySector" value={formData.primarySector} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white">
+                  <select required name="primarySector" value={formData.primarySector} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border ${errors.primarySector ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}>
                     <option value="" disabled>Select Sector</option>
                     {PRIMARY_SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
+                  <FormErrorMessage message={errors.primarySector} />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Type of Entity *</label>
-                  <select required name="entityType" value={formData.entityType} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white">
+                  <select required name="entityType" value={formData.entityType} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border ${errors.entityType ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}>
                     <option value="" disabled>Select Entity Type</option>
                     {ENTITY_TYPES.map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
+                  <FormErrorMessage message={errors.entityType} />
                 </div>
               </div>
             </div>
@@ -305,21 +342,25 @@ function PostApprovalFormContent() {
             <div className="p-6 sm:p-8 space-y-6">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">Are you registered with FIU-IND? *</label>
-                <div className="flex gap-6 mb-4">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input type="radio" name="registeredWithFiu" value="Yes" checked={formData.registeredWithFiu === 'Yes'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
-                    <span className="text-gray-700">Yes</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input type="radio" name="registeredWithFiu" value="No" checked={formData.registeredWithFiu === 'No'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
-                    <span className="text-gray-700">No</span>
-                  </label>
+                <div className="flex flex-col gap-3">
+                  <div className="flex gap-6">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="radio" name="registeredWithFiu" value="Yes" checked={formData.registeredWithFiu === 'Yes'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
+                      <span className="text-gray-700">Yes</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="radio" name="registeredWithFiu" value="No" checked={formData.registeredWithFiu === 'No'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
+                      <span className="text-gray-700">No</span>
+                    </label>
+                  </div>
+                  <FormErrorMessage message={errors.registeredWithFiu} />
                 </div>
 
                 {formData.registeredWithFiu === 'Yes' && (
                   <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="mt-4">
                     <label className="block text-sm font-semibold text-gray-700 mb-2">FIU-IND Registration Number (FINGate 2.0) *</label>
-                    <input required name="fiuRegNumber" value={formData.fiuRegNumber} onChange={handleInputChange} type="text" className="w-full md:w-1/2 px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-gray-50" placeholder="Enter FINGate 2.0 Reg No." />
+                    <input required name="fiuRegNumber" value={formData.fiuRegNumber} onChange={handleInputChange} type="text" className={`w-full md:w-1/2 px-4 py-3 rounded-xl border ${errors.fiuRegNumber ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-gray-50`} placeholder="Enter FINGate 2.0 Reg No." />
+                    <FormErrorMessage message={errors.fiuRegNumber} />
                   </motion.div>
                 )}
               </div>
@@ -329,14 +370,16 @@ function PostApprovalFormContent() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Identifier Type *</label>
-                  <select required name="identifierType" value={formData.identifierType} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white">
+                  <select required name="identifierType" value={formData.identifierType} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border ${errors.identifierType ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}>
                     <option value="" disabled>Select applicable type</option>
                     {IDENTIFIER_TYPES.map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
+                  <FormErrorMessage message={errors.identifierType} />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Identifier Number *</label>
-                  <input required name="identifierNumber" value={formData.identifierNumber} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-mono" placeholder="Enter Registration/Tax ID number" />
+                  <input required name="identifierNumber" value={formData.identifierNumber} onChange={handleInputChange} type="text" className={`w-full px-4 py-3 rounded-xl border ${errors.identifierNumber ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-mono`} placeholder="Enter Registration/Tax ID number" />
+                  <FormErrorMessage message={errors.identifierNumber} />
                 </div>
               </div>
             </div>
@@ -389,6 +432,14 @@ function PostApprovalFormContent() {
                                 }
                               }
                               setFormData(prev => ({ ...prev, industryMemberships: current }));
+                              // Clear error
+                              if (errors.industryMemberships) {
+                                setErrors(prev => {
+                                  const newErrors = { ...prev };
+                                  delete newErrors.industryMemberships;
+                                  return newErrors;
+                                });
+                              }
                             }}
                             className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 cursor-pointer"
                           />
@@ -398,6 +449,7 @@ function PostApprovalFormContent() {
                     </motion.div>
                   )}
                 </AnimatePresence>
+                <FormErrorMessage message={errors.industryMemberships} />
               </div>
 
               <AnimatePresence>
@@ -427,12 +479,14 @@ function PostApprovalFormContent() {
                         onChange={(e) => handleFileChange(e)}
                       />
                     </div>
+                    <FormErrorMessage message={errors.iamaiFile} />
                   </motion.div>
                 )}
                 {formData.industryMemberships.includes('IBA') && (
                   <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mb-6 overflow-hidden">
                     <label className="block text-sm font-semibold text-gray-700 mb-2">IBA Membership ID *</label>
-                    <input required name="ibaMembershipId" value={formData.ibaMembershipId} onChange={handleInputChange} type="text" className="w-full md:w-1/2 px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-mono" placeholder="Enter IBA Membership ID" />
+                    <input required name="ibaMembershipId" value={formData.ibaMembershipId} onChange={handleInputChange} type="text" className={`w-full md:w-1/2 px-4 py-3 rounded-xl border ${errors.ibaMembershipId ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-mono`} placeholder="Enter IBA Membership ID" />
+                    <FormErrorMessage message={errors.ibaMembershipId} />
                   </motion.div>
                 )}
                 {formData.industryMemberships.includes('None') && (
@@ -451,7 +505,7 @@ function PostApprovalFormContent() {
                             name="turnoverOrAum"
                             value={formData.turnoverOrAum}
                             onChange={handleInputChange}
-                            className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+                            className={`w-full px-4 py-3 rounded-xl border ${errors.turnoverOrAum ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}
                           >
                             <option value="" disabled>Select applicable range</option>
                             {isBankOrNBFC ? (
@@ -474,6 +528,7 @@ function PostApprovalFormContent() {
                               </>
                             )}
                           </select>
+                          <FormErrorMessage message={errors.turnoverOrAum} />
                         </div>
                       );
                     })()}
@@ -492,14 +547,17 @@ function PostApprovalFormContent() {
               <h2 className="text-xl font-bold text-gray-900">4. Declaration</h2>
             </div>
             <div className="p-6 sm:p-8 space-y-6 bg-green-50/30">
-              <label className="flex items-start gap-4 cursor-pointer p-4 rounded-xl border border-gray-200 bg-white hover:border-green-300 transition-colors">
-                <div className="pt-1">
-                  <input required name="declarationAccepted" checked={formData.declarationAccepted} onChange={handleInputChange} type="checkbox" className="w-5 h-5 rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer" />
+              <div className="flex flex-col gap-3">
+                <div className="flex items-start gap-4 cursor-pointer p-4 rounded-xl border border-gray-200 bg-white hover:border-green-300 transition-colors">
+                  <div className="pt-1">
+                    <input required name="declarationAccepted" checked={formData.declarationAccepted} onChange={handleInputChange} type="checkbox" className="w-5 h-5 rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer" />
+                  </div>
+                  <div className="text-sm text-gray-700 leading-relaxed font-medium">
+                    I hereby declare that all information provided in this form is true, accurate, and complete to the best of my knowledge. I consent to ARIFAC collecting, storing, and processing the information submitted herein for the purposes of membership activation.
+                  </div>
                 </div>
-                <div className="text-sm text-gray-700 leading-relaxed font-medium">
-                  I hereby declare that all information provided in this form is true, accurate, and complete to the best of my knowledge. I consent to ARIFAC collecting, storing, and processing the information submitted herein for the purposes of membership activation.
-                </div>
-              </label>
+                <FormErrorMessage message={errors.declarationAccepted} />
+              </div>
             </div>
           </div>
 
