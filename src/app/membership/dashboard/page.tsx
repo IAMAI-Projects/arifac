@@ -50,29 +50,7 @@ export default function MembershipDashboard() {
     router.push('/membership/login');
   };
 
-  const handleDownloadPDF = async () => {
-    try {
-      setIsDownloading(true);
-      const response = await fetch('/api/membership/download');
 
-      if (!response.ok) throw new Error('Failed to download PDF');
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `ARIFAC-Membership-${memberData.name.replace(/\s+/g, '-')}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-    } catch (error) {
-      console.error('Error downloading PDF:', error);
-      alert('Failed to download PDF. Please try again.');
-    } finally {
-      setIsDownloading(false);
-    }
-  };
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -275,23 +253,13 @@ export default function MembershipDashboard() {
                   </p>
 
                   <div className="flex flex-col gap-3">
-                    <button
-                      onClick={handleDownloadPDF}
-                      disabled={isDownloading}
-                      className="w-full py-3 rounded-2xl bg-white text-black font-bold hover:bg-gray-100 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed group"
+                    <Link
+                      href="/membership/certificate"
+                      className="w-full py-3 rounded-2xl bg-white text-black font-bold hover:bg-gray-100 transition-all flex items-center justify-center gap-2 group"
                     >
-                      {isDownloading ? (
-                        <>
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                          Processing...
-                        </>
-                      ) : (
-                        <>
-                          <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-                          Download PDF
-                        </>
-                      )}
-                    </button>
+                      <Award className="w-4 h-4 group-hover:scale-110 transition-all" />
+                      View Certificate
+                    </Link>
                     <Link
                       href={`/membership/verify/${memberData.id}`}
                       target="_blank"
