@@ -41,6 +41,6 @@ run:
     - name: CCAVENUE_POST_URL
       value: "https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction"
     - name: CCAVENUE_CALLBACK_BASE_URL
-      value: "https://stage.arifac.com"
+      value: "http://arifac-uat-alb-1423683250.ap-south-1.elb.amazonaws.com/"
     - name: NEXT_PUBLIC_FRONTEND_URL
-      value: "https://stage.arifac.com"
+      value: "http://arifac-uat-alb-1423683250.ap-south-1.elb.amazonaws.com/"

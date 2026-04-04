@@ -411,7 +411,7 @@ export class EmailService {
   /* Resume / approval email */
   static async sendResumeEmail(email: string, name: string, token: string, retries = 3) {
     const domain = process.env.NEXT_PUBLIC_APP_URL ||
-      (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://arifac.in');
+      (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'http://arifac-uat-alb-1423683250.ap-south-1.elb.amazonaws.com/');
     const resumeLink = `${domain}/api/resume?token=${token}`;
 
     await sendEmail({
@@ -462,7 +462,7 @@ export class EmailService {
   /* Password reset email */
   static async sendPasswordResetEmail(email: string, name: string, token: string, retries = 3) {
     const domain = process.env.NEXT_PUBLIC_APP_URL ||
-      (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://arifac.in');
+      (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'http://arifac-uat-alb-1423683250.ap-south-1.elb.amazonaws.com/');
     const resetLink = `${domain}/membership/reset-password/${token}`;
 
     await sendEmail({
