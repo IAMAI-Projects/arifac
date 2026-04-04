@@ -169,7 +169,15 @@ export class WorkflowService {
       include: { user: true }
     });
 
-    if (!record || record.used || record.expiresAt < new Date()) {
+    if (!record) {
+      console.error(`[WorkflowService] Resume token not found: ${token}`);
+      return null;
+    }
+
+    // We relaxed the .used check to support multiple clicks/email scanners
+    const now = new Date();
+    if (record.expiresAt < now) {
+      console.error(`[WorkflowService] Resume token expired: ${token}. Expires at ${record.expiresAt}, now is ${now}`);
       return null;
     }
 
