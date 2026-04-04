@@ -121,7 +121,8 @@ export default function MembershipDashboard() {
             memberSince: new Date(mainApp.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
             expiryDate: new Date(new Date(mainApp.created_at).setFullYear(new Date(mainApp.created_at).getFullYear() + 1)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
             status: mainApp.status,
-            type: mainApp.application_type === 'PRE_APPROVED' ? "Industry Member (Pre-approved)" : "Non Pre-approved"
+            type: mainApp.application_type === 'PRE_APPROVED' ? "Industry Member (Pre-approved)" : "Non Pre-approved",
+            feeWaived: mainApp.fee_waived
           });
         }
       } catch (err) {
@@ -240,12 +241,11 @@ export default function MembershipDashboard() {
 
           {/* Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
             {/* Left Column: Quick Actions & Certificate Selection */}
             <div className="lg:col-span-2 space-y-8">
-
               {/* Main Information Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {!(memberData?.feeWaived && memberData?.status !== 'ACTIVE') && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                 {/* Certificate Download Card */}
                 <motion.div
@@ -326,8 +326,8 @@ export default function MembershipDashboard() {
                     <p className="text-[11px] text-gray-400">All information is synced with your organisation's official registration.</p>
                   </div>
                 </motion.div>
-
               </div>
+              )}
 
               {/* Collapsible Section for Timeline / Audit (UX Improvement) */}
               <motion.div
@@ -385,50 +385,52 @@ export default function MembershipDashboard() {
 
             {/* Right Column: Renewal & Expiry */}
             <div className="lg:col-span-1">
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl p-8 sticky top-32"
-              >
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="p-3 bg-amber-500/10 rounded-2xl text-amber-500">
-                    <Clock className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-bold">Renewal Timeline</h3>
-                </div>
-
-                <div className="space-y-8">
-                  <div>
-                    <div className="flex justify-between items-end mb-3">
-                      <span className="text-sm text-gray-400">Membership Progress</span>
-                      <span className="text-xs font-bold text-amber-500">365 Days Left</span>
+              {!(memberData?.feeWaived && memberData?.status !== 'ACTIVE') && (
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl p-8 sticky top-32"
+                >
+                  <div className="flex items-center gap-3 mb-8">
+                    <div className="p-3 bg-amber-500/10 rounded-2xl text-amber-500">
+                      <Clock className="w-6 h-6" />
                     </div>
-                    <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                      <div className="w-full h-full bg-gradient-to-r from-amber-500 to-orange-600 rounded-full" />
-                    </div>
+                    <h3 className="text-xl font-bold">Renewal Timeline</h3>
                   </div>
 
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5">
-                      <span className="text-xs text-gray-400 uppercase font-bold">Registered</span>
-                      <span className="text-sm font-medium">{memberData.memberSince}</span>
+                  <div className="space-y-8">
+                    <div>
+                      <div className="flex justify-between items-end mb-3">
+                        <span className="text-sm text-gray-400">Membership Progress</span>
+                        <span className="text-xs font-bold text-amber-500">365 Days Left</span>
+                      </div>
+                      <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                        <div className="w-full h-full bg-gradient-to-r from-amber-500 to-orange-600 rounded-full" />
+                      </div>
                     </div>
-                    <div className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5">
-                      <span className="text-xs text-gray-400 uppercase font-bold">Valid Until</span>
-                      <span className="text-sm font-medium">{memberData.expiryDate}</span>
+
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5">
+                        <span className="text-xs text-gray-400 uppercase font-bold">Registered</span>
+                        <span className="text-sm font-medium">{memberData.memberSince}</span>
+                      </div>
+                      <div className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5">
+                        <span className="text-xs text-gray-400 uppercase font-bold">Valid Until</span>
+                        <span className="text-sm font-medium">{memberData.expiryDate}</span>
+                      </div>
+                    </div>
+
+                    <button className="w-full py-4 rounded-2xl bg-white/5 border border-white/10 text-gray-500 font-bold text-sm cursor-not-allowed">
+                      Renewal Not Required Yet
+                    </button>
+
+                    <div className="text-center">
+                      <p className="text-[10px] text-gray-500">Automatic renewal notification will be sent <br /> 30 days before expiry.</p>
                     </div>
                   </div>
-
-                  <button className="w-full py-4 rounded-2xl bg-white/5 border border-white/10 text-gray-500 font-bold text-sm cursor-not-allowed">
-                    Renewal Not Required Yet
-                  </button>
-
-                  <div className="text-center">
-                    <p className="text-[10px] text-gray-500">Automatic renewal notification will be sent <br /> 30 days before expiry.</p>
-                  </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              )}
             </div>
 
           </div>

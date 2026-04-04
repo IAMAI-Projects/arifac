@@ -173,9 +173,9 @@ function PostApprovalFormContent() {
     } catch (err) {
       if (err instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
-        err.errors.forEach((error) => {
-          if (error.path) {
-            fieldErrors[error.path[0]] = error.message;
+        err.issues.forEach((issue) => {
+          if (issue.path && issue.path.length > 0) {
+            fieldErrors[issue.path[0].toString()] = issue.message;
           }
         });
         setErrors(fieldErrors);

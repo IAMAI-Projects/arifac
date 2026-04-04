@@ -86,7 +86,7 @@ const IDENTIFIER_TYPES = [
 function RegistrationFormContent() {
   const searchParams = useSearchParams();
   const prefilledOrg = searchParams.get('org') || '';
-  
+
   const [formData, setFormData] = useState({
     // Section 1
     salutation: '', fullName: '', designation: '', countryCode: '+91', mobile: '', email: '', username: '', password: '', confirmPassword: '',
@@ -101,7 +101,7 @@ function RegistrationFormContent() {
     // Section 5
     declarationAccepted: false, remarks: ''
   });
-  
+
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [iamaiFile, setIamaiFile] = useState<File | null>(null);
@@ -130,7 +130,7 @@ function RegistrationFormContent() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     const finalValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
-    
+
     setFormData(prev => ({
       ...prev,
       [name]: finalValue
@@ -206,9 +206,9 @@ function RegistrationFormContent() {
     } catch (err) {
       if (err instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
-        err.errors.forEach((error) => {
-          if (error.path) {
-            fieldErrors[error.path[0]] = error.message;
+        err.issues.forEach((issue) => {
+          if (issue.path && issue.path.length > 0) {
+            fieldErrors[issue.path[0].toString()] = issue.message;
           }
         });
         setErrors(fieldErrors);

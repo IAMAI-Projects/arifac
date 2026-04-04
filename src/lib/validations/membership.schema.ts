@@ -82,3 +82,16 @@ export const MembershipFormBSchema = z.object({
 });
 
 export const MembershipFormCSchema = MembershipFormASchema;
+
+export const PostApprovalFormSchema = z.object({
+  primarySector: z.string().min(1, 'Primary sector is required'),
+  entityType: z.string().min(1, 'Entity type is required'),
+  registeredWithFiu: z.string().min(1, 'Please select if registered with FIU-IND'),
+  fiuRegNumber: z.string().optional(),
+  identifierType: z.string().min(1, 'Identifier type is required'),
+  identifierNumber: z.string().min(1, 'Identifier number is required'),
+  industryMemberships: z.array(z.string()).min(1, 'Please select at least one membership option (or "None")'),
+  ibaMembershipId: z.string().optional(),
+  turnoverOrAum: z.string().optional(),
+  declarationAccepted: z.boolean().refine(val => val === true, 'You must accept the declaration to proceed'),
+});

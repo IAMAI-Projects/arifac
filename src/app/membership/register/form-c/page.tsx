@@ -129,7 +129,7 @@ function RegistrationFormCContent() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     const finalValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
-    
+
     setFormData(prev => ({
       ...prev,
       [name]: finalValue
@@ -184,9 +184,9 @@ function RegistrationFormCContent() {
     } catch (err) {
       if (err instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
-        err.errors.forEach((error) => {
-          if (error.path) {
-            fieldErrors[error.path[0]] = error.message;
+        err.issues.forEach((issue) => {
+          if (issue.path && issue.path.length > 0) {
+            fieldErrors[issue.path[0].toString()] = issue.message;
           }
         });
         setErrors(fieldErrors);
@@ -251,12 +251,7 @@ function RegistrationFormCContent() {
         {/* Header */}
         <br />
         <div className="mb-8">
-          <Link href="/membership/register" className="inline-flex items-center text-gray-500 hover:text-blue-600 mb-6 transition-colors">
-            <ArrowLeft className="w-4 h-4 mr-2" /> Back to Programme Overview
-          </Link>
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 font-medium text-sm mb-4">
-            Step 2 of 2
-          </motion.div>
+
           <motion.h1 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
             ARIFAC Registration
           </motion.h1>
@@ -574,7 +569,7 @@ function RegistrationFormCContent() {
                     <FormErrorMessage message={errors.ibaMembershipId} />
                   </motion.div>
                 )}
-                    {/* Turnover section removed for Form C as it is free */}
+                {/* Turnover section removed for Form C as it is free */}
               </AnimatePresence>
             </div>
           </div>
