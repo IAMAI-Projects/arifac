@@ -204,35 +204,37 @@ export default function MemberBenefitsPage() {
             {/* Responsibilities & Policies */}
             <section className="py-14 bg-white">
                 <div className="container mx-auto px-6">
-                    <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16">
-                        {/* Responsibilities */}
-                        <div className="bg-primary text-white p-10 md:p-12 rounded-[48px] shadow-xl relative overflow-hidden">
-                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(194,176,32,0.1),transparent)] pointer-events-none" />
-                            <h2 className="text-3xl font-bold mb-8">Member Responsibilities</h2>
-                            <p className="text-white/80 mb-8 font-medium">Members are expected to maintain the highest standards of integrity, professionalism, and compliance:</p>
-                            <ul className="space-y-6 mb-10">
-                                {[
-                                    "Maintain confidentiality of discussions and shared information",
-                                    "Ensure compliance with applicable AML/CFT laws and regulatory obligations",
-                                    "Avoid misuse of ARIFAC platforms, forums, or affiliation",
-                                    "Act in good faith and contribute constructively to industry discussions"
-                                ].map((item, i) => (
-                                    <li key={i} className="flex items-start gap-4">
-                                        <CheckCircle2 className="text-[#C2B020] shrink-0 mt-1" size={20} />
-                                        <span className="text-white/90 font-medium">{item}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                            <div className="p-6 bg-white/5 border border-white/10 rounded-3xl">
-                                <p className="text-sm text-white/70 italic">
-                                    Members must not disclose sensitive regulatory or transaction-related information, including Suspicious Transaction Reporting (STR)-related discussions or any confidential compliance data.
-                                </p>
-                            </div>
-                        </div>
+                    <div className="max-w-6xl mx-auto space-y-10">
 
-                        {/* Validity & Fees */}
-                        <div className="space-y-8">
-                            <div className="p-7 bg-[#f5f5f7] rounded-[32px] border border-gray-100">
+                        {/* Row 1: Responsibilities + Validity */}
+                        <div className="grid lg:grid-cols-2 gap-10">
+                            {/* Responsibilities */}
+                            <div className="bg-primary text-white p-10 md:p-12 rounded-[48px] shadow-xl relative overflow-hidden">
+                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(194,176,32,0.1),transparent)] pointer-events-none" />
+                                <h2 className="text-3xl font-bold mb-8">Member Responsibilities</h2>
+                                <p className="text-white/80 mb-8 font-medium">Members are expected to maintain the highest standards of integrity, professionalism, and compliance:</p>
+                                <ul className="space-y-6 mb-10">
+                                    {[
+                                        "Maintain confidentiality of discussions and shared information",
+                                        "Ensure compliance with applicable AML/CFT laws and regulatory obligations",
+                                        "Avoid misuse of ARIFAC platforms, forums, or affiliation",
+                                        "Act in good faith and contribute constructively to industry discussions"
+                                    ].map((item, i) => (
+                                        <li key={i} className="flex items-start gap-4">
+                                            <CheckCircle2 className="text-[#C2B020] shrink-0 mt-1" size={20} />
+                                            <span className="text-white/90 font-medium">{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <div className="p-6 bg-white/5 border border-white/10 rounded-3xl">
+                                    <p className="text-sm text-white/70 italic">
+                                        Members must not disclose sensitive regulatory or transaction-related information, including Suspicious Transaction Reporting (STR)-related discussions or any confidential compliance data.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Validity & Renewal */}
+                            <div className="p-8 bg-[#f5f5f7] rounded-[40px] border border-gray-100 flex flex-col justify-center">
                                 <div className="flex items-center gap-4 mb-6 text-accent">
                                     <RefreshCw size={28} />
                                     <h3 className="text-2xl font-bold text-[#1d1d1f]">Validity & Renewal</h3>
@@ -252,20 +254,67 @@ export default function MemberBenefitsPage() {
                                     </li>
                                 </ul>
                             </div>
+                        </div>
 
-                            <div className="p-7 bg-[#f5f5f7] rounded-[32px] border border-gray-100">
-                                <div className="flex items-center gap-4 mb-6 text-accent">
-                                    <ClipboardCheck size={28} />
-                                    <h3 className="text-2xl font-bold text-[#1d1d1f]">Fees</h3>
+                        {/* Row 2: Fees — full width */}
+                        <div className="p-8 bg-[#f5f5f7] rounded-[40px] border border-gray-100">
+                            <div className="flex items-center gap-4 mb-4 text-accent">
+                                <ClipboardCheck size={28} />
+                                <h3 className="text-2xl font-bold text-[#1d1d1f]">Fees</h3>
+                            </div>
+                            <p className="text-secondary text-sm font-medium leading-relaxed mb-6">
+                                Membership fees are determined by your organisation&apos;s self-declared annual turnover or Assets Under Management (AUM), as applicable. All fees are exclusive of taxes and subject to revision.
+                            </p>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {/* Turnover Table */}
+                                <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+                                    <div className="grid grid-cols-2 bg-[#1d1d1f] text-white text-[11px] font-bold uppercase tracking-wider px-5 py-3">
+                                        <span>Turnover ₹</span>
+                                        <span>Annual Fee</span>
+                                    </div>
+                                    {[
+                                        ['Up to 5 Cr', '₹25,000 + taxes'],
+                                        ['5–25 Cr', '₹50,000 + taxes'],
+                                        ['25–100 Cr', '₹1,00,000 + taxes'],
+                                        ['100–500 Cr', '₹1,50,000 + taxes'],
+                                        ['500–2,000 Cr', '₹3,00,000 + taxes'],
+                                        ['Above 2,000 Cr', '₹5,00,000 + taxes'],
+                                    ].map(([range, fee], i) => (
+                                        <div key={i} className={`grid grid-cols-2 px-5 py-3 text-[13px] font-medium border-b border-gray-50 last:border-0 ${i % 2 === 0 ? 'bg-white' : 'bg-[#fafafa]'}`}>
+                                            <span className="text-[#1d1d1f]">{range}</span>
+                                            <span className="text-accent font-bold">{fee}</span>
+                                        </div>
+                                    ))}
                                 </div>
-                                <p className="text-secondary font-medium leading-relaxed">
-                                    Membership categories and applicable fee structures are detailed in our{' '}
-                                    <a href="/membership-terms" className="text-accent font-bold hover:underline">
-                                        Membership Terms &amp; Conditions
-                                    </a>.
-                                </p>
+
+                                {/* AUM Table */}
+                                <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+                                    <div className="grid grid-cols-2 bg-[#C2B020] text-[#1d1d1f] text-[11px] font-bold uppercase tracking-wider px-5 py-3">
+                                        <span>AUM ₹</span>
+                                        <span>Annual Fee</span>
+                                    </div>
+                                    {[
+                                        ['Up to 500 Cr', '₹25,000 + taxes'],
+                                        ['500–1,000 Cr', '₹50,000 + taxes'],
+                                        ['1,000–10,000 Cr', '₹1,00,000 + taxes'],
+                                        ['10,000–50,000 Cr', '₹1,50,000 + taxes'],
+                                        ['50,000–1,00,000 Cr', '₹3,00,000 + taxes'],
+                                        ['Above 1,00,000 Cr', '₹5,00,000 + taxes'],
+                                    ].map(([range, fee], i) => (
+                                        <div key={i} className={`grid grid-cols-2 px-5 py-3 text-[13px] font-medium border-b border-gray-50 last:border-0 ${i % 2 === 0 ? 'bg-white' : 'bg-[#fafafa]'}`}>
+                                            <span className="text-[#1d1d1f]">{range}</span>
+                                            <span className="text-accent font-bold">{fee}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="mt-6 px-6 py-4 bg-[#C2B020]/10 border border-[#C2B020]/30 rounded-2xl text-[13px] font-bold text-[#1d1d1f] text-center">
+                                ARIFAC membership is complimentary for all IBA and IAMAI members.
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section>
