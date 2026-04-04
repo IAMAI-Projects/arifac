@@ -15,7 +15,6 @@ export default function Footer() {
                 { name: t('nav.events'), href: '/meetings' },
                 { name: 'Sectoral Nodal Officers', href: '/sectoral-nodal-officers' },
                 { name: 'Training Leads', href: '/training-leads' },
-                { name: 'Steering Committee', href: '#' },
                 { name: 'Contact Us', href: '/contact' },
             ],
         },
@@ -95,9 +94,6 @@ export default function Footer() {
                             </div>
                         </a>
                     </div>
-                    <p className="text-secondary text-[11px] leading-relaxed text-center sm:text-right max-w-xs">
-                        {t('footer.iamai_desc')}
-                    </p>
                 </div>
 
                 <div className="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">

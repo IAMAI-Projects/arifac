@@ -162,7 +162,7 @@ const translations: Record<Language, Record<string, string>> = {
 
         // Footer
         'footer.desc': "Empowering India's financial ecosystem through unified compliance standards, expert certification, and strategic regulatory dialogue.",
-        'footer.iamai_aegis': 'Operated by',
+        'footer.iamai_aegis': 'An initiative by',
         'footer.iamai_full': 'Internet & Mobile Association of India',
         'footer.iamai_desc': "ARIFAC is an IAMAI initiative as part of India's commitment to strengthening financial integrity frameworks.",
         'footer.rights': 'All rights reserved.',

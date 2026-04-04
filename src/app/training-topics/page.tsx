@@ -17,6 +17,7 @@ export default function TrainingTopicsPage() {
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
     const [error, setError] = useState('');
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -35,6 +36,7 @@ export default function TrainingTopicsPage() {
             
             if (!res.ok) throw new Error('Failed to submit');
             setIsSubmitted(true);
+            setShowPopup(true);
         } catch (err) {
             setError('Something went wrong. Please try again later.');
         } finally {
@@ -42,39 +44,32 @@ export default function TrainingTopicsPage() {
         }
     };
 
-    if (isSubmitted) {
-        return (
-            <main className="min-h-screen flex flex-col pt-20 bg-white">
-                <Navbar />
-                <div className="flex-1 flex items-center justify-center p-6">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="max-w-md w-full text-center"
-                    >
-                        <div className="w-20 h-20 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <CheckCircle2 className="w-10 h-10 text-primary" />
-                        </div>
-                        <h1 className="text-3xl font-bold text-primary mb-4">Request Submitted</h1>
-                        <p className="text-gray-600 mb-8">
-                            Your training topic suggestion has been recorded. Our curriculum committee reviews all member requests during quarterly planning.
-                        </p>
-                        <button
-                            onClick={() => setIsSubmitted(false)}
-                            className="text-primary font-bold hover:underline"
-                        >
-                            Suggest another topic
-                        </button>
-                    </motion.div>
-                </div>
-                <Footer />
-            </main>
-        );
-    }
-
     return (
         <main className="min-h-screen bg-white font-sans">
             <Navbar />
+
+            {/* Thank You Popup */}
+            {showPopup && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-6">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="bg-white rounded-[48px] p-12 max-w-md w-full text-center shadow-2xl"
+                    >
+                        <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <CheckCircle2 className="w-10 h-10 text-accent" />
+                        </div>
+                        <h2 className="text-2xl font-bold text-[#1d1d1f] mb-4">Thank you for submitting your response</h2>
+                        <p className="text-secondary font-medium mb-8">Your training topic suggestion has been recorded. Our curriculum committee reviews all member requests during quarterly planning.</p>
+                        <button
+                            onClick={() => { setShowPopup(false); setIsSubmitted(false); setFormData({ firstName: '', lastName: '', email: '', mobile: '', topics: '', agreement: false }); }}
+                            className="px-10 py-4 bg-[#1d1d1f] text-white rounded-2xl font-bold hover:bg-gray-800 transition-all"
+                        >
+                            Close
+                        </button>
+                    </motion.div>
+                </div>
+            )}
 
             <div className="pt-36 pb-14 px-6">
                 <div className="max-w-7xl mx-auto">

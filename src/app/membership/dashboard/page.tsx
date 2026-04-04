@@ -227,6 +227,13 @@ export default function MembershipDashboard() {
                   <Edit2 className="w-4 h-4" />
                   Edit Profile
                 </button>
+                <Link
+                  href="/membership/launching-soon"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#C2B020] to-[#A3941B] text-[#1d1d1f] hover:opacity-90 transition-all flex items-center gap-2 text-sm font-bold shadow-md shadow-[#C2B020]/20"
+                >
+                  <Award className="w-4 h-4" />
+                  Upgrade to Membership
+                </Link>
               </div>
             </div>
           </div>

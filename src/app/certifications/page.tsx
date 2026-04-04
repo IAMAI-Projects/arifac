@@ -281,9 +281,9 @@ export default function CertificationsPage() {
                                             {lvl.badge}
                                         </span>
                                         <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                                            lvl.isAvailable ? 'text-green-700 bg-green-50' : 'text-accent bg-accent/10'
+                                            lvl.isAvailable ? 'text-blue-700 bg-blue-50' : 'text-accent bg-accent/10'
                                         }`}>
-                                            {lvl.isAvailable ? 'Available' : 'Coming Soon'}
+                                            {lvl.isAvailable ? 'Languages Available — En' : 'Coming Soon'}
                                         </span>
                                     </div>
 
@@ -339,7 +339,27 @@ export default function CertificationsPage() {
                                     </div>
                                 </div>
 
-                                {/* Add-on courses hidden — only core courses visible */}
+                                {/* Extra tile for L1 row: Compliance Training Programme */}
+                                {lvl.level === 'L1' && (
+                                    <div className="shrink-0 w-full lg:w-[280px] rounded-2xl p-4 flex flex-col border bg-[#f9f9fb] border-gray-100 opacity-80 transition-all">
+                                        <div className="flex items-center justify-between mb-3">
+                                            <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-accent bg-white border border-gray-100 px-3 py-1 rounded-full shadow-sm">
+                                                CTP
+                                            </span>
+                                            <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full text-accent bg-accent/10">
+                                                Launching Soon
+                                            </span>
+                                        </div>
+                                        <h3 className="text-[15px] font-bold text-[#1d1d1f] mb-1 leading-tight">ARIFAC&apos;s Compliance Training Programme for All Employees</h3>
+                                        <p className="text-[11px] text-secondary font-medium mb-1">Organisation-wide</p>
+                                        <p className="text-[11px] text-secondary/70 mb-3 leading-relaxed">Foundational AML/CFT compliance training designed for all employees across reporting entities</p>
+                                        <div className="flex flex-col gap-2 mt-auto">
+                                            <div className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-gray-100 text-gray-400 font-bold text-[12px]">
+                                                <Lock size={14} /> Launching Soon
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </motion.div>
                         ))}
                     </div>

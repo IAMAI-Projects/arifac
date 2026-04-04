@@ -112,7 +112,7 @@ export default function RegisterARIFACPage() {
 
                             <div className="flex justify-center">
                                 <button
-                                    onClick={() => window.location.href = "/membership/register/form-c"}
+                                    onClick={() => window.location.href = "/engage/register"}
                                     className="group px-12 py-6 bg-accent hover:bg-accent/90 text-white font-bold rounded-[24px] transition-all flex items-center gap-4 text-xl shadow-xl hover:shadow-accent/40 active:scale-95"
                                 >
                                     {t('register.proceed')}
