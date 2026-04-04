@@ -75,10 +75,10 @@ export default function MembershipSection() {
                     </div>
 
                     <Link
-                        href="/membership/launching-soon"
+                        href={user ? "/membership/dashboard" : "/membership/register"}
                         className="bg-white text-[#1d1d1f] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all flex items-center gap-2"
                     >
-                        {t('ARIFAC Membership')}
+                        {user ? t('nav.dashboard') || 'Go to Dashboard' : t('ARIFAC Membership')}
                         <ArrowRight className="w-5 h-5" />
                     </Link>
                 </div>

@@ -123,7 +123,10 @@ function PaymentContent() {
           {/* Left Side: Review Details */}
           <div className="flex-grow lg:w-2/3">
             <br />
-            <Link href="/membership/register/form-a" className="inline-flex items-center text-gray-500 hover:text-blue-600 mb-6 transition-colors font-medium">
+            <Link 
+              href={paymentData?.backUrl || "/membership/register/form-a"} 
+              className="inline-flex items-center text-gray-500 hover:text-blue-600 mb-6 transition-colors font-medium"
+            >
               <ArrowLeft className="w-4 h-4 mr-2" /> Back to Form
             </Link>
 

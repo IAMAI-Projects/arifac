@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from 'framer-motion';
+import { getUser } from '@/lib/auth';
 import {
     Shield,
     Users,
@@ -88,6 +89,12 @@ const processSteps = [
 ];
 
 export default function MemberBenefitsPage() {
+    const [user, setUser] = useState<any>(null);
+
+    useEffect(() => {
+        setUser(getUser());
+    }, []);
+
     return (
         <main className="min-h-screen bg-white font-sans text-[#1d1d1f]">
             <Navbar />
@@ -336,8 +343,11 @@ export default function MemberBenefitsPage() {
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
-                            <button onClick={() => window.location.href = "/membership/launching-soon"} className="px-10 py-5 bg-[#C2B020] hover:bg-[#A3941B] text-[#1d1d1f] font-bold rounded-2xl transition-all flex items-center gap-3 w-full sm:w-auto justify-center">
-                                Proceed to become a member <ArrowRight size={20} />
+                            <button 
+                                onClick={() => window.location.href = user ? "/membership/dashboard" : "/membership/register"} 
+                                className="px-10 py-5 bg-[#C2B020] hover:bg-[#A3941B] text-[#1d1d1f] font-bold rounded-2xl transition-all flex items-center gap-3 w-full sm:w-auto justify-center"
+                            >
+                                {user ? "Go to Dashboard" : "Proceed to become a member"} <ArrowRight size={20} />
                             </button>
 
                         </div>

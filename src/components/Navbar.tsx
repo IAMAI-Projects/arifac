@@ -60,7 +60,11 @@ export default function Navbar() {
             name: t('Engage'),
             href: '/member-benefits',
             dropdown: [
-                { name: t('ARIFAC Membership'), href: '/member-benefits', icon: Award },
+                {
+                    name: t('ARIFAC Membership'),
+                    href: user ? '/membership/dashboard' : '/member-benefits',
+                    icon: Award
+                },
                 { name: t('Register with ARIFAC'), href: '/register-with-arifac', icon: GraduationCap }
             ]
 
@@ -318,25 +322,27 @@ export default function Navbar() {
                                                 ARIFAC Certification
                                             </Link>
                                             <Link
-                                                href="/membership/login"
+                                                href={user ? "/membership/dashboard" : "/membership/login"}
                                                 className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
                                                 onClick={() => setActiveDropdown(null)}
                                             >
                                                 {t('nav.member_platform')}
                                             </Link>
 
-                                            {/* {getUser() && (
+                                            {user && (
                                                 <button
-                                                    onClick={() => {
-                                                        logout();
+                                                    onClick={async () => {
+                                                        await logout();
+                                                        setUser(null);
                                                         setActiveDropdown(null);
                                                         window.location.href = '/';
                                                     }}
                                                     className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-red-600 hover:bg-red-50 rounded-xl transition-all text-left w-full"
                                                 >
+                                                    <LogOut size={16} />
                                                     {t('nav.logout')}
                                                 </button>
-                                            )} */}
+                                            )}
                                         </div>
                                     </motion.div>
                                 )}
@@ -594,7 +600,7 @@ export default function Navbar() {
                                     </a>
                                 </div>
                                 <Link
-                                    href="/membership/login"
+                                    href={user ? "/membership/dashboard" : "/membership/login"}
                                     className="flex items-center gap-4 font-bold text-[#1d1d1f] px-8 py-6 bg-white rounded-[24px] border-2 border-[#1d1d1f] hover:bg-[#1d1d1f] hover:text-white transition-all text-xl"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
@@ -604,21 +610,22 @@ export default function Navbar() {
                                     {t('nav.member_platform')}
                                 </Link>
 
-                                {/* {getUser() && (
+                                {user && (
                                     <button
-                                        onClick={() => {
-                                            logout();
+                                        onClick={async () => {
+                                            await logout();
+                                            setUser(null);
                                             setIsMobileMenuOpen(false);
                                             window.location.href = '/';
                                         }}
                                         className="text-center font-bold text-red-600 px-8 py-6 bg-red-50 rounded-[24px] hover:bg-red-100 transition-all text-xl"
                                     >
-                                        <div className="flex items-center gap-3">
-                                            <LogOut size={20} />
+                                        <div className="flex items-center gap-3 justify-center">
+                                            <LogOut size={24} />
                                             {t('nav.logout')}
                                         </div>
                                     </button>
-                                )} */}
+                                )}
                             </div>
                         </div>
                     </motion.div>

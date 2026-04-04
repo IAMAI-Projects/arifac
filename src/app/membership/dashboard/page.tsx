@@ -122,7 +122,13 @@ export default function MembershipDashboard() {
             expiryDate: new Date(new Date(mainApp.created_at).setFullYear(new Date(mainApp.created_at).getFullYear() + 1)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
             status: mainApp.status,
             type: mainApp.application_type === 'PRE_APPROVED' ? "Industry Member (Pre-approved)" : "Non Pre-approved",
-            feeWaived: mainApp.fee_waived
+            feeWaived: mainApp.fee_waived,
+            isUpgraded: (
+              mainApp.turnover_range || 
+              (mainApp.application_details?.[0]?.turnover_range) || 
+              ['UNDER_REVIEW', 'PAYMENT_PENDING', 'PAYMENT_SUCCESS', 'VERIFIED', 'ACTIVATION_PENDING'].includes(mainApp.status) ||
+              (mainApp.status === 'ACTIVE' && mainApp.turnover_range)
+            ) ? true : false
           });
         }
       } catch (err) {
@@ -228,13 +234,20 @@ export default function MembershipDashboard() {
                   <Edit2 className="w-4 h-4" />
                   Edit Profile
                 </button>
-                <Link
-                  href="/membership/launching-soon"
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#C2B020] to-[#A3941B] text-[#1d1d1f] hover:opacity-90 transition-all flex items-center gap-2 text-sm font-bold shadow-md shadow-[#C2B020]/20"
-                >
-                  <Award className="w-4 h-4" />
-                  Upgrade to Membership
-                </Link>
+                {memberData.status === 'UNDER_REVIEW' ? (
+                  <div className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-500 flex items-center gap-2 text-sm font-bold shadow-md cursor-not-allowed">
+                    <Clock className="w-4 h-4" />
+                    Upgrade Under Review
+                  </div>
+                ) : (memberData.feeWaived && !memberData.isUpgraded) && (
+                  <Link
+                    href="/membership/upgrade"
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#C2B020] to-[#A3941B] text-[#1d1d1f] hover:opacity-90 transition-all flex items-center gap-2 text-sm font-bold shadow-md shadow-[#C2B020]/20"
+                  >
+                    <Award className="w-4 h-4" />
+                    Upgrade to Membership
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -244,7 +257,7 @@ export default function MembershipDashboard() {
             {/* Left Column: Quick Actions & Certificate Selection */}
             <div className="lg:col-span-2 space-y-8">
               {/* Main Information Cards */}
-              {!(memberData?.feeWaived && memberData?.status !== 'ACTIVE') && (
+              {(!memberData?.feeWaived || memberData?.isUpgraded) && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                 {/* Certificate Download Card */}
@@ -385,7 +398,7 @@ export default function MembershipDashboard() {
 
             {/* Right Column: Renewal & Expiry */}
             <div className="lg:col-span-1">
-              {!(memberData?.feeWaived && memberData?.status !== 'ACTIVE') && (
+              {(!memberData?.feeWaived || memberData?.isUpgraded) && (
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
