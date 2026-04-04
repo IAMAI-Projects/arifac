@@ -77,20 +77,7 @@ const ENTITY_TYPES = [
 ];
 
 const IDENTIFIER_TYPES = [
-  "CIN — Company Identification Number (MCA)",
-  "LLP Identification Number",
-  "TAN — Tax Deduction Account Number",
-  "GST Registration Number (GSTIN)",
   "PAN — Permanent Account Number",
-  "Trust Registration Number",
-  "Society Registration Number",
-  "Co-operative Society Registration Number",
-  "IRDAI Registration Number",
-  "SEBI Registration Number",
-  "RBI Registration / Licence Number",
-  "IFSCA Registration Number",
-  "FIU-IND Registration Number",
-  "Other Regulatory Licence / Registration Number"
 ];
 
 function RegistrationFormCContent() {

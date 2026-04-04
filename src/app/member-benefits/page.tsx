@@ -256,10 +256,13 @@ export default function MemberBenefitsPage() {
                             <div className="p-7 bg-[#f5f5f7] rounded-[32px] border border-gray-100">
                                 <div className="flex items-center gap-4 mb-6 text-accent">
                                     <ClipboardCheck size={28} />
-                                    <h3 className="text-2xl font-bold text-[#1d1d1f]">Fees & Participation</h3>
+                                    <h3 className="text-2xl font-bold text-[#1d1d1f]">Fees</h3>
                                 </div>
                                 <p className="text-secondary font-medium leading-relaxed">
-                                    Membership categories and applicable fee structures are published separately and may be updated from time to time. Additional fees may apply for training programmes, certifications, and specialised events.
+                                    Membership categories and applicable fee structures are detailed in our{' '}
+                                    <a href="/membership-terms" className="text-accent font-bold hover:underline">
+                                        Membership Terms &amp; Conditions
+                                    </a>.
                                 </p>
                             </div>
                         </div>
@@ -284,7 +287,7 @@ export default function MemberBenefitsPage() {
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
-                            <button onClick={() => window.location.href = "membership/login"} className="px-10 py-5 bg-[#C2B020] hover:bg-[#A3941B] text-[#1d1d1f] font-bold rounded-2xl transition-all flex items-center gap-3 w-full sm:w-auto justify-center">
+                            <button onClick={() => window.location.href = "/membership/launching-soon"} className="px-10 py-5 bg-[#C2B020] hover:bg-[#A3941B] text-[#1d1d1f] font-bold rounded-2xl transition-all flex items-center gap-3 w-full sm:w-auto justify-center">
                                 Proceed to become a member <ArrowRight size={20} />
                             </button>
 

@@ -310,14 +310,13 @@ export default function Navbar() {
                                             <p className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.15em] pl-2">{t('nav.platform_access')}</p>
                                         </div>
                                         <div className="p-3 flex flex-col gap-1.5">
-                                            <a
-                                                href="https://arifac.iamai.in/courses"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
+                                            <Link
+                                                href="/membership/launching-soon"
                                                 className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
+                                                onClick={() => setActiveDropdown(null)}
                                             >
-                                                {t('nav.learning_platform')}
-                                            </a>
+                                                ARIFAC Certification
+                                            </Link>
                                             <Link
                                                 href="/membership/login"
                                                 className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
