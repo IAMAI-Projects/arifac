@@ -46,8 +46,12 @@ export async function POST(req: Request) {
     }
 
     if (validated.status === 'REJECTED') {
-      // Rejection logic could be added here
-      return NextResponse.json({ success: true, message: 'Request Rejected.' });
+      const updatedUser = await WorkflowService.rejectApplication(user.id, adminSession.userId, validated.remarks);
+      
+      // Send Rejection Email
+      await EmailService.sendRejectionEmail(updatedUser.email, updatedUser.name, validated.remarks);
+
+      return NextResponse.json({ success: true, message: 'Request Rejected. Email sent.' });
     }
 
     return NextResponse.json({ 

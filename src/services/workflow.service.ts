@@ -363,4 +363,32 @@ export class WorkflowService {
       return user;
     }, { maxWait: 20000, timeout: 60000 });
   }
+
+  /**
+   * Reject Application
+   */
+  static async rejectApplication(userId: string, adminId: string, remarks?: string) {
+    return await prisma.$transaction(async (tx) => {
+      const user = await tx.user.findUnique({ where: { id: userId } });
+      if (!user) throw new Error('User not found');
+
+      // Update Form B status if it exists
+      await tx.formB.updateMany({
+        where: { userId: userId },
+        data: { status: FormBStatus.REJECTED }
+      });
+
+      // Update Approval records status to REJECTED for this user that are currently PENDING
+      await tx.approval.updateMany({
+        where: { userId: userId, status: ApprovalStatus.PENDING },
+        data: {
+          status: ApprovalStatus.REJECTED,
+          reviewedBy: adminId,
+          remarks: remarks || 'Rejected by Admin'
+        }
+      });
+
+      return user;
+    }, { maxWait: 20000, timeout: 60000 });
+  }
 }

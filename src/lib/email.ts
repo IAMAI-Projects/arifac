@@ -435,6 +435,30 @@ export class EmailService {
     }, retries);
   }
 
+  /* Rejection email */
+  static async sendRejectionEmail(email: string, name: string, remarks?: string, retries = 3) {
+    await sendEmail({
+      from: process.env.SMTP_FROM || process.env.SMTP_USER || ADMIN_INBOX,
+      to: email,
+      subject: 'Application Status Update | ARIFAC',
+      html: `
+        <div style="font-family:Arial,sans-serif;padding:20px;max-width:600px;margin:auto;border:1px solid #eee;border-radius:10px;">
+          ${USER_HEADER}
+          <h2 style="color:#333;margin-top:24px;">Hello, ${name}!</h2>
+          <p>Thank you for your interest in ARIFAC membership. After reviewing your application, we regret to inform you that your registration could not be approved at this time.</p>
+          ${remarks ? `
+          <div style="background:#fef2f2;border:1px solid #fee2e2;border-radius:6px;padding:16px 20px;margin:20px 0;">
+            <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#991b1b;margin:0 0 8px;">Reviewer Remarks</p>
+            <p style="font-size:14px;color:#b91c1b;margin:0;line-height:1.6;">${remarks}</p>
+          </div>
+          ` : ''}
+          <p>If you have any questions or would like to provide additional information, please feel free to reach out to us at <a href="mailto:help.arifac@iamai.in" style="color:#2563eb;">help.arifac@iamai.in</a>.</p>
+          <hr style="border:0;border-top:1px solid #eee;margin:30px 0;" />
+          ${FOOTER_NOTE}
+        </div>`,
+    }, retries);
+  }
+
   /* Password reset email */
   static async sendPasswordResetEmail(email: string, name: string, token: string, retries = 3) {
     const domain = process.env.NEXT_PUBLIC_APP_URL ||
