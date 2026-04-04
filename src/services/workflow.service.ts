@@ -84,12 +84,12 @@ export class WorkflowService {
       console.error('[WorkflowService] Failed to notify admins:', emailError);
     }
 
-    // 2. Send Form B user acknowledgement email (under-review template)
+    // 2. Send Form B user acknowledgement email (application received template)
     try {
-      await EmailService.sendFormBEmail({
+      await EmailService.sendApplicationReceivedEmail({
+        orgName: data.organisationName,
         name: data.name,
         email: data.email,
-        organisation: data.organisationName,
         designation: data.details?.designation,
         mobile: data.details?.countryCode
           ? `${data.details.countryCode} ${data.details.mobile || ''}`

@@ -497,7 +497,7 @@ function PostApprovalFormContent() {
                   <input required name="declarationAccepted" checked={formData.declarationAccepted} onChange={handleInputChange} type="checkbox" className="w-5 h-5 rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer" />
                 </div>
                 <div className="text-sm text-gray-700 leading-relaxed font-medium">
-                  I hereby declare that all information provided in this form is true, accurate, and complete to the best of my knowledge. I consent to ARIFAC collecting, storing, and processing the information submitted herein for the purposes of membership activation.
+                  I hereby declare that I am duly authorised to represent the organisation and that all information provided in this form is true, accurate, and complete to the best of my knowledge. I consent to ARIFAC collecting, storing, and processing the information submitted herein for the purposes of membership registration and related communications.
                 </div>
               </label>
             </div>

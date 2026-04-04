@@ -49,7 +49,7 @@ const HEADER = (title: string) => `
 const USER_HEADER = `
   <div style="background:#1a1a2e;padding:24px 32px;border-radius:8px 8px 0 0;text-align:center;">
     <h2 style="color:#ffffff;margin:0;font-size:22px;letter-spacing:.02em;">ARIFAC</h2>
-    <p style="color:#9ca3af;margin:6px 0 0;font-size:12px;text-transform:uppercase;letter-spacing:.08em;">AI Regulation &amp; Innovation Forum for APAC Countries</p>
+    <p style="color:#9ca3af;margin:6px 0 0;font-size:12px;text-transform:uppercase;letter-spacing:.08em;">Alliance of Reporting Entities in India for AML/CFT</p>
   </div>`;
 
 const FOOTER_NOTE = `
@@ -237,93 +237,187 @@ export class EmailService {
   }
 
   /* ══════════════════════════════════════════════════════════
-     3. BECOME A MEMBER (Membership registration)
-     Admin notification + User acknowledgement
+     3. MEMBERSHIP CONFIRMATION (Form A — paid membership)
+     Admin notification + User confirmation with credentials
   ══════════════════════════════════════════════════════════ */
 
-  static async sendMembershipEnquiryEmail(
+  static async sendMembershipConfirmationEmail(
     data: {
-      name: string;
+      orgName: string;
       email: string;
-      organisation?: string;
+      membershipId: string;
+      entityType: string;
+      username: string;
+      password: string;
+      name: string;
       designation?: string;
       mobile?: string;
     },
     retries = 3,
   ) {
+    const activationDate = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
+
     // Email 1 — Admin notification
     await sendEmail({
       from: `"ARIFAC Membership" <${process.env.SMTP_USER}>`,
       replyTo: `"${data.name}" <${data.email}>`,
       to: ADMIN_INBOX,
-      subject: `[ARIFAC Membership] New Application — ${data.name}`,
+      subject: `[ARIFAC Membership] New Registration — ${data.orgName}`,
       html: `
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
-          ${HEADER('New Membership Application')}
+          ${HEADER('New Membership Registration — Form A')}
           <div style="background:#f9fafb;padding:32px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 8px 8px;">
             <table style="width:100%;border-collapse:collapse;">
-              ${row('Name', data.name)}
+              ${row('Organisation', data.orgName)}
+              ${row('Membership ID', data.membershipId)}
+              ${row('Category', data.entityType)}
+              ${row('Contact Person', data.name)}
               ${row('Email', `<a href="mailto:${data.email}" style="color:#2563eb;">${data.email}</a>`)}
-              ${data.organisation ? row('Organisation', data.organisation) : ''}
               ${data.designation ? row('Designation', data.designation) : ''}
               ${data.mobile ? row('Mobile', data.mobile) : ''}
+              ${row('Date of Activation', activationDate)}
             </table>
             ${FOOTER_NOTE}
           </div>
         </div>`,
     }, retries);
 
-    // Email 2 — User acknowledgement
+    // Email 2 — User confirmation with credentials
     await sendEmail({
       from: `"ARIFAC" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
       to: data.email,
-      subject: 'Thank you for your ARIFAC Membership Application',
+      subject: `Confirmation of ARIFAC Membership Registration – ${data.orgName}`,
       html: `
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
           ${USER_HEADER}
           <div style="background:#f9fafb;padding:32px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 8px 8px;">
-            <p style="font-size:16px;color:#111827;margin:0 0 16px;">Dear ${data.name},</p>
-            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 16px;">
-              Thank you for applying for ARIFAC membership. We are pleased to receive your application and
-              our secretariat team will review it shortly.
+            <p style="font-size:15px;color:#111827;margin:0 0 20px;">Respected Sir/Madam,</p>
+            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 20px;">
+              We are pleased to inform you that <strong>${data.orgName}</strong> has been successfully registered as a member of the
+              Alliance of Reporting Entities in India for AML/CFT (ARIFAC).
             </p>
-            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 24px;">
-              As an ARIFAC member, you will gain access to exclusive research, training programmes, and
-              a network of AI regulation professionals across the APAC region. We look forward to welcoming
-              you to the community.
-            </p>
-            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:20px 24px;margin-bottom:24px;">
-              <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#6b7280;margin:0 0 8px;">Your Submission Summary</p>
+            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:20px 24px;margin-bottom:20px;">
               <table style="width:100%;border-collapse:collapse;">
-                ${row('Name', data.name)}
-                ${data.organisation ? row('Organisation', data.organisation) : ''}
-                ${data.designation ? row('Designation', data.designation) : ''}
+                ${row('Membership ID', `<strong>${data.membershipId}</strong>`)}
+                ${row('Category', data.entityType)}
+                ${row('Date of Activation', activationDate)}
+                ${row('Username', data.username)}
+                ${row('Password', data.password)}
               </table>
             </div>
-            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 4px;">
-              If you have any questions, please contact us at
-              <a href="mailto:help.arifac@iamai.in" style="color:#2563eb;">help.arifac@iamai.in</a>.
+            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 16px;">
+              As a member, you will be part of ARIFAC's initiatives focused on AML/CFT compliance, capacity building, and industry collaboration.
             </p>
-            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 8px;">
-              Warm regards,<br/>
-              <strong>The ARIFAC Secretariat</strong>
+            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 24px;">
+              Further details regarding platform access, knowledge sessions, and engagement opportunities will be shared shortly.
             </p>
-            ${FOOTER_NOTE}
+            <p style="font-size:14px;color:#374151;line-height:1.6;margin:0 0 0;">
+              Regards,<br/>
+              <strong>ARIFAC Secretariat</strong><br/>
+              Internet and Mobile Association of India (IAMAI)<br/>
+              <a href="mailto:help.arifac@iamai.in" style="color:#2563eb;">help.arifac@iamai.in</a>
+            </p>
           </div>
         </div>`,
     }, retries);
   }
 
   /* ══════════════════════════════════════════════════════════
-     4. FORM B — NEW ORGANISATION MEMBERSHIP APPLICATION
-     Admin notification + User under-review acknowledgement
+     4. REGISTRATION CONFIRMATION (Form C — free registration)
+     Admin notification + User confirmation with credentials
   ══════════════════════════════════════════════════════════ */
 
-  static async sendFormBEmail(
+  static async sendRegistrationConfirmationEmail(
     data: {
-      name: string;
+      orgName: string;
       email: string;
-      organisation: string;
+      registrationId: string;
+      entityType: string;
+      username: string;
+      password: string;
+      name: string;
+      designation?: string;
+      mobile?: string;
+    },
+    retries = 3,
+  ) {
+    const activationDate = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
+
+    // Email 1 — Admin notification
+    await sendEmail({
+      from: `"ARIFAC Membership" <${process.env.SMTP_USER}>`,
+      replyTo: `"${data.name}" <${data.email}>`,
+      to: ADMIN_INBOX,
+      subject: `[ARIFAC Registration] New Registration — ${data.orgName}`,
+      html: `
+        <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
+          ${HEADER('New Registration — Form C')}
+          <div style="background:#f9fafb;padding:32px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 8px 8px;">
+            <table style="width:100%;border-collapse:collapse;">
+              ${row('Organisation', data.orgName)}
+              ${row('Registration ID', data.registrationId)}
+              ${row('Category', data.entityType)}
+              ${row('Contact Person', data.name)}
+              ${row('Email', `<a href="mailto:${data.email}" style="color:#2563eb;">${data.email}</a>`)}
+              ${data.designation ? row('Designation', data.designation) : ''}
+              ${data.mobile ? row('Mobile', data.mobile) : ''}
+              ${row('Date of Registration', activationDate)}
+            </table>
+            ${FOOTER_NOTE}
+          </div>
+        </div>`,
+    }, retries);
+
+    // Email 2 — User confirmation with credentials
+    await sendEmail({
+      from: `"ARIFAC" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+      to: data.email,
+      subject: `Confirmation of Registration with ARIFAC – ${data.orgName}`,
+      html: `
+        <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
+          ${USER_HEADER}
+          <div style="background:#f9fafb;padding:32px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 8px 8px;">
+            <p style="font-size:15px;color:#111827;margin:0 0 20px;">Respected Sir/Madam,</p>
+            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 20px;">
+              We are pleased to inform you that <strong>${data.orgName}</strong> has been successfully registered with the
+              Alliance of Reporting Entities in India for AML/CFT (ARIFAC).
+            </p>
+            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:20px 24px;margin-bottom:20px;">
+              <table style="width:100%;border-collapse:collapse;">
+                ${row('Registration ID', `<strong>${data.registrationId}</strong>`)}
+                ${row('Category', data.entityType)}
+                ${row('Date of Registration', activationDate)}
+                ${row('Username', data.username)}
+                ${row('Password', data.password)}
+              </table>
+            </div>
+            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 16px;">
+              As a registered entity, you will be part of ARIFAC's initiatives focused on AML/CFT compliance, capacity building, and industry collaboration.
+            </p>
+            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 24px;">
+              Further details regarding platform access, knowledge sessions, and engagement opportunities will be shared shortly.
+            </p>
+            <p style="font-size:14px;color:#374151;line-height:1.6;margin:0 0 0;">
+              Regards,<br/>
+              <strong>ARIFAC Secretariat</strong><br/>
+              Internet and Mobile Association of India (IAMAI)<br/>
+              <a href="mailto:help.arifac@iamai.in" style="color:#2563eb;">help.arifac@iamai.in</a>
+            </p>
+          </div>
+        </div>`,
+    }, retries);
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     5. APPLICATION RECEIVED (Form B — under-review)
+     Admin notification + User acknowledgement
+  ══════════════════════════════════════════════════════════ */
+
+  static async sendApplicationReceivedEmail(
+    data: {
+      orgName: string;
+      email: string;
+      name: string;
       designation?: string;
       mobile?: string;
       salutation?: string;
@@ -332,12 +426,12 @@ export class EmailService {
   ) {
     const displayName = data.salutation ? `${data.salutation} ${data.name}` : data.name;
 
-    // Email 1 — Admin notification (in addition to the existing sendAdminNotificationEmail)
+    // Email 1 — Admin notification
     await sendEmail({
       from: `"ARIFAC Membership" <${process.env.SMTP_USER}>`,
       replyTo: `"${displayName}" <${data.email}>`,
       to: ADMIN_INBOX,
-      subject: `[ARIFAC Form B] New Organisation Application — ${data.organisation}`,
+      subject: `[ARIFAC Form B] New Organisation Application — ${data.orgName}`,
       html: `
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
           ${HEADER('New Form B — Organisation Membership Application')}
@@ -345,7 +439,7 @@ export class EmailService {
             <table style="width:100%;border-collapse:collapse;">
               ${row('Name', displayName)}
               ${row('Email', `<a href="mailto:${data.email}" style="color:#2563eb;">${data.email}</a>`)}
-              ${row('Organisation', data.organisation)}
+              ${row('Organisation', data.orgName)}
               ${data.designation ? row('Designation', data.designation) : ''}
               ${data.mobile ? row('Mobile', data.mobile) : ''}
             </table>
@@ -361,44 +455,29 @@ export class EmailService {
     await sendEmail({
       from: `"ARIFAC" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
       to: data.email,
-      subject: 'Your ARIFAC Membership Application is Under Review',
+      subject: `ARIFAC Membership Application Received – ${data.orgName}`,
       html: `
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
           ${USER_HEADER}
           <div style="background:#f9fafb;padding:32px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 8px 8px;">
-            <p style="font-size:16px;color:#111827;margin:0 0 16px;">Dear ${displayName},</p>
+            <p style="font-size:15px;color:#111827;margin:0 0 20px;">Respected Sir/Madam,</p>
             <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 16px;">
-              Thank you for submitting your ARIFAC membership application on behalf of
-              <strong>${data.organisation}</strong>. We have received your application and it is currently
-              <strong>under review by our secretariat team</strong>.
+              This is to acknowledge that we have received the membership application for
+              <strong>${data.orgName}</strong> for onboarding to ARIFAC.
+            </p>
+            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 16px;">
+              Our team is currently reviewing the submitted details. The ARIFAC Helpdesk will reach out to you
+              with the next steps, if any additional information is required.
             </p>
             <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 24px;">
-              You will receive a separate email once your application has been reviewed. If approved,
-              you will be guided through the next steps of the registration process.
+              We appreciate your interest in joining ARIFAC.
             </p>
-            <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:16px 20px;margin-bottom:24px;">
-              <p style="font-size:13px;color:#856404;margin:0;">
-                ⏳ <strong>What happens next?</strong> Our team reviews all applications within 3–5 working days.
-                Please keep an eye on your inbox for our response.
-              </p>
-            </div>
-            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:20px 24px;margin-bottom:24px;">
-              <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#6b7280;margin:0 0 8px;">Your Submission Summary</p>
-              <table style="width:100%;border-collapse:collapse;">
-                ${row('Name', displayName)}
-                ${row('Organisation', data.organisation)}
-                ${data.designation ? row('Designation', data.designation) : ''}
-              </table>
-            </div>
-            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 4px;">
-              If you have any questions, please contact us at
-              <a href="mailto:help.arifac@iamai.in" style="color:#2563eb;">help.arifac@iamai.in</a>.
+            <p style="font-size:14px;color:#374151;line-height:1.6;margin:0 0 0;">
+              Regards,<br/>
+              <strong>ARIFAC Secretariat</strong><br/>
+              Internet and Mobile Association of India (IAMAI)<br/>
+              <a href="mailto:help.arifac@iamai.in" style="color:#2563eb;">help.arifac@iamai.in</a>
             </p>
-            <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 8px;">
-              Warm regards,<br/>
-              <strong>The ARIFAC Secretariat</strong>
-            </p>
-            ${FOOTER_NOTE}
           </div>
         </div>`,
     }, retries);

@@ -14,13 +14,13 @@ export const MembershipFormASchema = z.object({
   // Organisation Details
   orgName: z.string().min(1, 'Organisation name is required'),
   registeredAddress: z.string().min(5, 'Registered address must be at least 5 characters'),
-  orgWebsite: z.string().url('Invalid website URL').optional().or(z.literal('')),
+  orgWebsite: z.string().url('Invalid website URL'),
   primarySector: z.string().min(1, 'Primary sector is required'),
   entityType: z.string().min(1, 'Entity type is required'),
   isRegulated: z.enum(['Yes', 'No']),
 
   // Regulatory & Company Identifier
-  registeredWithFiu: z.enum(['Yes', 'No']),
+  registeredWithFiu: z.enum(['Yes', 'No']).optional(),
   fiuRegNumber: z.string().optional(),
   identifierType: z.string().min(1, 'Identifier type is required'),
   identifierNumber: z.string().min(1, 'Identifier number is required'),

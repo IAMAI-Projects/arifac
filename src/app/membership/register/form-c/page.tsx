@@ -90,10 +90,9 @@ function RegistrationFormCContent() {
     orgName: prefilledOrg, registeredAddress: '', orgWebsite: '', primarySector: '', entityType: '',
     isRegulated: '',
     // Section 3
-    registeredWithFiu: '', fiuRegNumber: '',
     identifierType: '', identifierNumber: '',
     // Section 4
-    industryMemberships: [] as string[], ibaMembershipId: '', turnoverOrAum: '',
+    industryMemberships: [] as string[], turnoverOrAum: '',
     // Section 5
     declarationAccepted: false, remarks: ''
   });
@@ -322,8 +321,8 @@ function RegistrationFormCContent() {
                   <textarea required name="registeredAddress" value={formData.registeredAddress} onChange={handleInputChange} minLength={5} rows={3} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none" placeholder="Enter complete registered address"></textarea>
                 </div>
                 <div className="col-span-1 md:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Organisation Website</label>
-                  <input name="orgWebsite" value={formData.orgWebsite} onChange={handleInputChange} type="url" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="https://example.com" />
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Organisation Website *</label>
+                  <input required name="orgWebsite" value={formData.orgWebsite} onChange={handleInputChange} type="url" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="https://example.com" />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Primary Sector / Industry *</label>
@@ -365,29 +364,6 @@ function RegistrationFormCContent() {
               <h2 className="text-xl font-bold text-gray-900">3. Regulatory & Company Identifier</h2>
             </div>
             <div className="p-6 sm:p-8 space-y-6">
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3">Are you registered with FIU-IND? *</label>
-                <div className="flex gap-6 mb-4">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input type="radio" name="registeredWithFiu" value="Yes" checked={formData.registeredWithFiu === 'Yes'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
-                    <span className="text-gray-700">Yes</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input type="radio" name="registeredWithFiu" value="No" checked={formData.registeredWithFiu === 'No'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
-                    <span className="text-gray-700">No</span>
-                  </label>
-                </div>
-
-                {formData.registeredWithFiu === 'Yes' && (
-                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="mt-4">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">FIU-IND Registration Number (FINGate 2.0) *</label>
-                    <input required name="fiuRegNumber" value={formData.fiuRegNumber} onChange={handleInputChange} type="text" className="w-full md:w-1/2 px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-gray-50" placeholder="Enter FINGate 2.0 Reg No." />
-                  </motion.div>
-                )}
-              </div>
-
-              <div className="h-px bg-gray-100 my-6" />
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Identifier Type *</label>
@@ -493,12 +469,6 @@ function RegistrationFormCContent() {
                     </div>
                   </motion.div>
                 )}
-                {formData.industryMemberships.includes('IBA') && (
-                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mb-6 overflow-hidden">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">IBA Membership ID *</label>
-                    <input required name="ibaMembershipId" value={formData.ibaMembershipId} onChange={handleInputChange} type="text" className="w-full md:w-1/2 px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-mono" placeholder="Enter IBA Membership ID" />
-                  </motion.div>
-                )}
                     {/* Turnover section removed for Form C as it is free */}
               </AnimatePresence>
             </div>
@@ -518,7 +488,7 @@ function RegistrationFormCContent() {
                   <input required name="declarationAccepted" checked={formData.declarationAccepted} onChange={handleInputChange} type="checkbox" className="w-5 h-5 rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer" />
                 </div>
                 <div className="text-sm text-gray-700 leading-relaxed font-medium">
-                  I hereby declare that I am duly authorised to represent the organisation named above and that all information provided in this form is true, accurate, and complete to the best of my knowledge. I consent to ARIFAC collecting, storing, and processing the information submitted herein for the purposes of membership registration and related communications.
+                  I hereby declare that I am duly authorised to represent the organisation and that all information provided in this form is true, accurate, and complete to the best of my knowledge. I consent to ARIFAC collecting, storing, and processing the information submitted herein for the purposes of membership registration and related communications.
                 </div>
               </label>
 
