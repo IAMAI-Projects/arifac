@@ -303,3 +303,16 @@ enum payment_status {
   FAILED
   REFUNDED
 }
+
+model EmailOTP {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email     String
+  otp       String   // hashed
+  expiresAt DateTime @db.Timestamp(6)
+  verified  Boolean  @default(false)
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+
+  @@index([email])
+  @@map("EmailOTP")
+}

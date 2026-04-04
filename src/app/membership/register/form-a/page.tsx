@@ -10,6 +10,7 @@ import { useSearchParams } from 'next/navigation';
 import { login as setClientAuth } from '@/lib/auth';
 import { MembershipFormASchema } from '@/lib/validations/membership.schema';
 import FormErrorMessage from '@/components/FormErrorMessage';
+import OTPVerification from '@/components/OTPVerification';
 import { z } from 'zod';
 
 // Data
@@ -102,6 +103,7 @@ function RegistrationFormContent() {
     declarationAccepted: false, remarks: ''
   });
 
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [iamaiFile, setIamaiFile] = useState<File | null>(null);
@@ -199,6 +201,13 @@ function RegistrationFormContent() {
     setIsSubmitting(true);
     setError(null);
     setErrors({});
+
+    // Ensure email is verified
+    if (!isEmailVerified) {
+      setError("Please verify your email address via OTP.");
+      setIsSubmitting(false);
+      return;
+    }
 
     // Validate with Zod
     try {
@@ -372,8 +381,27 @@ function RegistrationFormContent() {
               </div>
               <div className="col-span-1 md:col-span-3">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
-                <input required name="email" value={formData.email} onChange={handleInputChange} type="email" className={`w-full px-4 py-3 rounded-xl border ${errors.email ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Enter official email" />
+                <input
+                  required
+                  name="email"
+                  value={formData.email}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                    if (isEmailVerified) setIsEmailVerified(false);
+                  }}
+                  type="email"
+                  className={`w-full px-4 py-3 rounded-xl border ${errors.email ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${isEmailVerified ? 'bg-green-50/30' : ''}`}
+                  placeholder="Enter official email"
+                />
                 <FormErrorMessage message={errors.email} />
+
+                {formData.email && !errors.email && (
+                  <OTPVerification
+                    email={formData.email}
+                    onVerify={setIsEmailVerified}
+                    className="mt-3"
+                  />
+                )}
               </div>
               <div className="col-span-1 md:col-span-3">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Preferred Username *</label>

@@ -209,6 +209,18 @@ CREATE TABLE IF NOT EXISTS "Payment" (
   amount DECIMAL(12, 2) NOT NULL,
   "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS "EmailOTP" (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email TEXT NOT NULL,
+  otp TEXT NOT NULL,
+  "expiresAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+  verified BOOLEAN DEFAULT false,
+  attempts INTEGER DEFAULT 0,
+  "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS "idx_email_otp_email" ON "EmailOTP" (email);
 `;
 
 async function main() {

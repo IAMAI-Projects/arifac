@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { hashPassword } from '@/lib/server-auth';
 import { MembershipFormASchema, MembershipFormBSchema, MembershipFormCSchema } from '@/lib/validations/membership.schema';
+import { OtpService } from './otp.service';
 
 import { MAP_IDENTIFIER_TYPE } from '@/lib/constants';
 
@@ -9,6 +10,12 @@ export class MembershipService {
     const validatedData = MembershipFormASchema.parse(data);
     const idenType = (MAP_IDENTIFIER_TYPE[validatedData.identifierType] || 'OTHER') as any;
     const hashedPassword = await hashPassword(validatedData.password);
+
+    // Final security check: Ensure OTP verification was completed
+    const isVerified = await OtpService.checkIsVerified(validatedData.email);
+    if (!isVerified) {
+      throw new Error('Email verification is required before registration.');
+    }
 
     return await prisma.$transaction(async (tx) => {
       // 1. Create or Update Organisation
@@ -39,18 +46,28 @@ export class MembershipService {
         }
       });
 
-      // 2. Create or Update User
-      const user = await tx.users.upsert({
-        where: { email: validatedData.email },
-        update: {
-          full_name: validatedData.fullName,
-          designation: validatedData.designation,
-          mobile: validatedData.mobile,
-          username: validatedData.username,
-          password_hash: hashedPassword,
-          organisation_id: organisation.id,
-        },
-        create: {
+      // 2. Check for unique constraints manually to provide clear error messages
+      const existingUser = await tx.users.findFirst({
+        where: {
+          OR: [
+            { email: validatedData.email },
+            { username: validatedData.username }
+          ]
+        }
+      });
+
+      if (existingUser) {
+        if (existingUser.email === validatedData.email) {
+          throw new Error('Both Email and User ID are required to be unique. The provided email address is already associated with another account.');
+        }
+        if (existingUser.username === validatedData.username) {
+          throw new Error('Both Email and User ID are required to be unique. The provided User ID is already taken.');
+        }
+      }
+
+      // 3. Create User
+      const user = await tx.users.create({
+        data: {
           full_name: validatedData.fullName,
           designation: validatedData.designation,
           email: validatedData.email,
@@ -109,16 +126,25 @@ export class MembershipService {
     const validatedData = MembershipFormBSchema.parse(data);
     const hashedPassword = await hashPassword(validatedData.password);
 
+    // Final security check: Ensure OTP verification was completed
+    const isVerified = await OtpService.checkIsVerified(validatedData.email);
+    if (!isVerified) {
+      throw new Error('Email verification is required before registration.');
+    }
+
     return await prisma.$transaction(async (tx) => {
+      // Check uniqueness for email and username (if username used here, though it's not in Prisma for User model yet, we handle email)
+      const existingUser = await tx.user.findUnique({
+        where: { email: validatedData.email }
+      });
+
+      if (existingUser) {
+        throw new Error('Both Email and User ID are required to be unique. The provided email address is already associated with another account.');
+      }
+
       // Create User (Set 2)
-      const user = await tx.user.upsert({
-        where: { email: validatedData.email },
-        update: {
-          name: validatedData.fullName,
-          status: 'UNDER_ADMIN_REVIEW',
-          password: hashedPassword
-        },
-        create: {
+      const user = await tx.user.create({
+        data: {
           email: validatedData.email,
           name: validatedData.fullName,
           status: 'UNDER_ADMIN_REVIEW',
@@ -168,6 +194,12 @@ export class MembershipService {
     const idenType = (MAP_IDENTIFIER_TYPE[validatedData.identifierType] || 'OTHER') as any;
     const hashedPassword = await hashPassword(validatedData.password);
 
+    // Final security check: Ensure OTP verification was completed
+    const isVerified = await OtpService.checkIsVerified(validatedData.email);
+    if (!isVerified) {
+      throw new Error('Email verification is required before registration.');
+    }
+
     return await prisma.$transaction(async (tx) => {
       // 1. Create or Update Organisation
       const organisation = await tx.organisations.upsert({
@@ -197,18 +229,28 @@ export class MembershipService {
         }
       });
 
-      // 2. Create or Update User
-      const user = await tx.users.upsert({
-        where: { email: validatedData.email },
-        update: {
-          full_name: validatedData.fullName,
-          designation: validatedData.designation,
-          mobile: validatedData.mobile,
-          username: validatedData.username,
-          password_hash: hashedPassword,
-          organisation_id: organisation.id,
-        },
-        create: {
+      // 2. Check for unique constraints manually
+      const existingUser = await tx.users.findFirst({
+        where: {
+          OR: [
+            { email: validatedData.email },
+            { username: validatedData.username }
+          ]
+        }
+      });
+
+      if (existingUser) {
+        if (existingUser.email === validatedData.email) {
+          throw new Error('Both Email and User ID are required to be unique. The provided email address is already associated with another account.');
+        }
+        if (existingUser.username === validatedData.username) {
+          throw new Error('Both Email and User ID are required to be unique. The provided User ID is already taken.');
+        }
+      }
+
+      // 3. Create User
+      const user = await tx.users.create({
+        data: {
           full_name: validatedData.fullName,
           designation: validatedData.designation,
           email: validatedData.email,

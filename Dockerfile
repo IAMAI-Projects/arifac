@@ -50,4 +50,4 @@ USER nextjs
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "npx prisma migrate deploy && node -e \"process.env.HOSTNAME='0.0.0.0'; require('./server.js')\""]
+CMD ["sh", "-c", "npx prisma db push --accept-data-loss && node -e \"process.env.HOSTNAME='0.0.0.0'; require('./server.js')\""]

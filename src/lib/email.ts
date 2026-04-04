@@ -519,4 +519,31 @@ export class EmailService {
         </div>`,
     }, retries);
   }
+
+  /* OTP email */
+  static async sendOTPEmail(email: string, otp: string, expiresAt: Date, retries = 3) {
+    const expiresMinutes = Math.ceil((expiresAt.getTime() - Date.now()) / 60000);
+
+    await sendEmail({
+      from: `"ARIFAC Verification" <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: 'Your OTP for Arifac Verification',
+      html: `
+        <div style="font-family:Arial,sans-serif;padding:24px;max-width:500px;margin:auto;border:1px solid #e5e7eb;border-radius:12px;background:#ffffff;">
+          ${USER_HEADER}
+          <div style="text-align:center;padding:32px 0;">
+            <p style="font-size:14px;color:#4b5563;margin-bottom:8px;">Your verification code is</p>
+            <h1 style="font-size:36px;color:#111827;letter-spacing:8px;margin:0;font-family:monospace;">${otp}</h1>
+            <p style="font-size:13px;color:#6b7280;margin-top:16px;">
+              This code will expire in <strong>${expiresMinutes} minutes</strong>.
+            </p>
+          </div>
+          <p style="font-size:14px;color:#4b5563;line-height:1.5;">
+            If you did not request this code, please ignore this email or contact support if you have concerns.
+          </p>
+          <hr style="border:0;border-top:1px solid #e5e7eb;margin:24px 0;" />
+          ${FOOTER_NOTE}
+        </div>`,
+    }, retries);
+  }
 }
