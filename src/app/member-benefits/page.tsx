@@ -93,7 +93,7 @@ export default function MemberBenefitsPage() {
             <Navbar />
 
             {/* Hero Section */}
-            <section className="relative pt-36 pb-10 overflow-hidden">
+            <section className="relative pt-36 pb-4 overflow-hidden">
                 <div className="container mx-auto px-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -107,7 +107,7 @@ export default function MemberBenefitsPage() {
                             India’s Industry Platform for Financial Crime Prevention
                         </p>
 
-                        <div className="bg-[#f5f5f7] p-8 md:p-10 rounded-[40px] border border-gray-100 mb-12">
+                        <div className="bg-[#f5f5f7] p-8 md:p-10 rounded-[40px] border border-gray-100 mb-4">
                             <p className="text-lg leading-relaxed text-[#1d1d1f]">
                                 Membership is designed for reporting entities and stakeholders in India’s digital and financial ecosystem seeking to engage in industry consultations, capacity building, and knowledge sharing aligned with AML/CFT frameworks.
                             </p>
@@ -117,7 +117,7 @@ export default function MemberBenefitsPage() {
             </section>
 
             {/* What Membership Enables */}
-            <section className="py-20 bg-white">
+            <section className="py-10 bg-white">
                 <div className="container mx-auto px-6">
                     <div className="max-w-7xl mx-auto">
                         <div className="text-center mb-16">
@@ -240,7 +240,7 @@ export default function MemberBenefitsPage() {
                                 <ul className="space-y-4 text-secondary font-medium">
                                     <li className="flex items-start gap-4">
                                         <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
-                                        <span>Membership is valid for a defined period as specified during onboarding</span>
+                                        <span>Membership is valid for a year from the date of onboarding and will be renewed annually</span>
                                     </li>
                                     <li className="flex items-start gap-4">
                                         <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
@@ -306,9 +306,8 @@ export default function MemberBenefitsPage() {
             {/* End-of-page notices */}
             <section className="py-8 bg-white">
                 <div className="container mx-auto px-6">
-                    <div className="max-w-4xl mx-auto space-y-4 text-xs text-[#6e6e73]">
+                    <div className="max-w-4xl mx-auto text-xs text-[#6e6e73]">
                         <p><strong>Important Clarification:</strong> Submission of an application does not guarantee membership. Approval is subject to ARIFAC’s review and discretion. Additionally, ARIFAC does not function as a regulatory or supervisory authority, hence membership does not confer any regulatory status, approval, or compliance certification.</p>
-                        <p><strong>Data Protection &amp; Consent:</strong> By submitting a membership application, you consent to the collection and processing of your information in accordance with ARIFAC's Privacy Policy and applicable data protection laws.</p>
                     </div>
                 </div>
             </section>
