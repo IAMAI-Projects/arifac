@@ -20,7 +20,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
 RUN pnpm prisma generate
-ENV DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy"
+ENV DATABASE_URL="postgresql://postgres:2BuF-eqFfqLusYi@arifac-stage-db.c9imydph9opj.ap-south-1.rds.amazonaws.com:5432/arifac"
 RUN pnpm build
 
 # --- Runner ---
