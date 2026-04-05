@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, User, Building2, ShieldCheck, CheckSquare, Upload, Search, Briefcase, ChevronDown, AlertCircle } from 'lucide-react';
+import { ArrowLeft, User, Building2, ShieldCheck, CheckSquare, Upload, Search, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -94,32 +94,17 @@ function RegistrationFormCContent() {
     orgName: prefilledOrg, registeredAddress: '', orgWebsite: '', primarySector: '', entityType: '',
     isRegulated: '',
     // Section 3
-    registeredWithFiu: '', fiuRegNumber: '',
+    registeredWithFiu: 'No', fiuRegNumber: '',
     identifierType: '', identifierNumber: '',
+    industryMemberships: [] as string[],
     // Section 4
-    industryMemberships: [] as string[], ibaMembershipId: '', turnoverOrAum: '',
-    // Section 5
     declarationAccepted: false, remarks: ''
   });
 
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const [iamaiFile, setIamaiFile] = useState<File | null>(null);
-  const iamaiFileRef = useRef<HTMLInputElement>(null);
 
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const [isMembershipMenuOpen, setIsMembershipMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsMembershipMenuOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   // Update orgName if searchParams change after initial render
   useEffect(() => {
@@ -147,28 +132,7 @@ function RegistrationFormCContent() {
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        setError("File size must be less than 5MB");
-        return;
-      }
-      setIamaiFile(file);
-    }
-  };
 
-  const uploadFile = async (file: File) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    const response = await fetch('/api/upload', {
-      method: 'POST',
-      body: formData,
-    });
-    const result = await response.json();
-    if (!response.ok) throw new Error(result.error || 'Upload failed');
-    return result.url;
-  };
 
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -205,30 +169,17 @@ function RegistrationFormCContent() {
       }
     }
 
-    const isIamai = formData.industryMemberships.includes('IAMAI');
-    const isIba = formData.industryMemberships.includes('IBA');
-    const isMembershipSelected = isIamai || isIba;
 
-    // Additional manual validation for file (Zod handles simple strings better)
-    if (isIamai && !iamaiFile) {
-      setErrors(prev => ({ ...prev, iamaiFile: "Please upload IAMAI Membership Certificate" }));
-      setError("Please upload required documents.");
-      setIsSubmitting(false);
-      return;
-    }
 
     try {
-      let iamaiUrl = '';
-
-      if (iamaiFile) iamaiUrl = await uploadFile(iamaiFile);
-
       const registrationData = {
         ...formData,
+        industryMemberships: [],
         formType: 'C',
         baseAmount: 0,
         taxAmount: 0,
         totalAmount: 0,
-        iamaiCertificateUrl: iamaiUrl,
+        iamaiCertificateUrl: '',
       };
 
       const response = await fetch('/api/membership/register', {
@@ -465,124 +416,13 @@ function RegistrationFormCContent() {
             </div>
           </div>
 
-          {/* 4. Existing Industry Memberships */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200">
-            <div className="bg-gray-50/80 px-6 py-5 border-b border-gray-200 rounded-t-2xl flex items-center gap-3">
-              <div className="p-2 bg-amber-100/50 rounded-lg text-amber-600">
-                <Briefcase className="w-5 h-5" />
-              </div>
-              <h2 className="text-xl font-bold text-gray-900">4. Existing Industry Memberships</h2>
-            </div>
-            <div className="p-6 sm:p-8 space-y-6">
-              <label className="block text-sm font-semibold text-gray-700 mb-3">Is your organisation a member of IAMAI? *</label>
-              <div className="relative mb-6" ref={dropdownRef}>
-                <div
-                  className={`w-full px-4 py-3 rounded-xl border ${isMembershipMenuOpen ? 'border-blue-500 ring-2 ring-blue-500' : 'border-gray-300'} transition-all bg-white cursor-pointer flex justify-between items-center`}
-                  onClick={() => setIsMembershipMenuOpen(!isMembershipMenuOpen)}
-                >
-                  <span className={formData.industryMemberships.length > 0 ? "text-gray-900" : "text-gray-500"}>
-                    {formData.industryMemberships.length > 0 ? formData.industryMemberships.join(', ') : "Select memberships..."}
-                  </span>
-                  <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${isMembershipMenuOpen ? 'rotate-180' : ''}`} />
-                </div>
-
-                <AnimatePresence>
-                  {isMembershipMenuOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden"
-                    >
-                      {['IAMAI', 'None'].map(option => (
-                        <label key={option} className="flex items-center px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-0">
-                          <input
-                            type="checkbox"
-                            checked={formData.industryMemberships.includes(option)}
-                            onChange={() => {
-                              let current = [...formData.industryMemberships];
-                              if (option === 'None') {
-                                current = ['None'];
-                              } else {
-                                current = current.filter(item => item !== 'None');
-                                if (current.includes(option)) {
-                                  current = current.filter(item => item !== option);
-                                } else {
-                                  current.push(option);
-                                }
-                              }
-                              setFormData(prev => ({ ...prev, industryMemberships: current }));
-                              // Clear error
-                              if (errors.industryMemberships) {
-                                setErrors(prev => {
-                                  const newErrors = { ...prev };
-                                  delete newErrors.industryMemberships;
-                                  return newErrors;
-                                });
-                              }
-                            }}
-                            className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 cursor-pointer"
-                          />
-                          <span className="ml-3 text-gray-700 font-medium">{option}</span>
-                        </label>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-                <FormErrorMessage message={errors.industryMemberships} />
-              </div>
-
-              <AnimatePresence>
-                {formData.industryMemberships.includes('IAMAI') && (
-                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mb-6 overflow-hidden">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Upload IAMAI Membership Certificate *</label>
-                    <div
-                      onClick={() => iamaiFileRef.current?.click()}
-                      className={`w-full border-2 border-dashed ${iamaiFile ? 'border-green-500 bg-green-50' : 'border-gray-300 bg-gray-50'} rounded-xl p-8 flex flex-col items-center justify-center text-center hover:bg-gray-100 transition-colors cursor-pointer group`}
-                    >
-                      {iamaiFile ? (
-                        <>
-                          <CheckSquare className="w-8 h-8 text-green-500 mb-3" />
-                          <span className="text-sm font-medium text-green-700">{iamaiFile.name}</span>
-                          <span className="text-xs text-green-600 mt-1">{(iamaiFile.size / 1024).toFixed(1)} KB</span>
-                        </>
-                      ) : (
-                        <>
-                          <Upload className="w-8 h-8 text-gray-400 group-hover:text-blue-500 mb-3" />
-                          <span className="text-sm font-medium text-gray-600">Click to upload or drag & drop</span>
-                          <span className="text-xs text-gray-500 mt-1">PDF, JPG, PNG (Max 5MB)</span>
-                        </>
-                      )}
-                      <input
-                        type="file"
-                        ref={iamaiFileRef}
-                        className="hidden"
-                        accept=".pdf,.png,.jpg,.jpeg"
-                        onChange={(e) => handleFileChange(e)}
-                      />
-                    </div>
-                    <FormErrorMessage message={errors.iamaiFile} />
-                  </motion.div>
-                )}
-                {formData.industryMemberships.includes('IBA') && (
-                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mb-6 overflow-hidden">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">IBA Membership ID *</label>
-                    <input required name="ibaMembershipId" value={formData.ibaMembershipId} onChange={handleInputChange} type="text" className={`w-full md:w-1/2 px-4 py-3 rounded-xl border ${errors.ibaMembershipId ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-mono`} placeholder="Enter IBA Membership ID" />
-                    <FormErrorMessage message={errors.ibaMembershipId} />
-                  </motion.div>
-                )}
-                {/* Turnover section removed for Form C as it is free */}
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {/* 5. Declaration */}
+          {/* 4. Declaration */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
             <div className="bg-gray-50/80 px-6 py-5 border-b border-gray-200 flex items-center gap-3">
               <div className="p-2 bg-green-100/50 rounded-lg text-green-600">
                 <CheckSquare className="w-5 h-5" />
               </div>
-              <h2 className="text-xl font-bold text-gray-900">5. Declaration</h2>
+              <h2 className="text-xl font-bold text-gray-900">4. Declaration</h2>
             </div>
             <div className="p-6 sm:p-8 space-y-6 bg-green-50/30">
               <div className="flex flex-col gap-3">

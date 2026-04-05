@@ -25,12 +25,26 @@ export default function MembershipCertificatePage() {
                     const mainApp = data.applications[0];
                     // Using the first 6 characters of UUID for a more human-friendly ID
                     const shortId = mainApp.id.substring(0, 6).toUpperCase();
+                    
+                    let validity = "Annual Membership";
+                    if (mainApp.is_iba_member) {
+                        validity = "For the duration of IBA Membership";
+                    } else if (mainApp.is_iamai_member) {
+                        validity = "For the duration of IAMAI Membership";
+                    } else if (mainApp.fee_waived) {
+                        validity = "Annual Complimentary Membership";
+                    }
+
                     setMemberData({
                         id: mainApp.id,
                         name: mainApp.organisations?.name || "XYZ Bank",
                         membershipId: `ARF-M-26-BNK-${shortId}`,
-                        issueDate: "06-April-2026", // As per user request/image
-                        validUntil: "For the duration of IBA Membership"
+                        issueDate: new Date(mainApp.created_at).toLocaleDateString('en-GB', {
+                            day: '2-digit',
+                            month: 'long',
+                            year: 'numeric'
+                        }).replace(/ /g, '-'),
+                        validUntil: validity
                     });
                 } else {
                     // Fallback for demonstration if no data is found
@@ -38,7 +52,7 @@ export default function MembershipCertificatePage() {
                         name: "XYZ Bank",
                         membershipId: "ARF-M-26-BNK-000145",
                         issueDate: "06-April-2026",
-                        validUntil: "For the duration of IBA Membership"
+                        validUntil: "Annual Membership"
                     });
                 }
             } catch (err) {

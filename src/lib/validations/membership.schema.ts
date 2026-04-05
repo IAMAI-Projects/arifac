@@ -20,8 +20,8 @@ export const MembershipFormASchema = z.object({
   isRegulated: z.enum(['Yes', 'No']),
 
   // Regulatory & Company Identifier
-  registeredWithFiu: z.enum(['Yes', 'No']).optional(),
-  fiuRegNumber: z.string().optional(),
+  registeredWithFiu: z.enum(['Yes', 'No']).optional().default('No'),
+  fiuRegNumber: z.string().optional().default(''),
   identifierType: z.string().min(1, 'Identifier type is required'),
   identifierNumber: z.string().min(1, 'Identifier number is required'),
 
@@ -70,8 +70,8 @@ export const MembershipFormCSchema = MembershipFormASchema;
 export const PostApprovalFormSchema = z.object({
   primarySector: z.string().min(1, 'Primary sector is required'),
   entityType: z.string().min(1, 'Entity type is required'),
-  registeredWithFiu: z.enum(['Yes', 'No']).optional(),
-  fiuRegNumber: z.string().optional(),
+  registeredWithFiu: z.enum(['Yes', 'No']).optional().default('No'),
+  fiuRegNumber: z.string().optional().default(''),
   identifierType: z.string().min(1, 'Identifier type is required'),
   identifierNumber: z.string().min(1, 'Identifier number is required'),
   industryMemberships: z.array(z.string()),

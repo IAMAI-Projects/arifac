@@ -18,7 +18,8 @@ import {
   Edit2,
   X,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  CheckSquare
 } from 'lucide-react';
 import { useRef } from 'react';
 import Link from 'next/link';
@@ -110,6 +111,10 @@ export default function MembershipDashboard() {
 
         if (data.success && data.applications && data.applications.length > 0) {
           const mainApp = data.applications[0];
+          const isIamai = mainApp.is_iamai_member;
+          const isIba = mainApp.is_iba_member;
+          const isMembershipMember = isIamai || isIba;
+
           setMemberData({
             id: mainApp.id,
             name: mainApp.users?.full_name || "Member",
@@ -121,13 +126,13 @@ export default function MembershipDashboard() {
             memberSince: new Date(mainApp.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
             expiryDate: new Date(new Date(mainApp.created_at).setFullYear(new Date(mainApp.created_at).getFullYear() + 1)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
             status: mainApp.status,
-            type: mainApp.application_type === 'PRE_APPROVED' ? "Industry Member (Pre-approved)" : "Non Pre-approved",
+            type: mainApp.application_type === 'PRE_APPROVED' ? "Industry Member (Pre-approved)" : (mainApp.fee_waived && !isIamai && !isIba && !mainApp.turnover_range) ? "Basic Registration" : "Non Pre-approved",
             feeWaived: mainApp.fee_waived,
+            isIamai,
+            isIba,
             isUpgraded: (
-              mainApp.turnover_range || 
-              (mainApp.application_details?.[0]?.turnover_range) || 
-              ['UNDER_REVIEW', 'PAYMENT_PENDING', 'PAYMENT_SUCCESS', 'VERIFIED', 'ACTIVATION_PENDING'].includes(mainApp.status) ||
-              (mainApp.status === 'ACTIVE' && mainApp.turnover_range)
+              ['PAYMENT_SUCCESS', 'VERIFIED', 'ACTIVATION_PENDING', 'ACTIVE'].includes(mainApp.status) ||
+              isMembershipMember
             ) ? true : false
           });
         }
@@ -212,9 +217,21 @@ export default function MembershipDashboard() {
                   <User className="w-10 h-10 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-2xl md:text-3xl font-bold mb-1">
-                    {memberData.name}
-                  </h1>
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <h1 className="text-2xl md:text-3xl font-bold">
+                      {memberData.name}
+                    </h1>
+                    {memberData.isIamai && (
+                      <span className="px-2 py-0.5 rounded-lg bg-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-wider border border-blue-500/20">
+                        IAMAI Member
+                      </span>
+                    )}
+                    {memberData.isIba && (
+                      <span className="px-2 py-0.5 rounded-lg bg-indigo-500/20 text-indigo-400 text-[10px] font-bold uppercase tracking-wider border border-indigo-500/20">
+                        IBA Member
+                      </span>
+                    )}
+                  </div>
                   <p className="text-gray-400 text-sm">{memberData.designation} at <span className="text-blue-400">{memberData.organisation}</span></p>
                 </div>
               </div>
@@ -237,9 +254,9 @@ export default function MembershipDashboard() {
                 {memberData.status === 'UNDER_REVIEW' ? (
                   <div className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-500 flex items-center gap-2 text-sm font-bold shadow-md cursor-not-allowed">
                     <Clock className="w-4 h-4" />
-                    Upgrade Under Review
+                    Pending Review
                   </div>
-                ) : (memberData.feeWaived && !memberData.isUpgraded) && (
+                ) : (memberData.feeWaived && !memberData.isUpgraded) ? (
                   <Link
                     href="/membership/upgrade"
                     className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#C2B020] to-[#A3941B] text-[#1d1d1f] hover:opacity-90 transition-all flex items-center gap-2 text-sm font-bold shadow-md shadow-[#C2B020]/20"
@@ -247,17 +264,24 @@ export default function MembershipDashboard() {
                     <Award className="w-4 h-4" />
                     Upgrade to Membership
                   </Link>
+                ) : (!memberData.feeWaived && !memberData.isUpgraded) && (
+                   <Link
+                    href="/membership/register/payment"
+                    className="px-5 py-2.5 rounded-xl bg-[#0066cc] text-white hover:bg-[#0077ed] transition-all flex items-center gap-2 text-sm font-bold shadow-md shadow-blue-500/10"
+                  >
+                    <CheckSquare className="w-4 h-4" />
+                    Complete Payment
+                  </Link>
                 )}
               </div>
             </div>
           </div>
 
-          {/* Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Column: Quick Actions & Certificate Selection */}
-            <div className="lg:col-span-2 space-y-8">
+            <div className={`${memberData?.isUpgraded ? 'lg:col-span-2' : 'lg:col-span-3'} space-y-8`}>
               {/* Main Information Cards */}
-              {(!memberData?.feeWaived || memberData?.isUpgraded) && (
+              {memberData?.isUpgraded && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                 {/* Certificate Download Card */}
@@ -397,8 +421,8 @@ export default function MembershipDashboard() {
             </div>
 
             {/* Right Column: Renewal & Expiry */}
-            <div className="lg:col-span-1">
-              {(!memberData?.feeWaived || memberData?.isUpgraded) && (
+            {memberData?.isUpgraded && (
+              <div className="lg:col-span-1">
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -443,8 +467,8 @@ export default function MembershipDashboard() {
                     </div>
                   </div>
                 </motion.div>
-              )}
-            </div>
+              </div>
+            )}
 
           </div>
         </div>

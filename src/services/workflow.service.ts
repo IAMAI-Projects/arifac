@@ -230,6 +230,10 @@ export class WorkflowService {
       });
       if (!user) throw new Error('User not found');
 
+      const isIamai = additionalDetails.industryMemberships?.includes('IAMAI');
+      const isIba = additionalDetails.industryMemberships?.includes('IBA');
+      const skipPayment = isIamai || isIba;
+
       // 1. Update Set 2 user status
       await tx.user.update({
         where: { id: userId },
@@ -295,11 +299,9 @@ export class WorkflowService {
             mobile: formBDetails.mobile || '0000000000',
             username: formBDetails.username || user.email.split('@')[0], 
             password_hash: finalPasswordHash, 
-            is_active: false,
+            is_active: skipPayment,
           }
         });
-        
-        // If it was PENDING_HASH, we'd have a problem. But formB.password is usually hashed at step 1.
       }
 
       // C. Create Membership Application (Set 1) if not exists
@@ -313,9 +315,11 @@ export class WorkflowService {
             application_type: 'NON_PRE_APPROVED',
             organisation_id: organisation.id,
             user_id: dbUser.id,
-            status: 'UNDER_REVIEW',
+            status: skipPayment ? 'ACTIVE' : 'UNDER_REVIEW',
             fee_amount: additionalDetails.totalAmount || 0,
-            fee_waived: false,
+            fee_waived: skipPayment,
+            is_iamai_member: isIamai,
+            is_iba_member: isIba,
           }
         });
       }

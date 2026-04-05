@@ -95,7 +95,7 @@ function RegistrationFormContent() {
     orgName: prefilledOrg, registeredAddress: '', orgWebsite: '', primarySector: '', entityType: '',
     isRegulated: '',
     // Section 3
-    registeredWithFiu: '', fiuRegNumber: '',
+    registeredWithFiu: 'No', fiuRegNumber: '',
     identifierType: '', identifierNumber: '',
     // Section 4
     industryMemberships: [] as string[], ibaMembershipId: '', turnoverOrAum: '',
@@ -543,7 +543,7 @@ function RegistrationFormContent() {
                       exit={{ opacity: 0, y: -10 }}
                       className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden"
                     >
-                      {['IAMAI', 'None'].map(option => (
+                      {['IAMAI', 'IBA', 'None'].map(option => (
                         <label key={option} className="flex items-center px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-0">
                           <input
                             type="checkbox"

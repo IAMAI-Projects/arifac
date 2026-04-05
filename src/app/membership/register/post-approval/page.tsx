@@ -38,7 +38,6 @@ const IDENTIFIER_TYPES = [
   "SEBI Registration Number",
   "RBI Registration / Licence Number",
   "IFSCA Registration Number",
-  "FIU-IND Registration Number",
   "Other Regulatory Licence / Registration Number"
 ];
 
@@ -50,7 +49,7 @@ function PostApprovalFormContent() {
   const [formData, setFormData] = useState({
     primarySector: '',
     entityType: '',
-    registeredWithFiu: '',
+    registeredWithFiu: 'No',
     fiuRegNumber: '',
     identifierType: '',
     identifierNumber: '',

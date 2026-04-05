@@ -2,15 +2,15 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Award, 
-  ShieldCheck, 
-  Building2, 
-  TrendingUp, 
-  FileCheck, 
-  ChevronRight, 
-  AlertCircle, 
-  CheckCircle2, 
+import {
+  Award,
+  ShieldCheck,
+  Building2,
+  TrendingUp,
+  FileCheck,
+  ChevronRight,
+  AlertCircle,
+  CheckCircle2,
   ArrowLeft,
   Loader2,
   Upload,
@@ -55,7 +55,7 @@ export default function UpgradeMembership() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-  
+
   const [formData, setFormData] = useState({
     primarySector: '',
     entityType: '',
@@ -98,7 +98,7 @@ export default function UpgradeMembership() {
           if (app.is_iamai_member) memberships.push('IAMAI');
           if (app.is_iba_member) memberships.push('IBA');
           if (memberships.length === 0) memberships.push('None');
-          
+
           setFormData(prev => ({
             ...prev,
             orgName: org.name || '',
@@ -142,9 +142,9 @@ export default function UpgradeMembership() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     const finalValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
-    
+
     setFormData(prev => ({ ...prev, [name]: finalValue }));
-    
+
     if (formErrors[name]) {
       setFormErrors(prev => {
         const next = { ...prev };
@@ -244,7 +244,7 @@ export default function UpgradeMembership() {
 
     try {
       PostApprovalFormSchema.parse(formData);
-      
+
       let iamaiUrl = '';
       if (iamaiFile) iamaiUrl = await uploadFile(iamaiFile);
 
@@ -308,7 +308,7 @@ export default function UpgradeMembership() {
   if (isSuccess) {
     return (
       <div className="bg-[#050505] min-h-screen flex items-center justify-center p-6">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="bg-white/[0.03] backdrop-blur-3xl border border-white/10 p-12 rounded-[2.5rem] text-center max-w-lg shadow-2xl relative overflow-hidden"
@@ -323,7 +323,7 @@ export default function UpgradeMembership() {
               Your upgrade application for **Premium Industry Membership** has been received. Our secretariat team will review your details and you will be notified soon.
             </p>
             <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden mb-4">
-              <motion.div 
+              <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
                 transition={{ duration: 3 }}
@@ -342,7 +342,7 @@ export default function UpgradeMembership() {
   return (
     <main className="bg-[#050505] min-h-screen font-sans text-white overflow-hidden selection:bg-blue-500/30">
       <Navbar />
-      
+
       {/* Decorative Glows */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-600/10 blur-[120px] rounded-full opacity-50" />
@@ -358,7 +358,7 @@ export default function UpgradeMembership() {
 
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-16">
             <div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6"
@@ -378,7 +378,7 @@ export default function UpgradeMembership() {
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {error && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500 flex items-center gap-3"
@@ -402,8 +402,8 @@ export default function UpgradeMembership() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-3">
                     <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1">Primary Sector *</label>
-                    <select 
-                      name="primarySector" 
+                    <select
+                      name="primarySector"
                       value={formData.primarySector}
                       onChange={handleInputChange}
                       className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:bg-white/10 transition-all appearance-none cursor-pointer text-gray-300"
@@ -415,7 +415,7 @@ export default function UpgradeMembership() {
                   </div>
                   <div className="space-y-3">
                     <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1">Type of Entity *</label>
-                    <input 
+                    <input
                       type="text"
                       name="entityType"
                       value={formData.entityType}
@@ -513,7 +513,7 @@ export default function UpgradeMembership() {
                       <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="pt-6">
                         <div className="space-y-3">
                           <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1 text-blue-400">IBA Membership ID *</label>
-                          <input 
+                          <input
                             type="text"
                             name="ibaMembershipId"
                             value={formData.ibaMembershipId}
@@ -533,7 +533,7 @@ export default function UpgradeMembership() {
             {/* Step 3: Financial Scale (Turnover) - Only if NONE of (IAMAI/IBA) are selected */}
             <AnimatePresence>
               {!isAnyMembershipSelected && (
-                <motion.section 
+                <motion.section
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
@@ -551,21 +551,20 @@ export default function UpgradeMembership() {
                       <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1 block mb-4">Turnover or AUM Category *</label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {TURNOVER_RANGES.map(range => (
-                          <label 
-                            key={range} 
-                            className={`p-6 rounded-3xl border transition-all cursor-pointer flex flex-col gap-3 group relative overflow-hidden ${
-                              formData.turnoverOrAum === range 
-                                ? 'bg-blue-600/20 border-blue-500/50 shadow-lg shadow-blue-500/10' 
+                          <label
+                            key={range}
+                            className={`p-6 rounded-3xl border transition-all cursor-pointer flex flex-col gap-3 group relative overflow-hidden ${formData.turnoverOrAum === range
+                                ? 'bg-blue-600/20 border-blue-500/50 shadow-lg shadow-blue-500/10'
                                 : 'bg-white/5 border-white/10 hover:border-white/20'
-                            }`}
+                              }`}
                           >
-                            <input 
-                              type="radio" 
-                              name="turnoverOrAum" 
-                              value={range} 
+                            <input
+                              type="radio"
+                              name="turnoverOrAum"
+                              value={range}
                               checked={formData.turnoverOrAum === range}
                               onChange={handleInputChange}
-                              className="hidden" 
+                              className="hidden"
                             />
                             <div className="flex justify-between items-center relative z-10">
                               <span className={`text-sm font-bold ${formData.turnoverOrAum === range ? 'text-blue-400' : 'text-gray-300'}`}>{range}</span>
@@ -600,24 +599,23 @@ export default function UpgradeMembership() {
                           key={opt}
                           type="button"
                           onClick={() => setFormData(prev => ({ ...prev, registeredWithFiu: opt }))}
-                          className={`px-8 py-3 rounded-2xl border transition-all font-bold text-sm ${
-                            formData.registeredWithFiu === opt
+                          className={`px-8 py-3 rounded-2xl border transition-all font-bold text-sm ${formData.registeredWithFiu === opt
                               ? 'bg-blue-500 text-white border-blue-400 shadow-lg shadow-blue-500/20'
                               : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
-                          }`}
+                            }`}
                         >
                           {opt}
                         </button>
                       ))}
                     </div>
                     {formData.registeredWithFiu === 'Yes' && (
-                      <motion.div 
+                      <motion.div
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         className="mt-6"
                       >
                         <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1 block mb-3">FIU Registration Number *</label>
-                        <input 
+                        <input
                           type="text"
                           name="fiuRegNumber"
                           value={formData.fiuRegNumber}
@@ -635,7 +633,7 @@ export default function UpgradeMembership() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-3">
                       <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1">Legal Identifier Type *</label>
-                      <select 
+                      <select
                         name="identifierType"
                         value={formData.identifierType}
                         onChange={handleInputChange}
@@ -651,7 +649,7 @@ export default function UpgradeMembership() {
                     </div>
                     <div className="space-y-3">
                       <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1">Identifier Number *</label>
-                      <input 
+                      <input
                         type="text"
                         name="identifierNumber"
                         value={formData.identifierNumber}
@@ -669,12 +667,12 @@ export default function UpgradeMembership() {
             {/* Declaration & Submission */}
             <div className="space-y-12">
               <label className="flex items-start gap-4 p-8 rounded-[2.5rem] bg-gradient-to-br from-blue-600/10 to-indigo-600/10 border border-blue-500/20 cursor-pointer group hover:bg-blue-600/20 transition-all">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   name="declarationAccepted"
                   checked={formData.declarationAccepted}
                   onChange={handleInputChange}
-                  className="mt-1 w-6 h-6 rounded-lg border-white/20 bg-white/5 text-blue-500" 
+                  className="mt-1 w-6 h-6 rounded-lg border-white/20 bg-white/5 text-blue-500"
                 />
                 <span className="text-sm text-gray-300 leading-relaxed font-medium">
                   I hereby confirm that I wish to upgrade our current limited registration to a <strong>Full Institutional Membership</strong> of ARIFAC. I understand that this upgrade is subject to verification of the documents and details provided above. I declare that the information provided is accurate and complete.
@@ -685,12 +683,12 @@ export default function UpgradeMembership() {
                 <div className="flex items-center gap-4 text-gray-500">
                   <Info className="w-5 h-5 shrink-0" />
                   <p className="text-sm italic">
-                    {isAnyMembershipSelected 
-                      ? "Verification within 3-5 business days." 
+                    {isAnyMembershipSelected
+                      ? "Verification within 3-5 business days."
                       : "Complete payment to proceed with verification."}
                   </p>
                 </div>
-                
+
                 <button
                   type="submit"
                   disabled={isSubmitting || !formData.declarationAccepted}

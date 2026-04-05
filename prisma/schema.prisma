@@ -275,6 +275,7 @@ enum application_status {
 enum application_type {
   PRE_APPROVED
   NON_PRE_APPROVED
+  FORM_C
 }
 
 enum identifier_type {

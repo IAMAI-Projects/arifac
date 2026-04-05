@@ -75,10 +75,14 @@ export class MembershipService {
           username: validatedData.username,
           password_hash: hashedPassword,
           organisation_id: organisation.id,
-          is_active: false,
+          is_active: validatedData.industryMemberships.includes('IAMAI') || validatedData.industryMemberships.includes('IBA'),
           is_primary: true
         }
       });
+
+      const isIamai = validatedData.industryMemberships.includes('IAMAI');
+      const isIba = validatedData.industryMemberships.includes('IBA');
+      const skipPayment = isIamai || isIba;
 
       // 3. Create Membership Application
       const application = await tx.membership_applications.create({
@@ -86,11 +90,11 @@ export class MembershipService {
           application_type: 'NON_PRE_APPROVED',
           organisation_id: organisation.id,
           user_id: user.id,
-          status: 'INIT',
+          status: skipPayment ? 'ACTIVE' : 'INIT',
           fee_amount: validatedData.totalAmount || 0,
-          fee_waived: false,
-          is_iamai_member: validatedData.industryMemberships.includes('IAMAI'),
-          is_iba_member: validatedData.industryMemberships.includes('IBA'),
+          fee_waived: skipPayment,
+          is_iamai_member: isIamai,
+          is_iba_member: isIba,
         }
       });
 
@@ -258,7 +262,7 @@ export class MembershipService {
           username: validatedData.username,
           password_hash: hashedPassword,
           organisation_id: organisation.id,
-          is_active: false,
+          is_active: true,
           is_primary: true
         }
       });
@@ -269,7 +273,7 @@ export class MembershipService {
           application_type: 'NON_PRE_APPROVED', // Form C uses same type as Form A for now
           organisation_id: organisation.id,
           user_id: user.id,
-          status: 'INIT',
+          status: 'BASIC_SUBMITTED',
           fee_amount: 0,
           fee_waived: true,
           is_iamai_member: validatedData.industryMemberships.includes('IAMAI'),
