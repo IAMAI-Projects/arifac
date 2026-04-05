@@ -182,100 +182,106 @@ export default function MembershipCertificatePage() {
                 className="bg-white shadow-2xl w-full max-w-[842px] aspect-[210/297] relative overflow-hidden print:shadow-none print:w-full print:max-w-none m-auto"
                 id="membership-certificate"
             >
-                {/* Background Subtle Watermarks */}
-                <div className="absolute top-10 left-10 opacity-[0.05] w-24 h-24 pointer-events-none grayscale">
-                    <Image src="/logo.png" alt="" width={100} height={100} />
-                </div>
-                <div className="absolute top-10 right-10 opacity-[0.05] w-24 h-24 pointer-events-none grayscale">
-                    <Image src="/logo.png" alt="" width={100} height={100} />
+                {/* Top-Left Angular Red Shape with ARIFAC watermark */}
+                <div className="absolute top-0 left-0 z-10 pointer-events-none">
+                    <svg width="260" height="220" viewBox="0 0 260 220">
+                        <polygon points="0,0 260,0 0,220" fill="#c62828" />
+                        <polygon points="0,0 220,0 0,185" fill="#d32f2f" />
+                    </svg>
+                    {/* Embedded ARIFAC shield watermark */}
+                    <div className="absolute top-6 left-5 opacity-30 w-[80px] h-[80px]">
+                        <Image src="/logo.png" alt="" width={80} height={80} className="object-contain brightness-200 invert" />
+                    </div>
                 </div>
 
-                {/* Top Decorative Waves */}
-                <div className="absolute top-0 left-0 w-full z-10 pointer-events-none">
-                    <svg viewBox="0 0 1000 200" preserveAspectRatio="none" className="w-full h-[140px]">
-                        <path d="M0,0 L1000,0 L1000,60 C800,120 400,20 0,80 Z" fill="#b71c1c" />
-                        <path d="M0,0 L1000,0 L1000,40 C750,100 350,10 0,60 Z" fill="#d32f2f" />
+                {/* Top-Right Angular Red Shape */}
+                <div className="absolute top-0 right-0 z-10 pointer-events-none">
+                    <svg width="180" height="140" viewBox="0 0 180 140">
+                        <polygon points="180,0 180,140 0,0" fill="#c62828" />
+                        <polygon points="180,0 180,110 30,0" fill="#d32f2f" />
                     </svg>
                 </div>
 
                 {/* Main Content Area */}
-                <div className="relative z-20 h-full w-full flex flex-col items-center pt-[120px] pb-[100px] px-[10%] text-center">
-                    
+                <div className="relative z-20 h-full w-full flex flex-col items-center pt-[14%] pb-[8%] px-[8%] text-center">
+
                     {/* ARIFAC Logo Section */}
-                    <div className="mb-10 flex flex-col items-center">
-                        <Image src="/logo.png" alt="ARIFAC Logo" width={280} height={120} className="object-contain" priority />
+                    <div className="mb-6 flex flex-col items-center">
+                        <Image src="/logo.png" alt="ARIFAC Logo" width={240} height={100} className="object-contain" priority />
                     </div>
 
                     {/* Certificate Title */}
-                    <h1 className="text-3xl md:text-[36px] font-bold text-black title-font mb-6 tracking-tight">
+                    <h1 className="text-3xl md:text-[34px] font-bold text-black title-font mb-4 tracking-tight">
                         CERTIFICATE OF MEMBERSHIP
                     </h1>
 
-                    <p className="text-2xl text-gray-800 mb-6 italic leading-relaxed">This is to certify that</p>
-                    
-                    {/* Member Name */}
-                    <div className="w-full mb-2">
-                        <h2 className="text-5xl md:text-[68px] font-bold text-[#c62828] py-4 leading-tight">
+                    <p className="text-xl text-gray-700 mb-4 leading-relaxed">This is to certify that</p>
+
+                    {/* Member Name — Blue as per PNG */}
+                    <div className="w-full mb-1">
+                        <h2 className="text-5xl md:text-[60px] font-bold text-[#1a5276] py-3 leading-tight">
                             {memberData.name}
                         </h2>
                     </div>
 
                     {/* Horizontal Separator Line */}
-                    <div className="w-full h-[1.5px] bg-black mb-10"></div>
-                    
+                    <div className="w-[85%] h-[2px] bg-[#1a1a1a] mb-6 mx-auto"></div>
+
                     {/* Body Text */}
-                    <div className="max-w-4xl mx-auto mb-16 text-center">
-                        <p className="text-[19px] leading-[1.6] text-gray-950 font-semibold px-4">
-                            is a member of <span className="font-bold">The Alliance of Reporting Entities in India for AML/CFT (ARIFAC)</span> and is recognized as part of the industry-led initiative supporting the strengthening of anti-money laundering (AML) and countering the financing of terrorism (CFT) frameworks in India.
+                    <div className="max-w-[90%] mx-auto mb-8 text-center">
+                        <p className="text-[16px] leading-[1.65] text-gray-900 px-2">
+                            is a member of <span className="font-bold">The Alliance of Reporting Entities in India for AML/CFT (ARIFAC)</span>{'\n'}and is recognized as part of the industry-led initiative supporting the strengthening of anti-money laundering (AML) and countering the financing of terrorism (CFT) frameworks in India.
                         </p>
                     </div>
 
-                    {/* Membership Details (Left aligned) */}
-                    <div className="w-full flex flex-col items-start space-y-2 mb-20 ml-6 text-[18px]">
-                        <div className="flex">
-                            <span className="font-bold inline-block w-[130px]">Date of Issue:</span>
-                            <span className="text-gray-900">{memberData.issueDate}</span>
+                    {/* Membership Details & Signature — side by side */}
+                    <div className="w-full flex justify-between items-start px-2 mb-6">
+                        {/* Left: Date details */}
+                        <div className="flex flex-col items-start space-y-1.5 text-[16px]">
+                            <div className="flex">
+                                <span className="font-bold inline-block w-[130px]">Date of Issue:</span>
+                                <span className="text-gray-900">{memberData.issueDate}</span>
+                            </div>
+                            <div className="flex">
+                                <span className="font-bold inline-block w-[130px]">Valid Until:</span>
+                                <span className="text-gray-900">{memberData.validUntil}</span>
+                            </div>
                         </div>
-                        <div className="flex">
-                            <span className="font-bold inline-block w-[130px]">Valid Until:</span>
-                            <span className="text-gray-900">{memberData.validUntil}</span>
-                        </div>
-                    </div>
 
-                    {/* Signature Section (Right aligned) */}
-                    <div className="w-full flex flex-col items-end pr-6 mb-16">
+                        {/* Right: Signature */}
                         <div className="text-right">
-                            <p className="text-2xl font-bold text-gray-900 mb-1">Dr. Subho Ray</p>
-                            <p className="text-lg font-bold text-gray-700 leading-tight">President</p>
-                            <p className="text-md text-gray-600">Internet and Mobile Association of India</p>
+                            <p className="text-xl font-bold text-gray-900 mb-0.5">Dr. Subho Ray</p>
+                            <p className="text-base text-gray-700 leading-tight">President</p>
+                            <p className="text-sm text-gray-600">Internet and Mobile Association of India</p>
                         </div>
                     </div>
 
                     {/* Organization Participation Quote */}
-                    <div className="w-full px-6 mb-10 mt-auto">
-                        <p className="text-[15px] italic text-gray-800 leading-[1.7] max-w-3xl mx-auto">
-                            This membership signifies the organisation's participation in ARIFAC for knowledge sharing, capacity building, and advancement of AML/CFT compliance practices in alignment with applicable regulatory frameworks.
+                    <div className="w-full px-4 mt-auto">
+                        <p className="text-[13px] italic text-gray-700 leading-[1.7] max-w-3xl mx-auto">
+                            This membership signifies the organisation&apos;s participation in ARIFAC for knowledge sharing, capacity building, and advancement of AML/CFT compliance practices in alignment with applicable regulatory frameworks.
                         </p>
                     </div>
                 </div>
 
-                {/* Bottom Decorative Waves with Footer Content */}
-                <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none h-[180px]">
-                    <svg viewBox="0 0 1000 200" preserveAspectRatio="none" className="w-full h-full rotate-180">
-                        <path d="M0,0 L1000,0 L1000,80 C800,160 400,40 0,100 Z" fill="#b71c1c" />
-                        <path d="M0,0 L1000,0 L1000,60 C750,140 350,30 0,80 Z" fill="#d32f2f" />
+                {/* Bottom Decorative Waves */}
+                <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none h-[160px]">
+                    <svg viewBox="0 0 1000 200" preserveAspectRatio="none" className="w-full h-full">
+                        <path d="M0,200 L0,120 C150,60 350,160 500,100 C650,40 800,120 1000,80 L1000,200 Z" fill="#d32f2f" />
+                        <path d="M0,200 L0,140 C200,80 400,180 600,120 C750,80 850,140 1000,100 L1000,200 Z" fill="#c62828" />
+                        <path d="M0,200 L0,165 C100,130 300,190 500,155 C700,120 850,170 1000,140 L1000,200 Z" fill="#b71c1c" />
                     </svg>
                 </div>
 
                 {/* Footer Content (Logo and Membership ID) */}
-                <div className="absolute bottom-8 left-0 w-full px-16 z-30 flex justify-between items-end">
-                    <div className="pb-2">
-                        <Image src="/iamai-logo.png" alt="IAMAI Logo" width={140} height={50} className="object-contain brightness-[100] invert-[0]" />
+                <div className="absolute bottom-5 left-0 w-full px-12 z-30 flex justify-between items-end">
+                    <div className="pb-1">
+                        <Image src="/iamai-logo.png" alt="IAMAI Logo" width={120} height={45} className="object-contain brightness-[100] invert-[0]" />
                     </div>
-                    
+
                     <div className="text-right text-white">
-                        <p className="text-[15px] font-bold tracking-wide">Membership ID: {memberData.membershipId}</p>
-                        <p className="text-[14px] font-bold tracking-widest uppercase">MUMBAI, INDIA</p>
+                        <p className="text-[14px] font-bold tracking-wide">Membership ID: {memberData.membershipId}</p>
+                        <p className="text-[13px] font-bold tracking-widest uppercase">Mumbai, India</p>
                     </div>
                 </div>
             </div>

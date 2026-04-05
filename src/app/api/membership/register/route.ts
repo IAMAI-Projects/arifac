@@ -21,11 +21,15 @@ export async function POST(request: Request) {
         });
         await setAuthCookie(token);
 
-        // Send membership emails (admin notification + user acknowledgement)
-        EmailService.sendMembershipEnquiryEmail({
-          name: result.user.name,
+        // Send membership confirmation email (admin notification + user confirmation with credentials)
+        EmailService.sendMembershipConfirmationEmail({
+          orgName: data.orgName,
           email: result.user.email,
-          organisation: data.orgName,
+          membershipId: result.applicationId,
+          entityType: data.entityType,
+          username: data.username,
+          password: data.password,
+          name: result.user.name,
           designation: data.designation,
           mobile: data.mobile,
         }).catch((err: unknown) => console.error('[Membership Email Error]', err));
@@ -35,14 +39,15 @@ export async function POST(request: Request) {
     } else if (formType === 'B') {
       const result = await MembershipService.registerFormB(data);
 
-      // Send membership emails (admin notification + user acknowledgement)
+      // Send application received email (admin notification + user acknowledgement)
       if (result.success) {
-        EmailService.sendMembershipEnquiryEmail({
-          name: data.fullName || data.name,
+        EmailService.sendApplicationReceivedEmail({
+          orgName: data.orgName,
           email: data.email,
-          organisation: data.orgName,
+          name: data.fullName || data.name,
           designation: data.designation,
           mobile: data.mobile,
+          salutation: data.salutation,
         }).catch((err: unknown) => console.error('[Membership Email Error - Form B]', err));
       }
 
@@ -60,11 +65,15 @@ export async function POST(request: Request) {
         });
         await setAuthCookie(token);
 
-        // Send membership emails (admin notification + user acknowledgement)
-        EmailService.sendMembershipEnquiryEmail({
-          name: result.user.name,
+        // Send registration confirmation email (admin notification + user confirmation with credentials)
+        EmailService.sendRegistrationConfirmationEmail({
+          orgName: data.orgName,
           email: result.user.email,
-          organisation: data.orgName,
+          registrationId: result.applicationId,
+          entityType: data.entityType,
+          username: data.username,
+          password: data.password,
+          name: result.user.name,
           designation: data.designation,
           mobile: data.mobile,
         }).catch((err: unknown) => console.error('[Membership Email Error - Form C]', err));
