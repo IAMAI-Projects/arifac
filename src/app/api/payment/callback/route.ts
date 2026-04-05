@@ -115,6 +115,41 @@ export async function POST(req: NextRequest) {
                     }
                 }, { maxWait: 10000, timeout: 30000 });
                 console.log('[CCAvenue] callback: DB update successful for application:', applicationId);
+
+                // 3. Trigger Post-Payment Confirmation Email
+                if (orderStatus === 'Success') {
+                    try {
+                        const { EmailService } = await import('@/lib/email');
+                        const { prisma: prismaClient } = await import('@/lib/prisma');
+                        
+                        const application = await prismaClient.membership_applications.findUnique({
+                            where: { id: applicationId },
+                            include: {
+                                users: true,
+                                organisations: true
+                            }
+                        });
+
+                        if (application && application.users) {
+                            await EmailService.sendPaymentSuccessEmail({
+                                email: application.users.email,
+                                fullName: application.users.full_name,
+                                organisationName: application.organisations?.name || 'Organisation',
+                                amount: parseFloat(amount) || 0,
+                                orderId: orderId,
+                                trackingId: trackingId || undefined,
+                                paymentDate: new Date(),
+                                address: application.organisations?.registered_address || undefined
+                            });
+                            console.log('[CCAvenue] callback: Payment success email triggered for:', application.users.email);
+                        } else {
+                            console.warn('[CCAvenue] callback: Could not find user details for email notification', { applicationId });
+                        }
+                    } catch (emailErr) {
+                        // We log but don't throw, so the user still gets redirected to the success page
+                        console.error('[CCAvenue] callback: Failed to send payment confirmation email:', emailErr);
+                    }
+                }
             } catch (dbErr) {
                 console.error('[CCAvenue] callback: DB UPDATE FAILED:', dbErr);
                 // Continue with redirect even if DB update fails so user doesn't see blank page

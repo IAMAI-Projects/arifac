@@ -546,4 +546,135 @@ export class EmailService {
         </div>`,
     }, retries);
   }
+
+  /* ══════════════════════════════════════════════════════════
+     5. PAYMENT SUCCESS — INVOICE DETAILS
+     User notification with itemized breakdown
+  ══════════════════════════════════════════════════════════ */
+
+  static async sendPaymentSuccessEmail(
+    data: {
+      email: string;
+      fullName: string;
+      organisationName: string;
+      amount: number;
+      orderId: string;
+      trackingId?: string;
+      paymentDate: Date;
+      serviceName?: string;
+      address?: string;
+    },
+    retries = 3,
+  ) {
+    const totalAmount = data.amount;
+    // Total = Base * 1.18 => Base = Total / 1.18
+    const baseAmount = totalAmount / 1.18;
+    const gstAmount = totalAmount - baseAmount;
+    const serviceName = data.serviceName || 'ARIFAC Annual Membership Fee';
+
+    const formatDate = (date: Date) => {
+      // Manual formatting to ensure consistent professional look
+      return date.toLocaleDateString('en-IN', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      });
+    };
+
+    await sendEmail({
+      from: `"ARIFAC" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+      to: data.email,
+      subject: `Payment Confirmation & Invoice — Order: ${data.orderId}`,
+      html: `
+        <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);">
+          ${USER_HEADER}
+          
+          <div style="padding:40px;">
+            <div style="text-align:center;margin-bottom:40px;">
+              <div style="display:inline-block;padding:6px 16px;background:#ecfdf5;color:#059669;border-radius:99px;font-size:12px;font-weight:bold;text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;">
+                Transaction Success
+              </div>
+              <h1 style="font-size:28px;color:#111827;margin:0 0 8px;font-weight:800;">Payment Received</h1>
+              <p style="color:#6b7280;font-size:15px;margin:0;">Thank you for your membership payment. Your receipt is confirmed.</p>
+            </div>
+
+            <div style="border:1px solid #f3f4f6;border-radius:16px;padding:32px;margin-bottom:40px;background:#f9fafb;">
+              <table style="width:100%;border-collapse:collapse;">
+                <tr>
+                  <td style="padding-bottom:24px;width:60%;vertical-align:top;">
+                    <p style="font-size:11px;font-weight:bold;color:#9ca3af;text-transform:uppercase;letter-spacing:.1em;margin:0 0 6px;">Bill To</p>
+                    <p style="font-size:15px;font-weight:bold;color:#111827;margin:0;">${data.fullName}</p>
+                    <p style="font-size:14px;color:#4b5563;margin:4px 0;">${data.organisationName}</p>
+                    ${data.address ? `<p style="font-size:12px;color:#6b7280;margin:8px 0 0;line-height:1.5;">${data.address}</p>` : ''}
+                  </td>
+                  <td style="padding-bottom:24px;width:40%;text-align:right;vertical-align:top;">
+                    <p style="font-size:11px;font-weight:bold;color:#9ca3af;text-transform:uppercase;letter-spacing:.1em;margin:0 0 6px;">Date</p>
+                    <p style="font-size:15px;color:#111827;margin:0;font-weight:bold;">${formatDate(data.paymentDate)}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-top:16px;border-top:1px solid #e5e7eb;">
+                    <p style="font-size:11px;font-weight:bold;color:#9ca3af;text-transform:uppercase;letter-spacing:.1em;margin:0 0 6px;">Transaction ID</p>
+                    <p style="font-size:13px;color:#111827;margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;">${data.trackingId || 'N/A'}</p>
+                  </td>
+                  <td style="padding-top:16px;border-top:1px solid #e5e7eb;text-align:right;">
+                    <p style="font-size:11px;font-weight:bold;color:#9ca3af;text-transform:uppercase;letter-spacing:.1em;margin:0 0 6px;">Order ID</p>
+                    <p style="font-size:13px;color:#111827;margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;">${data.orderId}</p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <table style="width:100%;border-collapse:collapse;margin-bottom:40px;">
+              <thead>
+                <tr>
+                  <th style="text-align:left;padding:16px 0;border-bottom:2px solid #111827;font-size:12px;color:#111827;text-transform:uppercase;letter-spacing:.1em;">Description</th>
+                  <th style="text-align:right;padding:16px 0;border-bottom:2px solid #111827;font-size:12px;color:#111827;text-transform:uppercase;letter-spacing:.1em;">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding:24px 0;border-bottom:1px solid #f3f4f6;">
+                    <p style="font-size:15px;font-weight:bold;color:#111827;margin:0;">${serviceName}</p>
+                    <p style="font-size:13px;color:#6b7280;margin:6px 0 0;">Provision of professional membership services</p>
+                  </td>
+                  <td style="text-align:right;padding:24px 0;border-bottom:1px solid #f3f4f6;font-size:15px;color:#111827;font-weight:bold;">
+                    ₹${baseAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td style="padding:20px 0 8px;text-align:right;font-size:14px;color:#6b7280;">Subtotal</td>
+                  <td style="padding:20px 0 8px;text-align:right;font-size:14px;color:#111827;font-weight:bold;">
+                    ₹${baseAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:8px 0;text-align:right;font-size:14px;color:#6b7280;">GST (18%)</td>
+                  <td style="padding:8px 0;text-align:right;font-size:14px;color:#111827;font-weight:bold;">
+                    ₹${gstAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:24px 0 0;text-align:right;font-size:18px;font-weight:bold;color:#111827;">Total Paid</td>
+                  <td style="padding:24px 0 0;text-align:right;font-size:24px;font-weight:900;color:#0066cc;">
+                    ₹${totalAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+
+            <div style="background:#f8fafc;border-radius:12px;padding:24px;border:1px solid #e2e8f0;text-align:center;">
+              <p style="font-size:13px;color:#64748b;margin:0;line-height:1.6;">
+                This is a computer-generated invoice and does not require a physical signature. 
+                For any assistance, please contact us at <a href="mailto:help.arifac@iamai.in" style="color:#0066cc;text-decoration:none;font-weight:bold;">help.arifac@iamai.in</a>.
+              </p>
+            </div>
+
+            ${FOOTER_NOTE}
+          </div>
+        </div>`,
+    }, retries);
+  }
 }
