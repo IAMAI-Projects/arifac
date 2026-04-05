@@ -17,7 +17,14 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/membership/launching-soon', request.url));
     }
     try {
-      await jwtVerify(token, JWT_SECRET);
+      const { payload } = await jwtVerify(token, JWT_SECRET);
+      const user = payload as any;
+      
+      // If not active, only allow payment and profile (for logout etc)
+      if (user.isActive === false && pathname.startsWith('/membership/dashboard')) {
+        return NextResponse.redirect(new URL('/membership/register/payment', request.url));
+      }
+      
       return NextResponse.next();
     } catch (err) {
       return NextResponse.redirect(new URL('/membership/launching-soon', request.url));

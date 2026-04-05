@@ -44,7 +44,8 @@ export async function POST(request: Request) {
       userId: user.id, 
       email: user.email,
       name: user.full_name,
-      orgId: user.organisation_id 
+      orgId: user.organisation_id,
+      isActive: !!user.is_active
     });
 
     // 5. Set HTTP-only cookie

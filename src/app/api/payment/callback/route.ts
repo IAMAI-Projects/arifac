@@ -103,12 +103,33 @@ export async function POST(req: NextRequest) {
                         }
                     });
 
-                    // 2. Update Application Status
+                    // 2. Update Application Status and Activate User
                     if (orderStatus === 'Success') {
-                        await tx.membership_applications.update({
+                        const application = await tx.membership_applications.update({
                             where: { id: applicationId },
-                            data: { status: 'PAYMENT_SUCCESS' }
+                            data: { status: 'ACTIVE' },
+                            include: { users: true }
                         });
+
+                        if (application.user_id) {
+                            // Activate standard User (Set 1)
+                            await tx.users.update({
+                                where: { id: application.user_id },
+                                data: { is_active: true }
+                            });
+
+                            // If Form B User (Set 2) exists with same email, activate it too
+                            if (application.users?.email) {
+                                try {
+                                    await tx.user.updateMany({
+                                        where: { email: application.users.email },
+                                        data: { status: 'ACTIVE' }
+                                    });
+                                } catch (err) {
+                                    console.error('[CCAvenue] callback: Failed to update Set 2 User status:', err);
+                                }
+                            }
+                        }
                     } else if (orderStatus === 'Aborted' || orderStatus === 'Failure') {
                         // Current status might already be INIT or PAYMENT_PENDING
                         // Maybe dont mark it as FAILED application, just payment failure
@@ -131,6 +152,7 @@ export async function POST(req: NextRequest) {
                         });
 
                         if (application && application.users) {
+                            // 3a. Trigger Post-Payment Confirmation Email
                             await EmailService.sendPaymentSuccessEmail({
                                 email: application.users.email,
                                 fullName: application.users.full_name,
@@ -142,6 +164,22 @@ export async function POST(req: NextRequest) {
                                 address: application.organisations?.registered_address || undefined
                             });
                             console.log('[CCAvenue] callback: Payment success email triggered for:', application.users.email);
+
+                            // 4. Issue Session Cookie (JWT) for the newly paid member
+                            try {
+                                const { createToken, setAuthCookie } = await import('@/lib/server-auth');
+                                const token = await createToken({
+                                    userId: application.users.id,
+                                    email: application.users.email,
+                                    name: application.users.full_name,
+                                    orgId: application.users.organisation_id,
+                                    isActive: true
+                                });
+                                await setAuthCookie(token);
+                                console.log('[CCAvenue] callback: Session created for user:', application.users.email);
+                            } catch (authErr) {
+                                console.error('[CCAvenue] callback: Failed to create session cookie:', authErr);
+                            }
                         } else {
                             console.warn('[CCAvenue] callback: Could not find user details for email notification', { applicationId });
                         }

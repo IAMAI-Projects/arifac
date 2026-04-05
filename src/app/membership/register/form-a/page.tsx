@@ -266,10 +266,9 @@ function RegistrationFormContent() {
         throw new Error(result.error || 'Registration failed');
       }
 
-      // Sync client-side auth state (local storage/UI)
-      setClientAuth(formData.email, formData.fullName);
-
+      // Sync client-side auth state (local storage/UI) ONLY if payment is skipped
       if (isMembershipSelected) {
+        setClientAuth(formData.email, formData.fullName);
         // Special case: Skip payment for IAMAI/IBA members
         // Redirect directly to dashboard or success page
         window.location.href = '/membership/dashboard';

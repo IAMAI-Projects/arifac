@@ -338,7 +338,7 @@ export class WorkflowService {
         });
       }
 
-      return user;
+      return { user, application };
     }, { maxWait: 20000, timeout: 60000 });
   }
 

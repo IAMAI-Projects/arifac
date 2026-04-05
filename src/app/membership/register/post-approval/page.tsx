@@ -75,6 +75,9 @@ function PostApprovalFormContent() {
         if (res.ok) {
           const data = await res.json();
           setUserData(data.user);
+          // Sync client-side auth state for Navbar/UI
+          const { login } = await import('@/lib/auth');
+          login(data.user.email, data.user.name);
         } else {
           router.push('/membership/login');
         }
@@ -244,7 +247,7 @@ function PostApprovalFormContent() {
           baseAmount: amount,
           taxAmount: amount * 0.18,
           totalAmount: amount * 1.18,
-          applicationId: result.user?.id || 'pending'
+          applicationId: result.application?.id || 'pending'
         };
 
         // Store non-sensitive display data in sessionStorage

@@ -6,7 +6,7 @@ const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || 'fallback-secret-for-dev'
 );
 
-export async function createToken(payload: { userId: string, email: string, name: string, orgId?: string | null }) {
+export async function createToken(payload: { userId: string, email: string, name: string, orgId?: string | null, isActive?: boolean }) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
@@ -39,7 +39,7 @@ export async function getUserFromToken() {
 
   try {
     const { payload } = await jwtVerify(token, JWT_SECRET);
-    return payload as { userId: string, username?: string, email: string, name: string, orgId?: string | null };
+    return payload as { userId: string, username?: string, email: string, name: string, orgId?: string | null, isActive?: boolean };
   } catch (err) {
     return null;
   }

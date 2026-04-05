@@ -19,6 +19,7 @@ export async function GET(req: Request) {
       userId: user.id,
       email: user.email,
       name: user.name,
+      isActive: false
     });
 
     await setAuthCookie(authToken);

@@ -23,6 +23,18 @@ function PaymentContent() {
 
     if (status === 'success') {
       setIsSuccess(true);
+      
+      // Update local storage so Navbar shows the user as logged in
+      const pData = typeof window !== 'undefined' ? sessionStorage.getItem('membershipPaymentData') : null;
+      if (pData) {
+        try {
+          const parsed = JSON.parse(pData);
+          localStorage.setItem('user', JSON.stringify({ 
+            email: parsed.email, 
+            name: parsed.fullName 
+          }));
+        } catch (e) {}
+      }
       // Redirect to dashboard after 1 second
       setTimeout(() => {
         window.location.href = '/membership/dashboard';

@@ -11,13 +11,18 @@ export async function POST(request: Request) {
     if (formType === 'A') {
       const result = await MembershipService.registerFormA(data);
 
-      // Auto-login for pre-approved members
-      if (result.success && result.user) {
+      const isIamai = data.industryMemberships?.includes('IAMAI');
+      const isIba = data.industryMemberships?.includes('IBA');
+      const skipPayment = isIamai || isIba;
+
+      // Auto-login ONLY for pre-approved / fee-waived members
+      if (result.success && result.user && skipPayment) {
         const token = await createToken({
           userId: result.user.id,
           email: result.user.email,
           name: result.user.name,
-          orgId: result.user.orgId
+          orgId: result.user.orgId,
+          isActive: true
         });
         await setAuthCookie(token);
 
@@ -56,7 +61,8 @@ export async function POST(request: Request) {
           userId: result.user.id,
           email: result.user.email,
           name: result.user.name,
-          orgId: result.user.orgId
+          orgId: result.user.orgId,
+          isActive: true
         });
         await setAuthCookie(token);
 

@@ -12,13 +12,13 @@ export async function POST(req: Request) {
 
     const { additionalDetails } = await req.json();
     
-    const user = await WorkflowService.submitPostApproval(userSession.userId, additionalDetails);
+    const { user, application } = await WorkflowService.submitPostApproval(userSession.userId, additionalDetails);
 
     return NextResponse.json({ 
       success: true, 
       message: 'Post-approval form submitted. Awaiting final review.',
-      user 
-    });
+      user,
+      application    });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
   }
