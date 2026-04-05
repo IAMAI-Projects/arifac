@@ -99,16 +99,16 @@ export default function OTPVerification({ email, onVerify, className }: OTPVerif
 
   return (
     <div className={twMerge("space-y-4", className)}>
-      <div className="flex flex-col sm:flex-row gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <button
           type="button"
           onClick={handleSendOtp}
           disabled={isSending || cooldown > 0}
           className={clsx(
-            "flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-[0.98]",
+            "flex-shrink-0 flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200",
             cooldown > 0
               ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-              : "bg-blue-600 text-white hover:bg-blue-700 shadow-sm hover:shadow-md"
+              : "bg-blue-600 text-white hover:bg-blue-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:opacity-80"
           )}
         >
           {isSending ? (
@@ -123,16 +123,18 @@ export default function OTPVerification({ email, onVerify, className }: OTPVerif
           <div className="flex-1 flex gap-2">
             <input
               type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
               value={otp}
               onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
               placeholder="6-digit code"
-              className="flex-1 px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-center tracking-[4px] font-mono text-lg transition-all"
+              className="flex-1 min-w-[120px] px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-center tracking-[4px] font-mono text-lg transition-all"
             />
             <button
               type="button"
               onClick={handleVerifyOtp}
               disabled={isVerifying || otp.length !== 6}
-              className="px-6 py-2.5 bg-gray-900 text-white rounded-xl text-sm font-semibold hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-[0.98]"
+              className="flex-shrink-0 relative z-10 px-6 py-2.5 bg-gray-900 text-white rounded-xl text-sm font-semibold hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:-translate-y-0.5 active:opacity-80"
             >
               {isVerifying ? (
                 <RefreshCw className="w-4 h-4 animate-spin" />

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, User, Building2, CheckSquare, AlertCircle } from 'lucide-react';
+import { ArrowLeft, User, Building2, CheckSquare, AlertCircle, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -11,6 +11,7 @@ import { MembershipFormBSchema } from '@/lib/validations/membership.schema';
 import FormErrorMessage from '@/components/FormErrorMessage';
 import OTPVerification from '@/components/OTPVerification';
 import { z } from 'zod';
+import { COUNTRY_CODES } from '@/lib/countries';
 
 function RegistrationFormBContent() {
   const searchParams = useSearchParams();
@@ -196,14 +197,17 @@ function RegistrationFormBContent() {
             <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-6 gap-6">
               <div className="col-span-1 md:col-span-1">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Salutation *</label>
-                <select required name="salutation" value={formData.salutation} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border ${errors.salutation ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}>
-                  <option value="" disabled>Select</option>
-                  <option value="Mr.">Mr.</option>
-                  <option value="Ms.">Ms.</option>
-                  <option value="Mrs.">Mrs.</option>
-                  <option value="Dr.">Dr.</option>
-                  <option value="Prof.">Prof.</option>
-                </select>
+                <div className="relative">
+                  <select required name="salutation" value={formData.salutation} onChange={handleInputChange} className={`w-full pl-4 pr-10 py-3 rounded-xl border ${errors.salutation ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white appearance-none`}>
+                    <option value="" disabled>Select</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Dr.">Dr.</option>
+                    <option value="Prof.">Prof.</option>
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                </div>
                 <FormErrorMessage message={errors.salutation} />
               </div>
               <div className="col-span-1 md:col-span-5">
@@ -220,14 +224,16 @@ function RegistrationFormBContent() {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Mobile Number *</label>
                 <div className="flex flex-col gap-1">
                   <div className="flex gap-2">
-                    <select name="countryCode" value={formData.countryCode} onChange={handleInputChange} className="w-[100px] px-3 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-sm">
-                      <option value="+91">+91 (IN)</option>
-                      <option value="+1">+1 (US)</option>
-                      <option value="+44">+44 (UK)</option>
-                      <option value="+971">+971 (UAE)</option>
-                      <option value="+65">+65 (SG)</option>
-                      <option value="+61">+61 (AU)</option>
-                    </select>
+                    <div className="relative">
+                      <select name="countryCode" value={formData.countryCode} onChange={handleInputChange} className="w-[100px] pl-4 pr-10 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-sm appearance-none">
+                        {COUNTRY_CODES.map((country) => (
+                          <option key={country.code} value={country.dial_code}>
+                            {country.dial_code} ({country.code})
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                    </div>
                     <input required name="mobile" value={formData.mobile} onChange={handleInputChange} type="tel" className={`flex-grow px-4 py-3 rounded-xl border ${errors.mobile ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Enter number" />
                   </div>
                   <FormErrorMessage message={errors.mobile} />
@@ -347,7 +353,7 @@ function RegistrationFormBContent() {
                     <input required name="declarationAccepted" checked={formData.declarationAccepted} onChange={handleInputChange} type="checkbox" className="w-5 h-5 rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer" />
                   </div>
                   <div className="text-sm text-gray-700 leading-relaxed font-medium">
-                    I hereby declare that I am duly authorised to represent the organisation named above and that all information provided in this form is true, accurate, and complete to the best of my knowledge. I consent to ARIFAC collecting, storing, and processing the information submitted herein for the purposes of membership registration and related communications.
+                    I hereby declare that I am duly authorised to represent the organisation and that all information provided in this form is true, accurate, and complete to the best of my knowledge. I consent to ARIFAC collecting, storing, and processing the information submitted herein for the purposes of membership registration and related communications.
                   </div>
                 </div>
                 <FormErrorMessage message={errors.declarationAccepted} />

@@ -440,7 +440,7 @@ export default function UpgradeMembership() {
                 </div>
 
                 <div className="space-y-6">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1">Is your organisation a member of IAMAI or IBA? *</label>
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1">Are you a member of IAMAI or IBA ? *</label>
                   <div className="relative" ref={dropdownRef}>
                     <div
                       className={`w-full px-6 py-4 rounded-2xl bg-white/5 border ${isMembershipMenuOpen ? 'border-blue-500/50 ring-2 ring-blue-500/20' : 'border-white/10'} transition-all cursor-pointer flex justify-between items-center group`}
@@ -559,8 +559,8 @@ export default function UpgradeMembership() {
                           <label
                             key={range}
                             className={`p-6 rounded-3xl border transition-all cursor-pointer flex flex-col gap-3 group relative overflow-hidden ${formData.turnoverOrAum === range
-                                ? 'bg-blue-600/20 border-blue-500/50 shadow-lg shadow-blue-500/10'
-                                : 'bg-white/5 border-white/10 hover:border-white/20'
+                              ? 'bg-blue-600/20 border-blue-500/50 shadow-lg shadow-blue-500/10'
+                              : 'bg-white/5 border-white/10 hover:border-white/20'
                               }`}
                           >
                             <input
@@ -605,8 +605,8 @@ export default function UpgradeMembership() {
                           type="button"
                           onClick={() => setFormData(prev => ({ ...prev, registeredWithFiu: opt }))}
                           className={`px-8 py-3 rounded-2xl border transition-all font-bold text-sm ${formData.registeredWithFiu === opt
-                              ? 'bg-blue-500 text-white border-blue-400 shadow-lg shadow-blue-500/20'
-                              : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
+                            ? 'bg-blue-500 text-white border-blue-400 shadow-lg shadow-blue-500/20'
+                            : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
                             }`}
                         >
                           {opt}

@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { validatePAN } from '@/utils/panValidator';
+import { MAP_IDENTIFIER_TYPE } from '@/lib/constants';
 
 export const MembershipFormASchema = z.object({
   // Authorised Representative Details
@@ -40,6 +42,18 @@ export const MembershipFormASchema = z.object({
   declarationAccepted: z.literal(true, {
     message: 'You must accept the declaration',
   }),
+}).superRefine((data, ctx) => {
+  const mappedType = MAP_IDENTIFIER_TYPE[data.identifierType];
+  if (mappedType === 'PAN') {
+    const panResult = validatePAN(data.identifierNumber, data.entityType);
+    if (!panResult.isValid) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: panResult.message,
+        path: ['identifierNumber'],
+      });
+    }
+  }
 });
 
 export const MembershipFormBSchema = z.object({
@@ -80,4 +94,16 @@ export const PostApprovalFormSchema = z.object({
   declarationAccepted: z.literal(true, {
     message: 'You must accept the declaration',
   }),
+}).superRefine((data, ctx) => {
+  const mappedType = MAP_IDENTIFIER_TYPE[data.identifierType];
+  if (mappedType === 'PAN') {
+    const panResult = validatePAN(data.identifierNumber, data.entityType);
+    if (!panResult.isValid) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: panResult.message,
+        path: ['identifierNumber'],
+      });
+    }
+  }
 });

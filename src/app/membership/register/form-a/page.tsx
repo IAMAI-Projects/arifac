@@ -12,6 +12,8 @@ import { MembershipFormASchema } from '@/lib/validations/membership.schema';
 import FormErrorMessage from '@/components/FormErrorMessage';
 import OTPVerification from '@/components/OTPVerification';
 import { z } from 'zod';
+import { MAP_IDENTIFIER_TYPE } from '@/lib/constants';
+import { COUNTRY_CODES } from '@/lib/countries';
 
 // Data
 const PRIMARY_SECTORS = [
@@ -106,9 +108,6 @@ function RegistrationFormContent() {
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const [iamaiFile, setIamaiFile] = useState<File | null>(null);
-  const iamaiFileRef = useRef<HTMLInputElement>(null);
-
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isMembershipMenuOpen, setIsMembershipMenuOpen] = useState(false);
 
@@ -131,7 +130,12 @@ function RegistrationFormContent() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
-    const finalValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    let finalValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+
+    // Auto-uppercase PAN number
+    if (name === 'identifierNumber' && MAP_IDENTIFIER_TYPE[formData.identifierType] === 'PAN') {
+      finalValue = (finalValue as string).toUpperCase();
+    }
 
     setFormData(prev => ({
       ...prev,
@@ -148,28 +152,6 @@ function RegistrationFormContent() {
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        setError("File size must be less than 5MB");
-        return;
-      }
-      setIamaiFile(file);
-    }
-  };
-
-  const uploadFile = async (file: File) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    const response = await fetch('/api/upload', {
-      method: 'POST',
-      body: formData,
-    });
-    const result = await response.json();
-    if (!response.ok) throw new Error(result.error || 'Upload failed');
-    return result.url;
-  };
 
   const calculateAmount = () => {
     const isBankOrNBFC = formData.primarySector === 'Banking' || formData.primarySector === 'NBFC';
@@ -202,12 +184,7 @@ function RegistrationFormContent() {
     setError(null);
     setErrors({});
 
-    // Ensure email is verified
-    if (!isEmailVerified) {
-      setError("Please verify your email address via OTP.");
-      setIsSubmitting(false);
-      return;
-    }
+    let hasErrors = false;
 
     // Validate with Zod
     try {
@@ -222,28 +199,26 @@ function RegistrationFormContent() {
         });
         setErrors(fieldErrors);
         setError("Please fix the errors in the form.");
-        setIsSubmitting(false);
-        return;
+        hasErrors = true;
       }
+    }
+
+    // Ensure email is verified
+    if (!isEmailVerified) {
+      setError(prev => prev ? prev + " Also, please verify your email address via OTP." : "Please verify your email address via OTP.");
+      hasErrors = true;
+    }
+
+    if (hasErrors) {
+      setIsSubmitting(false);
+      return;
     }
 
     const isIamai = formData.industryMemberships.includes('IAMAI');
     const isIba = formData.industryMemberships.includes('IBA');
     const isMembershipSelected = isIamai || isIba;
 
-    // Additional manual validation for file (Zod handles simple strings better)
-    if (isIamai && !iamaiFile) {
-      setErrors(prev => ({ ...prev, iamaiFile: "Please upload IAMAI Membership Certificate" }));
-      setError("Please upload required documents.");
-      setIsSubmitting(false);
-      return;
-    }
-
     try {
-      let iamaiUrl = '';
-
-      if (iamaiFile) iamaiUrl = await uploadFile(iamaiFile);
-
       const amount = calculateAmount();
       const registrationData = {
         ...formData,
@@ -251,7 +226,7 @@ function RegistrationFormContent() {
         baseAmount: amount,
         taxAmount: amount * 0.18,
         totalAmount: amount * 1.18,
-        iamaiCertificateUrl: iamaiUrl,
+        iamaiCertificateUrl: '',
       };
 
       const response = await fetch('/api/membership/register', {
@@ -342,14 +317,17 @@ function RegistrationFormContent() {
             <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-6 gap-6">
               <div className="col-span-1 md:col-span-1">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Salutation *</label>
-                <select required name="salutation" value={formData.salutation} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border ${errors.salutation ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}>
-                  <option value="" disabled>Select</option>
-                  <option value="Mr.">Mr.</option>
-                  <option value="Ms.">Ms.</option>
-                  <option value="Mrs.">Mrs.</option>
-                  <option value="Dr.">Dr.</option>
-                  <option value="Prof.">Prof.</option>
-                </select>
+                <div className="relative">
+                  <select required name="salutation" value={formData.salutation} onChange={handleInputChange} className={`w-full pl-4 pr-10 py-3 rounded-xl border ${errors.salutation ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white appearance-none`}>
+                    <option value="" disabled>Select</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Dr.">Dr.</option>
+                    <option value="Prof.">Prof.</option>
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                </div>
                 <FormErrorMessage message={errors.salutation} />
               </div>
               <div className="col-span-1 md:col-span-5">
@@ -366,14 +344,16 @@ function RegistrationFormContent() {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Mobile Number *</label>
                 <div className="flex flex-col gap-1">
                   <div className="flex gap-2">
-                    <select name="countryCode" value={formData.countryCode} onChange={handleInputChange} className="w-[100px] px-3 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-sm">
-                      <option value="+91">+91 (IN)</option>
-                      <option value="+1">+1 (US)</option>
-                      <option value="+44">+44 (UK)</option>
-                      <option value="+971">+971 (UAE)</option>
-                      <option value="+65">+65 (SG)</option>
-                      <option value="+61">+61 (AU)</option>
-                    </select>
+                    <div className="relative">
+                      <select name="countryCode" value={formData.countryCode} onChange={handleInputChange} className="w-[100px] pl-3 pr-8 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-sm appearance-none">
+                        {COUNTRY_CODES.map((country) => (
+                          <option key={country.code} value={country.dial_code}>
+                            {country.dial_code} ({country.code})
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                    </div>
                     <input required name="mobile" value={formData.mobile} onChange={handleInputChange} type="tel" className={`flex-grow px-4 py-3 rounded-xl border ${errors.mobile ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Enter number" />
                   </div>
                   <FormErrorMessage message={errors.mobile} />
@@ -451,19 +431,23 @@ function RegistrationFormContent() {
                   <FormErrorMessage message={errors.orgWebsite} />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Primary Sector / Industry *</label>
-                  <select required name="primarySector" value={formData.primarySector} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border ${errors.primarySector ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}>
-                    <option value="" disabled>Select Sector</option>
-                    {PRIMARY_SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
-                  </select>
+                  <div className="relative">
+                    <select required name="primarySector" value={formData.primarySector} onChange={handleInputChange} className={`w-full pl-4 pr-10 py-3 rounded-xl border ${errors.primarySector ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white appearance-none`}>
+                      <option value="" disabled>Select Sector</option>
+                      {PRIMARY_SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
                   <FormErrorMessage message={errors.primarySector} />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Type of Entity *</label>
-                  <select required name="entityType" value={formData.entityType} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border ${errors.entityType ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}>
-                    <option value="" disabled>Select Entity Type</option>
-                    {ENTITY_TYPES.map(s => <option key={s} value={s}>{s}</option>)}
-                  </select>
+                  <div className="relative">
+                    <select required name="entityType" value={formData.entityType} onChange={handleInputChange} className={`w-full pl-4 pr-10 py-3 rounded-xl border ${errors.entityType ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white appearance-none`}>
+                      <option value="" disabled>Select Entity Type</option>
+                      {ENTITY_TYPES.map(s => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
                   <FormErrorMessage message={errors.entityType} />
                 </div>
                 <div className="col-span-1 md:col-span-2">
@@ -498,11 +482,13 @@ function RegistrationFormContent() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Identifier Type *</label>
-                  <select required name="identifierType" value={formData.identifierType} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border ${errors.identifierType ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}>
-                    <option value="" disabled>Select applicable type</option>
-                    {IDENTIFIER_TYPES.map(s => <option key={s} value={s}>{s}</option>)}
-                  </select>
+                  <div className="relative">
+                    <select required name="identifierType" value={formData.identifierType} onChange={handleInputChange} className={`w-full pl-4 pr-10 py-3 rounded-xl border ${errors.identifierType ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white appearance-none`}>
+                      <option value="" disabled>Select applicable type</option>
+                      {IDENTIFIER_TYPES.map(s => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
                   <FormErrorMessage message={errors.identifierType} />
                 </div>
                 <div>
@@ -523,7 +509,7 @@ function RegistrationFormContent() {
               <h2 className="text-xl font-bold text-gray-900">4. Existing Industry Memberships</h2>
             </div>
             <div className="p-6 sm:p-8 space-y-6">
-              <label className="block text-sm font-semibold text-gray-700 mb-3">Is your organisation a member of IAMAI? *</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">Are you a member of IAMAI or IBA ? *</label>
               <div className="relative mb-6" ref={dropdownRef}>
                 <div
                   className={`w-full px-4 py-3 rounded-xl border ${isMembershipMenuOpen ? 'border-blue-500 ring-2 ring-blue-500' : 'border-gray-300'} transition-all bg-white cursor-pointer flex justify-between items-center`}
@@ -582,44 +568,6 @@ function RegistrationFormContent() {
               </div>
 
               <AnimatePresence>
-                {formData.industryMemberships.includes('IAMAI') && (
-                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mb-6 overflow-hidden">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Upload IAMAI Membership Certificate *</label>
-                    <div
-                      onClick={() => iamaiFileRef.current?.click()}
-                      className={`w-full border-2 border-dashed ${iamaiFile ? 'border-green-500 bg-green-50' : 'border-gray-300 bg-gray-50'} rounded-xl p-8 flex flex-col items-center justify-center text-center hover:bg-gray-100 transition-colors cursor-pointer group`}
-                    >
-                      {iamaiFile ? (
-                        <>
-                          <CheckSquare className="w-8 h-8 text-green-500 mb-3" />
-                          <span className="text-sm font-medium text-green-700">{iamaiFile.name}</span>
-                          <span className="text-xs text-green-600 mt-1">{(iamaiFile.size / 1024).toFixed(1)} KB</span>
-                        </>
-                      ) : (
-                        <>
-                          <Upload className="w-8 h-8 text-gray-400 group-hover:text-blue-500 mb-3" />
-                          <span className="text-sm font-medium text-gray-600">Click to upload or drag & drop</span>
-                          <span className="text-xs text-gray-500 mt-1">PDF, JPG, PNG (Max 5MB)</span>
-                        </>
-                      )}
-                      <input
-                        type="file"
-                        ref={iamaiFileRef}
-                        className="hidden"
-                        accept=".pdf,.png,.jpg,.jpeg"
-                        onChange={(e) => handleFileChange(e)}
-                      />
-                    </div>
-                    <FormErrorMessage message={errors.iamaiFile} />
-                  </motion.div>
-                )}
-                {formData.industryMemberships.includes('IBA') && (
-                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mb-6 overflow-hidden">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">IBA Membership ID *</label>
-                    <input required name="ibaMembershipId" value={formData.ibaMembershipId} onChange={handleInputChange} type="text" className={`w-full md:w-1/2 px-4 py-3 rounded-xl border ${errors.ibaMembershipId ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-mono`} placeholder="Enter IBA Membership ID" />
-                    <FormErrorMessage message={errors.ibaMembershipId} />
-                  </motion.div>
-                )}
                 {formData.industryMemberships.includes('None') && (
                   <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                     {(() => {
@@ -631,34 +579,37 @@ function RegistrationFormContent() {
                               ? "What is your organisation's total Assets Under Management (AUM)? *"
                               : "What is your organisation's Annual Turnover? *"}
                           </label>
-                          <select
-                            required
-                            name="turnoverOrAum"
-                            value={formData.turnoverOrAum}
-                            onChange={handleInputChange}
-                            className={`w-full px-4 py-3 rounded-xl border ${errors.turnoverOrAum ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}
-                          >
-                            <option value="" disabled>Select applicable range</option>
-                            {isBankOrNBFC ? (
-                              <>
-                                <option value="Up to ₹500 Cr">Up to ₹500 Cr</option>
-                                <option value="₹500 Cr – ₹1,000 Cr">₹500 Cr – ₹1,000 Cr</option>
-                                <option value="₹1,000 Cr – ₹10,000 Cr">₹1,000 Cr – ₹10,000 Cr</option>
-                                <option value="₹10,000 Cr – ₹50,000 Cr">₹10,000 Cr – ₹50,000 Cr</option>
-                                <option value="₹50,000 Cr – ₹1,00,000 Cr">₹50,000 Cr – ₹1,00,000 Cr</option>
-                                <option value="Above ₹1,00,000 Cr">Above ₹1,00,000 Cr</option>
-                              </>
-                            ) : (
-                              <>
-                                <option value="Up to ₹5 Cr">Up to ₹5 Cr</option>
-                                <option value="₹5 Cr – ₹25 Cr">₹5 Cr – ₹25 Cr</option>
-                                <option value="₹25 Cr – ₹100 Cr">₹25 Cr – ₹100 Cr</option>
-                                <option value="₹100 Cr – ₹500 Cr">₹100 Cr – ₹500 Cr</option>
-                                <option value="₹500 Cr – ₹2,000 Cr">₹500 Cr – ₹2,000 Cr</option>
-                                <option value="Above ₹2,000 Cr">Above ₹2,000 Cr</option>
-                              </>
-                            )}
-                          </select>
+                          <div className="relative">
+                            <select
+                              required
+                              name="turnoverOrAum"
+                              value={formData.turnoverOrAum}
+                              onChange={handleInputChange}
+                              className={`w-full pl-4 pr-10 py-3 rounded-xl border ${errors.turnoverOrAum ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white appearance-none`}
+                            >
+                              <option value="" disabled>Select applicable range</option>
+                              {isBankOrNBFC ? (
+                                <>
+                                  <option value="Up to ₹500 Cr">Up to ₹500 Cr</option>
+                                  <option value="₹500 Cr – ₹1,000 Cr">₹500 Cr – ₹1,000 Cr</option>
+                                  <option value="₹1,000 Cr – ₹10,000 Cr">₹1,000 Cr – ₹10,000 Cr</option>
+                                  <option value="₹10,000 Cr – ₹50,000 Cr">₹10,000 Cr – ₹50,000 Cr</option>
+                                  <option value="₹50,000 Cr – ₹1,00,000 Cr">₹50,000 Cr – ₹1,00,000 Cr</option>
+                                  <option value="Above ₹1,00,000 Cr">Above ₹1,00,000 Cr</option>
+                                </>
+                              ) : (
+                                <>
+                                  <option value="Up to ₹5 Cr">Up to ₹5 Cr</option>
+                                  <option value="₹5 Cr – ₹25 Cr">₹5 Cr – ₹25 Cr</option>
+                                  <option value="₹25 Cr – ₹100 Cr">₹25 Cr – ₹100 Cr</option>
+                                  <option value="₹100 Cr – ₹500 Cr">₹100 Cr – ₹500 Cr</option>
+                                  <option value="₹500 Cr – ₹2,000 Cr">₹500 Cr – ₹2,000 Cr</option>
+                                  <option value="Above ₹2,000 Cr">Above ₹2,000 Cr</option>
+                                </>
+                              )}
+                            </select>
+                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                          </div>
                           <FormErrorMessage message={errors.turnoverOrAum} />
                         </div>
                       );
@@ -684,7 +635,7 @@ function RegistrationFormContent() {
                     <input required name="declarationAccepted" checked={formData.declarationAccepted} onChange={handleInputChange} type="checkbox" className="w-5 h-5 rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer" />
                   </div>
                   <div className="text-sm text-gray-700 leading-relaxed font-medium">
-                    I hereby declare that I am duly authorised to represent the organisation named above and that all information provided in this form is true, accurate, and complete to the best of my knowledge. I consent to ARIFAC collecting, storing, and processing the information submitted herein for the purposes of membership registration and related communications.
+                    I hereby declare that I am duly authorised to represent the organisation  and that all information provided in this form is true, accurate, and complete to the best of my knowledge. I consent to ARIFAC collecting, storing, and processing the information submitted herein for the purposes of membership registration and related communications.
                   </div>
                 </div>
                 <FormErrorMessage message={errors.declarationAccepted} />

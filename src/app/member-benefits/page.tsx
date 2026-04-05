@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { getUser } from '@/lib/auth';
 import {
     Shield,
@@ -17,6 +17,7 @@ import {
     Download,
     Mail,
     ArrowRight,
+    ChevronDown,
 } from 'lucide-react';
 
 const categories = [
@@ -90,6 +91,7 @@ const processSteps = [
 
 export default function MemberBenefitsPage() {
     const [user, setUser] = useState<any>(null);
+    const [showFees, setShowFees] = useState(false);
 
     useEffect(() => {
         setUser(getUser());
@@ -263,7 +265,6 @@ export default function MemberBenefitsPage() {
                             </div>
                         </div>
 
-                        {/* Row 2: Fees — full width */}
                         <div className="p-8 bg-[#f5f5f7] rounded-[40px] border border-gray-100">
                             <div className="flex items-center gap-4 mb-4 text-accent">
                                 <ClipboardCheck size={28} />
@@ -273,53 +274,78 @@ export default function MemberBenefitsPage() {
                                 Membership fees are determined by your organisation&apos;s self-declared annual turnover or Assets Under Management (AUM), as applicable. All fees are exclusive of taxes and subject to revision.
                             </p>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {/* Turnover Table */}
-                                <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
-                                    <div className="grid grid-cols-2 bg-[#1d1d1f] text-white text-[11px] font-bold uppercase tracking-wider px-5 py-3">
-                                        <span>Turnover ₹</span>
-                                        <span>Annual Fee</span>
-                                    </div>
-                                    {[
-                                        ['Up to 5 Cr', '₹25,000 + taxes'],
-                                        ['5–25 Cr', '₹50,000 + taxes'],
-                                        ['25–100 Cr', '₹1,00,000 + taxes'],
-                                        ['100–500 Cr', '₹1,50,000 + taxes'],
-                                        ['500–2,000 Cr', '₹3,00,000 + taxes'],
-                                        ['Above 2,000 Cr', '₹5,00,000 + taxes'],
-                                    ].map(([range, fee], i) => (
-                                        <div key={i} className={`grid grid-cols-2 px-5 py-3 text-[13px] font-medium border-b border-gray-50 last:border-0 ${i % 2 === 0 ? 'bg-white' : 'bg-[#fafafa]'}`}>
-                                            <span className="text-[#1d1d1f]">{range}</span>
-                                            <span className="text-accent font-bold">{fee}</span>
-                                        </div>
-                                    ))}
-                                </div>
+                            <button
+                                onClick={() => setShowFees(!showFees)}
+                                className="flex items-center gap-2 px-6 py-3 bg-[#C2B020] hover:bg-[#A3941B] text-[#1d1d1f] font-bold rounded-xl transition-all mb-6"
+                            >
+                                {showFees ? 'Show Less' : 'Know More'}
+                                <motion.div
+                                    animate={{ rotate: showFees ? 180 : 0 }}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    <ChevronDown size={20} />
+                                </motion.div>
+                            </button>
 
-                                {/* AUM Table */}
-                                <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
-                                    <div className="grid grid-cols-2 bg-[#C2B020] text-[#1d1d1f] text-[11px] font-bold uppercase tracking-wider px-5 py-3">
-                                        <span>AUM ₹</span>
-                                        <span>Annual Fee</span>
-                                    </div>
-                                    {[
-                                        ['Up to 500 Cr', '₹25,000 + taxes'],
-                                        ['500–1,000 Cr', '₹50,000 + taxes'],
-                                        ['1,000–10,000 Cr', '₹1,00,000 + taxes'],
-                                        ['10,000–50,000 Cr', '₹1,50,000 + taxes'],
-                                        ['50,000–1,00,000 Cr', '₹3,00,000 + taxes'],
-                                        ['Above 1,00,000 Cr', '₹5,00,000 + taxes'],
-                                    ].map(([range, fee], i) => (
-                                        <div key={i} className={`grid grid-cols-2 px-5 py-3 text-[13px] font-medium border-b border-gray-50 last:border-0 ${i % 2 === 0 ? 'bg-white' : 'bg-[#fafafa]'}`}>
-                                            <span className="text-[#1d1d1f]">{range}</span>
-                                            <span className="text-accent font-bold">{fee}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                            <AnimatePresence>
+                                {showFees && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            {/* Turnover Table */}
+                                            <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+                                                <div className="grid grid-cols-2 bg-[#1d1d1f] text-white text-[11px] font-bold uppercase tracking-wider px-5 py-3">
+                                                    <span>Turnover ₹</span>
+                                                    <span>Annual Fee</span>
+                                                </div>
+                                                {[
+                                                    ['Up to 5 Cr', '₹25,000 + taxes'],
+                                                    ['5–25 Cr', '₹50,000 + taxes'],
+                                                    ['25–100 Cr', '₹1,00,000 + taxes'],
+                                                    ['100–500 Cr', '₹1,50,000 + taxes'],
+                                                    ['500–2,000 Cr', '₹3,00,000 + taxes'],
+                                                    ['Above 2,000 Cr', '₹5,00,000 + taxes'],
+                                                ].map(([range, fee], i) => (
+                                                    <div key={i} className={`grid grid-cols-2 px-5 py-3 text-[13px] font-medium border-b border-gray-50 last:border-0 ${i % 2 === 0 ? 'bg-white' : 'bg-[#fafafa]'}`}>
+                                                        <span className="text-[#1d1d1f]">{range}</span>
+                                                        <span className="text-accent font-bold">{fee}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
 
-                            <div className="mt-6 px-6 py-4 bg-[#C2B020]/10 border border-[#C2B020]/30 rounded-2xl text-[13px] font-bold text-[#1d1d1f] text-center">
-                                ARIFAC membership is complimentary for all IBA and IAMAI members.
-                            </div>
+                                            {/* AUM Table */}
+                                            <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+                                                <div className="grid grid-cols-2 bg-[#C2B020] text-[#1d1d1f] text-[11px] font-bold uppercase tracking-wider px-5 py-3">
+                                                    <span>AUM ₹</span>
+                                                    <span>Annual Fee</span>
+                                                </div>
+                                                {[
+                                                    ['Up to 500 Cr', '₹25,000 + taxes'],
+                                                    ['500–1,000 Cr', '₹50,000 + taxes'],
+                                                    ['1,000–10,000 Cr', '₹1,00,000 + taxes'],
+                                                    ['10,000–50,000 Cr', '₹1,50,000 + taxes'],
+                                                    ['50,000–1,00,000 Cr', '₹3,00,000 + taxes'],
+                                                    ['Above 1,00,000 Cr', '₹5,00,000 + taxes'],
+                                                ].map(([range, fee], i) => (
+                                                    <div key={i} className={`grid grid-cols-2 px-5 py-3 text-[13px] font-medium border-b border-gray-50 last:border-0 ${i % 2 === 0 ? 'bg-white' : 'bg-[#fafafa]'}`}>
+                                                        <span className="text-[#1d1d1f]">{range}</span>
+                                                        <span className="text-accent font-bold">{fee}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-6 px-6 py-4 bg-[#C2B020]/10 border border-[#C2B020]/30 rounded-2xl text-[13px] font-bold text-[#1d1d1f] text-center">
+                                            ARIFAC membership is complimentary for all IBA and IAMAI members.
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
 
                     </div>
