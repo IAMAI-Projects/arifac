@@ -117,17 +117,19 @@ export async function POST(req: NextRequest) {
                                 where: { id: application.user_id },
                                 data: { is_active: true }
                             });
+                        }
 
-                            // If Form B User (Set 2) exists with same email, activate it too
-                            if (application.users?.email) {
-                                try {
-                                    await tx.user.updateMany({
-                                        where: { email: application.users.email },
-                                        data: { status: 'ACTIVE' }
-                                    });
-                                } catch (err) {
-                                    console.error('[CCAvenue] callback: Failed to update Set 2 User status:', err);
-                                }
+                        // 2b. Synchronize Set 2 Workflow User status
+                        if (application.users?.email) {
+                            try {
+                                const { UserStatus } = await import('@prisma/client');
+                                const updatedSet2 = await tx.user.updateMany({
+                                    where: { email: application.users.email },
+                                    data: { status: 'ACTIVE' as any }
+                                });
+                                console.log(`[CCAvenue] callback: Set 2 user status updated for ${application.users.email}:`, updatedSet2.count);
+                            } catch (err) {
+                                console.error('[CCAvenue] callback: Failed to update Set 2 User status:', err);
                             }
                         }
                     } else if (orderStatus === 'Aborted' || orderStatus === 'Failure') {
@@ -164,6 +166,20 @@ export async function POST(req: NextRequest) {
                                 address: application.organisations?.registered_address || undefined
                             });
                             console.log('[CCAvenue] callback: Payment success email triggered for:', application.users.email);
+
+                            // 3b. Trigger Membership Confirmation Email (Official Welcome)
+                            // This is the "Option 2" the user wanted only after payment.
+                            await EmailService.sendMembershipConfirmationEmail({
+                                orgName: application.organisations?.name || 'Organisation',
+                                email: application.users.email,
+                                membershipId: application.id,
+                                entityType: application.organisations?.entity_type || 'Institution',
+                                username: application.users.username,
+                                name: application.users.full_name,
+                                designation: application.users.designation || undefined,
+                                mobile: application.users.mobile || undefined,
+                            }).catch((err: unknown) => console.error('[CCAvenue callback] Registration email error:', err));
+                            console.log('[CCAvenue] callback: Registration confirmation email triggered for:', application.users.email);
 
                             // 4. Issue Session Cookie (JWT) for the newly paid member
                             try {

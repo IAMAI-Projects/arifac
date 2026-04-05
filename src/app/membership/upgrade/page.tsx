@@ -430,7 +430,7 @@ export default function UpgradeMembership() {
             </section>
 
             {/* Step 2: Existing Memberships */}
-            <section className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-10 shadow-2xl relative overflow-hidden group">
+            <section className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-10 shadow-2xl relative group z-20">
               <div className="relative z-10">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
@@ -458,17 +458,22 @@ export default function UpgradeMembership() {
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
-                          className="absolute z-[60] w-full mt-3 bg-[#121212] border border-white/10 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-xl"
+                          className="absolute z-[100] w-full mt-3 bg-[#1a1a1a] border border-white/20 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden backdrop-blur-2xl"
                         >
                           {['IAMAI', 'IBA', 'None'].map(option => (
-                            <label key={option} className="flex items-center px-6 py-4 hover:bg-white/5 cursor-pointer border-b border-white/5 last:border-0 transition-colors">
-                              <input
-                                type="checkbox"
-                                checked={formData.industryMemberships.includes(option)}
-                                onChange={() => handleMembershipToggle(option)}
-                                className="w-5 h-5 text-blue-500 rounded border-white/20 bg-white/5 focus:ring-blue-500/50 cursor-pointer"
-                              />
-                              <span className={`ml-4 text-sm font-medium ${formData.industryMemberships.includes(option) ? 'text-white' : 'text-gray-400'}`}>{option}</span>
+                            <label key={option} className="flex items-center px-6 py-4 hover:bg-white/10 cursor-pointer border-b border-white/5 last:border-0 transition-colors group/item">
+                              <div className="relative flex items-center">
+                                <input
+                                  type="checkbox"
+                                  checked={formData.industryMemberships.includes(option)}
+                                  onChange={() => handleMembershipToggle(option)}
+                                  className="peer w-6 h-6 opacity-0 absolute cursor-pointer"
+                                />
+                                <div className={`w-6 h-6 border-2 rounded-lg transition-all flex items-center justify-center ${formData.industryMemberships.includes(option) ? 'bg-blue-600 border-blue-500 shadow-[0_0_15px_rgba(37,99,235,0.4)]' : 'bg-white/5 border-white/20 group-hover/item:border-white/40'}`}>
+                                  {formData.industryMemberships.includes(option) && <CheckCircle2 className="w-4 h-4 text-white" />}
+                                </div>
+                              </div>
+                              <span className={`ml-4 text-base font-semibold ${formData.industryMemberships.includes(option) ? 'text-white' : 'text-gray-400 group-hover/item:text-gray-200'}`}>{option}</span>
                             </label>
                           ))}
                         </motion.div>

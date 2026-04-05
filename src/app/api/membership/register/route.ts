@@ -15,29 +15,34 @@ export async function POST(request: Request) {
       const isIba = data.industryMemberships?.includes('IBA');
       const skipPayment = isIamai || isIba;
 
-      // Auto-login ONLY for pre-approved / fee-waived members
-      if (result.success && result.user && skipPayment) {
-        const token = await createToken({
-          userId: result.user.id,
-          email: result.user.email,
-          name: result.user.name,
-          orgId: result.user.orgId,
-          isActive: true
-        });
-        await setAuthCookie(token);
+      // 1. Send Email for ALL successful registrations (Paid or Free)
+      if (result.success && result.user) {
+        // Auto-login ONLY for pre-approved / fee-waived members
+        if (skipPayment) {
+          const token = await createToken({
+            userId: result.user.id,
+            email: result.user.email,
+            name: result.user.name,
+            orgId: result.user.orgId,
+            isActive: true
+          });
+          await setAuthCookie(token);
 
-        // Send membership confirmation email (admin notification + user confirmation with credentials)
-        EmailService.sendMembershipConfirmationEmail({
-          orgName: data.orgName,
-          email: result.user.email,
-          membershipId: result.applicationId,
-          entityType: data.entityType,
-          username: data.username,
-          password: data.password,
-          name: result.user.name,
-          designation: data.designation,
-          mobile: data.mobile,
-        }).catch((err: unknown) => console.error('[Membership Email Error]', err));
+          // IAMAI/IBA members get confirmation immediately (with password)
+          EmailService.sendMembershipConfirmationEmail({
+            orgName: data.orgName,
+            email: result.user.email,
+            membershipId: result.applicationId,
+            entityType: data.entityType,
+            username: data.username,
+            password: data.password,
+            name: result.user.name,
+            designation: data.designation,
+            mobile: data.mobile,
+          }).catch((err: unknown) => console.error('[Membership Email Error]', err));
+        }
+        // NOTE: Paid members (skipPayment = false) do NOT receive the confirmation email here.
+        // It is triggered in the payment callback after successful transaction.
       }
 
       return NextResponse.json(result);
@@ -53,6 +58,8 @@ export async function POST(request: Request) {
           designation: data.designation,
           mobile: data.mobile,
           salutation: data.salutation,
+          username: data.username,
+          password: data.password,
         }).catch((err: unknown) => console.error('[Membership Email Error - Form B]', err));
       }
 

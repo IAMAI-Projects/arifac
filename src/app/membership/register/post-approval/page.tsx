@@ -243,7 +243,7 @@ function PostApprovalFormContent() {
           baseAmount: amount,
           taxAmount: amount * 0.18,
           totalAmount: amount * 1.18,
-          applicationId: result.user?.id || 'pending'
+          applicationId: result.application?.id || 'pending'
         };
 
         // Store non-sensitive display data in sessionStorage
@@ -367,7 +367,7 @@ function PostApprovalFormContent() {
               <h2 className="text-xl font-bold text-gray-900">3. Existing Industry Memberships</h2>
             </div>
             <div className="p-6 sm:p-8 space-y-6">
-              <label className="block text-sm font-semibold text-gray-700 mb-3">Is your organisation a current member of IAMAI? *</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">Is your organisation a current member of IAMAI OR IBA? *</label>
               <div className="relative mb-6" ref={dropdownRef}>
                 <div
                   className={`w-full px-4 py-3 rounded-xl border ${isMembershipMenuOpen ? 'border-blue-500 ring-2 ring-blue-500' : 'border-gray-300'} transition-all bg-white cursor-pointer flex justify-between items-center`}
@@ -387,7 +387,7 @@ function PostApprovalFormContent() {
                       exit={{ opacity: 0, y: -10 }}
                       className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden"
                     >
-                      {['IAMAI', 'None'].map(option => (
+                      {['IAMAI', 'IBA', 'None'].map(option => (
                         <label key={option} className="flex items-center px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-0">
                           <input
                             type="checkbox"

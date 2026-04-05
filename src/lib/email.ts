@@ -247,8 +247,8 @@ export class EmailService {
       email: string;
       membershipId: string;
       entityType: string;
-      username: string;
-      password: string;
+      username?: string;
+      password?: string;
       name: string;
       designation?: string;
       mobile?: string;
@@ -301,10 +301,14 @@ export class EmailService {
                 ${row('Membership ID', `<strong>${data.membershipId}</strong>`)}
                 ${row('Category', data.entityType)}
                 ${row('Date of Activation', activationDate)}
-                ${row('Username', data.username)}
-                ${row('Password', data.password)}
+                ${data.username ? row('Username', data.username) : ''}
+                ${data.password ? row('Password', data.password) : ''}
               </table>
             </div>
+            ${!data.password ? `
+            <p style="font-size:13px;color:#6b7280;margin:0 0 20px;font-style:italic;">
+              <strong>Note:</strong> Please use the password you created during the registration process to log in.
+            </p>` : ''}
             <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 16px;">
               As a member, you will be part of ARIFAC's initiatives focused on AML/CFT compliance, capacity building, and industry collaboration.
             </p>
@@ -421,6 +425,8 @@ export class EmailService {
       designation?: string;
       mobile?: string;
       salutation?: string;
+      username?: string;
+      password?: string;
     },
     retries = 3,
   ) {
@@ -469,6 +475,12 @@ export class EmailService {
               Our team is currently reviewing the submitted details. The ARIFAC Helpdesk will reach out to you
               with the next steps, if any additional information is required.
             </p>
+            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:20px 24px;margin-bottom:20px;">
+              <table style="width:100%;border-collapse:collapse;">
+                ${data.username ? row('Username', data.username) : ''}
+                ${data.password ? row('Password', data.password) : ''}
+              </table>
+            </div>
             <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 24px;">
               We appreciate your interest in joining ARIFAC.
             </p>

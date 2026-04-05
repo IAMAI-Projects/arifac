@@ -95,6 +95,8 @@ export class WorkflowService {
           ? `${data.details.countryCode} ${data.details.mobile || ''}`
           : data.details?.mobile,
         salutation: data.details?.salutation,
+        username: data.details?.username,
+        password: data.details?.password,
       });
     } catch (emailError) {
       console.error('[WorkflowService] Failed to send Form B user acknowledgement:', emailError);
