@@ -217,7 +217,7 @@ export default function MembershipCertificatePage() {
                 </div>
 
                 {/* Main Content Area */}
-                <div className="relative z-20 h-full w-full flex flex-col items-center pt-[14%] pb-[8%] px-[8%] text-center">
+                <div className="relative z-20 h-full w-full flex flex-col items-center pt-[14%] pb-[15%] px-[8%] text-center">
 
                     {/* ARIFAC Logo Section */}
                     <div className="mb-6 flex flex-col items-center">
@@ -271,7 +271,7 @@ export default function MembershipCertificatePage() {
                     </div>
 
                     {/* Organization Participation Quote */}
-                    <div className="w-full px-4 mt-auto">
+                    <div className="w-full px-4 mt-auto mb-12">
                         <p className="text-[13px] italic text-gray-700 leading-[1.7] max-w-3xl mx-auto">
                             This membership signifies the organisation&apos;s participation in ARIFAC for knowledge sharing, capacity building, and advancement of AML/CFT compliance practices in alignment with applicable regulatory frameworks.
                         </p>
@@ -290,7 +290,13 @@ export default function MembershipCertificatePage() {
                 {/* Footer Content (Logo and Membership ID) */}
                 <div className="absolute bottom-5 left-0 w-full px-12 z-30 flex justify-between items-end">
                     <div className="pb-1">
-                        <Image src="/iamai-logo.png" alt="IAMAI Logo" width={120} height={45} className="object-contain brightness-[100] invert-[0]" />
+                        <Image 
+                            src="/iamai-transparent.png" 
+                            alt="IAMAI Logo" 
+                            width={120} 
+                            height={45} 
+                            className="object-contain" 
+                        />
                     </div>
 
                     <div className="text-right text-white">
