@@ -8,10 +8,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useSearchParams } from 'next/navigation';
 import { login as setClientAuth } from '@/lib/auth';
-import { MembershipFormASchema } from '@/lib/validations/membership.schema';
-import FormErrorMessage from '@/components/FormErrorMessage';
-import OTPVerification from '@/components/OTPVerification';
-import { z } from 'zod';
 
 // Data
 const PRIMARY_SECTORS = [
@@ -87,25 +83,20 @@ const IDENTIFIER_TYPES = [
 function RegistrationFormContent() {
   const searchParams = useSearchParams();
   const prefilledOrg = searchParams.get('org') || '';
-
   const [formData, setFormData] = useState({
     // Section 1
-    salutation: '', fullName: '', designation: '', countryCode: '+91', mobile: '', email: '', username: '', password: '', confirmPassword: '',
+    salutation: '', fullName: '', designation: '', countryCode: '+91', mobile: '', email: '', username: '', password: '',
     // Section 2
     orgName: prefilledOrg, registeredAddress: '', orgWebsite: '', primarySector: '', entityType: '',
     isRegulated: '',
     // Section 3
-    registeredWithFiu: '', fiuRegNumber: '',
     identifierType: '', identifierNumber: '',
     // Section 4
-    industryMemberships: [] as string[], ibaMembershipId: '', turnoverOrAum: '',
+    industryMemberships: [] as string[], turnoverOrAum: '',
     // Section 5
     declarationAccepted: false, remarks: ''
   });
-
-  const [isEmailVerified, setIsEmailVerified] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
+  
   const [iamaiFile, setIamaiFile] = useState<File | null>(null);
   const iamaiFileRef = useRef<HTMLInputElement>(null);
 
@@ -131,21 +122,10 @@ function RegistrationFormContent() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
-    const finalValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
-
     setFormData(prev => ({
       ...prev,
-      [name]: finalValue
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     }));
-
-    // Clear error when user types
-    if (errors[name]) {
-      setErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
-      });
-    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -200,41 +180,14 @@ function RegistrationFormContent() {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
-    setErrors({});
-
-    // Ensure email is verified
-    if (!isEmailVerified) {
-      setError("Please verify your email address via OTP.");
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Validate with Zod
-    try {
-      MembershipFormASchema.parse(formData);
-    } catch (err) {
-      if (err instanceof z.ZodError) {
-        const fieldErrors: Record<string, string> = {};
-        err.issues.forEach((issue) => {
-          if (issue.path && issue.path.length > 0) {
-            fieldErrors[issue.path[0].toString()] = issue.message;
-          }
-        });
-        setErrors(fieldErrors);
-        setError("Please fix the errors in the form.");
-        setIsSubmitting(false);
-        return;
-      }
-    }
 
     const isIamai = formData.industryMemberships.includes('IAMAI');
     const isIba = formData.industryMemberships.includes('IBA');
     const isMembershipSelected = isIamai || isIba;
 
-    // Additional manual validation for file (Zod handles simple strings better)
+    // Validate files if memberships are selected
     if (isIamai && !iamaiFile) {
-      setErrors(prev => ({ ...prev, iamaiFile: "Please upload IAMAI Membership Certificate" }));
-      setError("Please upload required documents.");
+      setError("Please upload IAMAI Membership Certificate");
       setIsSubmitting(false);
       return;
     }
@@ -309,6 +262,12 @@ function RegistrationFormContent() {
         {/* Header */}
         <br />
         <div className="mb-8">
+          <Link href="/membership/register" className="inline-flex items-center text-gray-500 hover:text-blue-600 mb-6 transition-colors">
+            <ArrowLeft className="w-4 h-4 mr-2" /> Back to Programme Overview
+          </Link>
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 font-medium text-sm mb-4">
+            Step 2 of 4
+          </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
             Registration Form
           </motion.h1>
@@ -341,7 +300,7 @@ function RegistrationFormContent() {
             <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-6 gap-6">
               <div className="col-span-1 md:col-span-1">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Salutation *</label>
-                <select required name="salutation" value={formData.salutation} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border ${errors.salutation ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}>
+                <select required name="salutation" value={formData.salutation} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white">
                   <option value="" disabled>Select</option>
                   <option value="Mr.">Mr.</option>
                   <option value="Ms.">Ms.</option>
@@ -349,73 +308,40 @@ function RegistrationFormContent() {
                   <option value="Dr.">Dr.</option>
                   <option value="Prof.">Prof.</option>
                 </select>
-                <FormErrorMessage message={errors.salutation} />
               </div>
               <div className="col-span-1 md:col-span-5">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
-                <input required name="fullName" value={formData.fullName} onChange={handleInputChange} type="text" className={`w-full px-4 py-3 rounded-xl border ${errors.fullName ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Enter full name" />
-                <FormErrorMessage message={errors.fullName} />
+                <input required name="fullName" value={formData.fullName} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter full name" />
               </div>
               <div className="col-span-1 md:col-span-3">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Designation *</label>
-                <input required name="designation" value={formData.designation} onChange={handleInputChange} type="text" className={`w-full px-4 py-3 rounded-xl border ${errors.designation ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Enter designation" />
-                <FormErrorMessage message={errors.designation} />
+                <input required name="designation" value={formData.designation} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter designation" />
               </div>
               <div className="col-span-1 md:col-span-3">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Mobile Number *</label>
-                <div className="flex flex-col gap-1">
-                  <div className="flex gap-2">
-                    <select name="countryCode" value={formData.countryCode} onChange={handleInputChange} className="w-[100px] px-3 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-sm">
-                      <option value="+91">+91 (IN)</option>
-                      <option value="+1">+1 (US)</option>
-                      <option value="+44">+44 (UK)</option>
-                      <option value="+971">+971 (UAE)</option>
-                      <option value="+65">+65 (SG)</option>
-                      <option value="+61">+61 (AU)</option>
-                    </select>
-                    <input required name="mobile" value={formData.mobile} onChange={handleInputChange} type="tel" className={`flex-grow px-4 py-3 rounded-xl border ${errors.mobile ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Enter number" />
-                  </div>
-                  <FormErrorMessage message={errors.mobile} />
+                <div className="flex gap-2">
+                  <select name="countryCode" value={formData.countryCode} onChange={handleInputChange} className="w-[100px] px-3 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-sm">
+                    <option value="+91">+91 (IN)</option>
+                    <option value="+1">+1 (US)</option>
+                    <option value="+44">+44 (UK)</option>
+                    <option value="+971">+971 (UAE)</option>
+                    <option value="+65">+65 (SG)</option>
+                    <option value="+61">+61 (AU)</option>
+                  </select>
+                  <input required name="mobile" value={formData.mobile} onChange={handleInputChange} type="tel" className="flex-grow px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter number" />
                 </div>
               </div>
               <div className="col-span-1 md:col-span-3">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
-                <input
-                  required
-                  name="email"
-                  value={formData.email}
-                  onChange={(e) => {
-                    handleInputChange(e);
-                    if (isEmailVerified) setIsEmailVerified(false);
-                  }}
-                  type="email"
-                  className={`w-full px-4 py-3 rounded-xl border ${errors.email ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${isEmailVerified ? 'bg-green-50/30' : ''}`}
-                  placeholder="Enter official email"
-                />
-                <FormErrorMessage message={errors.email} />
-
-                {formData.email && !errors.email && (
-                  <OTPVerification
-                    email={formData.email}
-                    onVerify={setIsEmailVerified}
-                    className="mt-3"
-                  />
-                )}
+                <input required name="email" value={formData.email} onChange={handleInputChange} type="email" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter official email" />
               </div>
               <div className="col-span-1 md:col-span-3">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Preferred Username *</label>
-                <input required name="username" value={formData.username} onChange={handleInputChange} type="text" className={`w-full px-4 py-3 rounded-xl border ${errors.username ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Choose a username" />
-                <FormErrorMessage message={errors.username} />
+                <input required name="username" value={formData.username} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Choose a username" />
               </div>
-              <div className="col-span-1 md:col-span-3">
+              <div className="col-span-1 md:col-span-6">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Preferred Password *</label>
-                <input required name="password" value={formData.password} onChange={handleInputChange} type="password" className={`w-full px-4 py-3 rounded-xl border ${errors.password ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Create a strong password" />
-                <FormErrorMessage message={errors.password} />
-              </div>
-              <div className="col-span-1 md:col-span-3">
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Confirm Password *</label>
-                <input required name="confirmPassword" value={formData.confirmPassword} onChange={handleInputChange} type="password" className={`w-full px-4 py-3 rounded-xl border ${errors.confirmPassword ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Confirm your password" />
-                <FormErrorMessage message={errors.confirmPassword} />
+                <input required name="password" value={formData.password} onChange={handleInputChange} type="password" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Create a strong password" />
               </div>
             </div>
           </div>
@@ -433,52 +359,44 @@ function RegistrationFormContent() {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Name of Organisation *</label>
                 <div className="relative">
                   <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input required name="orgName" value={formData.orgName} onChange={handleInputChange} readOnly={!!prefilledOrg} type="text" className={`w-full pl-12 pr-4 py-3 rounded-xl border ${errors.orgName ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} transition-all ${!!prefilledOrg ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-gray-200' : 'focus:ring-2 focus:ring-blue-500 focus:border-blue-500'}`} placeholder="Search pre-approved organisations..." />
+                  <input required name="orgName" value={formData.orgName} onChange={handleInputChange} readOnly={!!prefilledOrg} type="text" className={`w-full pl-12 pr-4 py-3 rounded-xl border border-gray-300 transition-all ${!!prefilledOrg ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-gray-200' : 'focus:ring-2 focus:ring-blue-500 focus:border-blue-500'}`} placeholder="Search pre-approved organisations..." />
                 </div>
-                <FormErrorMessage message={errors.orgName} />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="col-span-1 md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Registered Office Address *</label>
-                  <textarea required name="registeredAddress" value={formData.registeredAddress} onChange={handleInputChange} minLength={5} rows={3} className={`w-full px-4 py-3 rounded-xl border ${errors.registeredAddress ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none`} placeholder="Enter complete registered address"></textarea>
-                  <FormErrorMessage message={errors.registeredAddress} />
+                  <textarea required name="registeredAddress" value={formData.registeredAddress} onChange={handleInputChange} minLength={5} rows={3} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none" placeholder="Enter complete registered address"></textarea>
                 </div>
                 <div className="col-span-1 md:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Organisation Website</label>
-                  <input name="orgWebsite" value={formData.orgWebsite} onChange={handleInputChange} type="url" className={`w-full px-4 py-3 rounded-xl border ${errors.orgWebsite ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="https://example.com" />
-                  <FormErrorMessage message={errors.orgWebsite} />
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Organisation Website *</label>
+                  <input required name="orgWebsite" value={formData.orgWebsite} onChange={handleInputChange} type="url" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="https://example.com" />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Primary Sector / Industry *</label>
-                  <select required name="primarySector" value={formData.primarySector} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border ${errors.primarySector ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}>
+                  <select required name="primarySector" value={formData.primarySector} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white">
                     <option value="" disabled>Select Sector</option>
                     {PRIMARY_SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
-                  <FormErrorMessage message={errors.primarySector} />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Type of Entity *</label>
-                  <select required name="entityType" value={formData.entityType} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border ${errors.entityType ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}>
+                  <select required name="entityType" value={formData.entityType} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white">
                     <option value="" disabled>Select Entity Type</option>
                     {ENTITY_TYPES.map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
-                  <FormErrorMessage message={errors.entityType} />
                 </div>
                 <div className="col-span-1 md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-3">Are you a Regulated Entity? *</label>
-                  <div className="flex flex-col gap-3">
-                    <div className="flex gap-6">
-                      <label className="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="isRegulated" value="Yes" checked={formData.isRegulated === 'Yes'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
-                        <span className="text-gray-700">Yes</span>
-                      </label>
-                      <label className="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="isRegulated" value="No" checked={formData.isRegulated === 'No'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
-                        <span className="text-gray-700">No</span>
-                      </label>
-                    </div>
-                    <FormErrorMessage message={errors.isRegulated} />
+                  <div className="flex gap-6">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="radio" name="isRegulated" value="Yes" checked={formData.isRegulated === 'Yes'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
+                      <span className="text-gray-700">Yes</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="radio" name="isRegulated" value="No" checked={formData.isRegulated === 'No'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
+                      <span className="text-gray-700">No</span>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -494,46 +412,17 @@ function RegistrationFormContent() {
               <h2 className="text-xl font-bold text-gray-900">3. Regulatory & Company Identifier</h2>
             </div>
             <div className="p-6 sm:p-8 space-y-6">
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3">Are you registered with FIU-IND? *</label>
-                <div className="flex flex-col gap-3">
-                  <div className="flex gap-6">
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input type="radio" name="registeredWithFiu" value="Yes" checked={formData.registeredWithFiu === 'Yes'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
-                      <span className="text-gray-700">Yes</span>
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input type="radio" name="registeredWithFiu" value="No" checked={formData.registeredWithFiu === 'No'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
-                      <span className="text-gray-700">No</span>
-                    </label>
-                  </div>
-                  <FormErrorMessage message={errors.registeredWithFiu} />
-                </div>
-
-                {formData.registeredWithFiu === 'Yes' && (
-                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="mt-4">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">FIU-IND Registration Number (FINGate 2.0) *</label>
-                    <input required name="fiuRegNumber" value={formData.fiuRegNumber} onChange={handleInputChange} type="text" className={`w-full md:w-1/2 px-4 py-3 rounded-xl border ${errors.fiuRegNumber ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-gray-50`} placeholder="Enter FINGate 2.0 Reg No." />
-                    <FormErrorMessage message={errors.fiuRegNumber} />
-                  </motion.div>
-                )}
-              </div>
-
-              <div className="h-px bg-gray-100 my-6" />
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Identifier Type *</label>
-                  <select required name="identifierType" value={formData.identifierType} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border ${errors.identifierType ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}>
+                  <select required name="identifierType" value={formData.identifierType} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white">
                     <option value="" disabled>Select applicable type</option>
                     {IDENTIFIER_TYPES.map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
-                  <FormErrorMessage message={errors.identifierType} />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Identifier Number *</label>
-                  <input required name="identifierNumber" value={formData.identifierNumber} onChange={handleInputChange} type="text" className={`w-full px-4 py-3 rounded-xl border ${errors.identifierNumber ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-mono`} placeholder="Enter Identifier Number" />
-                  <FormErrorMessage message={errors.identifierNumber} />
+                  <input required name="identifierNumber" value={formData.identifierNumber} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-mono" placeholder="Enter Identifier Number" />
                 </div>
               </div>
             </div>
@@ -586,14 +475,6 @@ function RegistrationFormContent() {
                                 }
                               }
                               setFormData(prev => ({ ...prev, industryMemberships: current }));
-                              // Clear error
-                              if (errors.industryMemberships) {
-                                setErrors(prev => {
-                                  const newErrors = { ...prev };
-                                  delete newErrors.industryMemberships;
-                                  return newErrors;
-                                });
-                              }
                             }}
                             className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 cursor-pointer"
                           />
@@ -603,14 +484,13 @@ function RegistrationFormContent() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-                <FormErrorMessage message={errors.industryMemberships} />
               </div>
 
               <AnimatePresence>
                 {formData.industryMemberships.includes('IAMAI') && (
                   <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mb-6 overflow-hidden">
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Upload IAMAI Membership Certificate *</label>
-                    <div
+                    <div 
                       onClick={() => iamaiFileRef.current?.click()}
                       className={`w-full border-2 border-dashed ${iamaiFile ? 'border-green-500 bg-green-50' : 'border-gray-300 bg-gray-50'} rounded-xl p-8 flex flex-col items-center justify-center text-center hover:bg-gray-100 transition-colors cursor-pointer group`}
                     >
@@ -627,22 +507,14 @@ function RegistrationFormContent() {
                           <span className="text-xs text-gray-500 mt-1">PDF, JPG, PNG (Max 5MB)</span>
                         </>
                       )}
-                      <input
-                        type="file"
+                      <input 
+                        type="file" 
                         ref={iamaiFileRef}
-                        className="hidden"
-                        accept=".pdf,.png,.jpg,.jpeg"
+                        className="hidden" 
+                        accept=".pdf,.png,.jpg,.jpeg" 
                         onChange={(e) => handleFileChange(e)}
                       />
                     </div>
-                    <FormErrorMessage message={errors.iamaiFile} />
-                  </motion.div>
-                )}
-                {formData.industryMemberships.includes('IBA') && (
-                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mb-6 overflow-hidden">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">IBA Membership ID *</label>
-                    <input required name="ibaMembershipId" value={formData.ibaMembershipId} onChange={handleInputChange} type="text" className={`w-full md:w-1/2 px-4 py-3 rounded-xl border ${errors.ibaMembershipId ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-mono`} placeholder="Enter IBA Membership ID" />
-                    <FormErrorMessage message={errors.ibaMembershipId} />
                   </motion.div>
                 )}
                 {formData.industryMemberships.includes('None') && (
@@ -661,7 +533,7 @@ function RegistrationFormContent() {
                             name="turnoverOrAum"
                             value={formData.turnoverOrAum}
                             onChange={handleInputChange}
-                            className={`w-full px-4 py-3 rounded-xl border ${errors.turnoverOrAum ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}
+                            className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
                           >
                             <option value="" disabled>Select applicable range</option>
                             {isBankOrNBFC ? (
@@ -684,7 +556,6 @@ function RegistrationFormContent() {
                               </>
                             )}
                           </select>
-                          <FormErrorMessage message={errors.turnoverOrAum} />
                         </div>
                       );
                     })()}
@@ -703,17 +574,16 @@ function RegistrationFormContent() {
               <h2 className="text-xl font-bold text-gray-900">5. Declaration</h2>
             </div>
             <div className="p-6 sm:p-8 space-y-6 bg-green-50/30">
-              <div className="flex flex-col gap-3">
-                <div className="flex items-start gap-4 cursor-pointer p-4 rounded-xl border border-gray-200 bg-white hover:border-green-300 transition-colors">
-                  <div className="pt-1">
-                    <input required name="declarationAccepted" checked={formData.declarationAccepted} onChange={handleInputChange} type="checkbox" className="w-5 h-5 rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer" />
-                  </div>
-                  <div className="text-sm text-gray-700 leading-relaxed font-medium">
-                    I hereby declare that I am duly authorised to represent the organisation named above and that all information provided in this form is true, accurate, and complete to the best of my knowledge. I consent to ARIFAC collecting, storing, and processing the information submitted herein for the purposes of membership registration and related communications.
-                  </div>
+              <label className="flex items-start gap-4 cursor-pointer p-4 rounded-xl border border-gray-200 bg-white hover:border-green-300 transition-colors">
+                <div className="pt-1">
+                  <input required name="declarationAccepted" checked={formData.declarationAccepted} onChange={handleInputChange} type="checkbox" className="w-5 h-5 rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer" />
                 </div>
-                <FormErrorMessage message={errors.declarationAccepted} />
-              </div>
+                <div className="text-sm text-gray-700 leading-relaxed font-medium">
+                  I hereby declare that I am duly authorised to represent the organisation and that all information provided in this form is true, accurate, and complete to the best of my knowledge. I consent to ARIFAC collecting, storing, and processing the information submitted herein for the purposes of membership registration and related communications.
+                </div>
+              </label>
+
+
             </div>
           </div>
 
@@ -730,8 +600,8 @@ function RegistrationFormContent() {
                   Processing...
                 </>
               ) : (
-                formData.industryMemberships.includes('IAMAI') || formData.industryMemberships.includes('IBA')
-                  ? 'Complete Registration'
+                formData.industryMemberships.includes('IAMAI') || formData.industryMemberships.includes('IBA') 
+                  ? 'Complete Registration' 
                   : 'Proceed to Payment'
               )}
             </button>

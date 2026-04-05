@@ -7,10 +7,6 @@ import Link from 'next/link';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useSearchParams } from 'next/navigation';
-import { MembershipFormBSchema } from '@/lib/validations/membership.schema';
-import FormErrorMessage from '@/components/FormErrorMessage';
-import OTPVerification from '@/components/OTPVerification';
-import { z } from 'zod';
 
 function RegistrationFormBContent() {
   const searchParams = useSearchParams();
@@ -30,13 +26,9 @@ function RegistrationFormBContent() {
     isRegulated: '',
     username: '',
     password: '',
-    confirmPassword: '',
     remarks: '',
     declarationAccepted: false
   });
-
-  const [isEmailVerified, setIsEmailVerified] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
 
   // Update orgName if searchParams change after initial render
   useEffect(() => {
@@ -47,20 +39,10 @@ function RegistrationFormBContent() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
-    const finalValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
     setFormData(prev => ({
       ...prev,
-      [name]: finalValue
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     }));
-
-    // Clear error when user types
-    if (errors[name]) {
-      setErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
-      });
-    }
   };
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -72,32 +54,6 @@ function RegistrationFormBContent() {
     if (isSubmitting || isSubmitted) return;
     setIsSubmitting(true);
     setError(null);
-    setErrors({});
-
-    // Ensure email is verified
-    if (!isEmailVerified) {
-      setError("Please verify your email address via OTP.");
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Validate with Zod
-    try {
-      MembershipFormBSchema.parse(formData);
-    } catch (err) {
-      if (err instanceof z.ZodError) {
-        const fieldErrors: Record<string, string> = {};
-        err.issues.forEach((issue) => {
-          if (issue.path && issue.path.length > 0) {
-            fieldErrors[issue.path[0].toString()] = issue.message;
-          }
-        });
-        setErrors(fieldErrors);
-        setError("Please fix the errors in the form.");
-        setIsSubmitting(false);
-        return;
-      }
-    }
 
     try {
       // Map formData to new payload structure
@@ -163,7 +119,12 @@ function RegistrationFormBContent() {
         {/* Header */}
         <br />
         <div className="mb-8">
-
+          <Link href="/membership/register" className="inline-flex items-center text-gray-500 hover:text-blue-600 mb-6 transition-colors">
+            <ArrowLeft className="w-4 h-4 mr-2" /> Back to Programme Overview
+          </Link>
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 font-medium text-sm mb-4">
+            Step 2 of 4 (New Organisation)
+          </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
             Registration Form
           </motion.h1>
@@ -196,7 +157,7 @@ function RegistrationFormBContent() {
             <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-6 gap-6">
               <div className="col-span-1 md:col-span-1">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Salutation *</label>
-                <select required name="salutation" value={formData.salutation} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border ${errors.salutation ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white`}>
+                <select required name="salutation" value={formData.salutation} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white">
                   <option value="" disabled>Select</option>
                   <option value="Mr.">Mr.</option>
                   <option value="Ms.">Ms.</option>
@@ -204,58 +165,32 @@ function RegistrationFormBContent() {
                   <option value="Dr.">Dr.</option>
                   <option value="Prof.">Prof.</option>
                 </select>
-                <FormErrorMessage message={errors.salutation} />
               </div>
               <div className="col-span-1 md:col-span-5">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
-                <input required name="fullName" value={formData.fullName} onChange={handleInputChange} type="text" className={`w-full px-4 py-3 rounded-xl border ${errors.fullName ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Enter full name" />
-                <FormErrorMessage message={errors.fullName} />
+                <input required name="fullName" value={formData.fullName} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter full name" />
               </div>
               <div className="col-span-1 md:col-span-3">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Designation *</label>
-                <input required name="designation" value={formData.designation} onChange={handleInputChange} type="text" className={`w-full px-4 py-3 rounded-xl border ${errors.designation ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Enter designation" />
-                <FormErrorMessage message={errors.designation} />
+                <input required name="designation" value={formData.designation} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter designation" />
               </div>
               <div className="col-span-1 md:col-span-3">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Mobile Number *</label>
-                <div className="flex flex-col gap-1">
-                  <div className="flex gap-2">
-                    <select name="countryCode" value={formData.countryCode} onChange={handleInputChange} className="w-[100px] px-3 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-sm">
-                      <option value="+91">+91 (IN)</option>
-                      <option value="+1">+1 (US)</option>
-                      <option value="+44">+44 (UK)</option>
-                      <option value="+971">+971 (UAE)</option>
-                      <option value="+65">+65 (SG)</option>
-                      <option value="+61">+61 (AU)</option>
-                    </select>
-                    <input required name="mobile" value={formData.mobile} onChange={handleInputChange} type="tel" className={`flex-grow px-4 py-3 rounded-xl border ${errors.mobile ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Enter number" />
-                  </div>
-                  <FormErrorMessage message={errors.mobile} />
+                <div className="flex gap-2">
+                  <select name="countryCode" value={formData.countryCode} onChange={handleInputChange} className="w-[100px] px-3 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-sm">
+                    <option value="+91">+91 (IN)</option>
+                    <option value="+1">+1 (US)</option>
+                    <option value="+44">+44 (UK)</option>
+                    <option value="+971">+971 (UAE)</option>
+                    <option value="+65">+65 (SG)</option>
+                    <option value="+61">+61 (AU)</option>
+                  </select>
+                  <input required name="mobile" value={formData.mobile} onChange={handleInputChange} type="tel" className="flex-grow px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter number" />
                 </div>
               </div>
               <div className="col-span-1 md:col-span-6">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
-                <input
-                  required
-                  name="email"
-                  value={formData.email}
-                  onChange={(e) => {
-                    handleInputChange(e);
-                    if (isEmailVerified) setIsEmailVerified(false);
-                  }}
-                  type="email"
-                  className={`w-full px-4 py-3 rounded-xl border ${errors.email ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${isEmailVerified ? 'bg-green-50/30' : ''}`}
-                  placeholder="Enter official email"
-                />
-                <FormErrorMessage message={errors.email} />
-
-                {formData.email && !errors.email && (
-                  <OTPVerification
-                    email={formData.email}
-                    onVerify={setIsEmailVerified}
-                    className="mt-3"
-                  />
-                )}
+                <input required name="email" value={formData.email} onChange={handleInputChange} type="email" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter official email" />
               </div>
             </div>
           </div>
@@ -272,33 +207,27 @@ function RegistrationFormBContent() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="col-span-1 md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Name of Organisation *</label>
-                  <input required name="orgName" value={formData.orgName} onChange={handleInputChange} readOnly={!!prefilledOrg} type="text" className={`w-full px-4 py-3 rounded-xl border ${errors.orgName ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} transition-all ${!!prefilledOrg ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-gray-200' : 'focus:ring-2 focus:ring-blue-500 focus:border-blue-500'}`} placeholder="Enter organisation name" />
-                  <FormErrorMessage message={errors.orgName} />
+                  <input required name="orgName" value={formData.orgName} onChange={handleInputChange} readOnly={!!prefilledOrg} type="text" className={`w-full px-4 py-3 rounded-xl border border-gray-300 transition-all ${!!prefilledOrg ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-gray-200' : 'focus:ring-2 focus:ring-blue-500 focus:border-blue-500'}`} placeholder="Enter organisation name" />
                 </div>
                 <div className="col-span-1 md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Registered Office Address *</label>
-                  <textarea required name="registeredAddress" value={formData.registeredAddress} onChange={handleInputChange} rows={3} className={`w-full px-4 py-3 rounded-xl border ${errors.registeredAddress ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none`} placeholder="Enter complete registered address"></textarea>
-                  <FormErrorMessage message={errors.registeredAddress} />
+                  <textarea required name="registeredAddress" value={formData.registeredAddress} onChange={handleInputChange} rows={3} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none" placeholder="Enter complete registered address"></textarea>
                 </div>
                 <div className="col-span-1 md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Organisation Website</label>
-                  <input name="orgWebsite" value={formData.orgWebsite} onChange={handleInputChange} type="url" className={`w-full px-4 py-3 rounded-xl border ${errors.orgWebsite ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="https://example.com" />
-                  <FormErrorMessage message={errors.orgWebsite} />
+                  <input name="orgWebsite" value={formData.orgWebsite} onChange={handleInputChange} type="url" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="https://example.com" />
                 </div>
                 <div className="col-span-1 md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-3">Are you a Regulated Entity? *</label>
-                  <div className="flex flex-col gap-3">
-                    <div className="flex gap-6">
-                      <label className="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="isRegulated" value="Yes" checked={formData.isRegulated === 'Yes'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
-                        <span className="text-gray-700">Yes</span>
-                      </label>
-                      <label className="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="isRegulated" value="No" checked={formData.isRegulated === 'No'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
-                        <span className="text-gray-700">No</span>
-                      </label>
-                    </div>
-                    <FormErrorMessage message={errors.isRegulated} />
+                  <div className="flex gap-6">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="radio" name="isRegulated" value="Yes" checked={formData.isRegulated === 'Yes'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
+                      <span className="text-gray-700">Yes</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="radio" name="isRegulated" value="No" checked={formData.isRegulated === 'No'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" required />
+                      <span className="text-gray-700">No</span>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -316,18 +245,11 @@ function RegistrationFormBContent() {
             <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Preferred Username *</label>
-                <input required name="username" value={formData.username} onChange={handleInputChange} type="text" className={`w-full px-4 py-3 rounded-xl border ${errors.username ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Choose a username" />
-                <FormErrorMessage message={errors.username} />
+                <input required name="username" value={formData.username} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Choose a username" />
               </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Preferred Password *</label>
-                <input required name="password" value={formData.password} onChange={handleInputChange} type="password" className={`w-full px-4 py-3 rounded-xl border ${errors.password ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Create a strong password" />
-                <FormErrorMessage message={errors.password} />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Confirm Password *</label>
-                <input required name="confirmPassword" value={formData.confirmPassword} onChange={handleInputChange} type="password" className={`w-full px-4 py-3 rounded-xl border ${errors.confirmPassword ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`} placeholder="Confirm your password" />
-                <FormErrorMessage message={errors.confirmPassword} />
+                <input required name="password" value={formData.password} onChange={handleInputChange} type="password" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Create a strong password" />
               </div>
             </div>
           </div>
@@ -341,17 +263,14 @@ function RegistrationFormBContent() {
               <h2 className="text-xl font-bold text-gray-900">4. Declaration</h2>
             </div>
             <div className="p-6 sm:p-8 space-y-6 bg-green-50/30">
-              <div className="flex flex-col gap-3">
-                <div className="flex items-start gap-4 cursor-pointer p-4 rounded-xl border border-gray-200 bg-white hover:border-green-300 transition-colors">
-                  <div className="pt-1">
-                    <input required name="declarationAccepted" checked={formData.declarationAccepted} onChange={handleInputChange} type="checkbox" className="w-5 h-5 rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer" />
-                  </div>
-                  <div className="text-sm text-gray-700 leading-relaxed font-medium">
-                    I hereby declare that I am duly authorised to represent the organisation named above and that all information provided in this form is true, accurate, and complete to the best of my knowledge. I consent to ARIFAC collecting, storing, and processing the information submitted herein for the purposes of membership registration and related communications.
-                  </div>
+              <label className="flex items-start gap-4 cursor-pointer p-4 rounded-xl border border-gray-200 bg-white hover:border-green-300 transition-colors">
+                <div className="pt-1">
+                  <input required name="declarationAccepted" checked={formData.declarationAccepted} onChange={handleInputChange} type="checkbox" className="w-5 h-5 rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer" />
                 </div>
-                <FormErrorMessage message={errors.declarationAccepted} />
-              </div>
+                <div className="text-sm text-gray-700 leading-relaxed font-medium">
+                  I hereby declare that I am duly authorised to represent the organisation and that all information provided in this form is true, accurate, and complete to the best of my knowledge. I consent to ARIFAC collecting, storing, and processing the information submitted herein for the purposes of membership registration and related communications.
+                </div>
+              </label>
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Remarks (if any)</label>

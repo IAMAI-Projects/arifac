@@ -31,6 +31,7 @@ export default function Footer() {
                 { name: 'Resources', href: '/resources' },
                 { name: 'Gallery', href: '/gallery' },
                 { name: 'Terms & Conditions', href: '/terms-of-use' },
+                { name: 'Privacy Policy', href: '/privacy-policy' },
                 { name: 'Disclaimer', href: '/disclaimer' },
             ],
         },
