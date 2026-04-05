@@ -25,7 +25,7 @@ export default function MembershipCertificatePage() {
                     const mainApp = data.applications[0];
                     // Using the first 6 characters of UUID for a more human-friendly ID
                     const shortId = mainApp.id.substring(0, 6).toUpperCase();
-                    
+
                     let validity = "Annual Membership";
                     if (mainApp.is_iba_member) {
                         validity = "For the duration of IBA Membership";
@@ -196,32 +196,41 @@ export default function MembershipCertificatePage() {
                 className="bg-white shadow-2xl w-full max-w-[842px] aspect-[210/297] relative overflow-hidden print:shadow-none print:w-full print:max-w-none m-auto"
                 id="membership-certificate"
             >
-                {/* Top-Left Angular Red Shape with ARIFAC watermark */}
-                <div className="absolute top-0 left-0 z-10 pointer-events-none">
-                    <svg width="260" height="220" viewBox="0 0 260 220">
-                        <polygon points="0,0 260,0 0,220" fill="#c62828" />
-                        <polygon points="0,0 220,0 0,185" fill="#d32f2f" />
+                {/* Full-width Curved Header Banner */}
+                <div className="absolute top-0 left-0 w-full h-[140px] z-10 pointer-events-none">
+                    <svg viewBox="0 0 842 140" preserveAspectRatio="none" className="w-full h-full">
+                        {/* Main Red Banner with Curve */}
+                        <path d="M0,0 L842,0 L842,100 C700,130 142,130 0,100 Z" fill="#c62828" />
+                        {/* Dark Red Accent Line */}
+                        <path d="M0,100 C142,130 700,130 842,100 L842,110 C700,140 142,140 0,110 Z" fill="#8e1c1c" />
                     </svg>
-                    {/* Embedded ARIFAC shield watermark */}
-                    <div className="absolute top-6 left-5 opacity-30 w-[80px] h-[80px]">
-                        <Image src="/logo.png" alt="" width={80} height={80} className="object-contain brightness-200 invert" />
+
+                    {/* Logo Watermarks in Header */}
+                    <div className="absolute top-0 left-0 w-full h-full px-10 flex justify-between items-center pb-8">
+                        {/* Left: ARIFAC Logo Watermark */}
+                        <div className="opacity-20 flex flex-col items-start translate-y-[-10px]">
+                            <div className="w-[60px] h-[60px] relative">
+                                <Image src="/logo.png" alt="" fill className="object-contain brightness-200 invert" />
+                            </div>
+                            <span className="text-white text-[10px] font-bold tracking-[0.2em] mt-1 ml-1 uppercase">ARIFAC</span>
+                        </div>
+
+                        {/* Right: Triple-Wing Decorative Logo */}
+                        <div className="opacity-30 translate-y-[-10px]">
+                            <svg width="70" height="70" viewBox="0 0 100 100" fill="none">
+                                <path d="M90 20 C70 20 50 40 40 80 M80 30 C65 30 50 45 45 75 M70 40 C60 40 50 50 48 65" stroke="white" strokeWidth="6" strokeLinecap="round" opacity="0.8" />
+                                <path d="M90 20 C75 25 65 35 60 50 M80 30 C70 35 65 40 62 50 M70 40 C65 42 62 45 61 50" stroke="white" strokeWidth="3" strokeLinecap="round" opacity="0.4" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
 
-                {/* Top-Right Angular Red Shape */}
-                <div className="absolute top-0 right-0 z-10 pointer-events-none">
-                    <svg width="180" height="140" viewBox="0 0 180 140">
-                        <polygon points="180,0 180,140 0,0" fill="#c62828" />
-                        <polygon points="180,0 180,110 30,0" fill="#d32f2f" />
-                    </svg>
-                </div>
-
                 {/* Main Content Area */}
-                <div className="relative z-20 h-full w-full flex flex-col items-center pt-[14%] pb-[15%] px-[8%] text-center">
+                <div className="relative z-20 h-full w-full flex flex-col items-center pt-[18%] pb-[15%] px-[8%] text-center">
 
-                    {/* ARIFAC Logo Section */}
-                    <div className="mb-6 flex flex-col items-center">
-                        <Image src="/logo.png" alt="ARIFAC Logo" width={240} height={100} className="object-contain" priority />
+                    {/* ARIFAC Logo Section (Positioned below the new header banner) */}
+                    <div className="mb-8 flex flex-col items-center">
+                        <Image src="/logo.png" alt="ARIFAC Logo" width={220} height={90} className="object-contain" priority />
                     </div>
 
                     {/* Certificate Title */}
@@ -278,30 +287,33 @@ export default function MembershipCertificatePage() {
                     </div>
                 </div>
 
-                {/* Bottom Decorative Waves */}
-                <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none h-[160px]">
-                    <svg viewBox="0 0 1000 200" preserveAspectRatio="none" className="w-full h-full">
-                        <path d="M0,200 L0,120 C150,60 350,160 500,100 C650,40 800,120 1000,80 L1000,200 Z" fill="#d32f2f" />
-                        <path d="M0,200 L0,140 C200,80 400,180 600,120 C750,80 850,140 1000,100 L1000,200 Z" fill="#c62828" />
-                        <path d="M0,200 L0,165 C100,130 300,190 500,155 C700,120 850,170 1000,140 L1000,200 Z" fill="#b71c1c" />
+                {/* Bottom Decorative Curved Banner */}
+                <div className="absolute bottom-0 left-0 w-full h-[120px] z-10 pointer-events-none">
+                    <svg viewBox="0 0 842 120" preserveAspectRatio="none" className="w-full h-full">
+                        {/* Dark Red Accent Line (Top) */}
+                        <path d="M0,30 C142,0 700,0 842,30 L842,20 C700,-10 142,-10 0,20 Z" fill="#8e1c1c" />
+                        {/* Main Red Banner with Curve */}
+                        <path d="M0,30 C142,0 700,0 842,30 L842,120 L0,120 Z" fill="#c62828" />
                     </svg>
                 </div>
 
                 {/* Footer Content (Logo and Membership ID) */}
-                <div className="absolute bottom-5 left-0 w-full px-12 z-30 flex justify-between items-end">
+                <div className="absolute bottom-6 left-0 w-full px-12 z-30 flex justify-between items-end text-white">
+
+
                     <div className="pb-1">
-                        <Image 
-                            src="/iamai-transparent.png" 
-                            alt="IAMAI Logo" 
-                            width={120} 
-                            height={45} 
-                            className="object-contain" 
+                        <Image
+                            src="/iamai-transparent.png"
+                            alt="IAMAI Logo"
+                            width={110}
+                            height={40}
+                            className="object-contain"
                         />
                     </div>
 
-                    <div className="text-right text-white">
-                        <p className="text-[14px] font-bold tracking-wide">Membership ID: {memberData.membershipId}</p>
-                        <p className="text-[13px] font-bold tracking-widest uppercase">Mumbai, India</p>
+                    <div className="text-left">
+                        <p className="text-[13px] font-bold tracking-wide opacity-90">Membership ID: {memberData.membershipId}</p>
+                        <p className="text-[11px] font-bold tracking-[0.2em] uppercase opacity-80">Mumbai, India</p>
                     </div>
                 </div>
             </div>

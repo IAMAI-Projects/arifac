@@ -315,7 +315,7 @@ export default function Navbar() {
                                         </div>
                                         <div className="p-3 flex flex-col gap-1.5">
                                             <Link
-                                                href="/membership/launching-soon"
+                                                href="https://arifac.iamai.in/courses"
                                                 className="flex items-center gap-3 px-4 py-3.5 text-[14px] font-bold text-[#1d1d1f]/80 hover:bg-[#f5f5f7] hover:text-accent rounded-xl transition-all"
                                                 onClick={() => setActiveDropdown(null)}
                                             >

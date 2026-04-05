@@ -434,7 +434,7 @@ function RegistrationFormContent() {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Name of Organisation *</label>
                 <div className="relative">
                   <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input required name="orgName" value={formData.orgName} onChange={handleInputChange} readOnly={!!prefilledOrg} type="text" className={`w-full pl-12 pr-4 py-3 rounded-xl border ${errors.orgName ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} transition-all ${!!prefilledOrg ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-gray-200' : 'focus:ring-2 focus:ring-blue-500 focus:border-blue-500'}`} placeholder="Search pre-approved organisations..." />
+                  <input required name="orgName" value={formData.orgName} onChange={handleInputChange} readOnly={!!prefilledOrg} type="text" className={`w-full pl-12 pr-4 py-3 rounded-xl border ${errors.orgName ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} transition-all ${!!prefilledOrg ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-gray-200' : 'focus:ring-2 focus:ring-blue-500 focus:border-blue-500'}`} placeholder="enter organisations..." />
                 </div>
                 <FormErrorMessage message={errors.orgName} />
               </div>
