@@ -306,19 +306,17 @@ function PostApprovalFormContent() {
             </div>
           </div>
 
-          {/* 2. Regulatory & Tax Identifiers */}
+          {/* 2. Regulatory & Company Identifier */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-            <div className="bg-gray-50/80 px-6 py-5 border-b border-gray-200 flex items-center gap-3">
-              <div className="p-2 bg-purple-100/50 rounded-lg text-purple-600">
+            <div className="bg-white px-6 py-5 border-b border-gray-100 flex items-center gap-3">
+              <div className="p-2 bg-[#F9F5FF] rounded-lg text-[#7F56D9]">
                 <ShieldCheck className="w-5 h-5" />
               </div>
-              <h2 className="text-xl font-bold text-gray-900">2. Regulatory & Company Identifier</h2>
+              <h2 className="text-xl font-bold text-[#101828]">3. Regulatory & Company Identifier</h2>
             </div>
-            <div className="p-6 sm:p-8 space-y-6">
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Identifier Type *</label>
+            <div className="p-6 sm:p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+                <div className="space-y-2">
                   <div className="relative">
                     <select required name="identifierType" value={formData.identifierType} onChange={handleInputChange} className={`w-full pl-4 pr-10 py-3 rounded-xl border ${errors.identifierType ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white appearance-none`}>
                       <option value="" disabled>Select applicable type</option>
@@ -328,8 +326,7 @@ function PostApprovalFormContent() {
                   </div>
                   <FormErrorMessage message={errors.identifierType} />
                 </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Identifier Number *</label>
+                <div className="space-y-2">
                   <input required name="identifierNumber" value={formData.identifierNumber} onChange={handleInputChange} type="text" className={`w-full px-4 py-3 rounded-xl border ${errors.identifierNumber ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-mono`} placeholder="Enter Registration/Tax ID number" />
                   <FormErrorMessage message={errors.identifierNumber} />
                 </div>
