@@ -225,7 +225,7 @@ function RegistrationFormBContent() {
                 <div className="flex flex-col gap-1">
                   <div className="flex gap-2">
                     <div className="relative">
-                      <select name="countryCode" value={formData.countryCode} onChange={handleInputChange} className="w-[100px] pl-4 pr-10 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-sm appearance-none">
+                      <select name="countryCode" value={formData.countryCode} onChange={handleInputChange} className="w-[115px] pl-3 pr-8 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-sm appearance-none">
                         {COUNTRY_CODES.map((country) => (
                           <option key={country.code} value={country.dial_code}>
                             {country.dial_code} ({country.code})

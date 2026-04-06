@@ -49,10 +49,10 @@ export default function MembershipCertificatePage() {
                 } else {
                     // Fallback for demonstration if no data is found
                     setMemberData({
-                        name: "XYZ Bank",
-                        membershipId: "ARF-M-26-BNK-000145",
-                        issueDate: "06-April-2026",
-                        validUntil: "Annual Membership"
+                        name: "",
+                        membershipId: "",
+                        issueDate: "",
+                        validUntil: ""
                     });
                 }
             } catch (err) {
@@ -83,29 +83,62 @@ export default function MembershipCertificatePage() {
             const certificateElement = certificateRef.current;
 
             const canvas = await html2canvas(certificateElement, {
-                scale: 3,
+                scale: 1.5, // Reduced for better stability while maintaining quality
                 useCORS: true,
                 logging: false,
                 backgroundColor: '#ffffff',
-                windowWidth: 1200,
+                onclone: (clonedDoc) => {
+                    try {
+                        // More robust way to clean up modern CSS color functions from style tags
+                        const styleTags = Array.from(clonedDoc.getElementsByTagName('style'));
+                        styleTags.forEach(style => {
+                            if (style.textContent && (style.textContent.includes('lab(') || style.textContent.includes('oklch('))) {
+                                style.textContent = style.textContent
+                                    .replace(/lab\([^)]*\)/g, 'rgb(0,0,0)')
+                                    .replace(/oklch\([^)]*\)/g, 'rgb(0,0,0)');
+                            }
+                        });
+                        
+                        // Clean up inline styles
+                        const elements = Array.from(clonedDoc.querySelectorAll('[style]'));
+                        elements.forEach(el => {
+                            const styleAttr = (el as HTMLElement).getAttribute('style');
+                            if (styleAttr && (styleAttr.includes('lab(') || styleAttr.includes('oklch('))) {
+                                (el as HTMLElement).setAttribute('style', styleAttr
+                                    .replace(/lab\([^)]*\)/g, 'rgb(0,0,0)')
+                                    .replace(/oklch\([^)]*\)/g, 'rgb(0,0,0)')
+                                );
+                            }
+                        });
+                    } catch (e) {
+                        console.error('onclone cleanup failed:', e);
+                    }
+                }
             });
 
-            const imgData = canvas.toDataURL('image/png', 1.0);
+            // Use JPEG for optimal compression and size
+            const imgData = canvas.toDataURL('image/jpeg', 0.9);
 
             const pdf = new jsPDF({
                 orientation: 'portrait',
                 unit: 'mm',
-                format: 'a4'
+                format: 'a4',
+                compress: true
             });
 
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = pdf.internal.pageSize.getHeight();
 
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save(`ARIFAC-Membership-Certificate-${memberData?.name.replace(/\s+/g, '-')}.pdf`);
-        } catch (error) {
+            // Add image with explicit size and compression
+            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+            
+            // Generate a clean filename and ensure .pdf extension
+            const rawName = memberData?.name || 'Certificate';
+            const cleanName = rawName.replace(/[^a-z0-9]/gi, '-').replace(/-+/g, '-').substring(0, 30);
+            pdf.save(`ARIFAC-Membership-Certificate-${cleanName || 'ARIFAC'}.pdf`);
+        } catch (error: any) {
             console.error('Error generating PDF:', error);
-            alert('Failed to generate PDF. Please try using the Print option.');
+            alert('Failed to generate PDF. Error: ' + (error.message || 'Unknown error'));
         } finally {
             setIsDownloading(false);
         }
@@ -238,7 +271,7 @@ export default function MembershipCertificatePage() {
                         CERTIFICATE OF MEMBERSHIP
                     </h1>
 
-                    <p className="text-xl text-gray-700 mb-4 leading-relaxed">This is to certify that</p>
+                    <p className="text-xl text-[#374151] mb-4 leading-relaxed">This is to certify that</p>
 
                     {/* Member Name — Blue as per PNG */}
                     <div className="w-full mb-1">
@@ -252,7 +285,7 @@ export default function MembershipCertificatePage() {
 
                     {/* Body Text */}
                     <div className="max-w-[90%] mx-auto mb-8 text-center">
-                        <p className="text-[16px] leading-[1.65] text-gray-900 px-2">
+                        <p className="text-[16px] leading-[1.65] text-[#111827] px-2">
                             is a member of <span className="font-bold">The Alliance of Reporting Entities in India for AML/CFT (ARIFAC)</span>{'\n'}and is recognized as part of the industry-led initiative supporting the strengthening of anti-money laundering (AML) and countering the financing of terrorism (CFT) frameworks in India.
                         </p>
                     </div>
@@ -263,25 +296,25 @@ export default function MembershipCertificatePage() {
                         <div className="flex flex-col items-start space-y-1.5 text-[16px]">
                             <div className="flex">
                                 <span className="font-bold inline-block w-[130px]">Date of Issue:</span>
-                                <span className="text-gray-900">{memberData.issueDate}</span>
+                                <span className="text-[#111827]">{memberData.issueDate}</span>
                             </div>
                             <div className="flex">
                                 <span className="font-bold inline-block w-[130px]">Valid Until:</span>
-                                <span className="text-gray-900">{memberData.validUntil}</span>
+                                <span className="text-[#111827]">{memberData.validUntil}</span>
                             </div>
                         </div>
 
                         {/* Right: Signature */}
                         <div className="text-right">
-                            <p className="text-xl font-bold text-gray-900 mb-0.5">Dr. Subho Ray</p>
-                            <p className="text-base text-gray-700 leading-tight">President</p>
-                            <p className="text-sm text-gray-600">Internet and Mobile Association of India</p>
+                            <p className="text-xl font-bold text-[#111827] mb-0.5">Dr. Subho Ray</p>
+                            <p className="text-base text-[#374151] leading-tight">President</p>
+                            <p className="text-sm text-[#4b5563]">Internet and Mobile Association of India</p>
                         </div>
                     </div>
 
                     {/* Organization Participation Quote */}
                     <div className="w-full px-4 mt-auto mb-12">
-                        <p className="text-[13px] italic text-gray-700 leading-[1.7] max-w-3xl mx-auto">
+                        <p className="text-[13px] italic text-[#374151] leading-[1.7] max-w-3xl mx-auto">
                             This membership signifies the organisation&apos;s participation in ARIFAC for knowledge sharing, capacity building, and advancement of AML/CFT compliance practices in alignment with applicable regulatory frameworks.
                         </p>
                     </div>

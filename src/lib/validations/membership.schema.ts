@@ -12,6 +12,7 @@ export const MembershipFormASchema = z.object({
   email: z.string().email('Invalid official email'),
   username: z.string().min(3, 'Username must be at least 3 characters'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
+  confirmPassword: z.string().min(1, 'Please confirm your password'),
 
   // Organisation Details
   orgName: z.string().min(1, 'Organisation name is required'),
@@ -54,6 +55,14 @@ export const MembershipFormASchema = z.object({
       });
     }
   }
+
+  if (data.password !== data.confirmPassword) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'Passwords do not match',
+      path: ['confirmPassword'],
+    });
+  }
 });
 
 export const MembershipFormBSchema = z.object({
@@ -74,9 +83,18 @@ export const MembershipFormBSchema = z.object({
   // Account Credentials
   username: z.string().min(3),
   password: z.string().min(6),
+  confirmPassword: z.string().min(1, 'Please confirm your password'),
   
   remarks: z.string().optional(),
   declarationAccepted: z.literal(true),
+}).superRefine((data, ctx) => {
+  if (data.password !== data.confirmPassword) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'Passwords do not match',
+      path: ['confirmPassword'],
+    });
+  }
 });
 
 export const MembershipFormCSchema = MembershipFormASchema;

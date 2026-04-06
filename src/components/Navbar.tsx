@@ -98,7 +98,7 @@ export default function Navbar() {
         <>
             {/* IAMAI Partnership Top Bar */}
             <div
-                className="fixed top-0 left-0 right-0 z-[110] h-8 bg-[#1d1d1f]/90 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-6"
+                className="absolute top-0 left-0 right-0 z-[110] h-8 bg-[#1d1d1f]/90 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-6"
             >
                 {/* Left side area to balance the news ticker */}
                 <div className="flex-1 flex items-center justify-start min-w-[20px] md:min-w-[140px]" />
@@ -196,7 +196,7 @@ export default function Navbar() {
             </div>
 
             <nav
-                className={`fixed left-0 right-0 z-[120] transition-all duration-500 border-b border-gray-100/50 ${activeDropdown || isMobileMenuOpen ? 'bg-white' : 'bg-white/90 backdrop-blur-xl'
+                className={`absolute left-0 right-0 z-[120] transition-all duration-500 border-b border-gray-100/50 ${activeDropdown || isMobileMenuOpen ? 'bg-white' : 'bg-white/90 backdrop-blur-xl'
                     } ${isScrolled ? 'top-0' : 'top-8'} py-3`}
                 onMouseLeave={() => {
                     if (activeDropdown !== 'account') setActiveDropdown(null);

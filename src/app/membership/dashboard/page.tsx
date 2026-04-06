@@ -115,6 +115,25 @@ export default function MembershipDashboard() {
           const isIba = mainApp.is_iba_member;
           const isMembershipMember = isIamai || isIba;
 
+          const sector = mainApp.application_details?.[0]?.sector || 'OTHER';
+          const yearShort = new Date(mainApp.created_at).getFullYear().toString().slice(-2);
+          const shortId = mainApp.id.toString().substring(0, 6).toUpperCase();
+          
+          const sectorMap: Record<string, string> = {
+            "BANKING": "BANK",
+            "SECURITIES & CAPITAL MARKETS": "SEC",
+            "PAYMENTS, REMITTANCE & FX": "PAY",
+            "INSURANCE": "INS",
+            "NBFCs & MICROFINANCE": "NBFC",
+            "FINTECH & DIGITAL FINANCE": "FIN",
+            "DNFBP (REAL ESTATE, BULLION, ETC.)": "DNFB",
+            "FIDUCIARY, CUSTODIAL & DATA": "FID",
+            "VDA ECOSYSTEM": "VDA",
+            "AML/CFT TECH & ADVISORY": "AML",
+          };
+          const sectorShort = sectorMap[sector.toUpperCase()] || 'OTH';
+          const fallbackId = `ARF-M-${yearShort}-${sectorShort}-${shortId}`;
+
           setMemberData({
             id: mainApp.id,
             name: mainApp.users?.full_name || "Member",
@@ -122,7 +141,7 @@ export default function MembershipDashboard() {
             email: mainApp.users?.email || "N/A",
             mobile: mainApp.users?.mobile || "N/A",
             designation: mainApp.users?.designation || "Member",
-            membershipId: mainApp.memberships?.membership_id_ref || `ARI-2024-${mainApp.id.toString().substring(0, 8).toUpperCase()}`,
+            membershipId: mainApp.memberships?.membership_id_ref || fallbackId,
             memberSince: new Date(mainApp.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
             expiryDate: new Date(new Date(mainApp.created_at).setFullYear(new Date(mainApp.created_at).getFullYear() + 1)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
             status: mainApp.status,
@@ -137,7 +156,7 @@ export default function MembershipDashboard() {
           });
         }
       } catch (err) {
-        console.error("Failed to fetch dashboad data:", err);
+        console.error("Failed to fetch dashboard data:", err);
       } finally {
         setIsLoading(false);
       }
@@ -265,7 +284,7 @@ export default function MembershipDashboard() {
                     Upgrade to Membership
                   </Link>
                 ) : (!memberData.feeWaived && !memberData.isUpgraded) && (
-                   <Link
+                  <Link
                     href="/membership/register/payment"
                     className="px-5 py-2.5 rounded-xl bg-[#0066cc] text-white hover:bg-[#0077ed] transition-all flex items-center gap-2 text-sm font-bold shadow-md shadow-blue-500/10"
                   >
@@ -284,48 +303,48 @@ export default function MembershipDashboard() {
               {memberData?.isUpgraded && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                {/* Certificate Download Card */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-gradient-to-br from-blue-600/10 to-indigo-600/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 relative overflow-hidden group h-full flex flex-col"
-                >
-                  <Award className="w-12 h-12 text-blue-400 mb-6 opacity-40 group-hover:opacity-100 transition-opacity" />
-                  <h3 className="text-xl font-bold mb-3">Membership Certificate</h3>
-                  <p className="text-gray-400 text-sm mb-8 leading-relaxed flex-grow">
-                    Verification of institutional commitment to ARIFAC's standards for the current period.
-                  </p>
+                  {/* Certificate Download Card */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-gradient-to-br from-blue-600/10 to-indigo-600/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 relative overflow-hidden group h-full flex flex-col"
+                  >
+                    <Award className="w-12 h-12 text-blue-400 mb-6 opacity-40 group-hover:opacity-100 transition-opacity" />
+                    <h3 className="text-xl font-bold mb-3">Membership Certificate</h3>
+                    <p className="text-gray-400 text-sm mb-8 leading-relaxed flex-grow">
+                      Verification of institutional commitment to ARIFAC's standards for the current period.
+                    </p>
 
-                  <div className="flex flex-col gap-3">
-                    <Link
-                      href="/membership/certificate"
-                      className="w-full py-3 rounded-2xl bg-white text-black font-bold hover:bg-gray-100 transition-all flex items-center justify-center gap-2 group"
-                    >
-                      <Award className="w-4 h-4 group-hover:scale-110 transition-all" />
-                      View Certificate
-                    </Link>
-                    <Link
-                      href={`/membership/verify/${memberData.id}`}
-                      target="_blank"
-                      className="w-full py-3 rounded-2xl bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-sm"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Verification Page
-                    </Link>
-                  </div>
-                </motion.div>
+                    <div className="flex flex-col gap-3">
+                      <Link
+                        href="/membership/certificate"
+                        className="w-full py-3 rounded-2xl bg-white text-black font-bold hover:bg-gray-100 transition-all flex items-center justify-center gap-2 group"
+                      >
+                        <Award className="w-4 h-4 group-hover:scale-110 transition-all" />
+                        View Certificate
+                      </Link>
+                      <Link
+                        href={`/membership/verify/${memberData.id}`}
+                        target="_blank"
+                        className="w-full py-3 rounded-2xl bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-sm"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Verification Page
+                      </Link>
+                    </div>
+                  </motion.div>
 
-                {/* Account Status Card */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl p-8 h-full flex flex-col"
-                >
-                  <ShieldCheck className="w-12 h-12 text-green-500 mb-6 opacity-40" />
-                  <h3 className="text-xl font-bold mb-3">Account Status</h3>
-                  <div className="space-y-4 mb-8 flex-grow">
-                    {/* <div className={`p-3 rounded-xl border flex items-center justify-between ${memberData.status === 'ACTIVE' || memberData.status === 'PAYMENT_SUCCESS' || memberData.status === 'VERIFIED'
+                  {/* Account Status Card */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl p-8 h-full flex flex-col"
+                  >
+                    <ShieldCheck className="w-12 h-12 text-green-500 mb-6 opacity-40" />
+                    <h3 className="text-xl font-bold mb-3">Account Status</h3>
+                    <div className="space-y-4 mb-8 flex-grow">
+                      {/* <div className={`p-3 rounded-xl border flex items-center justify-between ${memberData.status === 'ACTIVE' || memberData.status === 'PAYMENT_SUCCESS' || memberData.status === 'VERIFIED'
                         ? 'bg-green-500/5 border-green-500/10'
                         : 'bg-amber-500/5 border-amber-500/10'
                       }`}>
@@ -348,22 +367,22 @@ export default function MembershipDashboard() {
                         {memberData.status === 'ACTIVE' || memberData.status === 'VERIFIED' ? 'Verified' : 'In Review'}
                       </span>
                     </div> */}
-                    {/* <div>
+                      {/* <div>
                       <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-1">MEMBER TYPE</p>
                       <p className="text-sm font-medium">{memberData.type}</p>
                     </div> */}
-                    <div>
-                      <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-1">MEMBERSHIP ID</p>
-                      <p className="text-sm font-mono text-blue-400">{memberData.membershipId}</p>
+                      <div>
+                        <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-1">MEMBERSHIP ID</p>
+                        <p className="text-sm font-mono text-blue-400">{memberData.membershipId}</p>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="p-4 rounded-xl bg-blue-500/5 border border-blue-500/10 flex items-center gap-3">
-                    <AlertCircle className="w-4 h-4 text-blue-400 shrink-0" />
-                    <p className="text-[11px] text-gray-400">All information is synced with your organisation's official registration.</p>
-                  </div>
-                </motion.div>
-              </div>
+                    <div className="p-4 rounded-xl bg-blue-500/5 border border-blue-500/10 flex items-center gap-3">
+                      <AlertCircle className="w-4 h-4 text-blue-400 shrink-0" />
+                      <p className="text-[11px] text-gray-400">All information is synced with your organisation's official registration.</p>
+                    </div>
+                  </motion.div>
+                </div>
               )}
 
               {/* Collapsible Section for Timeline / Audit (UX Improvement) */}
@@ -492,6 +511,7 @@ export default function MembershipDashboard() {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               className="relative w-full max-w-lg bg-[#0a0a0a] border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl"
             >
+              <br />
               <div className="p-8 border-b border-white/5 flex justify-between items-center">
                 <h3 className="text-xl font-bold">Edit Profile Details</h3>
                 <button
@@ -503,7 +523,7 @@ export default function MembershipDashboard() {
               </div>
 
               <form onSubmit={handleUpdateProfile} className="p-8 space-y-6">
-                <div className="grid grid-cols-1 gap-5">
+                <div>
                   <div className="space-y-2">
                     <label className="text-[11px] text-gray-500 uppercase font-bold tracking-widest px-1">Full Name</label>
                     <input
@@ -543,10 +563,13 @@ export default function MembershipDashboard() {
                       <input
                         type="email"
                         required
+                        readOnly
                         value={editForm.email}
-                        onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all text-sm"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none transition-all text-sm opacity-60 cursor-not-allowed"
                       />
+                      <p className="text-[10px] text-gray-500 mt-1 px-1">
+                        To change your email, please contact <a href="mailto:help.arifac@iamai.in" className="text-blue-400 hover:underline">help.arifac@iamai.in</a>
+                      </p>
                     </div>
                     <div className="space-y-2">
                       <label className="text-[11px] text-gray-500 uppercase font-bold tracking-widest px-1">Mobile</label>
