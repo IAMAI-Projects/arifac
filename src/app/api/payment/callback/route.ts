@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { decrypt } from '@/lib/ccavutil';
 import { IdGenerator } from '@/utils/idGenerator';
+import { getBaseUrl } from '@/utils/url';
 
 export const dynamic = 'force-dynamic';
 
 /**
  * The base URL for frontend redirects after payment.
  * CCAvenue posts back to awardsbackend.local (mapped via /etc/hosts),
- * but the user's browser must be redirected to localhost:3000.
+ * but the user's browser must be redirected to the application's base URL.
  */
 function getFrontendBase(): string {
-    return process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000';
+    return getBaseUrl();
 }
 
 /**
@@ -22,7 +23,7 @@ function getFrontendBase(): string {
  *   2. Decrypts it with the working key.
  *   3. Parses order_status, order_id, tracking_id, etc.
  *   4. Saves the result to the database (stub — add your DB call here).
- *   5. Redirects the user to http://localhost:3000/membership/register/payment
+ *   5. Redirects the user to the base URL /membership/register/payment
  */
 export async function POST(req: NextRequest) {
     const frontendBase = getFrontendBase();
@@ -188,7 +189,7 @@ export async function POST(req: NextRequest) {
                             console.log('[CCAvenue] callback: Payment success email triggered for:', application.users.email);
 
                             // 3b. Trigger Membership Confirmation / Activation Email (Official Welcome)
-                            const domain = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+                            const domain = getBaseUrl();
                             
                             // If it was post-approval (UNDER_REVIEW), send "Membership Activated"
                             // If it was direct (INIT), send "Successful Registration"

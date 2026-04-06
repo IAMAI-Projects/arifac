@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import type { Transporter } from 'nodemailer';
+import { getBaseUrl } from '@/utils/url';
 
 /* ─── Transporter ─── */
 
@@ -1164,8 +1165,7 @@ export class EmailService {
 
   /* Resume / approval email */
   static async sendResumeEmail(email: string, name: string, token: string, retries = 3) {
-    const domain = process.env.NEXT_PUBLIC_APP_URL ||
-      (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://stage.arifac.com');
+    const domain = getBaseUrl();
     const resumeLink = `${domain}/api/resume?token=${token}`;
 
     await sendEmail({
@@ -1215,8 +1215,7 @@ export class EmailService {
 
   /* Password reset email */
   static async sendPasswordResetEmail(email: string, name: string, token: string, retries = 3) {
-    const domain = process.env.NEXT_PUBLIC_APP_URL ||
-      (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://stage.arifac.com');
+    const domain = getBaseUrl();
     const resetLink = `${domain}/membership/reset-password/${token}`;
 
     await sendEmail({
@@ -1243,9 +1242,7 @@ export class EmailService {
 
   /* Admin notification for new Form B */
   static async sendAdminNotificationEmail(adminEmail: string, userDetails: Record<string, any>, retries = 3) {
-    const loginLink = process.env.NEXT_PUBLIC_APP_URL
-      ? `${process.env.NEXT_PUBLIC_APP_URL}/admin/login`
-      : 'http://localhost:3000/admin/login';
+    const loginLink = `${getBaseUrl()}/admin/login`;
 
     await sendEmail({
       from: process.env.SMTP_FROM || process.env.SMTP_USER || ADMIN_INBOX,

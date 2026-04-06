@@ -6,6 +6,7 @@ import { getUserFromToken } from '@/lib/server-auth';
 import { AdminApprovalValidation } from '@/lib/validations/workflow';
 import { UserStatus } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
+import { getBaseUrl } from '@/utils/url';
 
 export async function POST(req: Request) {
   try {
@@ -37,7 +38,7 @@ export async function POST(req: Request) {
       const orgName = formB?.organisationName || 'Your Organisation';
 
       // Send Standardized Approval Email (Action Required)
-      const domain = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+      const domain = getBaseUrl();
       const loginLink = `${domain}/api/resume?token=${token}`; // Using resume link to direct them back to onboarding
       
       await EmailService.sendRegistrationApprovedActionRequiredEmail({
@@ -57,7 +58,7 @@ export async function POST(req: Request) {
       // Send Membership Activated Email
       const formB = await prisma.formB.findUnique({ where: { userId: user.id } });
       const orgName = formB?.organisationName || 'Your Organisation';
-      const domain = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+      const domain = getBaseUrl();
       
       // Fetch the newly created membership record to get the ID
       const dbUserSet1 = await prisma.users.findUnique({ where: { email: user.email } });
