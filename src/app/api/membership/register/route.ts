@@ -32,7 +32,7 @@ export async function POST(request: Request) {
           EmailService.sendMembershipConfirmationEmail({
             orgName: data.orgName,
             email: result.user.email,
-            membershipId: result.applicationId,
+            membershipId: result.membershipIdRef || result.applicationId,
             entityType: data.entityType,
             username: data.username,
             password: data.password,
@@ -82,7 +82,7 @@ export async function POST(request: Request) {
         EmailService.sendRegistrationConfirmationEmail({
           orgName: data.orgName,
           email: result.user.email,
-          registrationId: result.applicationId,
+          registrationId: result.membershipIdRef || result.applicationId,
           entityType: data.entityType,
           username: data.username,
           password: data.password,

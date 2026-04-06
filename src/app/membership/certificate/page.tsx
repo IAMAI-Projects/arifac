@@ -38,7 +38,7 @@ export default function MembershipCertificatePage() {
                     setMemberData({
                         id: mainApp.id,
                         name: mainApp.organisations?.name || "XYZ Bank",
-                        membershipId: `ARF-M-26-BNK-${shortId}`,
+                        membershipId: mainApp.memberships?.membership_id_ref || `ARF-M-26-BNK-${mainApp.id.substring(0, 6).toUpperCase()}`,
                         issueDate: new Date(mainApp.created_at).toLocaleDateString('en-GB', {
                             day: '2-digit',
                             month: 'long',

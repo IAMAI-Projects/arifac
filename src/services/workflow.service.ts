@@ -5,6 +5,7 @@ import crypto from 'crypto';
 import { hashPassword } from '@/lib/server-auth';
 import { MAP_IDENTIFIER_TYPE } from '@/lib/constants';
 import { EmailService } from '@/lib/email';
+import { IdGenerator } from '@/utils/idGenerator';
 
 export class WorkflowService {
   static async submitFormB(data: { email: string; name: string; organisationName: string; details: any }) {
@@ -276,6 +277,7 @@ export class WorkflowService {
             entity_type: additionalDetails.entityType || 'Others',
             registered_address: formBDetails.registeredAddress || 'Pending',
             regulated_entity: formBDetails.isRegulated === 'Yes',
+            org_id_ref: await IdGenerator.generateOrgId(),
             identifier_type: idenType, 
             identifier_value: idenValue,
           }
@@ -314,6 +316,7 @@ export class WorkflowService {
       if (!application) {
         application = await tx.membership_applications.create({
           data: {
+            application_ref_id: await IdGenerator.generateApplicationRefId(),
             application_type: 'NON_PRE_APPROVED',
             organisation_id: organisation.id,
             user_id: dbUser.id,
@@ -373,6 +376,56 @@ export class WorkflowService {
         where: { id: userId },
         data: { status: UserStatus.ACTIVE }
       });
+
+      // Find standard user (Set 1) to create membership
+      const dbUser = await tx.users.findUnique({
+        where: { email: user.email },
+        include: { 
+          membership_applications: {
+            where: { status: { in: ['UNDER_REVIEW', 'PAYMENT_SUCCESS', 'ACTIVE'] } },
+            include: { organisations: true }
+          }
+        }
+      });
+
+      if (dbUser && dbUser.membership_applications.length > 0) {
+        const application = dbUser.membership_applications[0];
+        const org = application.organisations;
+
+        // Generate Membership ID
+        const membershipIdRef = await IdGenerator.generateMembershipId(org?.sector || 'OTHER');
+
+        // Create Membership Record (Set 1)
+        await tx.memberships.upsert({
+          where: { application_id: application.id },
+          update: {
+             membership_id_ref: membershipIdRef,
+             status: 'ACTIVE',
+             start_date: new Date(),
+             end_date: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+          },
+          create: {
+            membership_id_ref: membershipIdRef,
+            organisation_id: org?.id,
+            application_id: application.id,
+            status: 'ACTIVE',
+            start_date: new Date(),
+            end_date: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+          }
+        });
+        
+        // Ensure application status is ACTIVE
+        await tx.membership_applications.update({
+          where: { id: application.id },
+          data: { status: 'ACTIVE' }
+        });
+        
+        // Ensure standard user is active
+        await tx.users.update({
+          where: { id: dbUser.id },
+          data: { is_active: true }
+        });
+      }
 
       return user;
     }, { maxWait: 20000, timeout: 60000 });

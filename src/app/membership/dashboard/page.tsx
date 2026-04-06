@@ -122,7 +122,7 @@ export default function MembershipDashboard() {
             email: mainApp.users?.email || "N/A",
             mobile: mainApp.users?.mobile || "N/A",
             designation: mainApp.users?.designation || "Member",
-            membershipId: `ARI-2024-${mainApp.id.toString().substring(0, 8).toUpperCase()}`,
+            membershipId: mainApp.memberships?.membership_id_ref || `ARI-2024-${mainApp.id.toString().substring(0, 8).toUpperCase()}`,
             memberSince: new Date(mainApp.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
             expiryDate: new Date(new Date(mainApp.created_at).setFullYear(new Date(mainApp.created_at).getFullYear() + 1)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
             status: mainApp.status,

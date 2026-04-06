@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { hashPassword } from '@/lib/server-auth';
 import { MembershipFormASchema, MembershipFormBSchema, MembershipFormCSchema } from '@/lib/validations/membership.schema';
 import { OtpService } from './otp.service';
+import { IdGenerator } from '@/utils/idGenerator';
 
 import { MAP_IDENTIFIER_TYPE } from '@/lib/constants';
 
@@ -35,6 +36,7 @@ export class MembershipService {
           regulated_entity: validatedData.isRegulated === 'Yes',
         },
         create: {
+          org_id_ref: await IdGenerator.generateOrgId(),
           name: validatedData.orgName,
           website: validatedData.orgWebsite || '',
           sector: validatedData.primarySector,
@@ -87,6 +89,7 @@ export class MembershipService {
       // 3. Create Membership Application
       const application = await tx.membership_applications.create({
         data: {
+          application_ref_id: await IdGenerator.generateApplicationRefId(),
           application_type: 'NON_PRE_APPROVED',
           organisation_id: organisation.id,
           user_id: user.id,
@@ -97,6 +100,22 @@ export class MembershipService {
           is_iba_member: isIba,
         }
       });
+
+      let membershipIdRef = null;
+      // 3b. Create Membership Record if skipPayment is true (IAMAI/IBA)
+      if (skipPayment) {
+        membershipIdRef = await IdGenerator.generateMembershipId(validatedData.primarySector);
+        await tx.memberships.create({
+          data: {
+            membership_id_ref: membershipIdRef,
+            organisation_id: organisation.id,
+            application_id: application.id,
+            status: 'ACTIVE',
+            start_date: new Date(),
+            end_date: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+          }
+        });
+      }
 
       // 4. Create Application Details
       await tx.application_details.create({
@@ -115,6 +134,7 @@ export class MembershipService {
       return {
         success: true,
         applicationId: application.id,
+        membershipIdRef,
         userId: user.id,
         user: {
           id: user.id,
@@ -222,6 +242,7 @@ export class MembershipService {
           regulated_entity: validatedData.isRegulated === 'Yes',
         },
         create: {
+          org_id_ref: await IdGenerator.generateOrgId(),
           name: validatedData.orgName,
           website: validatedData.orgWebsite || '',
           sector: validatedData.primarySector,
@@ -270,6 +291,7 @@ export class MembershipService {
       // 3. Create Membership Application
       const application = await tx.membership_applications.create({
         data: {
+          application_ref_id: await IdGenerator.generateApplicationRefId(),
           application_type: 'NON_PRE_APPROVED', // Form C uses same type as Form A for now
           organisation_id: organisation.id,
           user_id: user.id,
@@ -279,6 +301,19 @@ export class MembershipService {
           is_iamai_member: validatedData.industryMemberships.includes('IAMAI'),
           is_iba_member: validatedData.industryMemberships.includes('IBA'),
         }
+      });
+
+      // 3b. Create Membership Record for Form C (always active/free for now)
+      const membershipIdRef = await IdGenerator.generateMembershipId(validatedData.primarySector);
+      await tx.memberships.create({
+          data: {
+            membership_id_ref: membershipIdRef,
+            organisation_id: organisation.id,
+            application_id: application.id,
+            status: 'ACTIVE',
+            start_date: new Date(),
+            end_date: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+          }
       });
 
       // 4. Create Application Details
@@ -298,6 +333,7 @@ export class MembershipService {
       return {
         success: true,
         applicationId: application.id,
+        membershipIdRef,
         userId: user.id,
         user: {
           id: user.id,
@@ -321,6 +357,7 @@ export class MembershipService {
       include: {
         application_details: true,
         payments: true,
+        memberships: true,
         users: {
           include: {
             organisations: true

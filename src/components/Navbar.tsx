@@ -287,12 +287,12 @@ export default function Navbar() {
                             <Search size={20} />
                         </button>
 
-                        <button
+                        {/* <button
                             className="p-2 relative transition-colors duration-200 text-[#1d1d1f]/60 hover:text-accent"
                         >
                             <ShoppingCart size={20} />
                             <span className="absolute -top-0 -right-0 w-4 h-4 bg-accent text-white text-[9px] font-bold rounded-full flex items-center justify-center">0</span>
-                        </button>
+                        </button> */}
 
                         <div className="relative">
                             <button
@@ -432,27 +432,27 @@ export default function Navbar() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[1000] bg-white/98 backdrop-blur-3xl flex items-start justify-center pt-32 px-6"
+                        className="fixed inset-0 z-[1000] bg-white/98 backdrop-blur-3xl flex items-start justify-center pt-20 px-6"
                     >
                         <button
                             onClick={() => setIsSearchOpen(false)}
-                            className="absolute top-8 right-8 text-gray-400 hover:text-gray-900 transition-colors"
+                            className="absolute top-10 right-10 text-gray-400 hover:text-gray-900 transition-colors"
                         >
-                            <X size={32} />
+                            <X size={24} />
                         </button>
 
-                        <div className="w-full max-w-3xl flex flex-col gap-10">
+                        <div className="w-full max-w-3xl flex flex-col gap-8">
                             <div className="space-y-4 text-center">
-                                <p className="text-4xl md:text-6xl font-bold text-[#1d1d1f] tracking-tight leading-tight">{t('nav.search_title')}</p>
+                                <p className="text-2xl md:text-4xl font-bold text-[#1d1d1f] tracking-tight leading-tight">{t('nav.search_title')}</p>
                             </div>
 
                             <div className="relative group">
-                                <Search className="absolute left-8 top-1/2 -translate-y-1/2 text-accent" size={32} />
+                                <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-accent" size={24} />
                                 <input
                                     autoFocus
                                     type="text"
                                     placeholder={t('nav.search_placeholder')}
-                                    className="w-full bg-[#f5f5f7] border-none rounded-[32px] py-8 pl-24 pr-10 text-3xl text-[#1d1d1f] font-bold placeholder:text-gray-300 focus:outline-none focus:bg-white transition-all shadow-sm focus:shadow-2xl"
+                                    className="w-full bg-[#f5f5f7] border-none rounded-[24px] py-5 pl-16 pr-10 text-xl text-[#1d1d1f] font-bold placeholder:text-gray-300 focus:outline-none focus:bg-white transition-all shadow-sm focus:shadow-2xl"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                 />
@@ -464,7 +464,7 @@ export default function Navbar() {
                                     animate={{ opacity: 1, y: 0 }}
                                     className="text-center py-20 bg-[#f5f5f7] rounded-[48px]"
                                 >
-                                    <p className="text-secondary text-2xl font-bold">No results found for "<span className="text-accent">{searchQuery}</span>"</p>
+                                    <p className="text-secondary text-xl font-bold">No results found for "<span className="text-accent">{searchQuery}</span>"</p>
                                     <p className="text-secondary font-medium mt-4">Try searching for "AML/CFT", "Compliance", or "Membership"</p>
                                 </motion.div>
                             )}
@@ -472,7 +472,7 @@ export default function Navbar() {
                             <div className="flex flex-wrap gap-4 justify-center">
                                 <span className="text-secondary text-base font-bold pt-2">{t('nav.search_quick')}:</span>
                                 {[t('cert.title'), t('nav.events'), t('member.benefits_title'), t('nav.insights')].map(tag => (
-                                    <button key={tag} className="px-8 py-3 rounded-2xl bg-[#f5f5f7] text-[#1d1d1f] text-[15px] font-bold hover:bg-accent hover:text-white transition-all">
+                                    <button key={tag} className="px-6 py-2.5 rounded-xl bg-[#f5f5f7] text-[#1d1d1f] text-sm font-bold hover:bg-accent hover:text-white transition-all">
                                         {tag}
                                     </button>
                                 ))}
@@ -513,10 +513,10 @@ export default function Navbar() {
                                 >
                                     <Linkedin size={28} />
                                 </a>
-                                <button className="p-6 bg-[#f5f5f7] rounded-[32px] text-[#1d1d1f]/60 relative">
+                                {/* <button className="p-6 bg-[#f5f5f7] rounded-[32px] text-[#1d1d1f]/60 relative">
                                     <ShoppingCart size={28} />
                                     <span className="absolute top-4 right-4 w-5 h-5 bg-accent text-white text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
-                                </button>
+                                </button> */}
                             </div>
 
                             {/* Mobile Links */}

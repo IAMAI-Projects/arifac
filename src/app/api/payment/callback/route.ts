@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { decrypt } from '@/lib/ccavutil';
+import { IdGenerator } from '@/utils/idGenerator';
 
 export const dynamic = 'force-dynamic';
 
@@ -92,6 +93,7 @@ export async function POST(req: NextRequest) {
                             provider_order_id: orderId,
                         },
                         create: {
+                            payment_ref_id: await IdGenerator.generatePaymentRefId(),
                             application_id: applicationId,
                             amount: parseFloat(amount) || 0,
                             currency: 'INR',
@@ -108,7 +110,21 @@ export async function POST(req: NextRequest) {
                         const application = await tx.membership_applications.update({
                             where: { id: applicationId },
                             data: { status: 'ACTIVE' },
-                            include: { users: true }
+                            include: { users: true, organisations: true }
+                        });
+
+                        // Create Membership Record (Set 1)
+                        await tx.memberships.upsert({
+                            where: { application_id: application.id },
+                            update: { status: 'ACTIVE' },
+                            create: {
+                                membership_id_ref: await IdGenerator.generateMembershipId(application.organisations?.sector || 'OTHER'),
+                                organisation_id: application.organisation_id,
+                                application_id: application.id,
+                                status: 'ACTIVE',
+                                start_date: new Date(),
+                                end_date: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+                            }
                         });
 
                         if (application.user_id) {
@@ -132,6 +148,8 @@ export async function POST(req: NextRequest) {
                                 console.error('[CCAvenue] callback: Failed to update Set 2 User status:', err);
                             }
                         }
+
+                         return { application };
                     } else if (orderStatus === 'Aborted' || orderStatus === 'Failure') {
                         // Current status might already be INIT or PAYMENT_PENDING
                         // Maybe dont mark it as FAILED application, just payment failure
@@ -149,11 +167,13 @@ export async function POST(req: NextRequest) {
                             where: { id: applicationId },
                             include: {
                                 users: true,
-                                organisations: true
+                                organisations: true,
+                                memberships: true
                             }
                         });
 
                         if (application && application.users) {
+                            const membershipId = (application.memberships as any)?.membership_id_ref || application.id;
                             // 3a. Trigger Post-Payment Confirmation Email
                             await EmailService.sendPaymentSuccessEmail({
                                 email: application.users.email,
@@ -167,19 +187,32 @@ export async function POST(req: NextRequest) {
                             });
                             console.log('[CCAvenue] callback: Payment success email triggered for:', application.users.email);
 
-                            // 3b. Trigger Membership Confirmation Email (Official Welcome)
-                            // This is the "Option 2" the user wanted only after payment.
-                            await EmailService.sendMembershipConfirmationEmail({
-                                orgName: application.organisations?.name || 'Organisation',
-                                email: application.users.email,
-                                membershipId: application.id,
-                                entityType: application.organisations?.entity_type || 'Institution',
-                                username: application.users.username,
-                                name: application.users.full_name,
-                                designation: application.users.designation || undefined,
-                                mobile: application.users.mobile || undefined,
-                            }).catch((err: unknown) => console.error('[CCAvenue callback] Registration email error:', err));
-                            console.log('[CCAvenue] callback: Registration confirmation email triggered for:', application.users.email);
+                            // 3b. Trigger Membership Confirmation / Activation Email (Official Welcome)
+                            const domain = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+                            
+                            // If it was post-approval (UNDER_REVIEW), send "Membership Activated"
+                            // If it was direct (INIT), send "Successful Registration"
+                            if (application.status === 'UNDER_REVIEW') {
+                                await EmailService.sendMembershipActivatedEmail({
+                                    orgName: application.organisations?.name || 'Organisation',
+                                    email: application.users.email,
+                                    membershipId: membershipId,
+                                    loginLink: `${domain}/login`
+                                }).catch((err: unknown) => console.error('[CCAvenue callback] Activation email error:', err));
+                                console.log('[CCAvenue] callback: Membership Activated email triggered for:', application.users.email);
+                            } else {
+                                await EmailService.sendMembershipConfirmationEmail({
+                                    orgName: application.organisations?.name || 'Organisation',
+                                    email: application.users.email,
+                                    membershipId: membershipId,
+                                    entityType: application.organisations?.entity_type || 'Institution',
+                                    username: application.users.username,
+                                    name: application.users.full_name,
+                                    designation: application.users.designation || undefined,
+                                    mobile: application.users.mobile || undefined,
+                                }).catch((err: unknown) => console.error('[CCAvenue callback] Registration email error:', err));
+                                console.log('[CCAvenue] callback: Registration confirmation email triggered for:', application.users.email);
+                            }
 
                             // 4. Issue Session Cookie (JWT) for the newly paid member
                             try {

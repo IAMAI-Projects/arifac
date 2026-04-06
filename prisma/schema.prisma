@@ -50,6 +50,7 @@ model flyway_schema_history {
 
 model membership_applications {
   id                  String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  application_ref_id  String?               @unique
   application_type    application_type
   organisation_id     String?               @db.Uuid
   user_id             String?               @db.Uuid
@@ -78,6 +79,7 @@ model membership_applications {
 
 model memberships {
   id                      String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  membership_id_ref       String?                  @unique
   organisation_id         String?                  @db.Uuid
   application_id          String?                  @unique @db.Uuid
   status                  membership_status        @default(ACTIVE)
@@ -91,6 +93,7 @@ model memberships {
 
 model organisations {
   id                      String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  org_id_ref              String?         @unique
   name                    String
   website                 String?
   sector                  String
@@ -112,6 +115,7 @@ model organisations {
 
 model payments {
   id                      String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  payment_ref_id          String?                  @unique
   application_id          String?                  @db.Uuid
   amount                  Decimal                  @db.Decimal(12, 2)
   currency                String?                  @default("INR")
@@ -316,4 +320,13 @@ model EmailOTP {
 
   @@index([email])
   @@map("EmailOTP")
+}
+
+model sequences {
+  type     String
+  year     Int
+  last_val Int    @default(0)
+
+  @@id([type, year])
+  @@map("sequences")
 }

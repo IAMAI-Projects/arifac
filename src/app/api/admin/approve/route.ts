@@ -32,17 +32,47 @@ export async function POST(req: Request) {
     if (isFormBApproval) {
       const { user: updatedUser, token } = await WorkflowService.approveFormB(user.id, adminSession.userId, validated.remarks);
       
-      // Send Email with Resume Link
-      await EmailService.sendResumeEmail(updatedUser.email, updatedUser.name, token);
+      // Get orgName from Form B
+      const formB = await prisma.formB.findUnique({ where: { userId: user.id } });
+      const orgName = formB?.organisationName || 'Your Organisation';
 
-      return NextResponse.json({ success: true, message: 'Form B Approved. Email sent.' });
+      // Send Standardized Approval Email (Action Required)
+      const domain = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+      const loginLink = `${domain}/api/resume?token=${token}`; // Using resume link to direct them back to onboarding
+      
+      await EmailService.sendRegistrationApprovedActionRequiredEmail({
+        orgName,
+        email: updatedUser.email,
+        loginLink
+      });
+
+      return NextResponse.json({ success: true, message: 'Form B Approved. Standardized Activation email sent.' });
     }
 
     const isFinalApproval = (user.status === UserStatus.POST_FORM_SUBMITTED) && validated.status === 'APPROVED';
 
     if (isFinalApproval) {
       await WorkflowService.finalActivation(user.id, adminSession.userId, validated.remarks);
-      return NextResponse.json({ success: true, message: 'Final Activation Successful.' });
+      
+      // Send Membership Activated Email
+      const formB = await prisma.formB.findUnique({ where: { userId: user.id } });
+      const orgName = formB?.organisationName || 'Your Organisation';
+      const domain = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+      
+      // Fetch the newly created membership record to get the ID
+      const dbUserSet1 = await prisma.users.findUnique({ where: { email: user.email } });
+      const membership = await prisma.memberships.findUnique({
+        where: { application_id: (await prisma.membership_applications.findFirst({ where: { user_id: dbUserSet1?.id } }))?.id || '' }
+      });
+
+      await EmailService.sendMembershipActivatedEmail({
+        orgName,
+        email: user.email,
+        membershipId: (membership as any)?.membership_id_ref || 'ARF-M-PENDING',
+        loginLink: `${domain}/login`
+      });
+
+      return NextResponse.json({ success: true, message: 'Final Activation Successful. Activation email sent.' });
     }
 
     if (validated.status === 'REJECTED') {
