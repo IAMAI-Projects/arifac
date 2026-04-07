@@ -104,7 +104,7 @@ export default function Footer() {
                     <div className="flex gap-4">
 
                         <Link href="#" className="text-[11px] text-secondary hover:text-[#1d1d1f] transition-colors">
-                            {t('footer.cookie')}
+                            {t('footer.cookie')} | Stage_v-33
                         </Link>
 
                     </div>
