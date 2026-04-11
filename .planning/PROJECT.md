@@ -2,11 +2,11 @@
 
 ## What This Is
 
-The ARIFAC website is a regulatory compliance organization's web presence, currently built as a static Next.js site with ~20 pages of hardcoded content. This project adds Keystatic CMS so non-technical editors can manage all page content through an admin UI without touching code. Keystatic stores content as files (Markdown/JSON) in the git repo — no database needed.
+The ARIFAC website is a regulatory compliance organization's web presence, currently built as a static Next.js site with ~20 pages of hardcoded content. This project adds Payload CMS so non-technical editors can manage all page content through an admin panel with username/password login, without touching code.
 
 ## Core Value
 
-Non-technical editors can update any page's content through a visual admin panel — no developer involvement needed for routine content changes.
+Non-technical editors can log in and update any page's content through a visual admin panel — no developer involvement needed for routine content changes.
 
 ## Requirements
 
@@ -24,15 +24,17 @@ Non-technical editors can update any page's content through a visual admin panel
 
 ### Active
 
-- [ ] Keystatic CMS integrated into the Next.js app
-- [ ] Admin UI accessible at `/keystatic` for content editors
+- [ ] Payload CMS integrated into the Next.js app
+- [ ] Admin panel at `/admin` with email/password login
+- [ ] Editor user accounts with credentials
 - [ ] All existing pages editable from CMS
-- [ ] Regulatory updates manageable as a content collection
-- [ ] Programmes and certifications manageable as content collections
-- [ ] Content stored as Markdown/JSON files in the repo
+- [ ] Regulatory updates manageable as a collection
+- [ ] Programmes and certifications manageable as collections
+- [ ] Database (PostgreSQL) for CMS content storage
 - [ ] Media upload support for images
-- [ ] Content migration from hardcoded components to CMS-managed files
-- [ ] Deployment working with CMS admin UI
+- [ ] Content migration from hardcoded components to CMS
+- [ ] Change log / audit trail — who changed what and when
+- [ ] AWS deployment with database connectivity (ECS or similar)
 
 ### Out of Scope
 
@@ -47,17 +49,18 @@ Non-technical editors can update any page's content through a visual admin panel
 
 - **Existing site:** Next.js 16, React 19, Tailwind 4, TypeScript, pnpm
 - **Current content:** All hardcoded in React components (~20 pages)
-- **Deployment:** AWS Amplify currently, flexible within AWS
-- **CMS choice:** Keystatic — git-based, no database, content as files, admin UI built-in
-- **Database:** None needed — Keystatic stores content as Markdown/JSON in the repo
-- **Editors:** 1-2 people managing content
-- **Media needs:** Minimal — mostly text content, occasional images/files
+- **Deployment:** AWS Amplify currently, moving to ECS or container-based AWS deployment (Amplify doesn't support Next.js 16 + Payload)
+- **CMS choice:** Payload CMS — self-hosted, runs inside Next.js, built-in email/password auth, open source
+- **Database:** PostgreSQL via Payload's db-postgres adapter
+- **Editors:** 1-2 people with username/password login
+- **Media needs:** Minimal — mostly text content, occasional images
 - **Page types:** Home page (composite sections), content pages (StaticPageLayout), listings (certifications, programmes, regulatory updates)
 
 ## Constraints
 
-- **Tech stack**: Must integrate with existing Next.js 16 / React 19 / Tailwind 4 stack — Keystatic has first-class Next.js support
-- **Hosting**: Must deploy on AWS — no database needed, but CMS admin needs a running server (not purely static export)
+- **Tech stack**: Must integrate with existing Next.js 16 / React 19 / Tailwind 4 stack — Payload CMS runs natively in Next.js
+- **Hosting**: Must deploy on AWS — need PostgreSQL database (RDS or similar) alongside containerized app
+- **Auth**: Editors must log in with email/password (no GitHub/OAuth dependency)
 - **Content continuity**: All existing page content must be preserved during migration to CMS
 - **Design continuity**: Visual design must remain identical after CMS integration — same components, same styling
 
@@ -65,9 +68,10 @@ Non-technical editors can update any page's content through a visual admin panel
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Keystatic over Payload CMS | No database needed, faster to ship, content in git, simpler stack. Can migrate to Payload later if needed. | — Pending |
-| Git-based content storage | Content as Markdown/JSON files versioned in repo — fits static site mental model, easy rollbacks | — Pending |
+| Payload CMS over Keystatic | Need built-in email/password auth for editors. Keystatic only supports GitHub OAuth. | — Pending |
+| PostgreSQL over MongoDB | Better Payload + Next.js integration, structured data fits relational model | — Pending |
 | Migrate all pages to CMS | User wants full CMS control over every page, not partial | — Pending |
+| AWS container deployment | Amplify doesn't support Next.js 16; need ECS/App Runner for Payload + DB | — Pending |
 
 ## Evolution
 
@@ -87,4 +91,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-11 after initialization (updated: CMS choice changed from Payload to Keystatic)*
+*Last updated: 2026-04-11 after initialization (CMS: Keystatic → Payload for username/password auth)*
