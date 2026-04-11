@@ -12,7 +12,8 @@ export default buildConfig({
   admin: {
     user: 'users',
     importMap: {
-      baseDir: path.resolve(dirname),
+      baseDir: path.resolve(dirname, '..'),
+      importMapFile: path.resolve(dirname, 'app/(payload)/admin/importMap.js'),
     },
   },
   collections: [

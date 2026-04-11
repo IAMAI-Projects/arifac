@@ -18,8 +18,10 @@ export default function FrontendLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={`${plusJakarta.variable} ${inter.variable} h-full font-body min-h-full flex flex-col antialiased bg-white text-slate-900`}>
-      {children}
-    </div>
+    <html lang="en">
+      <body className={`${plusJakarta.variable} ${inter.variable} h-full font-body min-h-full flex flex-col antialiased bg-white text-slate-900`}>
+        {children}
+      </body>
+    </html>
   );
 }
