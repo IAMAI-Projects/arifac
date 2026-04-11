@@ -2,12 +2,36 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
+  const allianceLinks = [
+    { href: "/about", label: "About Us" },
+    { href: "/member-benefits", label: "Member Benefits" },
+    { href: "/members", label: "Our Members" },
+    { href: "/meetings", label: "Meetings & Events" },
+    { href: "/gallery", label: "Gallery" },
+  ];
+
+  const programmesLinks = [
+    { href: "/programmes", label: "Programmes" },
+    { href: "/certifications", label: "Certifications" },
+    { href: "/training-leads", label: "Training Leads" },
+    { href: "/sectoral-nodal-officers", label: "Sectoral Nodal Officers" },
+    { href: "/regulatory-updates", label: "Regulatory Updates" },
+  ];
+
+  const supportLinks = [
+    { href: "/resources", label: "Resource Center" },
+    { href: "/help", label: "Help Center" },
+    { href: "/faqs", label: "FAQs" },
+    { href: "/contact", label: "Contact Us" },
+    { href: "/membership/launching-soon", label: "Membership Application" },
+  ];
+
   return (
     <footer className="bg-navy text-white pt-16 md:pt-24 pb-10">
       <div className="max-w-[1240px] mx-auto px-6">
-        <div className="grid md:grid-cols-12 gap-12 lg:gap-16 mb-16">
+        <div className="grid md:grid-cols-12 gap-12 lg:gap-10 mb-16">
           
-          <div className="md:col-span-5">
+          <div className="md:col-span-4">
              <Image src="/logo.png" alt="ARIFAC" width={140} height={42} className="h-9 w-auto brightness-0 invert mb-6" />
              <p className="text-[15px] text-slate-300 leading-relaxed font-normal max-w-sm mb-8">
                Empowering India&apos;s financial ecosystem through unified compliance standards, expert certification, and strategic regulatory dialogue. 
@@ -22,25 +46,36 @@ export default function Footer() {
              </div>
           </div>
           
-          <div className="md:col-span-2 md:col-start-8">
+          <div className="md:col-span-2 md:col-start-6">
             <h4 className="text-[11px] font-bold text-cyan-400 uppercase tracking-[0.2em] mb-6">Alliance</h4>
             <div className="flex flex-col gap-4 text-[13px] text-slate-300">
-              <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
-              <Link href="/member-benefits" className="hover:text-white transition-colors">Member Benefits</Link>
-              <Link href="/resources" className="hover:text-white transition-colors">Resource Center</Link>
-              <Link href="/meetings" className="hover:text-white transition-colors">Meetings & Events</Link>
-              <Link href="/governance" className="hover:text-white transition-colors">Governance</Link>
+              {allianceLinks.map((link) => (
+                <Link key={link.href} href={link.href} className="hover:text-white transition-colors">
+                  {link.label}
+                </Link>
+              ))}
             </div>
           </div>
           
           <div className="md:col-span-2">
-            <h4 className="text-[11px] font-bold text-cyan-400 uppercase tracking-[0.2em] mb-6">Resources</h4>
+            <h4 className="text-[11px] font-bold text-cyan-400 uppercase tracking-[0.2em] mb-6">Programmes</h4>
             <div className="flex flex-col gap-4 text-[13px] text-slate-300">
-              <Link href="/regulatory-updates" className="hover:text-white transition-colors">Regulatory Updates</Link>
-              <Link href="/training" className="hover:text-white transition-colors">Training Programs</Link>
-              <Link href="/certifications" className="hover:text-white transition-colors">Certifications</Link>
-              <Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link>
-              <Link href="/faqs" className="hover:text-white transition-colors">Help & FAQ</Link>
+              {programmesLinks.map((link) => (
+                <Link key={link.href} href={link.href} className="hover:text-white transition-colors">
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="md:col-span-2">
+            <h4 className="text-[11px] font-bold text-cyan-400 uppercase tracking-[0.2em] mb-6">Support</h4>
+            <div className="flex flex-col gap-4 text-[13px] text-slate-300">
+              {supportLinks.map((link) => (
+                <Link key={link.href} href={link.href} className="hover:text-white transition-colors">
+                  {link.label}
+                </Link>
+              ))}
             </div>
           </div>
           
@@ -48,9 +83,9 @@ export default function Footer() {
         
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-[12px] text-slate-400 font-medium">
           <div className="flex gap-8">
-            <Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link>
+            <Link href="/terms-of-use" className="hover:text-white transition-colors">Terms of Use</Link>
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/legal" className="hover:text-white transition-colors">Legal & Compliance</Link>
+            <Link href="/disclaimer" className="hover:text-white transition-colors">Legal & Compliance</Link>
           </div>
           <div className="flex items-center gap-2">
             <span>© {new Date().getFullYear()} ARIFAC | IAMAI. All rights reserved.</span>

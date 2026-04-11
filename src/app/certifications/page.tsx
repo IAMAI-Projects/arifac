@@ -5,7 +5,6 @@ import { useMemo, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
-import Image from "next/image";
 
 const certifications = [
   {
@@ -15,15 +14,15 @@ const certifications = [
     focus: "Awareness & Literacy",
     category: "Foundation",
     format: "Online",
-    description: "Designed for role-based onboarding and entry-level compliance awareness. This certification ensures that all staff within reporting entities understand the fundamentals of PMLA, KYC, and the importance of financial integrity.",
+    description:
+      "Designed for role-based onboarding and entry-level compliance awareness. This certification ensures that all staff within reporting entities understand the fundamentals of PMLA, KYC, and the importance of financial integrity.",
     curriculum: [
       "Introduction to AML/CFT Frameworks",
       "Overview of PMLA & FIU-IND Reporting",
       "KYC & Customer Due Diligence (CDD)",
-      "Red Flag Indicators for Frontline Staff"
+      "Red Flag Indicators for Frontline Staff",
     ],
     duration: "4 Weeks (Online)",
-    image: "/cert-associate.png"
   },
   {
     id: "professional-aml-cft",
@@ -32,15 +31,15 @@ const certifications = [
     focus: "Operations & Supervision",
     category: "Professional",
     format: "Hybrid",
-    description: "Focuses on applied compliance, transaction monitoring, and enhancing supervisory capabilities. Targeted at compliance officers and mid-level managers responsible for daily operational oversight.",
+    description:
+      "Focuses on applied compliance, transaction monitoring, and enhancing supervisory capabilities. Targeted at compliance officers and mid-level managers responsible for daily operational oversight.",
     curriculum: [
       "Advanced Transaction Monitoring",
       "Suspicious Transaction Reporting (STR)",
       "Risk-Based Approach (RBA) Implementation",
-      "Sanctions Screening & Management"
+      "Sanctions Screening & Management",
     ],
     duration: "8 Weeks (Hybrid)",
-    image: "/cert-professional.png"
   },
   {
     id: "specialist-aml-cft",
@@ -49,15 +48,15 @@ const certifications = [
     focus: "Investigations & Forensics",
     category: "Specialist",
     format: "Expert-Led",
-    description: "Deep domain expertise focusing on advanced investigations, complex money laundering typologies, and forensic analysis. Designed for senior compliance leaders and financial crime investigators.",
+    description:
+      "Deep domain expertise focusing on advanced investigations, complex money laundering typologies, and forensic analysis. Designed for senior compliance leaders and financial crime investigators.",
     curriculum: [
       "Complex Typology Analysis",
       "Forensic Audit & Asset Tracing",
       "Digital Asset & VDA Compliance",
-      "Regulatory Reporting & Audit Defense"
+      "Regulatory Reporting & Audit Defense",
     ],
     duration: "12 Weeks (Expert-Led)",
-    image: "/cert-specialist.png"
   },
   {
     id: "digital-assets-compliance",
@@ -66,66 +65,39 @@ const certifications = [
     focus: "VDA Risk & Controls",
     category: "Specialist",
     format: "Live Online",
-    description: "Focused programme on virtual digital asset risk management, travel rule readiness, sanctions controls, and transaction monitoring for VDA-related businesses.",
+    description:
+      "Focused programme on virtual digital asset risk management, travel rule readiness, sanctions controls, and transaction monitoring for VDA-related businesses.",
     curriculum: [
       "VDA Regulatory Landscape in India",
       "Blockchain Analytics for Compliance Teams",
       "Sanctions and Wallet Screening Controls",
-      "Suspicious Activity Escalation Protocols"
+      "Suspicious Activity Escalation Protocols",
     ],
     duration: "6 Weeks (Live Online)",
-    image: "/cert-specialist.png" // Fallback to specialist image
-  }
-];
-
-const benefits = [
-  {
-    title: "Recognised Standards",
-    description: "Aligned with global FATF standards and Indian regulatory requirements.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2 2 2 0 012 2v.5m.435 4.435L17.435 20M12 22a10 10 0 110-20 10 10 0 010 20z" />
-      </svg>
-    )
   },
-  {
-    title: "Industry Validated",
-    description: "Curriculum vetted by leading subject matter experts across the ecosystem.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    )
-  },
-  {
-    title: "Career Growth",
-    description: "Structured pathway from foundational knowledge to senior integrity leadership.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-      </svg>
-    )
-  }
 ];
 
 export default function CertificationPage() {
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [formatFilter, setFormatFilter] = useState("All");
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   const categories = useMemo(() => {
-    return ["All", ...new Set(certifications.map((course) => course.category))];
+    return ["All", ...new Set(certifications.map((c) => c.category))];
   }, []);
 
   const formats = useMemo(() => {
-    return ["All", ...new Set(certifications.map((course) => course.format))];
+    return ["All", ...new Set(certifications.map((c) => c.format))];
   }, []);
 
   const filteredCourses = useMemo(() => {
     const query = search.trim().toLowerCase();
     return certifications.filter((course) => {
-      const byCategory = categoryFilter === "All" || course.category === categoryFilter;
-      const byFormat = formatFilter === "All" || course.format === formatFilter;
+      const byCategory =
+        categoryFilter === "All" || course.category === categoryFilter;
+      const byFormat =
+        formatFilter === "All" || course.format === formatFilter;
       const bySearch =
         query.length === 0 ||
         course.title.toLowerCase().includes(query) ||
@@ -136,38 +108,64 @@ export default function CertificationPage() {
   }, [search, categoryFilter, formatFilter]);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col selection:bg-brand selection:text-white antialiased">
+    <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-brand selection:text-white flex flex-col antialiased">
       <Header />
-      
+
       <main className="flex-grow">
-        <PageBanner 
+        <PageBanner
           label="Certifications"
           title="Industry Standard Pathways for Financial Crime Readiness"
           description="Role-based programmes from foundation to specialist level, designed to strengthen compliance across India's financial ecosystem."
         />
 
-        {/* ── Value Pillars ── */}
-        <section className="relative -mt-6 z-20 pb-12 lg:pb-16 animate-in">
+        {/* ── Pathway Tiers Strip ── */}
+        <section className="relative -mt-6 z-20 animate-in">
           <div className="max-w-[1240px] mx-auto px-6">
             <div className="grid md:grid-cols-3 gap-0">
-              {benefits.map((benefit, idx) => (
-                <div 
-                  key={idx} 
-                  className={`group bg-white p-6 lg:p-8 border-y border-x border-slate-100 first:border-l-brand/20 last:border-r-brand/20 transition-all hover:bg-slate-50 relative animate-in delay-${(idx + 1) * 100}`}
+              {[
+                {
+                  label: "Recognised Standards",
+                  sub: "Aligned with FATF & Indian PMLA requirements.",
+                  icon: (
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2 2 2 0 012 2v.5m.435 4.435L17.435 20M12 22a10 10 0 110-20 10 10 0 010 20z" />
+                    </svg>
+                  ),
+                },
+                {
+                  label: "Industry Validated",
+                  sub: "Vetted by leading subject matter experts.",
+                  icon: (
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  ),
+                },
+                {
+                  label: "Career Growth",
+                  sub: "Foundation to senior integrity leadership.",
+                  icon: (
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                  ),
+                },
+              ].map((tier, idx) => (
+                <div
+                  key={tier.label}
+                  className={`group bg-white p-5 lg:p-6 border border-slate-100 transition-all hover:bg-slate-50 relative overflow-hidden animate-in delay-${(idx + 1) * 100}`}
                 >
                   <div className="absolute inset-0 bg-noise opacity-[0.015] pointer-events-none" />
-                  <div className="flex items-start gap-5 relative z-10">
-                    <div className="w-10 h-10 bg-navy/[0.03] text-brand flex items-center justify-center group-hover:bg-brand group-hover:text-white transition-all duration-300">
-                      <div className="[&>svg]:w-5 [&>svg]:h-5">
-                        {benefit.icon}
-                      </div>
+                  <div className="flex items-center gap-4 relative z-10">
+                    <div className="w-10 h-10 bg-navy/[0.03] text-brand flex items-center justify-center flex-shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300">
+                      {tier.icon}
                     </div>
-                    <div>
-                      <h3 className="text-[13px] font-bold text-navy uppercase tracking-widest mb-2 group-hover:text-brand transition-colors">
-                        {benefit.title}
+                    <div className="min-w-0">
+                      <h3 className="text-[13px] font-bold text-navy uppercase tracking-widest group-hover:text-brand transition-colors">
+                        {tier.label}
                       </h3>
-                      <p className="text-slate-500 text-[13px] leading-relaxed">
-                        {benefit.description}
+                      <p className="text-slate-400 text-[11px] leading-relaxed truncate">
+                        {tier.sub}
                       </p>
                     </div>
                   </div>
@@ -176,181 +174,240 @@ export default function CertificationPage() {
             </div>
           </div>
         </section>
-        {/* ── Certification Pathways ── */}
-        <section id="pathway" className="py-12 lg:py-16 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
-          <div className="absolute inset-0 bg-grid-subtle opacity-30 pointer-events-none" />
-          
+
+        {/* ── Certification Catalogue ── */}
+        <section className="py-8 lg:py-10 bg-slate-50/60 border-b border-slate-100 relative overflow-hidden">
+          <div className="absolute inset-0 bg-grid-subtle opacity-[0.02] pointer-events-none" />
           <div className="max-w-[1240px] mx-auto px-6 relative z-10">
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-10">
-              <div className="max-w-2xl">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="h-1 w-8 bg-brand" />
-                  <span className="text-[12px] font-bold text-brand tracking-widest uppercase">Course Catalogue</span>
-                </div>
-                <h2 className="text-2xl lg:text-[34px] font-extrabold text-navy leading-none tracking-tight mb-4">
-                  Explore Learning Pathways
-                </h2>
-                <p className="text-slate-600 text-[15px] leading-relaxed">
-                  Browse ARIFAC programmes by level, delivery format, and focus area. 
-                  This catalogue expands as new pathways are launched.
-                </p>
-              </div>
-
-              <div className="flex-shrink-0">
-                <div className="bg-white border border-slate-200 p-1 flex items-center shadow-sm">
-                  <div className="px-4 py-2 border-r border-slate-100">
-                    <span className="text-[11px] font-bold text-navy uppercase">{filteredCourses.length}</span>
-                  </div>
-                  <div className="px-4 py-2">
-                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Available</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* ── Compact Controls ── */}
-            <div className="bg-white border border-slate-200 shadow-xl shadow-slate-200/50 p-5 lg:p-6 mb-10">
-              <div className="grid md:grid-cols-12 gap-6">
-                <div className="md:col-span-6">
-                  <label className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">
-                    Search
-                  </label>
-                  <input
-                    type="text"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search by title, focus, or topic..."
-                    className="w-full bg-slate-50 border border-slate-100 px-4 py-3 text-[14px] focus:outline-none focus:border-brand focus:bg-white transition-all placeholder:text-slate-300"
-                  />
-                </div>
-                <div className="md:col-span-3">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 block">Level</label>
-                  <div className="relative">
-                    <select
-                      value={categoryFilter}
-                      onChange={(e) => setCategoryFilter(e.target.value)}
-                      className="w-full appearance-none bg-slate-50 border border-slate-100 px-4 py-3 text-[14px] focus:outline-none focus:border-brand focus:bg-white transition-all cursor-pointer"
-                    >
-                      {categories.map((category) => (
-                        <option key={category} value={category}>{category}</option>
-                      ))}
-                    </select>
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-300">
-                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
+            <div className="grid lg:grid-cols-12 gap-6 items-start">
+              {/* ── Left: Sticky Filter Sidebar ── */}
+              <div className="lg:col-span-3">
+                <div className="lg:sticky lg:top-6">
+                  <div className="bg-white border border-slate-200 shadow-sm overflow-hidden">
+                    {/* Sidebar header */}
+                    <div className="bg-navy px-5 py-4">
+                      <h3 className="text-[11px] font-bold text-white uppercase tracking-widest">
+                        Filter Programmes
+                      </h3>
+                      <p className="text-[11px] text-slate-400 mt-1">
+                        {filteredCourses.length} of {certifications.length} shown
+                      </p>
                     </div>
-                  </div>
-                </div>
-                <div className="md:col-span-3">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 block">Format</label>
-                  <div className="relative">
-                    <select
-                      value={formatFilter}
-                      onChange={(e) => setFormatFilter(e.target.value)}
-                      className="w-full appearance-none bg-slate-50 border border-slate-100 px-4 py-3 text-[14px] focus:outline-none focus:border-brand focus:bg-white transition-all cursor-pointer"
-                    >
-                      {formats.map((format) => (
-                        <option key={format} value={format}>{format}</option>
-                      ))}
-                    </select>
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-300">
-                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {filteredCourses.map((cert, idx) => (
-                <div 
-                  key={cert.id} 
-                  className={`group relative bg-white border border-slate-200 hover:border-brand transition-all duration-500 overflow-hidden flex flex-col animate-in delay-${(idx % 10 + 1) * 50}`}
-                >
-                  <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none" />
-                  
-                  {/* Image Header - Ultra Compact */}
-                  <div className="aspect-[4/3] bg-white relative overflow-hidden flex items-center justify-center border-b border-slate-100">
-                    <div className="absolute inset-0 bg-navy opacity-0 group-hover:opacity-[0.02] transition-opacity z-10" />
-                    <Image
-                      src={cert.image}
-                      alt={cert.title}
-                      fill
-                      sizes="(max-width: 1240px) 20vw, 33vw"
-                      className="object-contain p-3 group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  
-                  <div className="relative z-10 p-4 flex-grow flex flex-col">
-                    <span className="text-[9px] font-bold text-brand uppercase tracking-widest mb-1.5 block truncate">
-                      {cert.level}
-                    </span>
-
-                    <h3 className="text-[14px] font-extrabold text-navy mb-2 leading-tight group-hover:text-brand transition-colors line-clamp-2 min-h-[2.5em]">
-                      {cert.title}
-                    </h3>
-                    
-                    <p className="text-slate-500 text-[12px] leading-relaxed mb-4 flex-grow line-clamp-3">
-                      {cert.description}
-                    </p>
-
-                    <div className="mt-auto flex flex-col gap-3 pt-4 border-t border-slate-50">
-                      <div className="flex items-center gap-1.5">
-                        <svg className="w-3 h-3 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span className="text-[9px] font-bold text-navy uppercase tracking-widest">{cert.duration}</span>
+                    <div className="p-5 space-y-5">
+                      {/* Search */}
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">
+                          Search
+                        </label>
+                        <input
+                          type="text"
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
+                          placeholder="Title, focus, topic..."
+                          className="w-full bg-slate-50 border border-slate-200 px-3 py-2 text-[13px] focus:outline-none focus:border-brand focus:bg-white transition-all placeholder:text-slate-300"
+                        />
                       </div>
-                      <Link 
-                        href={`/contact?subject=${encodeURIComponent(cert.title)}`} 
-                        className="group/btn inline-flex items-center gap-1.5 text-[10px] font-bold text-brand uppercase tracking-widest hover:text-navy transition-colors"
-                      >
-                        Enquire
-                        <svg className="w-3 h-3 transform group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </Link>
+
+                      {/* Level */}
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">
+                          Level
+                        </label>
+                        <div className="space-y-1">
+                          {categories.map((cat) => (
+                            <button
+                              key={cat}
+                              onClick={() => setCategoryFilter(cat)}
+                              className={`w-full text-left px-3 py-2 text-[12px] font-bold transition-all ${
+                                categoryFilter === cat
+                                  ? "bg-brand text-white"
+                                  : "text-navy hover:bg-slate-50 border border-transparent hover:border-slate-200"
+                              }`}
+                            >
+                              {cat}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Format */}
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">
+                          Format
+                        </label>
+                        <div className="space-y-1">
+                          {formats.map((fmt) => (
+                            <button
+                              key={fmt}
+                              onClick={() => setFormatFilter(fmt)}
+                              className={`w-full text-left px-3 py-2 text-[12px] font-bold transition-all ${
+                                formatFilter === fmt
+                                  ? "bg-brand text-white"
+                                  : "text-navy hover:bg-slate-50 border border-transparent hover:border-slate-200"
+                              }`}
+                            >
+                              {fmt}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Reset */}
+                      {(search || categoryFilter !== "All" || formatFilter !== "All") && (
+                        <button
+                          onClick={() => {
+                            setSearch("");
+                            setCategoryFilter("All");
+                            setFormatFilter("All");
+                          }}
+                          className="w-full text-center px-3 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-widest border border-dashed border-slate-300 hover:text-brand hover:border-brand transition-colors"
+                        >
+                          Clear Filters
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {filteredCourses.length === 0 && (
-              <div className="mt-6 bg-white border border-dashed border-slate-300 p-8 text-center">
-                <p className="text-slate-600 text-[15px] leading-relaxed">No courses match the selected filters. Try adjusting your search or filter selections.</p>
               </div>
-            )}
+
+              {/* ── Right: Course Grid ── */}
+              <div className="lg:col-span-9">
+                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {filteredCourses.map((cert, idx) => (
+                    <div
+                      key={cert.id}
+                      className="group relative bg-white border border-slate-200 hover:border-brand/40 hover:shadow-lg transition-all duration-500 overflow-hidden"
+                    >
+                      {/* Top accent bar */}
+                      <div className="h-1 w-full bg-gradient-to-r from-brand to-brand-light group-hover:from-navy group-hover:to-brand transition-all duration-500" />
+
+                      {/* Background index */}
+                      <div className="absolute top-6 right-5 text-[64px] font-black text-navy/[0.04] group-hover:text-brand/[0.08] transition-colors pointer-events-none select-none leading-none">
+                        {String(idx + 1).padStart(2, "0")}
+                      </div>
+
+                      <div className="relative z-10 p-5 lg:p-6">
+                        <div className="flex items-center gap-3 mb-3">
+                          <span className="text-[10px] font-bold text-white uppercase tracking-widest bg-brand px-2.5 py-1">
+                            {cert.level}
+                          </span>
+                        </div>
+
+                        <h3 className="text-[16px] font-bold text-navy mb-2 leading-tight group-hover:text-brand transition-colors pr-12">
+                          {cert.title}
+                        </h3>
+
+                        <p className="text-slate-500 text-[13px] leading-relaxed mb-4 line-clamp-3">
+                          {cert.description}
+                        </p>
+
+                        {/* Meta tags */}
+                        <div className="flex flex-wrap items-center gap-2 mb-4">
+                          <span className="text-[10px] font-bold text-navy uppercase tracking-wider px-2.5 py-1 bg-navy/[0.04] border border-navy/10">
+                            {cert.format}
+                          </span>
+                          <span className="text-[10px] font-bold text-navy uppercase tracking-wider px-2.5 py-1 bg-navy/[0.04] border border-navy/10">
+                            {cert.duration}
+                          </span>
+                          <span className="text-[10px] font-bold text-brand uppercase tracking-wider px-2.5 py-1 bg-brand/[0.06] border border-brand/15">
+                            {cert.focus}
+                          </span>
+                        </div>
+
+                        {/* Curriculum toggle */}
+                        <button
+                          onClick={() =>
+                            setExpanded(expanded === cert.id ? null : cert.id)
+                          }
+                          className="flex items-center gap-2 text-[11px] font-bold text-navy uppercase tracking-widest hover:text-brand transition-colors"
+                        >
+                          <svg
+                            className={`w-3 h-3 transition-transform duration-300 ${expanded === cert.id ? "rotate-90" : ""}`}
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                          Curriculum
+                        </button>
+
+                        {expanded === cert.id && (
+                          <div className="mt-3 pt-3 border-t border-slate-100 animate-in">
+                            <ul className="space-y-2">
+                              {cert.curriculum.map((item, i) => (
+                                <li
+                                  key={i}
+                                  className="flex items-start gap-3 text-slate-600 text-[13px] leading-relaxed"
+                                >
+                                  <div className="w-1.5 h-1.5 bg-brand/40 mt-[7px] flex-shrink-0" />
+                                  {item}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Enquire */}
+                        <div className="mt-4 pt-4 border-t border-slate-100">
+                          <Link
+                            href={`/contact?subject=${encodeURIComponent(cert.title)}`}
+                            className="group/btn inline-flex items-center gap-2 bg-navy text-white px-4 py-2 text-[11px] font-bold uppercase tracking-widest hover:bg-brand transition-colors"
+                          >
+                            Enquire
+                            <svg
+                              className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {filteredCourses.length === 0 && (
+                  <div className="mt-6 bg-white border border-dashed border-slate-300 p-8 text-center">
+                    <p className="text-slate-500 text-[14px]">
+                      No courses match the selected filters. Try adjusting your
+                      search or filter selections.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* ── Regulatory Notice ── */}
-        <section className="py-20 lg:py-24 bg-white">
+        {/* ── Statutory Notice ── */}
+        <section className="py-8 lg:py-10 bg-white">
           <div className="max-w-[1240px] mx-auto px-6">
-            <div className="relative p-1 bg-gradient-to-r from-brand/20 via-brand-light/20 to-transparent">
-              <div className="bg-navy p-8 lg:p-12 text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-grid-subtle opacity-[0.04] pointer-events-none" />
-                <div className="relative z-10 grid lg:grid-cols-12 gap-10 items-center">
-                  <div className="lg:col-span-4">
-                    <div className="inline-flex items-center justify-center w-14 h-14 bg-white/[0.05] border border-white/10 mb-6">
-                      <svg className="w-8 h-8 text-brand-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                      </svg>
-                    </div>
-                    <h3 className="text-[12px] font-bold text-brand-light uppercase tracking-widest mb-4">Statutory Compliance Notice</h3>
-                    <div className="h-1 w-12 bg-brand" />
-                  </div>
-                  <div className="lg:col-span-8">
-                    <p className="text-slate-300 text-[15px] lg:text-[16px] leading-relaxed">
-                      ARIFAC certifications indicate successful completion of programme requirements and competency assessments. 
-                      They do not represent regulatory approval, legal authorization, or statutory licensing. 
-                      All entities and professionals remain responsible for compliance with applicable obligations 
-                      under the PMLA framework and related regulatory directions.
-                    </p>
-                  </div>
+            <div className="bg-navy p-8 lg:p-10 text-white relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-brand/10" />
+              <div className="absolute bottom-0 left-0 w-48 h-24 bg-brand/[0.04]" />
+              <div className="absolute inset-0 bg-grid-subtle opacity-[0.04] pointer-events-none" />
+
+              <div className="relative z-10 grid lg:grid-cols-12 gap-8 items-start">
+                <div className="lg:col-span-3">
+                  <h3 className="text-[11px] font-bold text-white uppercase tracking-widest mb-3">
+                    Statutory Notice
+                  </h3>
+                  <div className="h-1 w-12 bg-brand" />
+                </div>
+                <div className="lg:col-span-9">
+                  <p className="text-slate-300 text-[15px] leading-relaxed">
+                    ARIFAC certifications indicate successful completion of
+                    programme requirements and competency assessments. They do
+                    not represent regulatory approval, legal authorization, or
+                    statutory licensing. All entities and professionals remain
+                    responsible for compliance with applicable obligations under
+                    the PMLA framework and related regulatory directions.
+                  </p>
                 </div>
               </div>
             </div>
