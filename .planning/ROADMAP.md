@@ -49,9 +49,9 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 02-01-PLAN.md — Define all Payload CMS content schemas (collections, globals, blocks), run migration, generate types
-- [ ] 02-02-PLAN.md — Convert home page to server component with BlockRenderer and CMS-driven section components
-- [ ] 02-03-PLAN.md — Wire static pages via dynamic [slug] route, convert special pages, add news scroller to layout
+- [x] 02-01-PLAN.md — Define all Payload CMS content schemas (collections, globals, blocks), run migration, generate types
+- [x] 02-02-PLAN.md — Convert home page to server component with BlockRenderer and CMS-driven section components
+- [x] 02-03-PLAN.md — Wire static pages via dynamic [slug] route, convert special pages, add news scroller to layout
 
 ### Phase 3: Content Migration
 **Goal**: All existing hardcoded content lives in the CMS database, and the site looks identical to its pre-CMS state
