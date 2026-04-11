@@ -61,10 +61,11 @@ Plans:
   1. Seed scripts populate the database with all existing page content, regulatory updates, certifications, programmes, and site config
   2. Every page renders identically to its pre-CMS appearance (visual parity verified by side-by-side comparison)
   3. No hardcoded content remains in page components -- all content flows from CMS
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: TBD
+- [ ] 03-01-PLAN.md — Add about-specific structured fields to Pages schema, run migration, convert about page to CMS-driven
+- [ ] 03-02-PLAN.md — Expand seed endpoint with all page content, run seed, verify visual parity across all routes
 
 ### Phase 4: Production Deployment
 **Goal**: The CMS-powered site runs on AWS with persistent database and media storage, accessible to editors
@@ -89,5 +90,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. CMS Foundation | 0/2 | Not started | - |
 | 2. Content Modeling & Frontend Integration | 0/3 | Not started | - |
-| 3. Content Migration | 0/1 | Not started | - |
+| 3. Content Migration | 0/2 | Not started | - |
 | 4. Production Deployment | 0/1 | Not started | - |
