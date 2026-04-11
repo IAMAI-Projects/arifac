@@ -32,7 +32,7 @@ const formatDate = (raw: string) =>
     month: 'short',
     day: 'numeric',
     year: 'numeric',
-  }).format(new Date(`${raw}T00:00:00`))
+  }).format(new Date(raw))
 
 const PER_PAGE = 10
 
