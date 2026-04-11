@@ -53,8 +53,8 @@ export default function RegulatoryDashboard({ data, updates }: RegulatoryDashboa
           </div>
 
           <div className="lg:col-span-8 flex flex-col gap-4">
-            {updates.map((update, idx) => (
-              <div key={idx} className="flex flex-col p-5 lg:p-6 border border-neutral-100 rounded-xl hover:border-brand/30 hover:shadow-sm transition-all group bg-white">
+            {updates.map((update) => (
+              <div key={update.id} className="flex flex-col p-5 lg:p-6 border border-neutral-100 rounded-xl hover:border-brand/30 hover:shadow-sm transition-all group bg-white">
                 <div className="flex flex-wrap items-center gap-3 mb-4">
                   <span className="bg-brand-subtle text-brand text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">{issuingBodyLabels[update.issuingBody]}</span>
                   <span className="bg-neutral-100 text-neutral-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">{categoryLabels[update.category]}</span>
