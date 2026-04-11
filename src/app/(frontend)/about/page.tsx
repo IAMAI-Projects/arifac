@@ -1,25 +1,43 @@
-import PageBanner from "@/components/PageBanner";
-import Link from "next/link";
+import configPromise from '@payload-config'
+import { getPayload } from 'payload'
+import { notFound } from 'next/navigation'
+import type { Page } from '@/payload-types'
+import PageBanner from '@/components/PageBanner'
+import Link from 'next/link'
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const payload = await getPayload({ config: configPromise })
+  const result = await payload.find({
+    collection: 'pages',
+    where: { slug: { equals: 'about' } },
+    limit: 1,
+  })
+  const page = result.docs[0] as Page | undefined
+  if (!page) notFound()
+
+  const threats = page.whySection?.threats ?? []
+  const alignedItems = page.whySection?.alignedWith?.items ?? []
+  const focusAreas = page.whatSection?.focusAreas ?? []
+  const audiences = page.whoSection?.audiences ?? []
+
   return (
     <>
       <PageBanner
-        label="About ARIFAC"
-        title="India's Industry Platform for Financial Crime Prevention."
-        description="A national platform facilitating collaboration, capacity building, and regulatory alignment across India's financial ecosystem."
+        label={page.banner?.label || 'About ARIFAC'}
+        title={page.banner?.title || page.title}
+        description={page.banner?.description || ''}
       />
 
       {/* Why ARIFAC */}
       <section className="py-12 lg:py-16 bg-white border-b border-neutral-100">
         <div className="max-w-[1240px] mx-auto px-6">
           <div className="mb-10 w-full">
-            <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-3 block">The Challenge</span>
+            <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-3 block">{page.whySection?.eyebrow || 'The Challenge'}</span>
             <h2 className="text-2xl lg:text-[34px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-4">
-              Why ARIFAC
+              {page.whySection?.heading || 'Why ARIFAC'}
             </h2>
             <p className="text-neutral-600 text-[16px] leading-[1.7]">
-              India&apos;s rapidly evolving digital financial ecosystem — driven by real-time payments, digital onboarding, and platform-led services — has significantly expanded both opportunity and risk. The increasing scale and sophistication of financial crime requires a coordinated industry response.
+              {page.whySection?.description}
             </p>
           </div>
 
@@ -29,15 +47,10 @@ export default function AboutPage() {
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand to-brand-light" />
               <h3 className="text-[11px] font-bold text-brand uppercase tracking-widest mb-5">Emerging Threats</h3>
               <div className="space-y-3">
-                {[
-                  "Cyber fraud",
-                  "Mule account networks",
-                  "Identity misuse",
-                  "Platform abuse"
-                ].map(risk => (
-                  <div key={risk} className="flex items-center gap-3 bg-white p-3 border border-neutral-100 hover:border-brand/30 hover:shadow-sm transition-all">
+                {threats.map((threat) => (
+                  <div key={threat.id || threat.label} className="flex items-center gap-3 bg-white p-3 border border-neutral-100 hover:border-brand/30 hover:shadow-sm transition-all">
                     <div className="w-1.5 h-1.5 bg-brand flex-shrink-0" />
-                    <span className="text-[12px] font-bold text-neutral-900 uppercase tracking-tight">{risk}</span>
+                    <span className="text-[12px] font-bold text-neutral-900 uppercase tracking-tight">{threat.label}</span>
                   </div>
                 ))}
               </div>
@@ -49,18 +62,13 @@ export default function AboutPage() {
               <div className="absolute bottom-0 left-0 w-48 h-24 bg-brand/[0.04]" />
               <h3 className="text-[11px] font-bold text-white uppercase tracking-widest mb-5">Aligned With</h3>
               <p className="text-white/80 text-[15px] leading-relaxed mb-6">
-                ARIFAC has been established to provide a structured platform for industry stakeholders to collectively strengthen readiness, share insights, and address emerging risks — aligned with national and global frameworks.
+                {page.whySection?.alignedWith?.description}
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-white/10">
-                {[
-                  { label: "Legislation", val: "PMLA" },
-                  { label: "Reporting", val: "FIU-IND" },
-                  { label: "Global Standards", val: "FATF" },
-                  { label: "International", val: "IMF / Basel / Egmont" }
-                ].map(item => (
-                  <div key={item.val} className="bg-white/[0.05] p-3">
+                {alignedItems.map((item) => (
+                  <div key={item.id || item.value} className="bg-white/[0.05] p-3">
                     <div className="text-[10px] font-bold text-white/70 uppercase tracking-widest mb-1.5">{item.label}</div>
-                    <div className="text-[13px] font-bold text-white tracking-tight">{item.val}</div>
+                    <div className="text-[13px] font-bold text-white tracking-tight">{item.value}</div>
                   </div>
                 ))}
               </div>
@@ -74,58 +82,21 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-grid-subtle opacity-30 pointer-events-none" />
         <div className="max-w-[1240px] mx-auto px-6 relative z-10">
           <div className="max-w-3xl mb-10">
-            <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-3 block">Operational Focus</span>
+            <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-3 block">{page.whatSection?.eyebrow || 'Operational Focus'}</span>
             <h2 className="text-2xl lg:text-[34px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-4">
-              What ARIFAC Does
+              {page.whatSection?.heading || 'What ARIFAC Does'}
             </h2>
             <p className="text-neutral-600 text-[16px] leading-[1.7]">
-              ARIFAC operates as a collaborative platform focused on enabling industry-wide capability and coordination.
+              {page.whatSection?.description}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {[
-              {
-                num: "01",
-                title: "Industry Engagement & Consultations",
-                points: [
-                  "Closed-door roundtables",
-                  "Stakeholder engagement across financial and digital ecosystems",
-                  "Address emerging risks, typologies, and implementation challenges"
-                ]
-              },
-              {
-                num: "02",
-                title: "Training & Certification",
-                points: [
-                  "AML/CFT learning programmes",
-                  "Certification and continuous professional development pathways",
-                  "Role-based training aligned to compliance and operational functions"
-                ]
-              },
-              {
-                num: "03",
-                title: "Knowledge & Typologies",
-                points: [
-                  "Sharing of financial crime typologies and case-based insights",
-                  "Development of industry knowledge resources",
-                  "Dissemination of best practices across sectors"
-                ]
-              },
-              {
-                num: "04",
-                title: "Ecosystem Coordination",
-                points: [
-                  "Engagement across banks, fintechs, payment systems, VDAs and intermediaries",
-                  "Cross-sector collaboration including financial services, telecom, and digital platforms",
-                  "Support for collective response to systemic risks"
-                ]
-              }
-            ].map((item) => (
-              <div key={item.num} className="group relative bg-white border border-neutral-200 p-6 lg:p-8 hover:border-brand/40 hover:shadow-lg transition-all duration-500 overflow-hidden">
+            {focusAreas.map((item) => (
+              <div key={item.id || item.number} className="group relative bg-white border border-neutral-200 p-6 lg:p-8 hover:border-brand/40 hover:shadow-lg transition-all duration-500 overflow-hidden">
                 {/* Background number */}
                 <div className="absolute top-4 right-6 text-[72px] font-black text-neutral-50 group-hover:text-brand/[0.06] transition-colors pointer-events-none select-none leading-none">
-                  {item.num}
+                  {item.number}
                 </div>
 
                 <div className="relative z-10">
@@ -134,10 +105,10 @@ export default function AboutPage() {
                     {item.title}
                   </h3>
                   <ul className="space-y-2.5">
-                    {item.points.map((point, i) => (
-                      <li key={i} className="flex items-start gap-3 text-neutral-600 text-[14px] leading-relaxed">
+                    {(item.points ?? []).map((point, i) => (
+                      <li key={point.id || i} className="flex items-start gap-3 text-neutral-600 text-[14px] leading-relaxed">
                         <div className="w-1.5 h-1.5 bg-brand/40 mt-[7px] flex-shrink-0" />
-                        {point}
+                        {point.text}
                       </li>
                     ))}
                   </ul>
@@ -154,15 +125,15 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
             {/* Left: Header + description */}
             <div className="lg:col-span-4">
-              <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-3 block">Membership</span>
+              <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-3 block">{page.whoSection?.eyebrow || 'Membership'}</span>
               <h2 className="text-2xl lg:text-[34px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-4">
-                Who Should Engage
+                {page.whoSection?.heading || 'Who Should Engage'}
               </h2>
               <p className="text-neutral-600 text-[15px] leading-relaxed mb-6">
-                ARIFAC&apos;s platform is designed for all entities and professionals operating within India&apos;s AML/CFT regulatory perimeter.
+                {page.whoSection?.description}
               </p>
-              <Link href="/membership" className="inline-flex items-center gap-3 bg-brand text-white px-6 py-3 text-[13px] font-bold hover:bg-brand-dark transition-colors group">
-                Explore Membership
+              <Link href={page.whoSection?.ctaLink || '/membership'} className="inline-flex items-center gap-3 bg-brand text-white px-6 py-3 text-[13px] font-bold hover:bg-brand-dark transition-colors group">
+                {page.whoSection?.ctaLabel || 'Explore Membership'}
                 <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -172,23 +143,14 @@ export default function AboutPage() {
             {/* Right: Audience grid */}
             <div className="lg:col-span-8">
               <div className="grid sm:grid-cols-2 gap-4">
-                {[
-                  { name: "Banks & NBFCs", sub: "Scheduled commercial banks, cooperative banks, NBFCs" },
-                  { name: "Payment Aggregators & PSPs", sub: "Payment service providers, aggregators, UPI ecosystem" },
-                  { name: "Fintech Platforms", sub: "Lending, wealth, insurance, neo-banking platforms" },
-                  { name: "Virtual Asset Service Providers", sub: "Crypto exchanges, custodians, VDA intermediaries" },
-                  { name: "PMLA Intermediaries", sub: "All intermediaries under PMLA, 2002" },
-                  { name: "Compliance Officers & MLROs", sub: "Principal officers, designated directors, reporting heads" },
-                  { name: "Risk Professionals", sub: "Operational risk, fraud risk, enterprise risk teams" },
-                  { name: "AML Investigators", sub: "Financial crime analysts, investigation units, forensic teams" }
-                ].map((item, idx) => (
-                  <div key={idx} className="group flex gap-4 items-start bg-neutral-50 p-5 border border-neutral-100 hover:bg-white hover:border-brand/30 hover:shadow-sm transition-all">
+                {audiences.map((item, idx) => (
+                  <div key={item.id || idx} className="group flex gap-4 items-start bg-neutral-50 p-5 border border-neutral-100 hover:bg-white hover:border-brand/30 hover:shadow-sm transition-all">
                     <div className="w-8 h-8 bg-brand/[0.06] group-hover:bg-brand/10 flex items-center justify-center flex-shrink-0 transition-colors">
                       <span className="text-[11px] font-black text-neutral-900/40 group-hover:text-brand transition-colors">0{idx + 1}</span>
                     </div>
                     <div>
                       <h3 className="text-[14px] font-bold text-neutral-900 mb-1 group-hover:text-brand transition-colors">{item.name}</h3>
-                      <p className="text-neutral-500 text-[12px] leading-relaxed">{item.sub}</p>
+                      <p className="text-neutral-500 text-[12px] leading-relaxed">{item.subtitle}</p>
                     </div>
                   </div>
                 ))}
