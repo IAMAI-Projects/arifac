@@ -5,6 +5,12 @@ import sharp from 'sharp'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+import { Pages } from './collections/Pages'
+import { RegulatoryUpdates } from './collections/RegulatoryUpdates'
+import { Certifications } from './collections/Certifications'
+import { NewsItems } from './collections/NewsItems'
+import { Programmes } from './globals/Programmes'
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -41,7 +47,12 @@ export default buildConfig({
         },
       ],
     },
+    Pages,
+    RegulatoryUpdates,
+    Certifications,
+    NewsItems,
   ],
+  globals: [Programmes],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

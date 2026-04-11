@@ -1,10 +1,10 @@
 import type { CollectionConfig } from 'payload'
-import { HeroBlock } from '@/blocks/HeroBlock'
-import { StatsBlock } from '@/blocks/StatsBlock'
-import { CapabilityMatrixBlock } from '@/blocks/CapabilityMatrixBlock'
-import { RegulatoryDashboardBlock } from '@/blocks/RegulatoryDashboardBlock'
-import { FeaturedProgramsBlock } from '@/blocks/FeaturedProgramsBlock'
-import { CTABlock } from '@/blocks/CTABlock'
+import { HeroBlock } from '../blocks/HeroBlock'
+import { StatsBlock } from '../blocks/StatsBlock'
+import { CapabilityMatrixBlock } from '../blocks/CapabilityMatrixBlock'
+import { RegulatoryDashboardBlock } from '../blocks/RegulatoryDashboardBlock'
+import { FeaturedProgramsBlock } from '../blocks/FeaturedProgramsBlock'
+import { CTABlock } from '../blocks/CTABlock'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
