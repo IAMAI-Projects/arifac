@@ -41,7 +41,7 @@ export default async function ProgrammesPage() {
                   className="group bg-white border border-neutral-200 p-4 hover:border-brand/30 hover:shadow-sm transition-all relative overflow-hidden"
                 >
                   <div className="absolute top-3 right-4 text-[48px] font-black text-neutral-50 group-hover:text-brand/[0.05] transition-colors pointer-events-none select-none leading-none">
-                    0{idx + 1}
+                    {String(idx + 1).padStart(2, '0')}
                   </div>
                   <div className="relative z-10">
                     <h4 className="text-[14px] font-bold text-neutral-900 mb-2 group-hover:text-brand transition-colors">
@@ -101,7 +101,7 @@ export default async function ProgrammesPage() {
                     >
                       <td className="px-0 pr-4 py-4">
                         <span className="text-[10px] font-black text-neutral-300 group-hover:text-brand transition-colors">
-                          0{idx + 1}
+                          {String(idx + 1).padStart(2, '0')}
                         </span>
                       </td>
                       <td className="px-4 py-4">
