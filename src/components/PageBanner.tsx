@@ -25,8 +25,8 @@ export default function PageBanner({ label, title, description }: PageBannerProp
       <div className="max-w-[1240px] mx-auto px-6 relative z-10">
         <div className="max-w-2xl animate-in">
           <div className="flex items-center gap-4 mb-4">
-            <span className="h-px w-12 bg-brand-light/40" />
-            <span className="text-[12px] font-bold text-brand-light/70 uppercase tracking-[0.2em]">
+            <span className="h-px w-12 bg-white/30" />
+            <span className="text-[12px] font-bold text-white/70 uppercase tracking-[0.2em]">
               {label}
             </span>
           </div>
@@ -35,14 +35,14 @@ export default function PageBanner({ label, title, description }: PageBannerProp
             {title}
           </h1>
 
-          <p className="text-slate-300 text-[15px] lg:text-[16px] leading-[1.75] max-w-xl">
+          <p className="text-white/80 text-[15px] lg:text-[16px] leading-[1.75] max-w-xl">
             {description}
           </p>
         </div>
       </div>
 
       {/* Bottom accent line */}
-      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-brand via-brand-light to-transparent" />
+      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-white/40 via-white/20 to-transparent" />
     </section>
   );
 }

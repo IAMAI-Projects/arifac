@@ -199,7 +199,7 @@ const annualMeetings: AnnualMeetingRow[] = [
 
 export default function ProgrammesPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-brand selection:text-white flex flex-col antialiased">
+    <div className="min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand selection:text-white flex flex-col antialiased">
       <Header />
 
       <main className="flex-grow">
@@ -210,16 +210,16 @@ export default function ProgrammesPage() {
         />
 
         {/* ─── SECTION 1: Engagement Channels (compact grid) ─── */}
-        <section className="py-8 lg:py-10 bg-white border-b border-slate-100">
+        <section className="py-8 lg:py-10 bg-white border-b border-neutral-100">
           <div className="max-w-[1240px] mx-auto px-6">
-            <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
+            <div className="flex items-center justify-between mb-5 pb-3 border-b border-neutral-100">
               <div className="flex items-center gap-3">
                 <div className="h-1 w-8 bg-brand" />
                 <span className="text-[11px] font-bold text-brand tracking-widest uppercase">
                   Engagement Strategy
                 </span>
               </div>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+              <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">
                 {engagementFormats.length} Active Channels
               </span>
             </div>
@@ -228,16 +228,16 @@ export default function ProgrammesPage() {
               {engagementFormats.map((ch, idx) => (
                 <div
                   key={ch.title}
-                  className="group bg-white border border-slate-200 p-4 hover:border-brand/30 hover:shadow-sm transition-all relative overflow-hidden"
+                  className="group bg-white border border-neutral-200 p-4 hover:border-brand/30 hover:shadow-sm transition-all relative overflow-hidden"
                 >
-                  <div className="absolute top-3 right-4 text-[48px] font-black text-slate-50 group-hover:text-brand/[0.05] transition-colors pointer-events-none select-none leading-none">
+                  <div className="absolute top-3 right-4 text-[48px] font-black text-neutral-50 group-hover:text-brand/[0.05] transition-colors pointer-events-none select-none leading-none">
                     0{idx + 1}
                   </div>
                   <div className="relative z-10">
-                    <h4 className="text-[14px] font-bold text-slate-900 mb-2 group-hover:text-brand transition-colors">
+                    <h4 className="text-[14px] font-bold text-neutral-900 mb-2 group-hover:text-brand transition-colors">
                       {ch.title}
                     </h4>
-                    <p className="text-slate-500 text-[12px] leading-relaxed line-clamp-2">
+                    <p className="text-neutral-500 text-[12px] leading-relaxed line-clamp-2">
                       {ch.description}
                     </p>
                   </div>
@@ -248,16 +248,16 @@ export default function ProgrammesPage() {
         </section>
 
         {/* ─── SECTION 2: Upcoming Programmes (table) ─── */}
-        <section className="py-8 lg:py-10 bg-white border-b border-slate-100">
+        <section className="py-8 lg:py-10 bg-white border-b border-neutral-100">
           <div className="max-w-[1240px] mx-auto px-6">
-            <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
+            <div className="flex items-center justify-between mb-5 pb-3 border-b border-neutral-100">
               <div className="flex items-center gap-3">
                 <div className="w-1 h-6 bg-brand" />
-                <h2 className="text-xl lg:text-2xl font-extrabold text-slate-900 uppercase tracking-tight">
+                <h2 className="text-xl lg:text-2xl font-extrabold text-neutral-900 uppercase tracking-tight">
                   Upcoming Programmes
                 </h2>
               </div>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+              <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">
                 {upcomingProgrammes.length} Sessions
               </span>
             </div>
@@ -266,43 +266,43 @@ export default function ProgrammesPage() {
             <div className="hidden md:block">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b-2 border-slate-200">
-                    <th className="px-0 pr-4 py-3 text-left text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] w-[5%]">
+                  <tr className="border-b-2 border-neutral-200">
+                    <th className="px-0 pr-4 py-3 text-left text-[10px] font-black text-neutral-400 uppercase tracking-[0.15em] w-[5%]">
                       #
                     </th>
-                    <th className="px-4 py-3 text-left text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] w-[55%]">
+                    <th className="px-4 py-3 text-left text-[10px] font-black text-neutral-400 uppercase tracking-[0.15em] w-[55%]">
                       Programme
                     </th>
-                    <th className="px-4 py-3 text-left text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] w-[20%]">
+                    <th className="px-4 py-3 text-left text-[10px] font-black text-neutral-400 uppercase tracking-[0.15em] w-[20%]">
                       Format
                     </th>
-                    <th className="px-4 py-3 text-left text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] w-[20%]">
+                    <th className="px-4 py-3 text-left text-[10px] font-black text-neutral-400 uppercase tracking-[0.15em] w-[20%]">
                       Timeline
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-neutral-100">
                   {upcomingProgrammes.map((row, idx) => (
                     <tr
                       key={`${row.programme}-${idx}`}
-                      className="group hover:bg-slate-50/60 transition-colors"
+                      className="group hover:bg-neutral-50/60 transition-colors"
                     >
                       <td className="px-0 pr-4 py-4">
-                        <span className="text-[10px] font-black text-slate-300 group-hover:text-brand transition-colors">
+                        <span className="text-[10px] font-black text-neutral-300 group-hover:text-brand transition-colors">
                           0{idx + 1}
                         </span>
                       </td>
                       <td className="px-4 py-4">
-                        <span className="text-[15px] font-bold text-slate-900 leading-snug group-hover:text-brand transition-colors">
+                        <span className="text-[15px] font-bold text-neutral-900 leading-snug group-hover:text-brand transition-colors">
                           {row.programme}
                         </span>
                       </td>
                       <td className="px-4 py-4">
-                        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-2.5 py-1 bg-slate-50 border border-slate-200 group-hover:bg-white transition-colors">
+                        <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-wider px-2.5 py-1 bg-neutral-50 border border-neutral-200 group-hover:bg-white transition-colors">
                           {row.type}
                         </span>
                       </td>
-                      <td className="px-4 py-4 text-[13px] font-medium text-slate-500 whitespace-nowrap">
+                      <td className="px-4 py-4 text-[13px] font-medium text-neutral-500 whitespace-nowrap">
                         {row.date}
                       </td>
                     </tr>
@@ -316,17 +316,17 @@ export default function ProgrammesPage() {
               {upcomingProgrammes.map((row, idx) => (
                 <div
                   key={`${row.programme}-${idx}`}
-                  className="border border-slate-200 p-4 bg-white group hover:border-brand/30 transition-all"
+                  className="border border-neutral-200 p-4 bg-white group hover:border-brand/30 transition-all"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[9px] font-black text-brand/50 uppercase tracking-[0.3em] px-2 py-0.5 border border-brand/10 bg-brand/[0.03]">
                       {row.type}
                     </span>
-                    <span className="text-[11px] font-bold text-slate-400">
+                    <span className="text-[11px] font-bold text-neutral-400">
                       {row.date}
                     </span>
                   </div>
-                  <h4 className="text-[14px] font-bold text-slate-900 leading-snug group-hover:text-brand transition-colors">
+                  <h4 className="text-[14px] font-bold text-neutral-900 leading-snug group-hover:text-brand transition-colors">
                     {row.programme}
                   </h4>
                 </div>
@@ -336,18 +336,18 @@ export default function ProgrammesPage() {
         </section>
 
         {/* ─── SECTION 4: Recent Consultations ─── */}
-        <section className="py-8 lg:py-10 bg-slate-50/60 border-b border-slate-100 relative overflow-hidden">
+        <section className="py-8 lg:py-10 bg-neutral-50/60 border-b border-neutral-100 relative overflow-hidden">
           <div className="absolute inset-0 bg-grid-subtle opacity-[0.02] pointer-events-none" />
 
           <div className="max-w-[1240px] mx-auto px-6 relative z-10">
-            <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-200">
+            <div className="flex items-center justify-between mb-5 pb-3 border-b border-neutral-200">
               <div className="flex items-center gap-3">
-                <div className="w-1 h-6 bg-slate-400" />
-                <h2 className="text-xl lg:text-2xl font-extrabold text-slate-900 uppercase tracking-tight">
+                <div className="w-1 h-6 bg-neutral-400" />
+                <h2 className="text-xl lg:text-2xl font-extrabold text-neutral-900 uppercase tracking-tight">
                   Recent Consultations
                 </h2>
               </div>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+              <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">
                 {pastProgrammes.length} Sessions
               </span>
             </div>
@@ -356,32 +356,32 @@ export default function ProgrammesPage() {
               {pastProgrammes.map((row, idx) => (
                 <div
                   key={`${row.programme}-${idx}`}
-                  className="group grid grid-cols-12 gap-4 lg:gap-6 items-baseline py-4 border-b border-slate-200/60 last:border-b-0 hover:bg-white/60 -mx-4 px-4 transition-colors"
+                  className="group grid grid-cols-12 gap-4 lg:gap-6 items-baseline py-4 border-b border-neutral-200/60 last:border-b-0 hover:bg-white/60 -mx-4 px-4 transition-colors"
                 >
                   {/* Index */}
                   <div className="col-span-1">
-                    <span className="text-[10px] font-black text-slate-300 group-hover:text-brand transition-colors">
+                    <span className="text-[10px] font-black text-neutral-300 group-hover:text-brand transition-colors">
                       0{idx + 1}
                     </span>
                   </div>
 
                   {/* Date */}
                   <div className="col-span-3 lg:col-span-2">
-                    <span className="text-[13px] font-bold text-slate-400 group-hover:text-slate-600 transition-colors tabular-nums">
+                    <span className="text-[13px] font-bold text-neutral-400 group-hover:text-neutral-600 transition-colors tabular-nums">
                       {row.date}
                     </span>
                   </div>
 
                   {/* Title */}
                   <div className="col-span-8 lg:col-span-7">
-                    <h4 className="text-[14px] font-bold text-slate-900 leading-snug group-hover:text-brand transition-colors">
+                    <h4 className="text-[14px] font-bold text-neutral-900 leading-snug group-hover:text-brand transition-colors">
                       {row.programme}
                     </h4>
                   </div>
 
                   {/* Type — desktop only */}
                   <div className="hidden lg:block lg:col-span-2 text-right">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">
                       {row.type}
                     </span>
                   </div>
@@ -403,10 +403,10 @@ export default function ProgrammesPage() {
                     Institutional Dialogue
                   </span>
                 </div>
-                <h2 className="text-2xl lg:text-[28px] font-extrabold text-slate-900 leading-tight tracking-tight mb-3">
+                <h2 className="text-2xl lg:text-[28px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-3">
                   Annual Meetings &amp; Regulatory Fora.
                 </h2>
-                <p className="text-slate-600 text-[14px] leading-relaxed">
+                <p className="text-neutral-600 text-[14px] leading-relaxed">
                   Structured convergence platforms facilitating knowledge
                   exchange and strategic alignment between ecosystem
                   stakeholders.
@@ -415,7 +415,7 @@ export default function ProgrammesPage() {
 
               {/* Right — meeting table */}
               <div className="lg:col-span-8">
-                <div className="bg-white border border-slate-200 overflow-hidden shadow-sm">
+                <div className="bg-white border border-neutral-200 overflow-hidden shadow-sm">
                   <table className="w-full text-left border-collapse">
                     <thead>
                       <tr className="bg-brand">
@@ -433,7 +433,7 @@ export default function ProgrammesPage() {
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-neutral-100">
                       {annualMeetings.map((mtg, idx) => {
                         const year = mtg.date.includes(",")
                           ? mtg.date.split(",").pop()?.trim()
@@ -441,25 +441,25 @@ export default function ProgrammesPage() {
                         return (
                           <tr
                             key={idx}
-                            className="group hover:bg-slate-50 transition-colors"
+                            className="group hover:bg-neutral-50 transition-colors"
                           >
                             <td className="px-5 lg:px-6 py-4">
-                              <span className="text-lg font-black text-slate-200 group-hover:text-brand transition-colors">
+                              <span className="text-lg font-black text-neutral-200 group-hover:text-brand transition-colors">
                                 {year}
                               </span>
                             </td>
                             <td className="px-5 lg:px-6 py-4">
-                              <span className="text-[14px] font-bold text-slate-900 group-hover:text-brand transition-colors">
+                              <span className="text-[14px] font-bold text-neutral-900 group-hover:text-brand transition-colors">
                                 {mtg.meeting}
                               </span>
                             </td>
-                            <td className="px-5 lg:px-6 py-4 text-[13px] font-medium text-slate-500">
+                            <td className="px-5 lg:px-6 py-4 text-[13px] font-medium text-neutral-500">
                               {mtg.date}
                             </td>
                             <td className="px-5 lg:px-6 py-4">
                               <div className="flex items-center gap-1.5">
                                 <svg
-                                  className="w-3 h-3 text-slate-300"
+                                  className="w-3 h-3 text-neutral-300"
                                   viewBox="0 0 24 24"
                                   fill="none"
                                   stroke="currentColor"
@@ -468,7 +468,7 @@ export default function ProgrammesPage() {
                                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
                                   <circle cx="12" cy="10" r="3" />
                                 </svg>
-                                <span className="text-[13px] font-bold text-slate-600">
+                                <span className="text-[13px] font-bold text-neutral-600">
                                   {mtg.location}
                                 </span>
                               </div>

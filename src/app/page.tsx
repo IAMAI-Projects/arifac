@@ -3,7 +3,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import StatsStrip from "@/components/StatsStrip";
-import FeaturedPrograms from "@/components/FeaturedPrograms";
+
 import RegulatoryDashboard from "@/components/RegulatoryDashboard";
 import CapabilityMatrix from "@/components/CapabilityMatrix";
 import Footer from "@/components/Footer";
@@ -11,14 +11,14 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-brand selection:text-white flex flex-col">
+    <div className="min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand selection:text-white flex flex-col">
       <Header />
 
       <main className="flex-grow">
         <Hero />
         <CapabilityMatrix />
         <StatsStrip />
-        <FeaturedPrograms />
+
 
         {/* RegulatoryDashboard with white background for continuity */}
         <RegulatoryDashboard />
@@ -31,11 +31,11 @@ export default function Home() {
 
               <div className="relative z-10 max-w-3xl">
                 <h2 className="text-3xl md:text-4xl font-bold !text-white mb-4">Empower your institution with global compliance standards.</h2>
-                <p className="text-slate-300 text-[16px] mb-10 leading-relaxed">
+                <p className="text-white/80 text-[16px] mb-10 leading-relaxed">
                   Join ARIFAC as an institutional member to gain access to exclusive forums, regulatory guidance, and specialized capability building programs.
                 </p>
                 <div className="flex flex-wrap gap-5">
-                  <Link href="/membership" className="bg-brand text-white px-8 py-3.5 font-bold text-[13px] hover:bg-white hover:text-brand transition-all">
+                  <Link href="/membership" className="bg-white text-brand px-8 py-3.5 font-bold text-[13px] hover:bg-brand-dark hover:text-white transition-all">
                     Apply for Membership
                   </Link>
                   <Link href="/contact" className="border border-white/20 text-white px-8 py-3.5 font-bold text-[13px] hover:bg-white/10 transition-all">

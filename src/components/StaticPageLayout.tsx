@@ -17,7 +17,7 @@ export default function StaticPageLayout({
   children,
 }: StaticPageLayoutProps) {
   return (
-    <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-brand selection:text-white flex flex-col antialiased">
+    <div className="min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand selection:text-white flex flex-col antialiased">
       <Header />
       <main className="flex-grow">
         <PageBanner label={label} title={title} description={description} />
@@ -42,7 +42,7 @@ export function ContentSection({
   children,
 }: ContentSectionProps) {
   return (
-    <section className="py-10 lg:py-14 border-b border-slate-100">
+    <section className="py-10 lg:py-14 border-b border-neutral-100">
       <div className="max-w-[1240px] mx-auto px-6">
         <div className="max-w-3xl mb-7">
           {eyebrow ? (
@@ -50,11 +50,11 @@ export function ContentSection({
               {eyebrow}
             </span>
           ) : null}
-          <h2 className="text-2xl lg:text-[34px] font-extrabold text-slate-900 leading-tight tracking-tight mb-4">
+          <h2 className="text-2xl lg:text-[34px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-4">
             {title}
           </h2>
           {description ? (
-            <p className="text-slate-600 text-[15px] leading-[1.75]">{description}</p>
+            <p className="text-neutral-600 text-[15px] leading-[1.75]">{description}</p>
           ) : null}
         </div>
         {children}

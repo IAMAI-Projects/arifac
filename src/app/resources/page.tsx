@@ -40,10 +40,10 @@ export default function ResourcesPage() {
               cta: "View Member Benefits",
             },
           ].map((card) => (
-            <article key={card.title} className="bg-white border border-slate-200 p-5 lg:p-6 hover:border-brand/30 transition-colors">
-              <h3 className="text-[17px] font-bold text-slate-900 mb-2">{card.title}</h3>
-              <p className="text-slate-600 text-[14px] leading-relaxed mb-5">{card.text}</p>
-              <Link href={card.href} className="text-[12px] font-bold text-brand uppercase tracking-[0.12em] hover:text-slate-900 transition-colors">
+            <article key={card.title} className="bg-white border border-neutral-200 p-5 lg:p-6 hover:border-brand/30 transition-colors">
+              <h3 className="text-[17px] font-bold text-neutral-900 mb-2">{card.title}</h3>
+              <p className="text-neutral-600 text-[14px] leading-relaxed mb-5">{card.text}</p>
+              <Link href={card.href} className="text-[12px] font-bold text-brand uppercase tracking-[0.12em] hover:text-neutral-900 transition-colors">
                 {card.cta}
               </Link>
             </article>

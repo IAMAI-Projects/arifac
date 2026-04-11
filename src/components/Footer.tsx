@@ -32,36 +32,22 @@ export default function Footer() {
         <div className="grid md:grid-cols-12 gap-12 lg:gap-10 mb-16">
           
           <div className="md:col-span-4">
-             <Image src="/logo.png" alt="ARIFAC" width={140} height={42} className="h-9 w-auto brightness-0 invert mb-6" />
-             <p className="text-[15px] text-slate-300 leading-relaxed font-normal max-w-sm mb-8">
-               Empowering India&apos;s financial ecosystem through unified compliance standards, expert certification, and strategic regulatory dialogue. 
-             </p>
-             <div className="flex items-center gap-5">
-               <div className="flex items-center gap-3">
-                 <Image src="/fiu-logo.png" alt="FIU India" width={28} height={28} className="brightness-0 invert opacity-60" />
-                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Under Guidance of<br/>FIU-INDIA</span>
-               </div>
-               <div className="w-px h-8 bg-white/10" />
-               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">An IAMAI Initiative</span>
+             <div className="flex items-center gap-4 mb-6">
+               <Image src="/fiu-logo.png" alt="FIU INDIA" width={36} height={36} className="h-10 w-auto" />
+               <div className="h-8 w-px bg-white/20" />
+               <Image src="/logo.png" alt="ARIFAC" width={110} height={32} className="h-9 w-auto brightness-0 invert" />
              </div>
+             <p className="text-[15px] text-white leading-relaxed font-normal max-w-sm mb-8">
+               Empowering India&apos;s financial ecosystem through unified compliance standards, expert certification, and strategic regulatory dialogue.
+             </p>
+             <span className="text-[11px] font-bold text-white uppercase tracking-wider">An IAMAI Initiative</span>
           </div>
           
           <div className="md:col-span-2 md:col-start-6">
-            <h4 className="text-[11px] font-bold text-brand-on-dark uppercase tracking-[0.2em] mb-6">Alliance</h4>
-            <div className="flex flex-col gap-4 text-[13px] text-slate-300">
+            <h4 className="text-[11px] font-bold text-white uppercase tracking-[0.2em] mb-6">Alliance</h4>
+            <div className="flex flex-col gap-4 text-[13px] text-white">
               {allianceLinks.map((link) => (
-                <Link key={link.href} href={link.href} className="hover:text-white transition-colors">
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-          
-          <div className="md:col-span-2">
-            <h4 className="text-[11px] font-bold text-brand-on-dark uppercase tracking-[0.2em] mb-6">Programmes</h4>
-            <div className="flex flex-col gap-4 text-[13px] text-slate-300">
-              {programmesLinks.map((link) => (
-                <Link key={link.href} href={link.href} className="hover:text-white transition-colors">
+                <Link key={link.href} href={link.href} className="hover:text-white/70 transition-colors">
                   {link.label}
                 </Link>
               ))}
@@ -69,10 +55,21 @@ export default function Footer() {
           </div>
 
           <div className="md:col-span-2">
-            <h4 className="text-[11px] font-bold text-brand-on-dark uppercase tracking-[0.2em] mb-6">Support</h4>
-            <div className="flex flex-col gap-4 text-[13px] text-slate-300">
+            <h4 className="text-[11px] font-bold text-white uppercase tracking-[0.2em] mb-6">Programmes</h4>
+            <div className="flex flex-col gap-4 text-[13px] text-white">
+              {programmesLinks.map((link) => (
+                <Link key={link.href} href={link.href} className="hover:text-white/70 transition-colors">
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="md:col-span-2">
+            <h4 className="text-[11px] font-bold text-white uppercase tracking-[0.2em] mb-6">Support</h4>
+            <div className="flex flex-col gap-4 text-[13px] text-white">
               {supportLinks.map((link) => (
-                <Link key={link.href} href={link.href} className="hover:text-white transition-colors">
+                <Link key={link.href} href={link.href} className="hover:text-white/70 transition-colors">
                   {link.label}
                 </Link>
               ))}
@@ -81,7 +78,7 @@ export default function Footer() {
           
         </div>
         
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-[12px] text-slate-400 font-medium">
+        <div className="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-[12px] text-white font-medium">
           <div className="flex gap-8">
             <Link href="/terms-of-use" className="hover:text-white transition-colors">Terms of Use</Link>
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>

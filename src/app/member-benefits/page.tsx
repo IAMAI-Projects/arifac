@@ -32,7 +32,7 @@ export default function MemberBenefitsPage() {
       >
         <div className="grid lg:grid-cols-2 gap-5">
           {benefits.map((item) => (
-            <div key={item} className="bg-white border border-slate-200 p-4 text-[14px] text-slate-700 leading-relaxed">
+            <div key={item} className="bg-white border border-neutral-200 p-4 text-[14px] text-neutral-700 leading-relaxed">
               {item}
             </div>
           ))}
@@ -46,18 +46,18 @@ export default function MemberBenefitsPage() {
       >
         <div className="grid md:grid-cols-5 gap-3">
           {onboardingSteps.map((step, idx) => (
-            <article key={step} className="border border-slate-200 bg-slate-50 p-4 min-h-[130px]">
+            <article key={step} className="border border-neutral-200 bg-neutral-50 p-4 min-h-[130px]">
               <div className="text-[10px] font-black text-brand tracking-[0.16em] uppercase mb-2">Step {idx + 1}</div>
-              <p className="text-[13px] font-semibold text-slate-900 leading-relaxed">{step}</p>
+              <p className="text-[13px] font-semibold text-neutral-900 leading-relaxed">{step}</p>
             </article>
           ))}
         </div>
 
         <div className="mt-8 bg-brand text-white p-6 lg:p-8 flex flex-col lg:flex-row justify-between gap-5">
-          <p className="text-[14px] text-slate-300 leading-relaxed max-w-2xl">
+          <p className="text-[14px] text-white/80 leading-relaxed max-w-2xl">
             Clarification: ARIFAC is operated by IAMAI as an industry initiative and does not function as a regulator or supervisory authority.
           </p>
-          <Link href="/membership/launching-soon" className="bg-brand text-white px-5 py-3 text-[12px] font-bold uppercase tracking-wider hover:bg-white hover:text-slate-900 transition-colors text-center">
+          <Link href="/membership/launching-soon" className="bg-white text-brand px-5 py-3 text-[12px] font-bold uppercase tracking-wider hover:bg-brand-dark hover:text-white transition-colors text-center">
             Start Application
           </Link>
         </div>

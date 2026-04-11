@@ -27,9 +27,9 @@ export default function DisclaimerPage() {
       >
         <div className="space-y-3">
           {clauses.map((item, idx) => (
-            <article key={item} className="border border-slate-200 bg-white p-4 lg:p-5">
+            <article key={item} className="border border-neutral-200 bg-white p-4 lg:p-5">
               <p className="text-[10px] font-black text-brand uppercase tracking-[0.16em] mb-2">Clause {String(idx + 1).padStart(2, "0")}</p>
-              <p className="text-[14px] text-slate-700 leading-relaxed">{item}</p>
+              <p className="text-[14px] text-neutral-700 leading-relaxed">{item}</p>
             </article>
           ))}
         </div>

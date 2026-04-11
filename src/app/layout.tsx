@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${plusJakarta.variable} ${inter.variable} h-full`}>
-      <body className="font-body min-h-full flex flex-col antialiased bg-white text-slate-900">{children}</body>
+      <body className="font-body min-h-full flex flex-col antialiased bg-white text-neutral-900">{children}</body>
     </html>
   );
 }

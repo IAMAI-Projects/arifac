@@ -33,7 +33,7 @@ export default function MembersPage() {
       >
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
           {members.map((name) => (
-            <div key={name} className="border border-slate-200 bg-white px-4 py-3 text-[13px] font-medium text-slate-700 hover:border-brand/30 transition-colors">
+            <div key={name} className="border border-neutral-200 bg-white px-4 py-3 text-[13px] font-medium text-neutral-700 hover:border-brand/30 transition-colors">
               {name}
             </div>
           ))}

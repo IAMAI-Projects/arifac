@@ -12,7 +12,7 @@ export default function CommunitySection() {
           <div>
             <span className="text-[11px] font-bold text-brand-on-dark tracking-widest uppercase mb-4 block">National Network</span>
             <h2 className="text-3xl lg:text-[40px] font-bold !text-white leading-[1.1] mb-6">India&apos;s most authoritative network of compliance leaders.</h2>
-            <p className="text-slate-300 text-[16px] leading-relaxed mb-10 max-w-xl">
+            <p className="text-white/80 text-[16px] leading-relaxed mb-10 max-w-xl">
               From Sectoral Nodal Officers to Training Leads across all reporting entities, ARIFAC facilitates the human connections that power financial integrity.
             </p>
             
@@ -44,12 +44,12 @@ export default function CommunitySection() {
              <div className="aspect-square bg-white/5 border border-white/20 p-8 lg:p-12 flex flex-col justify-center">
                 <div className="text-[48px] font-bold text-brand-on-dark leading-none mb-4">18+</div>
                 <p className="text-[18px] font-medium text-white mb-8">Sectors represented including Banking, Fintech, Insurance, and Capital Markets.</p>
-                <Link href="/membership" className="inline-flex items-center gap-3 bg-brand text-white px-8 py-3.5 font-bold text-[13px] hover:bg-white hover:text-brand transition-all">
+                <Link href="/membership" className="inline-flex items-center gap-3 bg-white text-brand px-8 py-3.5 font-bold text-[13px] hover:bg-brand-dark hover:text-white transition-all">
                   Join the Network
                 </Link>
              </div>
              {/* Decorative box */}
-             <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-brand hidden md:block" />
+             <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-brand-dark hidden md:block" />
           </div>
 
         </div>

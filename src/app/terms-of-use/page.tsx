@@ -27,9 +27,9 @@ export default function TermsOfUsePage() {
       >
         <div className="space-y-3">
           {terms.map((item, idx) => (
-            <article key={item} className="border border-slate-200 bg-white p-4 lg:p-5">
+            <article key={item} className="border border-neutral-200 bg-white p-4 lg:p-5">
               <p className="text-[10px] font-black text-brand uppercase tracking-[0.16em] mb-2">Section {idx + 1}</p>
-              <p className="text-[14px] text-slate-700 leading-relaxed">{item}</p>
+              <p className="text-[14px] text-neutral-700 leading-relaxed">{item}</p>
             </article>
           ))}
         </div>

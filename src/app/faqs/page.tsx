@@ -33,10 +33,10 @@ export default function FaqsPage() {
       <ContentSection title="Answers to Common Queries">
         <div className="space-y-3">
           {faqItems.map((item, index) => (
-            <article key={item.q} className="border border-slate-200 bg-white p-5 lg:p-6">
+            <article key={item.q} className="border border-neutral-200 bg-white p-5 lg:p-6">
               <div className="text-[10px] font-black text-brand tracking-[0.16em] uppercase mb-2">Q{String(index + 1).padStart(2, "0")}</div>
-              <h3 className="text-[17px] font-bold text-slate-900 mb-3">{item.q}</h3>
-              <p className="text-[14px] text-slate-600 leading-relaxed">{item.a}</p>
+              <h3 className="text-[17px] font-bold text-neutral-900 mb-3">{item.q}</h3>
+              <p className="text-[14px] text-neutral-600 leading-relaxed">{item.a}</p>
             </article>
           ))}
         </div>

@@ -6,12 +6,25 @@
 }
 
 @theme inline {
+  /* Brand */
   --color-brand: #E72A2F;
   --color-brand-light: #F06668;
   --color-brand-dark: #B81F23;
   --color-brand-darker: #8B1A1A;
   --color-brand-subtle: #FEE2E2;
   --color-brand-on-dark: rgba(255, 255, 255, 0.85);
+
+  /* Neutrals */
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
 }
 
 body {
@@ -35,13 +48,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .editorial-card {
   background: #ffffff;
-  border: 1px solid #e2e8f0; /* slate-200 */
+  border: 1px solid var(--color-neutral-200);
   box-shadow: 0 8px 30px -10px rgba(0, 0, 0, 0.04);
   transition: all 0.4s ease;
 }
 
 .editorial-card:hover {
-  border-color: #cbd5e1; /* slate-300 */
+  border-color: var(--color-neutral-300);
   box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }

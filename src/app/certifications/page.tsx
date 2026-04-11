@@ -108,7 +108,7 @@ export default function CertificationPage() {
   }, [search, categoryFilter, formatFilter]);
 
   return (
-    <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-brand selection:text-white flex flex-col antialiased">
+    <div className="min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand selection:text-white flex flex-col antialiased">
       <Header />
 
       <main className="flex-grow">
@@ -153,7 +153,7 @@ export default function CertificationPage() {
               ].map((tier, idx) => (
                 <div
                   key={tier.label}
-                  className={`group bg-white p-5 lg:p-6 border border-slate-100 transition-all hover:bg-slate-50 relative overflow-hidden animate-in delay-${(idx + 1) * 100}`}
+                  className={`group bg-white p-5 lg:p-6 border border-neutral-100 transition-all hover:bg-neutral-50 relative overflow-hidden animate-in delay-${(idx + 1) * 100}`}
                 >
                   <div className="absolute inset-0 bg-noise opacity-[0.015] pointer-events-none" />
                   <div className="flex items-center gap-4 relative z-10">
@@ -161,10 +161,10 @@ export default function CertificationPage() {
                       {tier.icon}
                     </div>
                     <div className="min-w-0">
-                      <h3 className="text-[13px] font-bold text-slate-900 uppercase tracking-widest group-hover:text-brand transition-colors">
+                      <h3 className="text-[13px] font-bold text-neutral-900 uppercase tracking-widest group-hover:text-brand transition-colors">
                         {tier.label}
                       </h3>
-                      <p className="text-slate-400 text-[11px] leading-relaxed truncate">
+                      <p className="text-neutral-400 text-[11px] leading-relaxed truncate">
                         {tier.sub}
                       </p>
                     </div>
@@ -176,20 +176,20 @@ export default function CertificationPage() {
         </section>
 
         {/* ── Certification Catalogue ── */}
-        <section className="py-8 lg:py-10 bg-slate-50/60 border-b border-slate-100 relative overflow-hidden">
+        <section className="py-8 lg:py-10 bg-neutral-50/60 border-b border-neutral-100 relative overflow-hidden">
           <div className="absolute inset-0 bg-grid-subtle opacity-[0.02] pointer-events-none" />
           <div className="max-w-[1240px] mx-auto px-6 relative z-10">
             <div className="grid lg:grid-cols-12 gap-6 items-start">
               {/* ── Left: Sticky Filter Sidebar ── */}
               <div className="lg:col-span-3">
                 <div className="lg:sticky lg:top-6">
-                  <div className="bg-white border border-slate-200 shadow-sm overflow-hidden">
+                  <div className="bg-white border border-neutral-200 shadow-sm overflow-hidden">
                     {/* Sidebar header */}
                     <div className="bg-brand px-5 py-4">
                       <h3 className="text-[11px] font-bold text-white uppercase tracking-widest">
                         Filter Programmes
                       </h3>
-                      <p className="text-[11px] text-slate-400 mt-1">
+                      <p className="text-[11px] text-neutral-400 mt-1">
                         {filteredCourses.length} of {certifications.length} shown
                       </p>
                     </div>
@@ -197,7 +197,7 @@ export default function CertificationPage() {
                     <div className="p-5 space-y-5">
                       {/* Search */}
                       <div>
-                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">
+                        <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 block">
                           Search
                         </label>
                         <input
@@ -205,13 +205,13 @@ export default function CertificationPage() {
                           value={search}
                           onChange={(e) => setSearch(e.target.value)}
                           placeholder="Title, focus, topic..."
-                          className="w-full bg-slate-50 border border-slate-200 px-3 py-2 text-[13px] focus:outline-none focus:border-brand focus:bg-white transition-all placeholder:text-slate-300"
+                          className="w-full bg-neutral-50 border border-neutral-200 px-3 py-2 text-[13px] focus:outline-none focus:border-brand focus:bg-white transition-all placeholder:text-neutral-300"
                         />
                       </div>
 
                       {/* Level */}
                       <div>
-                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">
+                        <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 block">
                           Level
                         </label>
                         <div className="space-y-1">
@@ -222,7 +222,7 @@ export default function CertificationPage() {
                               className={`w-full text-left px-3 py-2 text-[12px] font-bold transition-all ${
                                 categoryFilter === cat
                                   ? "bg-brand text-white"
-                                  : "text-slate-900 hover:bg-slate-50 border border-transparent hover:border-slate-200"
+                                  : "text-neutral-900 hover:bg-neutral-50 border border-transparent hover:border-neutral-200"
                               }`}
                             >
                               {cat}
@@ -233,7 +233,7 @@ export default function CertificationPage() {
 
                       {/* Format */}
                       <div>
-                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">
+                        <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 block">
                           Format
                         </label>
                         <div className="space-y-1">
@@ -244,7 +244,7 @@ export default function CertificationPage() {
                               className={`w-full text-left px-3 py-2 text-[12px] font-bold transition-all ${
                                 formatFilter === fmt
                                   ? "bg-brand text-white"
-                                  : "text-slate-900 hover:bg-slate-50 border border-transparent hover:border-slate-200"
+                                  : "text-neutral-900 hover:bg-neutral-50 border border-transparent hover:border-neutral-200"
                               }`}
                             >
                               {fmt}
@@ -261,7 +261,7 @@ export default function CertificationPage() {
                             setCategoryFilter("All");
                             setFormatFilter("All");
                           }}
-                          className="w-full text-center px-3 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-widest border border-dashed border-slate-300 hover:text-brand hover:border-brand transition-colors"
+                          className="w-full text-center px-3 py-2 text-[11px] font-bold text-neutral-400 uppercase tracking-widest border border-dashed border-neutral-300 hover:text-brand hover:border-brand transition-colors"
                         >
                           Clear Filters
                         </button>
@@ -277,13 +277,13 @@ export default function CertificationPage() {
                   {filteredCourses.map((cert, idx) => (
                     <div
                       key={cert.id}
-                      className="group relative bg-white border border-slate-200 hover:border-brand/40 hover:shadow-lg transition-all duration-500 overflow-hidden"
+                      className="group relative bg-white border border-neutral-200 hover:border-brand/40 hover:shadow-lg transition-all duration-500 overflow-hidden"
                     >
                       {/* Top accent bar */}
                       <div className="h-1 w-full bg-gradient-to-r from-brand to-brand-light group-hover:from-brand-dark group-hover:to-brand transition-all duration-500" />
 
                       {/* Background index */}
-                      <div className="absolute top-6 right-5 text-[64px] font-black text-slate-900/[0.04] group-hover:text-brand/[0.08] transition-colors pointer-events-none select-none leading-none">
+                      <div className="absolute top-6 right-5 text-[64px] font-black text-neutral-900/[0.04] group-hover:text-brand/[0.08] transition-colors pointer-events-none select-none leading-none">
                         {String(idx + 1).padStart(2, "0")}
                       </div>
 
@@ -294,20 +294,20 @@ export default function CertificationPage() {
                           </span>
                         </div>
 
-                        <h3 className="text-[16px] font-bold text-slate-900 mb-2 leading-tight group-hover:text-brand transition-colors pr-12">
+                        <h3 className="text-[16px] font-bold text-neutral-900 mb-2 leading-tight group-hover:text-brand transition-colors pr-12">
                           {cert.title}
                         </h3>
 
-                        <p className="text-slate-500 text-[13px] leading-relaxed mb-4 line-clamp-3">
+                        <p className="text-neutral-500 text-[13px] leading-relaxed mb-4 line-clamp-3">
                           {cert.description}
                         </p>
 
                         {/* Meta tags */}
                         <div className="flex flex-wrap items-center gap-2 mb-4">
-                          <span className="text-[10px] font-bold text-slate-900 uppercase tracking-wider px-2.5 py-1 bg-brand/[0.04] border border-slate-900/10">
+                          <span className="text-[10px] font-bold text-neutral-900 uppercase tracking-wider px-2.5 py-1 bg-brand/[0.04] border border-neutral-900/10">
                             {cert.format}
                           </span>
-                          <span className="text-[10px] font-bold text-slate-900 uppercase tracking-wider px-2.5 py-1 bg-brand/[0.04] border border-slate-900/10">
+                          <span className="text-[10px] font-bold text-neutral-900 uppercase tracking-wider px-2.5 py-1 bg-brand/[0.04] border border-neutral-900/10">
                             {cert.duration}
                           </span>
                           <span className="text-[10px] font-bold text-brand uppercase tracking-wider px-2.5 py-1 bg-brand/[0.06] border border-brand/15">
@@ -320,7 +320,7 @@ export default function CertificationPage() {
                           onClick={() =>
                             setExpanded(expanded === cert.id ? null : cert.id)
                           }
-                          className="flex items-center gap-2 text-[11px] font-bold text-slate-900 uppercase tracking-widest hover:text-brand transition-colors"
+                          className="flex items-center gap-2 text-[11px] font-bold text-neutral-900 uppercase tracking-widest hover:text-brand transition-colors"
                         >
                           <svg
                             className={`w-3 h-3 transition-transform duration-300 ${expanded === cert.id ? "rotate-90" : ""}`}
@@ -334,12 +334,12 @@ export default function CertificationPage() {
                         </button>
 
                         {expanded === cert.id && (
-                          <div className="mt-3 pt-3 border-t border-slate-100 animate-in">
+                          <div className="mt-3 pt-3 border-t border-neutral-100 animate-in">
                             <ul className="space-y-2">
                               {cert.curriculum.map((item, i) => (
                                 <li
                                   key={i}
-                                  className="flex items-start gap-3 text-slate-600 text-[13px] leading-relaxed"
+                                  className="flex items-start gap-3 text-neutral-600 text-[13px] leading-relaxed"
                                 >
                                   <div className="w-1.5 h-1.5 bg-brand/40 mt-[7px] flex-shrink-0" />
                                   {item}
@@ -350,10 +350,10 @@ export default function CertificationPage() {
                         )}
 
                         {/* Enquire */}
-                        <div className="mt-4 pt-4 border-t border-slate-100">
+                        <div className="mt-4 pt-4 border-t border-neutral-100">
                           <Link
                             href={`/contact?subject=${encodeURIComponent(cert.title)}`}
-                            className="group/btn inline-flex items-center gap-2 bg-brand text-white px-4 py-2 text-[11px] font-bold uppercase tracking-widest hover:bg-brand transition-colors"
+                            className="group/btn inline-flex items-center gap-2 bg-brand text-white px-4 py-2 text-[11px] font-bold uppercase tracking-widest hover:bg-brand-dark transition-colors"
                           >
                             Enquire
                             <svg
@@ -372,8 +372,8 @@ export default function CertificationPage() {
                 </div>
 
                 {filteredCourses.length === 0 && (
-                  <div className="mt-6 bg-white border border-dashed border-slate-300 p-8 text-center">
-                    <p className="text-slate-500 text-[14px]">
+                  <div className="mt-6 bg-white border border-dashed border-neutral-300 p-8 text-center">
+                    <p className="text-neutral-500 text-[14px]">
                       No courses match the selected filters. Try adjusting your
                       search or filter selections.
                     </p>
