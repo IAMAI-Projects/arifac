@@ -1,6 +1,4 @@
 import type { ReactNode } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 
 interface StaticPageLayoutProps {
@@ -17,14 +15,10 @@ export default function StaticPageLayout({
   children,
 }: StaticPageLayoutProps) {
   return (
-    <div className="min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand selection:text-white flex flex-col antialiased">
-      <Header />
-      <main className="flex-grow">
-        <PageBanner label={label} title={title} description={description} />
-        {children}
-      </main>
-      <Footer />
-    </div>
+    <>
+      <PageBanner label={label} title={title} description={description} />
+      {children}
+    </>
   );
 }
 

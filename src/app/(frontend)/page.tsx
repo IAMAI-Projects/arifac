@@ -1,8 +1,6 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import BlockRenderer from '@/components/BlockRenderer'
 
 export default async function HomePage() {
@@ -25,19 +23,13 @@ export default async function HomePage() {
   })
 
   return (
-    <div className="min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand selection:text-white flex flex-col">
-      <Header />
-
-      <main className="flex-grow">
-        {page.layout && page.layout.length > 0 && (
-          <BlockRenderer
-            blocks={page.layout}
-            regulatoryUpdates={updatesResult.docs}
-          />
-        )}
-      </main>
-
-      <Footer />
-    </div>
+    <>
+      {page.layout && page.layout.length > 0 && (
+        <BlockRenderer
+          blocks={page.layout}
+          regulatoryUpdates={updatesResult.docs}
+        />
+      )}
+    </>
   )
 }

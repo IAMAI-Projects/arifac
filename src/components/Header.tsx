@@ -3,8 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { NewsItem } from "@/payload-types";
 
-export default function Header() {
+interface HeaderProps {
+  newsItems?: NewsItem[];
+}
+
+export default function Header({ newsItems = [] }: HeaderProps) {
   const pathname = usePathname();
 
   const isActive = (href: string) => {
@@ -14,46 +19,47 @@ export default function Header() {
 
   return (
     <>
-      {/* Top Bar with News Scroller & Logins */}
-      <div className="bg-brand text-white h-10 flex items-center overflow-hidden border-b border-white/10">
-        <div className="max-w-[1240px] mx-auto px-6 w-full flex items-center justify-between">
-          
-          {/* News Scroller */}
+      {/* Top Bar with News Scroller & Logins -- hidden when no news items (per D-12) */}
+      {newsItems.length > 0 && (
+        <div className="bg-brand text-white h-10 flex items-center overflow-hidden border-b border-white/10">
+          <div className="max-w-[1240px] mx-auto px-6 w-full flex items-center justify-between">
 
-          <div className="flex items-center gap-4 flex-1 overflow-hidden h-full">
-            <span className="bg-brand text-[10px] font-bold px-2 py-0.5 whitespace-nowrap uppercase tracking-widest shrink-0 z-10 relative">
-              Latest Updates
-            </span>
-            <div className="flex-1 overflow-hidden relative">
-              <div className="inline-flex animate-marquee whitespace-nowrap text-[11px] font-medium text-white/80 py-1">
-                <span className="mx-8">RBI: Regional Rural Banks – Know Your Customer Directions, 2025 released</span>
-                <span className="mx-8">ARIFAC: Register for the upcoming Specialist Level Certification Batch</span>
-                <span className="mx-8">RBI: Commercial Banks – Know Your Customer Directions, 2025 updated</span>
-                {/* Duplicate for seamless loop */}
-                <span className="mx-8">RBI: Regional Rural Banks – Know Your Customer Directions, 2025 released</span>
-                <span className="mx-8">ARIFAC: Register for the upcoming Specialist Level Certification Batch</span>
-                <span className="mx-8">RBI: Commercial Banks – Know Your Customer Directions, 2025 updated</span>
+            {/* News Scroller */}
+            <div className="flex items-center gap-4 flex-1 overflow-hidden h-full">
+              <span className="bg-brand text-[10px] font-bold px-2 py-0.5 whitespace-nowrap uppercase tracking-widest shrink-0 z-10 relative">
+                Latest Updates
+              </span>
+              <div className="flex-1 overflow-hidden relative">
+                <div className="inline-flex animate-marquee whitespace-nowrap text-[11px] font-medium text-white/80 py-1">
+                  {newsItems.map((item) => (
+                    <span key={item.id} className="mx-8">{item.text}</span>
+                  ))}
+                  {/* Duplicate for seamless loop */}
+                  {newsItems.map((item) => (
+                    <span key={`dup-${item.id}`} className="mx-8">{item.text}</span>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Login Links */}
-          <div className="hidden md:flex items-center gap-6 shrink-0 ml-8">
-            <Link href="/login/member" className="text-[11px] font-bold hover:text-white/70 transition-colors uppercase tracking-widest">
-              Member Login
-            </Link>
-            <div className="w-px h-3 bg-white/20" />
-            <Link href="/login/learner" className="text-[11px] font-bold hover:text-white/70 transition-colors uppercase tracking-widest">
-              Learner Login
-            </Link>
-          </div>
+            {/* Login Links */}
+            <div className="hidden md:flex items-center gap-6 shrink-0 ml-8">
+              <Link href="/login/member" className="text-[11px] font-bold hover:text-white/70 transition-colors uppercase tracking-widest">
+                Member Login
+              </Link>
+              <div className="w-px h-3 bg-white/20" />
+              <Link href="/login/learner" className="text-[11px] font-bold hover:text-white/70 transition-colors uppercase tracking-widest">
+                Learner Login
+              </Link>
+            </div>
 
+          </div>
         </div>
-      </div>
+      )}
 
       <header className="sticky top-0 z-50 w-full bg-white border-b border-neutral-200 shadow-sm">
         <div className="max-w-[1240px] mx-auto px-6 h-16 lg:h-24 flex items-center justify-between">
-          
+
           {/* Left: Logos */}
           <div className="flex items-center gap-4 shrink-0">
             <Image src="/fiu-logo.png" alt="FIU INDIA" width={32} height={32} className="h-9 lg:h-10 xl:h-12 mix-blend-multiply" style={{ width: "auto" }} priority />
@@ -62,16 +68,16 @@ export default function Header() {
               <Image src="/logo.png" alt="ARIFAC" width={110} height={32} className="h-9 lg:h-10 xl:h-12 w-auto mix-blend-multiply" priority />
             </Link>
           </div>
-          
+
           {/* Center: Navigation */}
           <nav className="hidden lg:flex items-center gap-4 xl:gap-8 mx-auto">
             {[
               { label: "About", href: "/about" },
               { label: "Membership", href: "/membership" },
             ].map(item => (
-              <Link 
-                key={item.label} 
-                href={item.href} 
+              <Link
+                key={item.label}
+                href={item.href}
                 className={`text-[13px] font-bold transition-colors whitespace-nowrap ${
                   isActive(item.href) ? "text-brand" : "text-neutral-800 hover:text-brand"
                 }`}
@@ -82,8 +88,8 @@ export default function Header() {
 
             {/* Certification with dropdown */}
             <div className="relative group/nav">
-              <Link 
-                href="/certifications" 
+              <Link
+                href="/certifications"
                 className={`text-[13px] font-bold group-hover/nav:text-brand transition-colors whitespace-nowrap flex items-center gap-1.5 ${
                   isActive("/certifications") ? "text-brand" : "text-neutral-800 hover:text-brand"
                 }`}
@@ -136,9 +142,9 @@ export default function Header() {
               { label: "Programmes", href: "/programmes" },
               { label: "Updates", href: "/updates" },
             ].map(item => (
-              <Link 
-                key={item.label} 
-                href={item.href} 
+              <Link
+                key={item.label}
+                href={item.href}
                 className={`text-[13px] font-bold transition-colors whitespace-nowrap ${
                   isActive(item.href) ? "text-brand" : "text-neutral-800 hover:text-brand"
                 }`}
@@ -147,10 +153,10 @@ export default function Header() {
               </Link>
             ))}
           </nav>
-          
+
           {/* Right: Actions */}
           <div className="flex items-center gap-4 xl:gap-6">
-          
+
             <Link href="/membership" className={`bg-neutral-900 text-white px-5 py-2.5 lg:px-7 lg:py-3 text-[13px] font-bold hover:bg-brand transition-colors whitespace-nowrap ${
               isActive("/membership") ? "bg-brand" : ""
             }`}>
@@ -163,4 +169,3 @@ export default function Header() {
     </>
   );
 }
-
