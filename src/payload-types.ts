@@ -17,6 +17,7 @@ export interface Config {
     'regulatory-updates': RegulatoryUpdate
     certifications: Certification
     'news-items': NewsItem
+    members: Member
   }
   collectionsJoins: Record<string, never>
   collectionsSelect: {
@@ -25,6 +26,7 @@ export interface Config {
     'regulatory-updates': RegulatoryUpdatesSelect<false> | RegulatoryUpdatesSelect<true>
     certifications: CertificationsSelect<false> | CertificationsSelect<true>
     'news-items': NewsItemsSelect<false> | NewsItemsSelect<true>
+    members: MembersSelect<false> | MembersSelect<true>
   }
   db: {
     defaultIDType: number
@@ -287,6 +289,17 @@ export interface NewsItem {
 }
 
 /**
+ * Members collection
+ */
+export interface Member {
+  id: number
+  name: string
+  updatedAt: string
+  createdAt: string
+  _status?: string | null
+}
+
+/**
  * Programmes global
  */
 export interface Programme {
@@ -301,6 +314,12 @@ export interface Programme {
     id?: string | null
   }[] | null
   programmeSchedule?: {
+    name: string
+    type: string
+    date: string
+    id?: string | null
+  }[] | null
+  recentConsultations?: {
     name: string
     type: string
     date: string
@@ -390,9 +409,17 @@ export interface NewsItemsSelect<T extends boolean = true> {
   _status?: T
 }
 
+export interface MembersSelect<T extends boolean = true> {
+  name?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+
 export interface ProgrammesSelect<T extends boolean = true> {
   engagementFormats?: T
   programmeSchedule?: T
+  recentConsultations?: T
   annualMeetings?: T
   updatedAt?: T
   createdAt?: T

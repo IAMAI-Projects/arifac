@@ -9,6 +9,7 @@ import { Pages } from './collections/Pages'
 import { RegulatoryUpdates } from './collections/RegulatoryUpdates'
 import { Certifications } from './collections/Certifications'
 import { NewsItems } from './collections/NewsItems'
+import { Members } from './collections/Members'
 import { Programmes } from './globals/Programmes'
 
 const filename = fileURLToPath(import.meta.url)
@@ -61,6 +62,7 @@ export default buildConfig({
     RegulatoryUpdates,
     Certifications,
     NewsItems,
+    Members,
   ],
   globals: [Programmes],
   editor: lexicalEditor(),

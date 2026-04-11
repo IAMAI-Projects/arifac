@@ -204,16 +204,34 @@ export async function GET() {
       slug: 'programmes',
       data: {
         engagementFormats: [
-          { title: 'Capacity Building Workshops', description: 'Intensive workshops designed for compliance teams to strengthen operational capabilities in AML/CFT detection and reporting.' },
-          { title: 'Regulatory Roundtables', description: 'Exclusive forums bringing together regulators, industry leaders, and compliance professionals for policy dialogue.' },
-          { title: 'Digital Learning Modules', description: 'Self-paced e-learning programs covering emerging compliance topics, financial crime typologies, and regulatory updates.' },
+          { title: 'Industry Consultations', description: 'Addressing emerging financial risks and operational challenges within the AML/CFT' },
+          { title: 'Training & Capacity Building', description: 'Programmes to strengthen internal capabilities across compliance, risk, legal, operations, and business functions.' },
+          { title: 'Certification & Learning Pathways', description: 'Structured learning pathways to build internal expertise and support professional development of AML/CFT teams.' },
+          { title: 'Working Groups', description: 'Focused forums for collaborative problem-solving and knowledge exchange on specific financial crime prevention themes.' },
+          { title: 'Knowledge Sessions & Webinars', description: 'Regular sessions bringing together industry experts and practitioners to share insights on evolving risks and trends.' },
+          { title: 'Flagship Engagements', description: 'Larger ecosystem engagements to enable broader industry participation and collaboration on financial integrity.' },
         ],
         programmeSchedule: [
-          { title: 'Q1 2026: AML Fundamentals Bootcamp', date: '2026-01-15', location: 'Mumbai', status: 'upcoming' },
-          { title: 'Q2 2026: Advanced Transaction Monitoring', date: '2026-04-10', location: 'New Delhi', status: 'upcoming' },
+          { name: 'N-SAFE: National Summit on Anti-Financial Crime Enforcement', type: 'Flagship Event', date: '6 April 2026' },
+          { name: 'OVDs, Digital Verification & V-CIP Enablement', type: 'Training Session', date: 'April 2026' },
+          { name: 'STR Filing and Typologies', type: 'Training Session', date: 'April 2026' },
+          { name: 'Cross-Border AML: Managing Risk Across Jurisdictions, Counterparties & Data Flows', type: 'Training Session', date: 'April 2026' },
+          { name: 'Strengthening Transparency and Infrastructure in the Derivatives Market', type: 'Training Session', date: 'May 2026' },
+          { name: 'CDD and Verification: Customer Due Diligence in Practice', type: 'Training Session', date: 'May 2026' },
+        ],
+        recentConsultations: [
+          { name: 'AML and Compliance in Mutual Fund Industry', type: 'Training Session', date: '27 Feb 2026' },
+          { name: 'Artificial Intelligence in AML, Fraud Monitoring & Compliance Functions', type: 'Training Session', date: '20 Feb 2026' },
+          { name: 'Central KYC Records Registry - Compliance by REs, Issues & Challenges', type: 'Training Session', date: '30 Jan 2026' },
+          { name: 'Follow-up Q&A: PMLA Requirements, Screening & Transaction Monitoring for PAs', type: 'Training Session', date: '27 Jan 2026' },
+          { name: 'PMLA Requirements, Screening & Transaction Monitoring for PAs', type: 'Training Session', date: '22 Jan 2026' },
         ],
         annualMeetings: [
-          { title: 'ARIFAC Annual Conference 2026', date: '2026-09-15', location: 'Mumbai', status: 'upcoming' },
+          { name: 'Inaugural National Chapter Meeting', date: 'August 4, 2023', location: 'New Delhi' },
+          { name: '2nd National Chapter Meeting', date: 'October 19, 2023', location: 'Mumbai' },
+          { name: '3rd National Chapter Meeting', date: 'July 24, 2024', location: 'Mumbai' },
+          { name: '4th National Chapter Meeting', date: 'March 07, 2025', location: 'Mumbai' },
+          { name: '5th National Chapter Meeting', date: 'December 10, 2025', location: 'Mumbai' },
         ],
       },
     })
@@ -369,7 +387,8 @@ export async function GET() {
       await payload.create({ collection: 'pages', data: p })
       results.push(`Created page: ${p.slug}`)
     } else {
-      results.push(`Page "${p.slug}" already exists`)
+      await payload.update({ collection: 'pages', id: existing.docs[0].id, data: p })
+      results.push(`Updated page: ${p.slug}`)
     }
   }
 
@@ -504,8 +523,81 @@ export async function GET() {
       await payload.create({ collection: 'pages', data: p })
       results.push(`Created page: ${p.slug}`)
     } else {
-      results.push(`Page "${p.slug}" already exists`)
+      await payload.update({ collection: 'pages', id: existing.docs[0].id, data: p })
+      results.push(`Updated page: ${p.slug}`)
     }
+  }
+
+  // 7. Members collection
+  const memberNames = [
+    '1Pay Mobileware Private Limited', 'ANQ Digital Finserv', 'Abhibha Technologies Private Limited',
+    'Adyen India Tech Hub Private Limited', 'Airpay Payment Services Private Limited', 'Airtel Payments Bank',
+    'Ajcon Edufin Private Limited', 'Ajcon Global Services Limited', 'Amazon Pay India Private Limited',
+    'American Express Banking Corporation', 'Angelic Infotech Pvt Ltd', 'Axis Bank Limited',
+    'Axis Securities Limited', 'BNP Paribas', 'Bajaj Finserv', 'Balancehero India Private Limited',
+    'Bandhan Bank Ltd.', 'Bank of America', 'Bank of Baroda', 'Bank of China India Branch',
+    'Bank of India', 'Bank of Maharashtra', 'Barclays Bank PLC',
+    'Bharat Co operative Bank (Mumbai) Ltd.', 'Bitcipher Labs LLP', 'CCAvenue', 'CSB Bank Ltd',
+    'Canara Bank', 'Canara HSBC Life Insurance Company Limited', 'Capstocks and Securities India Pvt Ltd',
+    'Cashfree', 'Central Bank of India', 'Chatterjee & Tripathi Consultancy Private Limited',
+    'Citibank', 'City Union Bank', 'CoinSwitch - Bitcipher Labs', 'Computer Age Management Services Ltd',
+    'Cosmos Cooperative Bank', 'Cushman Wakefield', 'DBS Bank', 'DCB Bank', 'Deutsche Bank',
+    'Dhanlaxmi Bank Limited', 'Digiotech Solutions Private Limited', 'Dow Jones Consulting India Pvt Limited',
+    'Dreamplug PayTech Solutions Private Limited', 'E Meditek Global Pvt Ltd', 'Easebuzz Private Limited',
+    'Emirates NBD Bank (P.J.S.C)', 'Equitas Small Finance Bank', 'Excelium Technologies Pvt Ltd',
+    'Facctum IT Solutions India Pvt Ltd', 'Federal Bank Ltd', 'Fincare Small Finance Bank', 'Fincrypt LLP',
+    'Finlogic Technologies India Private Limited', 'Fino Payments Bank Limited',
+    'Fintelekt Advisory Services Private Limited', 'Fios Compliance Private Limited', 'FirstRand Bank',
+    'Freecharge Payment Technologies Private Limited', 'Fullerton India', 'Futuretek Commerce Pvt Ltd',
+    'GP Parsik Sahakari Bank Ltd', 'Giottus Technologies Pvt Ltd', 'Global Payments Asia Pacific Pvt Ltd',
+    'Gobrisk Technologies Pvt Ltd', 'Google India Digital Services Private Limited',
+    'HDFC Asset Management Co Ltd.', 'HDFC Bank Ltd', 'HDFC Mutual Fund', 'HSBC Bank',
+    'Hiveloop Internet Private Limited', 'ICICI Bank', 'IDBI Bank Ltd', 'IDFC First Bank Ltd',
+    'IndiaIdeas.com Limited (BillDesk)', 'Indiaforensic Center of Studies', 'Indian Overseas Bank',
+    'IndusInd Bank', 'Infibeam Avenues Limited', 'Innoviti Technologies Private Limited',
+    'Ixsight Technologies Private Limited', 'JLL', 'JP Morgan Chase Bank', 'Jalgaon Janata Sahakari Bank',
+    'Jammu & Kashmir Bank', 'Jana Small Finance Bank Ltd', 'Jio Finance Ltd', 'Jio Financial Services Ltd',
+    'Jio Payments Bank Ltd', 'Karad Urban Co-Operative Bank', 'Karnataka Bank Ltd', 'Karur Vysya Bank Ltd',
+    'Kotak Mahindra Bank Ltd', 'Letzpay Solution Pvt Ltd', 'LexisNexis Risk Solutions Inc',
+    'Lightningnodes Technologies Pvt Ltd', 'LivQuik Technology (India) Private Limited',
+    'London Stock Exchange Group (World-Check)', 'Lyra Network Private Limited', 'MUFG',
+    'Mahanagar Cooperative Bank Ltd', 'Mashreq Bank PSC', 'Mindless Pandora Tech Solutions Private Limited',
+    'Mizuho Bank', 'NKGSB Co-op. Bank Ltd', 'NPCI', 'NSDL Database Management Ltd', 'NSE',
+    'NTT Data Payment Services India Ltd', 'Nainital Bank', 'Neblio Technologies P Ltd',
+    'New India Cooperative Bank Ltd', 'Nextgendev Solutions Pvt. Ltd',
+    'Nomura Capital (India) Private Limited (NCIPL)',
+    'Nomura Fixed Income Securities Private Limited (NFIS)', 'Ola Financial Services Pvt Ltd',
+    'One Mobikwik Systems Limited', 'One97 Communications', 'PayTM Payments Bank',
+    'PayU Payments Private Limited', 'Paygate India Private Limited', 'Payglocal', 'Paymate India Ltd',
+    'Payments Council of India', 'Payoneer India Private Limited', 'Paypal Payments Pvt Ltd',
+    'Paysharp Private Limited', 'Phi Commerce Private Limited',
+    'PhonePe Insurance Broking Services Private Limited', 'PhonePe Private Limited',
+    'PhonePe Wealth Broking Private Limited', 'Punjab National Bank',
+    'Quantum Data Engines India Private Limited', 'RBL Bank Ltd', 'Rabobank',
+    'Razorpay Software Private Limited', 'Reliance Payment Solutions Limited', 'SBI Life Insurance',
+    'SBM Bank', 'SRS Live Technologies Pvt Ltd', 'SabPaisa', 'Saraswat Bank', 'Scotiabank, India',
+    'South Indian Bank Ltd', 'Standard Chartered Bank', 'State Bank of India',
+    'Stripe India Private Limited', 'Suncrypto', 'Suryoday Small Finance Bank Ltd',
+    'Tapits Technologies Private Limited', 'Tata AIG Life',
+    'The Kalupur Commercial Co Op Bank Limited', 'Transak Technology India Pvt Ltd',
+    'Tri O Tech Solutions Private Limited', 'Tyche Payment Solutions Private Limited', 'UBS AG, India',
+    'UBS Securities India Private Limited', 'UCO Bank', 'Ujjivan Small Finance Bank',
+    'Unimoni Enterprise Solutions Pvt Ltd', 'Unimoni Financial Services Ltd', 'Union Bank of India Ltd',
+    'Unocoin Technologies Pvt Ltd', 'WazirX - Zanmai Labs Pvt Ltd',
+    'Western Union Services India Pvt. Ltd.', 'Worldline ePayments India Private Limited',
+    'Wunderbaked Technologies Private Limited', 'Xsilica Software Solutions Private Limited', 'Yes Bank',
+    'ZIGRAM', 'Zaak Epayment Services Private Limited', 'Zebpay - Awlencan Innovations',
+    'Zerodha Broking Limited',
+  ]
+
+  const existingMembers = await payload.find({ collection: 'members', limit: 1 })
+  if (existingMembers.totalDocs === 0) {
+    for (const name of memberNames) {
+      await payload.create({ collection: 'members', data: { name } })
+    }
+    results.push(`Created ${memberNames.length} members`)
+  } else {
+    results.push(`Members already seeded (${existingMembers.totalDocs} exist)`)
   }
 
   return NextResponse.json({ success: true, results })

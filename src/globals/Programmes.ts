@@ -32,6 +32,15 @@ export const Programmes: GlobalConfig = {
       ],
     },
     {
+      name: 'recentConsultations',
+      type: 'array',
+      fields: [
+        { name: 'name', type: 'text', required: true },
+        { name: 'type', type: 'text', required: true },
+        { name: 'date', type: 'text', required: true },
+      ],
+    },
+    {
       name: 'annualMeetings',
       type: 'array',
       fields: [
