@@ -94,6 +94,35 @@ export interface Page {
   }
   body?: Record<string, unknown>[] | null
   layout?: (HeroBlock | StatsBlock | CapabilityMatrixBlock | RegulatoryDashboardBlock | FeaturedProgramsBlock | CTABlock)[] | null
+  whySection?: {
+    eyebrow?: string | null
+    heading?: string | null
+    description?: string | null
+    threats?: { label: string; id?: string | null }[] | null
+    alignedWith?: {
+      description?: string | null
+      items?: { label: string; value: string; id?: string | null }[] | null
+    }
+  } | null
+  whatSection?: {
+    eyebrow?: string | null
+    heading?: string | null
+    description?: string | null
+    focusAreas?: {
+      number: string
+      title: string
+      points?: { text: string; id?: string | null }[] | null
+      id?: string | null
+    }[] | null
+  } | null
+  whoSection?: {
+    eyebrow?: string | null
+    heading?: string | null
+    description?: string | null
+    ctaLabel?: string | null
+    ctaLink?: string | null
+    audiences?: { name: string; subtitle: string; id?: string | null }[] | null
+  } | null
   updatedAt: string
   createdAt: string
   _status?: string | null
@@ -319,6 +348,9 @@ export interface PagesSelect<T extends boolean = true> {
       }
   body?: T
   layout?: T
+  whySection?: T
+  whatSection?: T
+  whoSection?: T
   updatedAt?: T
   createdAt?: T
   _status?: T
