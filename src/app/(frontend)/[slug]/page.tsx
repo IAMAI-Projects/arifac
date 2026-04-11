@@ -4,6 +4,17 @@ import { notFound } from 'next/navigation'
 import StaticPageLayout from '@/components/StaticPageLayout'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 
+export async function generateStaticParams() {
+  const payload = await getPayload({ config: configPromise })
+  const result = await payload.find({
+    collection: 'pages',
+    where: { pageType: { not_equals: 'home' } },
+    limit: 100,
+    select: { slug: true },
+  })
+  return result.docs.map((page) => ({ slug: page.slug }))
+}
+
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const payload = await getPayload({ config: configPromise })
