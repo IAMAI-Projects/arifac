@@ -67,7 +67,7 @@ function SectorBlock({ sector, index }: { sector: Sector; index: number }) {
   return (
     <div className="group">
       {/* Sector header row */}
-      <div className="grid grid-cols-[48px_1fr] lg:grid-cols-[64px_1fr] items-center gap-x-4 py-4 lg:py-5 border-b-2 border-navy/10">
+      <div className="grid grid-cols-[48px_1fr] lg:grid-cols-[64px_1fr] items-center gap-x-4 py-4 lg:py-5 border-b-2 border-slate-900/10">
         <span className="text-[32px] lg:text-[42px] font-extrabold text-slate-200 leading-none select-none tabular-nums group-hover:text-brand-light transition-colors duration-300">
           {String(index + 1).padStart(2, "0")}
         </span>
@@ -89,7 +89,7 @@ function SectorBlock({ sector, index }: { sector: Sector; index: number }) {
           <div className="col-start-2 lg:col-start-2 min-w-0">
             <div className="flex items-center gap-2.5">
               <span className="w-4 h-px bg-slate-300 shrink-0" />
-              <p className="text-[15px] lg:text-[16px] font-semibold text-navy leading-snug tracking-tight">
+              <p className="text-[15px] lg:text-[16px] font-semibold text-slate-900 leading-snug tracking-tight">
                 {org.name}
               </p>
             </div>
@@ -122,7 +122,7 @@ export default function SectoralNodalOfficersPage() {
     >
       <ContentSection title="Directory">
         {/* Column headers — desktop only */}
-        <div className="hidden lg:grid lg:grid-cols-[64px_1.4fr_1fr] gap-x-4 pb-3 border-b-2 border-navy/10 mb-0">
+        <div className="hidden lg:grid lg:grid-cols-[64px_1.4fr_1fr] gap-x-4 pb-3 border-b-2 border-slate-900/10 mb-0">
           <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
             Sector
           </span>
@@ -142,7 +142,7 @@ export default function SectoralNodalOfficersPage() {
         </div>
 
         {/* Footer stats */}
-        <div className="mt-6 pt-5 border-t-2 border-navy/10 flex flex-wrap items-center justify-between gap-4">
+        <div className="mt-6 pt-5 border-t-2 border-slate-900/10 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <span className="w-3 h-[3px] bg-brand" />

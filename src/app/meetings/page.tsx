@@ -22,7 +22,7 @@ export default function MeetingsPage() {
       >
         <div className="grid md:grid-cols-2 gap-4">
           {meetingFormats.map((item) => (
-            <div key={item} className="bg-white border border-slate-200 px-5 py-4 text-[14px] font-semibold text-navy hover:border-brand/30 transition-colors">
+            <div key={item} className="bg-white border border-slate-200 px-5 py-4 text-[14px] font-semibold text-slate-900 hover:border-brand/30 transition-colors">
               {item}
             </div>
           ))}

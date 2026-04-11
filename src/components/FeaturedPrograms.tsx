@@ -46,7 +46,7 @@ export default function FeaturedPrograms() {
           {programs.map((program, idx) => (
             <div key={idx} className="bg-white border border-slate-200 hover:border-brand transition-all group flex flex-col h-full overflow-hidden">
               <div className="aspect-[16/10] bg-white relative overflow-hidden flex items-center justify-center">
-                <div className="absolute inset-0 bg-navy opacity-0 group-hover:opacity-[0.02] transition-opacity z-10" />
+                <div className="absolute inset-0 bg-brand opacity-0 group-hover:opacity-[0.02] transition-opacity z-10" />
                 <Image
                   src={program.image}
                   alt={program.title}

@@ -18,7 +18,7 @@ export default function HelpPage() {
             <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
               Start with the FAQ section for quick answers on eligibility, certifications, and participation workflows.
             </p>
-            <a href="/faqs" className="text-[12px] font-bold uppercase tracking-wider text-brand hover:text-navy transition-colors">
+            <a href="/faqs" className="text-[12px] font-bold uppercase tracking-wider text-brand hover:text-slate-900 transition-colors">
               Open FAQs
             </a>
           </div>
@@ -26,7 +26,7 @@ export default function HelpPage() {
           <div className="bg-white border border-slate-200 p-6">
             <h3 className="text-[13px] font-bold text-brand uppercase tracking-[0.18em] mb-3">Direct Support</h3>
             <p className="text-[14px] text-slate-600 leading-relaxed mb-2">For unresolved issues, contact the ARIFAC support desk:</p>
-            <a href="mailto:help.arifac@iamai.in" className="text-[15px] font-semibold text-navy hover:text-brand transition-colors">
+            <a href="mailto:help.arifac@iamai.in" className="text-[15px] font-semibold text-slate-900 hover:text-brand transition-colors">
               help.arifac@iamai.in
             </a>
           </div>

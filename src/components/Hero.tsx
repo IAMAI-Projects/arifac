@@ -18,7 +18,7 @@ export default function Hero() {
               </span>
             </div>
             
-            <h1 className="text-3xl md:text-5xl lg:text-[48px] font-extrabold text-navy leading-[1.1] tracking-tight mb-6 lg:mb-8 max-w-4xl">
+            <h1 className="text-3xl md:text-5xl lg:text-[48px] font-extrabold text-slate-900 leading-[1.1] tracking-tight mb-6 lg:mb-8 max-w-4xl">
               Uniting Industry and Regulation to <span className="text-brand">Secure India&apos;s Financial Future.</span>
             </h1>
             
@@ -27,13 +27,13 @@ export default function Hero() {
             </p>
             
             <div className="flex flex-wrap gap-5 lg:gap-6 items-center">
-              <Link href="/member-benefits" className="bg-navy text-white px-7 py-3.5 lg:px-8 lg:py-4 text-[14px] font-bold hover:bg-brand transition-all flex items-center gap-3 group">
+              <Link href="/member-benefits" className="bg-brand text-white px-7 py-3.5 lg:px-8 lg:py-4 text-[14px] font-bold hover:bg-brand-dark transition-all flex items-center gap-3 group">
                 Membership Benefits
                 <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </Link>
-              <Link href="/certifications" className="text-navy font-bold text-[14px] border-b-2 border-navy hover:text-brand hover:border-brand transition-all pb-1">
+              <Link href="/certifications" className="text-slate-900 font-bold text-[14px] border-b-2 border-slate-900 hover:text-brand hover:border-brand transition-all pb-1">
                 Explore Certifications
               </Link>
             </div>
@@ -48,7 +48,7 @@ export default function Hero() {
                 <Image src="/fiu-logo.png" alt="FIU India" width={48} height={48} className="mix-blend-multiply" />
                 <div>
                   <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-1.5">Under Guidance Of</div>
-                  <div className="text-[18px] font-black text-navy leading-none">FIU-INDIA</div>
+                  <div className="text-[18px] font-black text-slate-900 leading-none">FIU-INDIA</div>
                 </div>
               </div>
               

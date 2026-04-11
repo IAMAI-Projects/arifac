@@ -31,7 +31,7 @@ export default function CapabilityMatrix() {
         
         {/* Section Header */}
         <div className="max-w-3xl mb-10 lg:mb-12">
-          <h2 className="text-3xl lg:text-[42px] font-extrabold text-navy leading-tight tracking-tight mb-6">
+          <h2 className="text-3xl lg:text-[42px] font-extrabold text-slate-900 leading-tight tracking-tight mb-6">
             The ARIFAC Mandate: <span className="text-brand">Securing India&apos;s Financial Sovereignty.</span>
           </h2>
           <p className="text-slate-600 text-[16px] lg:text-[18px] leading-relaxed">
@@ -52,7 +52,7 @@ export default function CapabilityMatrix() {
                   {item.label}
                 </span>
                 
-                <h3 className="text-[20px] font-bold text-navy mb-5 leading-tight group-hover:text-brand transition-colors">
+                <h3 className="text-[20px] font-bold text-slate-900 mb-5 leading-tight group-hover:text-brand transition-colors">
                   {item.title}
                 </h3>
                 
@@ -60,7 +60,7 @@ export default function CapabilityMatrix() {
                   {item.description}
                 </p>
                 
-                <Link href={item.linkRef} className="inline-flex items-center gap-2 text-navy font-bold text-[12px] uppercase tracking-widest hover:gap-3 transition-all group-hover:text-brand">
+                <Link href={item.linkRef} className="inline-flex items-center gap-2 text-slate-900 font-bold text-[12px] uppercase tracking-widest hover:gap-3 transition-all group-hover:text-brand">
                   {item.linkText}
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />

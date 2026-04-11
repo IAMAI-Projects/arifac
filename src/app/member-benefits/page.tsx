@@ -48,16 +48,16 @@ export default function MemberBenefitsPage() {
           {onboardingSteps.map((step, idx) => (
             <article key={step} className="border border-slate-200 bg-slate-50 p-4 min-h-[130px]">
               <div className="text-[10px] font-black text-brand tracking-[0.16em] uppercase mb-2">Step {idx + 1}</div>
-              <p className="text-[13px] font-semibold text-navy leading-relaxed">{step}</p>
+              <p className="text-[13px] font-semibold text-slate-900 leading-relaxed">{step}</p>
             </article>
           ))}
         </div>
 
-        <div className="mt-8 bg-navy text-white p-6 lg:p-8 flex flex-col lg:flex-row justify-between gap-5">
+        <div className="mt-8 bg-brand text-white p-6 lg:p-8 flex flex-col lg:flex-row justify-between gap-5">
           <p className="text-[14px] text-slate-300 leading-relaxed max-w-2xl">
             Clarification: ARIFAC is operated by IAMAI as an industry initiative and does not function as a regulator or supervisory authority.
           </p>
-          <Link href="/membership/launching-soon" className="bg-brand text-white px-5 py-3 text-[12px] font-bold uppercase tracking-wider hover:bg-white hover:text-navy transition-colors text-center">
+          <Link href="/membership/launching-soon" className="bg-brand text-white px-5 py-3 text-[12px] font-bold uppercase tracking-wider hover:bg-white hover:text-slate-900 transition-colors text-center">
             Start Application
           </Link>
         </div>

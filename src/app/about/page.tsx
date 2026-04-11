@@ -22,7 +22,7 @@ export default function AboutPage() {
           <div className="max-w-[1240px] mx-auto px-6">
             <div className="max-w-3xl mb-10">
               <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-3 block">The Challenge</span>
-              <h2 className="text-2xl lg:text-[34px] font-extrabold text-navy leading-tight tracking-tight mb-4">
+              <h2 className="text-2xl lg:text-[34px] font-extrabold text-slate-900 leading-tight tracking-tight mb-4">
                 Why ARIFAC
               </h2>
               <p className="text-slate-600 text-[16px] leading-[1.7]">
@@ -44,14 +44,14 @@ export default function AboutPage() {
                   ].map(risk => (
                     <div key={risk} className="flex items-center gap-3 bg-white p-3 border border-slate-100 hover:border-brand/30 hover:shadow-sm transition-all">
                       <div className="w-1.5 h-1.5 bg-brand flex-shrink-0" />
-                      <span className="text-[12px] font-bold text-navy uppercase tracking-tight">{risk}</span>
+                      <span className="text-[12px] font-bold text-slate-900 uppercase tracking-tight">{risk}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Aligned With — 5 cols */}
-              <div className="lg:col-span-5 bg-navy p-8 lg:p-10 text-white relative overflow-hidden">
+              <div className="lg:col-span-5 bg-brand p-8 lg:p-10 text-white relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-brand/10" />
                 <div className="absolute bottom-0 left-0 w-48 h-24 bg-brand/[0.04]" />
                 <h3 className="text-[11px] font-bold text-white uppercase tracking-widest mb-5">Aligned With</h3>
@@ -82,7 +82,7 @@ export default function AboutPage() {
           <div className="max-w-[1240px] mx-auto px-6 relative z-10">
             <div className="max-w-3xl mb-10">
               <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-3 block">Operational Focus</span>
-              <h2 className="text-2xl lg:text-[34px] font-extrabold text-navy leading-tight tracking-tight mb-4">
+              <h2 className="text-2xl lg:text-[34px] font-extrabold text-slate-900 leading-tight tracking-tight mb-4">
                 What ARIFAC Does
               </h2>
               <p className="text-slate-600 text-[16px] leading-[1.7]">
@@ -137,7 +137,7 @@ export default function AboutPage() {
 
                   <div className="relative z-10">
                     <div className="w-8 h-1 bg-brand mb-4 group-hover:w-12 transition-all duration-500" />
-                    <h3 className="text-[18px] font-bold text-navy mb-4 leading-tight group-hover:text-brand transition-colors">
+                    <h3 className="text-[18px] font-bold text-slate-900 mb-4 leading-tight group-hover:text-brand transition-colors">
                       {item.title}
                     </h3>
                     <ul className="space-y-2.5">
@@ -162,13 +162,13 @@ export default function AboutPage() {
               {/* Left: Header + description */}
               <div className="lg:col-span-4">
                 <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-3 block">Membership</span>
-                <h2 className="text-2xl lg:text-[34px] font-extrabold text-navy leading-tight tracking-tight mb-4">
+                <h2 className="text-2xl lg:text-[34px] font-extrabold text-slate-900 leading-tight tracking-tight mb-4">
                   Who Should Engage
                 </h2>
                 <p className="text-slate-600 text-[15px] leading-relaxed mb-6">
                   ARIFAC&apos;s platform is designed for all entities and professionals operating within India&apos;s AML/CFT regulatory perimeter.
                 </p>
-                <Link href="/membership" className="inline-flex items-center gap-3 bg-navy text-white px-6 py-3 text-[13px] font-bold hover:bg-brand transition-colors group">
+                <Link href="/membership" className="inline-flex items-center gap-3 bg-brand text-white px-6 py-3 text-[13px] font-bold hover:bg-brand transition-colors group">
                   Explore Membership
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -190,11 +190,11 @@ export default function AboutPage() {
                     { name: "AML Investigators", sub: "Financial crime analysts, investigation units, forensic teams" }
                   ].map((item, idx) => (
                     <div key={idx} className="group flex gap-4 items-start bg-slate-50 p-5 border border-slate-100 hover:bg-white hover:border-brand/30 hover:shadow-sm transition-all">
-                      <div className="w-8 h-8 bg-navy/[0.06] group-hover:bg-brand/10 flex items-center justify-center flex-shrink-0 transition-colors">
-                        <span className="text-[11px] font-black text-navy/40 group-hover:text-brand transition-colors">0{idx + 1}</span>
+                      <div className="w-8 h-8 bg-brand/[0.06] group-hover:bg-brand/10 flex items-center justify-center flex-shrink-0 transition-colors">
+                        <span className="text-[11px] font-black text-slate-900/40 group-hover:text-brand transition-colors">0{idx + 1}</span>
                       </div>
                       <div>
-                        <h3 className="text-[14px] font-bold text-navy mb-1 group-hover:text-brand transition-colors">{item.name}</h3>
+                        <h3 className="text-[14px] font-bold text-slate-900 mb-1 group-hover:text-brand transition-colors">{item.name}</h3>
                         <p className="text-slate-500 text-[12px] leading-relaxed">{item.sub}</p>
                       </div>
                     </div>

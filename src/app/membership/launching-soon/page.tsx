@@ -17,7 +17,7 @@ export default function MembershipLaunchingSoonPage() {
           <p className="text-[14px] text-slate-600 leading-relaxed max-w-2xl">
             For immediate interest registration and eligibility questions, reach out at help.arifac@iamai.in.
           </p>
-          <Link href="/contact" className="bg-navy text-white px-5 py-3 text-[12px] font-bold uppercase tracking-wider hover:bg-brand transition-colors">
+          <Link href="/contact" className="bg-brand text-white px-5 py-3 text-[12px] font-bold uppercase tracking-wider hover:bg-brand transition-colors">
             Contact Secretariat
           </Link>
         </div>

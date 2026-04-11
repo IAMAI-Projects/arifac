@@ -35,9 +35,9 @@ export default function ContactPage() {
             },
           ].map((item) => (
             <article key={item.title} className="bg-white border border-slate-200 p-5 hover:border-brand/30 transition-colors">
-              <h3 className="text-[16px] font-bold text-navy mb-2">{item.title}</h3>
+              <h3 className="text-[16px] font-bold text-slate-900 mb-2">{item.title}</h3>
               <p className="text-[14px] text-slate-600 leading-relaxed mb-5">{item.detail}</p>
-              <Link href={item.action} className="text-[12px] font-bold uppercase tracking-wider text-brand hover:text-navy transition-colors">
+              <Link href={item.action} className="text-[12px] font-bold uppercase tracking-wider text-brand hover:text-slate-900 transition-colors">
                 {item.actionLabel}
               </Link>
             </article>
@@ -49,7 +49,7 @@ export default function ContactPage() {
           <p className="text-[15px] text-slate-700 leading-relaxed mb-2">
             ARIFAC Secretariat
           </p>
-          <a href="mailto:help.arifac@iamai.in" className="text-[15px] font-semibold text-navy hover:text-brand transition-colors">
+          <a href="mailto:help.arifac@iamai.in" className="text-[15px] font-semibold text-slate-900 hover:text-brand transition-colors">
             help.arifac@iamai.in
           </a>
           <p className="text-[13px] text-slate-500 mt-4">

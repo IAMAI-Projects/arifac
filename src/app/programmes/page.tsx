@@ -234,7 +234,7 @@ export default function ProgrammesPage() {
                     0{idx + 1}
                   </div>
                   <div className="relative z-10">
-                    <h4 className="text-[14px] font-bold text-navy mb-2 group-hover:text-brand transition-colors">
+                    <h4 className="text-[14px] font-bold text-slate-900 mb-2 group-hover:text-brand transition-colors">
                       {ch.title}
                     </h4>
                     <p className="text-slate-500 text-[12px] leading-relaxed line-clamp-2">
@@ -253,7 +253,7 @@ export default function ProgrammesPage() {
             <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
               <div className="flex items-center gap-3">
                 <div className="w-1 h-6 bg-brand" />
-                <h2 className="text-xl lg:text-2xl font-extrabold text-navy uppercase tracking-tight">
+                <h2 className="text-xl lg:text-2xl font-extrabold text-slate-900 uppercase tracking-tight">
                   Upcoming Programmes
                 </h2>
               </div>
@@ -293,7 +293,7 @@ export default function ProgrammesPage() {
                         </span>
                       </td>
                       <td className="px-4 py-4">
-                        <span className="text-[15px] font-bold text-navy leading-snug group-hover:text-brand transition-colors">
+                        <span className="text-[15px] font-bold text-slate-900 leading-snug group-hover:text-brand transition-colors">
                           {row.programme}
                         </span>
                       </td>
@@ -326,7 +326,7 @@ export default function ProgrammesPage() {
                       {row.date}
                     </span>
                   </div>
-                  <h4 className="text-[14px] font-bold text-navy leading-snug group-hover:text-brand transition-colors">
+                  <h4 className="text-[14px] font-bold text-slate-900 leading-snug group-hover:text-brand transition-colors">
                     {row.programme}
                   </h4>
                 </div>
@@ -343,7 +343,7 @@ export default function ProgrammesPage() {
             <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-200">
               <div className="flex items-center gap-3">
                 <div className="w-1 h-6 bg-slate-400" />
-                <h2 className="text-xl lg:text-2xl font-extrabold text-navy uppercase tracking-tight">
+                <h2 className="text-xl lg:text-2xl font-extrabold text-slate-900 uppercase tracking-tight">
                   Recent Consultations
                 </h2>
               </div>
@@ -374,7 +374,7 @@ export default function ProgrammesPage() {
 
                   {/* Title */}
                   <div className="col-span-8 lg:col-span-7">
-                    <h4 className="text-[14px] font-bold text-navy leading-snug group-hover:text-brand transition-colors">
+                    <h4 className="text-[14px] font-bold text-slate-900 leading-snug group-hover:text-brand transition-colors">
                       {row.programme}
                     </h4>
                   </div>
@@ -403,7 +403,7 @@ export default function ProgrammesPage() {
                     Institutional Dialogue
                   </span>
                 </div>
-                <h2 className="text-2xl lg:text-[28px] font-extrabold text-navy leading-tight tracking-tight mb-3">
+                <h2 className="text-2xl lg:text-[28px] font-extrabold text-slate-900 leading-tight tracking-tight mb-3">
                   Annual Meetings &amp; Regulatory Fora.
                 </h2>
                 <p className="text-slate-600 text-[14px] leading-relaxed">
@@ -418,7 +418,7 @@ export default function ProgrammesPage() {
                 <div className="bg-white border border-slate-200 overflow-hidden shadow-sm">
                   <table className="w-full text-left border-collapse">
                     <thead>
-                      <tr className="bg-navy">
+                      <tr className="bg-brand">
                         <th className="px-5 lg:px-6 py-4 text-[10px] font-black text-white/60 uppercase tracking-widest w-[15%]">
                           Year
                         </th>
@@ -449,7 +449,7 @@ export default function ProgrammesPage() {
                               </span>
                             </td>
                             <td className="px-5 lg:px-6 py-4">
-                              <span className="text-[14px] font-bold text-navy group-hover:text-brand transition-colors">
+                              <span className="text-[14px] font-bold text-slate-900 group-hover:text-brand transition-colors">
                                 {mtg.meeting}
                               </span>
                             </td>

@@ -42,7 +42,7 @@ export default function RegulatoryDashboard() {
             {updates.map((update, idx) => (
               <div key={idx} className="flex flex-col p-5 lg:p-6 border border-slate-100 rounded-xl hover:border-brand/30 hover:shadow-sm transition-all group bg-white">
                 <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <span className="bg-blue-50 text-blue-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">RBI</span>
+                  <span className="bg-brand-subtle text-brand text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">RBI</span>
                   <span className="bg-slate-100 text-slate-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">{update.category}</span>
                   <span className="text-[11px] text-slate-400 font-medium ml-1">{update.date}</span>
                 </div>

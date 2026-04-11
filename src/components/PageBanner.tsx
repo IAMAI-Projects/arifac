@@ -6,7 +6,7 @@ interface PageBannerProps {
 
 export default function PageBanner({ label, title, description }: PageBannerProps) {
   return (
-    <section className="relative bg-navy pt-10 pb-10 lg:pt-14 lg:pb-12 overflow-hidden">
+    <section className="relative bg-brand pt-10 pb-10 lg:pt-14 lg:pb-12 overflow-hidden">
       <div className="absolute inset-0 bg-grid-subtle opacity-[0.03] pointer-events-none" />
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-brand/[0.05] to-transparent pointer-events-none hidden lg:block" />
 

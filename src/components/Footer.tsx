@@ -27,7 +27,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-navy text-white pt-16 md:pt-24 pb-10">
+    <footer className="bg-brand-dark text-white pt-16 md:pt-24 pb-10">
       <div className="max-w-[1240px] mx-auto px-6">
         <div className="grid md:grid-cols-12 gap-12 lg:gap-10 mb-16">
           
@@ -47,7 +47,7 @@ export default function Footer() {
           </div>
           
           <div className="md:col-span-2 md:col-start-6">
-            <h4 className="text-[11px] font-bold text-cyan-400 uppercase tracking-[0.2em] mb-6">Alliance</h4>
+            <h4 className="text-[11px] font-bold text-brand-on-dark uppercase tracking-[0.2em] mb-6">Alliance</h4>
             <div className="flex flex-col gap-4 text-[13px] text-slate-300">
               {allianceLinks.map((link) => (
                 <Link key={link.href} href={link.href} className="hover:text-white transition-colors">
@@ -58,7 +58,7 @@ export default function Footer() {
           </div>
           
           <div className="md:col-span-2">
-            <h4 className="text-[11px] font-bold text-cyan-400 uppercase tracking-[0.2em] mb-6">Programmes</h4>
+            <h4 className="text-[11px] font-bold text-brand-on-dark uppercase tracking-[0.2em] mb-6">Programmes</h4>
             <div className="flex flex-col gap-4 text-[13px] text-slate-300">
               {programmesLinks.map((link) => (
                 <Link key={link.href} href={link.href} className="hover:text-white transition-colors">
@@ -69,7 +69,7 @@ export default function Footer() {
           </div>
 
           <div className="md:col-span-2">
-            <h4 className="text-[11px] font-bold text-cyan-400 uppercase tracking-[0.2em] mb-6">Support</h4>
+            <h4 className="text-[11px] font-bold text-brand-on-dark uppercase tracking-[0.2em] mb-6">Support</h4>
             <div className="flex flex-col gap-4 text-[13px] text-slate-300">
               {supportLinks.map((link) => (
                 <Link key={link.href} href={link.href} className="hover:text-white transition-colors">

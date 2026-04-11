@@ -157,11 +157,11 @@ export default function CertificationPage() {
                 >
                   <div className="absolute inset-0 bg-noise opacity-[0.015] pointer-events-none" />
                   <div className="flex items-center gap-4 relative z-10">
-                    <div className="w-10 h-10 bg-navy/[0.03] text-brand flex items-center justify-center flex-shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300">
+                    <div className="w-10 h-10 bg-brand/[0.03] text-brand flex items-center justify-center flex-shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300">
                       {tier.icon}
                     </div>
                     <div className="min-w-0">
-                      <h3 className="text-[13px] font-bold text-navy uppercase tracking-widest group-hover:text-brand transition-colors">
+                      <h3 className="text-[13px] font-bold text-slate-900 uppercase tracking-widest group-hover:text-brand transition-colors">
                         {tier.label}
                       </h3>
                       <p className="text-slate-400 text-[11px] leading-relaxed truncate">
@@ -185,7 +185,7 @@ export default function CertificationPage() {
                 <div className="lg:sticky lg:top-6">
                   <div className="bg-white border border-slate-200 shadow-sm overflow-hidden">
                     {/* Sidebar header */}
-                    <div className="bg-navy px-5 py-4">
+                    <div className="bg-brand px-5 py-4">
                       <h3 className="text-[11px] font-bold text-white uppercase tracking-widest">
                         Filter Programmes
                       </h3>
@@ -222,7 +222,7 @@ export default function CertificationPage() {
                               className={`w-full text-left px-3 py-2 text-[12px] font-bold transition-all ${
                                 categoryFilter === cat
                                   ? "bg-brand text-white"
-                                  : "text-navy hover:bg-slate-50 border border-transparent hover:border-slate-200"
+                                  : "text-slate-900 hover:bg-slate-50 border border-transparent hover:border-slate-200"
                               }`}
                             >
                               {cat}
@@ -244,7 +244,7 @@ export default function CertificationPage() {
                               className={`w-full text-left px-3 py-2 text-[12px] font-bold transition-all ${
                                 formatFilter === fmt
                                   ? "bg-brand text-white"
-                                  : "text-navy hover:bg-slate-50 border border-transparent hover:border-slate-200"
+                                  : "text-slate-900 hover:bg-slate-50 border border-transparent hover:border-slate-200"
                               }`}
                             >
                               {fmt}
@@ -280,10 +280,10 @@ export default function CertificationPage() {
                       className="group relative bg-white border border-slate-200 hover:border-brand/40 hover:shadow-lg transition-all duration-500 overflow-hidden"
                     >
                       {/* Top accent bar */}
-                      <div className="h-1 w-full bg-gradient-to-r from-brand to-brand-light group-hover:from-navy group-hover:to-brand transition-all duration-500" />
+                      <div className="h-1 w-full bg-gradient-to-r from-brand to-brand-light group-hover:from-brand-dark group-hover:to-brand transition-all duration-500" />
 
                       {/* Background index */}
-                      <div className="absolute top-6 right-5 text-[64px] font-black text-navy/[0.04] group-hover:text-brand/[0.08] transition-colors pointer-events-none select-none leading-none">
+                      <div className="absolute top-6 right-5 text-[64px] font-black text-slate-900/[0.04] group-hover:text-brand/[0.08] transition-colors pointer-events-none select-none leading-none">
                         {String(idx + 1).padStart(2, "0")}
                       </div>
 
@@ -294,7 +294,7 @@ export default function CertificationPage() {
                           </span>
                         </div>
 
-                        <h3 className="text-[16px] font-bold text-navy mb-2 leading-tight group-hover:text-brand transition-colors pr-12">
+                        <h3 className="text-[16px] font-bold text-slate-900 mb-2 leading-tight group-hover:text-brand transition-colors pr-12">
                           {cert.title}
                         </h3>
 
@@ -304,10 +304,10 @@ export default function CertificationPage() {
 
                         {/* Meta tags */}
                         <div className="flex flex-wrap items-center gap-2 mb-4">
-                          <span className="text-[10px] font-bold text-navy uppercase tracking-wider px-2.5 py-1 bg-navy/[0.04] border border-navy/10">
+                          <span className="text-[10px] font-bold text-slate-900 uppercase tracking-wider px-2.5 py-1 bg-brand/[0.04] border border-slate-900/10">
                             {cert.format}
                           </span>
-                          <span className="text-[10px] font-bold text-navy uppercase tracking-wider px-2.5 py-1 bg-navy/[0.04] border border-navy/10">
+                          <span className="text-[10px] font-bold text-slate-900 uppercase tracking-wider px-2.5 py-1 bg-brand/[0.04] border border-slate-900/10">
                             {cert.duration}
                           </span>
                           <span className="text-[10px] font-bold text-brand uppercase tracking-wider px-2.5 py-1 bg-brand/[0.06] border border-brand/15">
@@ -320,7 +320,7 @@ export default function CertificationPage() {
                           onClick={() =>
                             setExpanded(expanded === cert.id ? null : cert.id)
                           }
-                          className="flex items-center gap-2 text-[11px] font-bold text-navy uppercase tracking-widest hover:text-brand transition-colors"
+                          className="flex items-center gap-2 text-[11px] font-bold text-slate-900 uppercase tracking-widest hover:text-brand transition-colors"
                         >
                           <svg
                             className={`w-3 h-3 transition-transform duration-300 ${expanded === cert.id ? "rotate-90" : ""}`}
@@ -353,7 +353,7 @@ export default function CertificationPage() {
                         <div className="mt-4 pt-4 border-t border-slate-100">
                           <Link
                             href={`/contact?subject=${encodeURIComponent(cert.title)}`}
-                            className="group/btn inline-flex items-center gap-2 bg-navy text-white px-4 py-2 text-[11px] font-bold uppercase tracking-widest hover:bg-brand transition-colors"
+                            className="group/btn inline-flex items-center gap-2 bg-brand text-white px-4 py-2 text-[11px] font-bold uppercase tracking-widest hover:bg-brand transition-colors"
                           >
                             Enquire
                             <svg
@@ -384,35 +384,6 @@ export default function CertificationPage() {
           </div>
         </section>
 
-        {/* ── Statutory Notice ── */}
-        <section className="py-8 lg:py-10 bg-white">
-          <div className="max-w-[1240px] mx-auto px-6">
-            <div className="bg-navy p-8 lg:p-10 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-brand/10" />
-              <div className="absolute bottom-0 left-0 w-48 h-24 bg-brand/[0.04]" />
-              <div className="absolute inset-0 bg-grid-subtle opacity-[0.04] pointer-events-none" />
-
-              <div className="relative z-10 grid lg:grid-cols-12 gap-8 items-start">
-                <div className="lg:col-span-3">
-                  <h3 className="text-[11px] font-bold text-white uppercase tracking-widest mb-3">
-                    Statutory Notice
-                  </h3>
-                  <div className="h-1 w-12 bg-brand" />
-                </div>
-                <div className="lg:col-span-9">
-                  <p className="text-slate-300 text-[15px] leading-relaxed">
-                    ARIFAC certifications indicate successful completion of
-                    programme requirements and competency assessments. They do
-                    not represent regulatory approval, legal authorization, or
-                    statutory licensing. All entities and professionals remain
-                    responsible for compliance with applicable obligations under
-                    the PMLA framework and related regulatory directions.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer />

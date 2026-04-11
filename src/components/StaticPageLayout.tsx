@@ -50,7 +50,7 @@ export function ContentSection({
               {eyebrow}
             </span>
           ) : null}
-          <h2 className="text-2xl lg:text-[34px] font-extrabold text-navy leading-tight tracking-tight mb-4">
+          <h2 className="text-2xl lg:text-[34px] font-extrabold text-slate-900 leading-tight tracking-tight mb-4">
             {title}
           </h2>
           {description ? (

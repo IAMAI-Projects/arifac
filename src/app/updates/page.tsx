@@ -163,7 +163,7 @@ const updates: RegulatoryUpdate[] = [
 const PER_PAGE = 10;
 
 const regulatorTone: Record<RegulatoryUpdate["regulator"], string> = {
-  RBI: "bg-blue-50 text-blue-700 border-blue-200",
+  RBI: "bg-brand-subtle text-brand border-brand/20",
   "FIU-IND": "bg-emerald-50 text-emerald-700 border-emerald-200",
   SEBI: "bg-violet-50 text-violet-700 border-violet-200",
   IRDAI: "bg-amber-50 text-amber-700 border-amber-200",
@@ -281,7 +281,7 @@ export default function UpdatesPage() {
               <div>
                 <p className="text-slate-500 text-[14px]">
                   Showing <span className="font-black text-brand">{showingStart}-{showingEnd}</span> of{" "}
-                  <span className="font-black text-navy">{filtered.length}</span> circulars
+                  <span className="font-black text-slate-900">{filtered.length}</span> circulars
                 </p>
               </div>
 
@@ -313,7 +313,7 @@ export default function UpdatesPage() {
                         <span className="text-[12px] text-slate-500 font-semibold">{formatDate(item.issuedOn)}</span>
                       </div>
 
-                      <h3 className="text-[16px] lg:text-[18px] font-bold text-navy leading-tight group-hover:text-brand transition-colors">
+                      <h3 className="text-[16px] lg:text-[18px] font-bold text-slate-900 leading-tight group-hover:text-brand transition-colors">
                         {item.title}
                       </h3>
                       <p className="text-[12px] text-slate-500 font-mono mt-2">{item.circularRef}</p>
@@ -323,7 +323,7 @@ export default function UpdatesPage() {
                       href={item.link}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="shrink-0 inline-flex items-center gap-2 border border-slate-300 px-4 py-2 text-[11px] font-black uppercase tracking-wide text-slate-700 hover:bg-navy hover:text-white hover:border-navy transition-all"
+                      className="shrink-0 inline-flex items-center gap-2 border border-slate-300 px-4 py-2 text-[11px] font-black uppercase tracking-wide text-slate-700 hover:bg-brand hover:text-white hover:border-slate-900 transition-all"
                     >
                       View Circular
                       <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
@@ -338,15 +338,15 @@ export default function UpdatesPage() {
 
             <div className="mt-8 pt-6 border-t border-slate-200 flex items-center justify-between gap-4">
               <p className="text-[14px] text-slate-600">
-                Showing <span className="font-black text-navy">{showingStart}-{showingEnd}</span> of{" "}
-                <span className="font-black text-navy">{filtered.length}</span> circulars
+                Showing <span className="font-black text-slate-900">{showingStart}-{showingEnd}</span> of{" "}
+                <span className="font-black text-slate-900">{filtered.length}</span> circulars
               </p>
 
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={safePage === 1}
-                  className="w-9 h-9 border border-slate-300 text-slate-600 font-black disabled:opacity-35 disabled:cursor-not-allowed hover:bg-navy hover:text-white hover:border-navy transition-colors"
+                  className="w-9 h-9 border border-slate-300 text-slate-600 font-black disabled:opacity-35 disabled:cursor-not-allowed hover:bg-brand hover:text-white hover:border-slate-900 transition-colors"
                 >
                   {"<"}
                 </button>
@@ -355,7 +355,7 @@ export default function UpdatesPage() {
                     key={entry}
                     onClick={() => setPage(entry)}
                     className={`w-9 h-9 text-[12px] font-black border transition-colors ${
-                      entry === safePage ? "bg-navy text-white border-navy" : "border-slate-300 text-slate-600 hover:border-navy hover:text-navy"
+                      entry === safePage ? "bg-brand text-white border-slate-900" : "border-slate-300 text-slate-600 hover:border-slate-900 hover:text-slate-900"
                     }`}
                   >
                     {entry}
@@ -364,7 +364,7 @@ export default function UpdatesPage() {
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={safePage === totalPages}
-                  className="w-9 h-9 border border-slate-300 text-slate-600 font-black disabled:opacity-35 disabled:cursor-not-allowed hover:bg-navy hover:text-white hover:border-navy transition-colors"
+                  className="w-9 h-9 border border-slate-300 text-slate-600 font-black disabled:opacity-35 disabled:cursor-not-allowed hover:bg-brand hover:text-white hover:border-slate-900 transition-colors"
                 >
                   {">"}
                 </button>

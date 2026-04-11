@@ -46,17 +46,17 @@ export default function GalleryPage() {
               <div className="absolute top-3 right-4 text-[42px] font-black text-slate-100 group-hover:text-brand/[0.08] transition-colors select-none pointer-events-none">
                 {String(idx + 1).padStart(2, "0")}
               </div>
-              <h3 className="text-[16px] font-bold text-navy mb-2 relative z-10">{item.title}</h3>
+              <h3 className="text-[16px] font-bold text-slate-900 mb-2 relative z-10">{item.title}</h3>
               <p className="text-[14px] text-slate-600 leading-relaxed relative z-10">{item.text}</p>
             </article>
           ))}
         </div>
 
-        <div className="mt-8 bg-navy text-white p-6 lg:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+        <div className="mt-8 bg-brand text-white p-6 lg:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-5">
           <p className="text-[15px] text-slate-300 leading-relaxed max-w-2xl">
             Access to specific consultations, working groups, and training programmes may be subject to eligibility and participation criteria.
           </p>
-          <Link href="/contact" className="bg-white text-navy px-5 py-3 text-[12px] font-bold uppercase tracking-wider hover:bg-brand hover:text-white transition-colors text-center">
+          <Link href="/contact" className="bg-white text-slate-900 px-5 py-3 text-[12px] font-bold uppercase tracking-wider hover:bg-brand hover:text-white transition-colors text-center">
             Request Participation
           </Link>
         </div>

@@ -14,14 +14,14 @@ export default function PrivacyPage() {
       >
         <div className="grid md:grid-cols-2 gap-5">
           <article className="border border-slate-200 bg-white p-5">
-            <h3 className="text-[14px] font-bold text-navy mb-2">Purpose of Collection</h3>
+            <h3 className="text-[14px] font-bold text-slate-900 mb-2">Purpose of Collection</h3>
             <p className="text-[14px] text-slate-600 leading-relaxed">
               Information is used to evaluate participation, manage communication, and administer ARIFAC programmes and services.
             </p>
           </article>
 
           <article className="border border-slate-200 bg-white p-5">
-            <h3 className="text-[14px] font-bold text-navy mb-2">Consent and Compliance</h3>
+            <h3 className="text-[14px] font-bold text-slate-900 mb-2">Consent and Compliance</h3>
             <p className="text-[14px] text-slate-600 leading-relaxed">
               Users should provide accurate information and review legal pages periodically for updates on policy and disclosure terms.
             </p>
