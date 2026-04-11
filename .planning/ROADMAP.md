@@ -32,8 +32,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Install Payload CMS packages, create config with Users collection and PostgreSQL adapter, wire into Next.js
-- [ ] 01-02-PLAN.md — Restructure app into route groups, create admin panel route, run migration, verify end-to-end
+- [x] 01-01-PLAN.md — Install Payload CMS packages, create config with Users collection and PostgreSQL adapter, wire into Next.js
+- [x] 01-02-PLAN.md — Restructure app into route groups, create admin panel route, run migration, verify end-to-end
 
 ### Phase 2: Content Modeling & Frontend Integration
 **Goal**: Every piece of site content is manageable from the CMS admin panel, and all frontend pages render from CMS data
@@ -45,13 +45,13 @@ Plans:
   3. Editor can add, edit, and remove individual regulatory updates, certifications, and programmes from their respective collections
   4. Editor can update the news scroller content from the admin panel
   5. Admin can view a change history showing who edited what content and when
-**Plans**: TBD
+**Plans**: 3 plans
 **UI hint**: yes
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
-- [ ] 02-03: TBD
+- [ ] 02-01-PLAN.md — Define all Payload CMS content schemas (collections, globals, blocks), run migration, generate types
+- [ ] 02-02-PLAN.md — Convert home page to server component with BlockRenderer and CMS-driven section components
+- [ ] 02-03-PLAN.md — Wire static pages via dynamic [slug] route, convert special pages, add news scroller to layout
 
 ### Phase 3: Content Migration
 **Goal**: All existing hardcoded content lives in the CMS database, and the site looks identical to its pre-CMS state
