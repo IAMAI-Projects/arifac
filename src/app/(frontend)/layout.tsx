@@ -1,27 +1,46 @@
-import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import { Plus_Jakarta_Sans, Inter } from 'next/font/google'
+import configPromise from '@payload-config'
+import { getPayload } from 'payload'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import type { NewsItem } from '@/payload-types'
 
 const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-heading",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-});
+  variable: '--font-heading',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+})
 
 const inter = Inter({
-  variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
+  variable: '--font-body',
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+})
 
-export default function FrontendLayout({
+export default async function FrontendLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
+  const payload = await getPayload({ config: configPromise })
+  const { docs: newsItems } = await payload.find({
+    collection: 'news-items',
+    where: { published: { equals: true } },
+    sort: '-createdAt',
+    limit: 20,
+  })
+
   return (
     <html lang="en">
       <body className={`${plusJakarta.variable} ${inter.variable} h-full font-body min-h-full flex flex-col antialiased bg-white text-slate-900`}>
-        {children}
+        <div className="min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand selection:text-white flex flex-col">
+          <Header newsItems={newsItems as NewsItem[]} />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
-  );
+  )
 }
