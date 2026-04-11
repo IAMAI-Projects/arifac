@@ -2,14 +2,16 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #0f172a; /* Slate 900 */
+  --foreground: #1a1a1a;
 }
 
 @theme inline {
-  --color-brand: #005A87;
-  --color-brand-light: #4BA9D9; 
-  --color-navy: #0A1932;
-  --color-navy-dark: #020617;
+  --color-brand: #E72A2F;
+  --color-brand-light: #F06668;
+  --color-brand-dark: #B81F23;
+  --color-brand-darker: #8B1A1A;
+  --color-brand-subtle: #FEE2E2;
+  --color-brand-on-dark: rgba(255, 255, 255, 0.85);
 }
 
 body {
