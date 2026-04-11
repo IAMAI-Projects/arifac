@@ -1,6 +1,10 @@
 import Link from "next/link";
 import type { Page, RegulatoryUpdate } from '@/payload-types'
 
+function isExternalUrl(url: string): boolean {
+  return url.startsWith('http://') || url.startsWith('https://')
+}
+
 type RegulatoryDashboardBlockData = Extract<NonNullable<Page['layout']>[number], { blockType: 'regulatoryDashboard' }>
 
 const issuingBodyLabels: Record<RegulatoryUpdate['issuingBody'], string> = {
@@ -63,12 +67,26 @@ export default function RegulatoryDashboard({ data, updates }: RegulatoryDashboa
                     <p className="text-[12px] font-medium text-neutral-400 font-mono tracking-tight">{update.referenceNumber}</p>
                   </div>
                   {update.link && (
-                    <Link href={update.link} className="flex-shrink-0 flex items-center gap-2 text-[11px] font-bold border border-neutral-200 px-4 py-2 rounded-lg hover:border-brand hover:text-brand transition-all whitespace-nowrap group/btn">
-                      View Circular
-                      <svg className="w-3.5 h-3.5 opacity-60 group-hover/btn:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                    </Link>
+                    isExternalUrl(update.link) ? (
+                      <a
+                        href={update.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-shrink-0 flex items-center gap-2 text-[11px] font-bold border border-neutral-200 px-4 py-2 rounded-lg hover:border-brand hover:text-brand transition-all whitespace-nowrap group/btn"
+                      >
+                        View Circular
+                        <svg className="w-3.5 h-3.5 opacity-60 group-hover/btn:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    ) : (
+                      <Link href={update.link} className="flex-shrink-0 flex items-center gap-2 text-[11px] font-bold border border-neutral-200 px-4 py-2 rounded-lg hover:border-brand hover:text-brand transition-all whitespace-nowrap group/btn">
+                        View Circular
+                        <svg className="w-3.5 h-3.5 opacity-60 group-hover/btn:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </Link>
+                    )
                   )}
                 </div>
               </div>
