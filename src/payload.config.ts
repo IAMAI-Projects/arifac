@@ -14,6 +14,16 @@ import { Programmes } from './globals/Programmes'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const payloadSecret = process.env.PAYLOAD_SECRET
+if (!payloadSecret) {
+  throw new Error('PAYLOAD_SECRET environment variable is required')
+}
+
+const databaseUri = process.env.DATABASE_URI
+if (!databaseUri) {
+  throw new Error('DATABASE_URI environment variable is required')
+}
+
 export default buildConfig({
   admin: {
     user: 'users',
@@ -54,13 +64,13 @@ export default buildConfig({
   ],
   globals: [Programmes],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: payloadSecret,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || '',
+      connectionString: databaseUri,
     },
   }),
   sharp,
