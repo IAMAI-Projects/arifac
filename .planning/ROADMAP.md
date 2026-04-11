@@ -29,12 +29,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. An admin user can create additional editor accounts from the admin panel
   4. Existing frontend pages still render correctly at their current URLs (no regressions from route group restructure)
   5. PostgreSQL database is connected and Payload migrations run successfully
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
-- [ ] 01-03: TBD
+- [ ] 01-01-PLAN.md — Install Payload CMS packages, create config with Users collection and PostgreSQL adapter, wire into Next.js
+- [ ] 01-02-PLAN.md — Restructure app into route groups, create admin panel route, run migration, verify end-to-end
 
 ### Phase 2: Content Modeling & Frontend Integration
 **Goal**: Every piece of site content is manageable from the CMS admin panel, and all frontend pages render from CMS data
@@ -88,7 +87,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. CMS Foundation | 0/3 | Not started | - |
+| 1. CMS Foundation | 0/2 | Not started | - |
 | 2. Content Modeling & Frontend Integration | 0/3 | Not started | - |
 | 3. Content Migration | 0/1 | Not started | - |
 | 4. Production Deployment | 0/1 | Not started | - |
