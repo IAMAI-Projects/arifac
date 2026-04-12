@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARIFAC Hero Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
+  body { font-family: 'Inter', sans-serif; background: #f1f5f9; color: #081329; }
+  h1, h2, h3, h4, h5 { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+  :root {
+    --brand: #C41E24;
+    --brand-light: #DE5358;
+    --navy: #081329;
+    --neutral-50: #f8fafc;
+    --neutral-100: #f1f5f9;
+    --neutral-200: #e2e8f0;
+    --neutral-300: #cbd5e1;
+    --neutral-400: #94a3b8;
+    --neutral-500: #64748b;
+    --neutral-600: #475569;
+    --neutral-900: #081329;
+  }
+
+  .option-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--brand);
+    padding: 40px 0 16px;
+    text-align: center;
+  }
+  .option-label span { color: var(--neutral-400); font-weight: 600; font-size: 12px; display: block; margin-top: 4px; letter-spacing: 0.05em; text-transform: none; }
+
+  .hero-wrap {
+    max-width: 1300px;
+    margin: 0 auto 60px;
+    box-shadow: 0 8px 40px -12px rgba(0,0,0,0.10);
+    border: 1px solid var(--neutral-200);
+    overflow: hidden;
+  }
+
+  /* Shared */
+  .tagline {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--brand);
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+  }
+  .heading {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+  .heading .hl {
+    color: var(--brand);
+    position: relative;
+    display: inline;
+  }
+  .desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--neutral-600);
+    max-width: 540px;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--brand);
+    color: #fff;
+    padding: 14px 28px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #a8191e; }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--brand);
+    padding: 14px 28px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid rgba(196,30,36,0.3);
+    transition: background 0.2s;
+  }
+  .btn-ghost:hover { background: rgba(196,30,36,0.04); }
+  .ctas { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .fiu-badge { display: flex; align-items: center; gap: 12px; }
+  .fiu-badge img { width: 40px; height: 40px; }
+  .fiu-badge .label { font-size: 9px; font-weight: 700; color: var(--neutral-400); text-transform: uppercase; letter-spacing: 0.25em; line-height: 1; margin-bottom: 4px; }
+  .fiu-badge .name { font-size: 16px; font-weight: 900; color: var(--navy); line-height: 1; }
+  .side-section h4 { font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 8px; }
+  .side-section p { font-size: 14px; line-height: 1.6; color: var(--neutral-600); }
+  .arrow { width: 16px; height: 16px; }
+
+  /* ═══════ OPTION A — Editorial Split ═══════ */
+  .hero-a {
+    background: #fff;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 3px 1fr;
+    min-height: 420px;
+  }
+  .hero-a .left {
+    padding: 56px 48px 56px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-a .divider {
+    background: var(--brand);
+    position: relative;
+  }
+  .hero-a .divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 11px;
+    height: 11px;
+    background: var(--brand);
+  }
+  .hero-a .right {
+    padding: 56px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--neutral-50);
+  }
+  .hero-a .heading { font-size: 36px; margin-bottom: 20px; }
+  .hero-a .tagline { margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .hero-a .tagline::before { content: ''; width: 8px; height: 8px; background: var(--brand); display: block; flex-shrink: 0; }
+  .hero-a .ctas { margin-top: 32px; }
+  .hero-a .right .desc { margin-top: 20px; margin-bottom: 0; max-width: 100%; }
+  .hero-a .right .fiu-badge { margin-bottom: 24px; }
+  .hero-a .right .side-section { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--neutral-200); }
+
+  /* ═══════ OPTION B — Red Banner Strip ═══════ */
+  .hero-b { background: #fff; }
+  .hero-b .banner {
+    background: var(--brand);
+    padding: 14px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .hero-b .banner .tagline { color: #fff; letter-spacing: 0.3em; font-size: 10px; }
+  .hero-b .banner .fiu-inline { display: flex; align-items: center; gap: 10px; }
+  .hero-b .banner .fiu-inline img { width: 24px; height: 24px; filter: brightness(0) invert(1); }
+  .hero-b .banner .fiu-inline span { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 0.15em; }
+  .hero-b .content {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 48px 48px 56px;
+    text-align: center;
+  }
+  .hero-b .heading { font-size: 42px; margin-bottom: 20px; }
+  .hero-b .desc { max-width: 600px; margin: 0 auto 32px; }
+  .hero-b .ctas { justify-content: center; }
+  .hero-b .trust-bar {
+    border-top: 1px solid var(--neutral-200);
+    margin: 0 48px;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+  .hero-b .trust-bar .side-section { display: flex; align-items: baseline; gap: 8px; }
+  .hero-b .trust-bar .side-section h4 { margin: 0; font-size: 10px; }
+  .hero-b .trust-bar .side-section p { font-size: 13px; }
+  .hero-b .hl-underline {
+    position: relative;
+    display: inline;
+    color: var(--brand);
+  }
+  .hero-b .hl-underline::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 0.15em;
+    background: rgba(196,30,36,0.2);
+  }
+
+  /* ═══════ OPTION C — Offset Card Overlap ═══════ */
+  .hero-c {
+    background: #fff;
+    position: relative;
+    padding: 56px 0 48px;
+  }
+  .hero-c .inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .hero-c .tagline { margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .hero-c .tagline::before { content: ''; width: 20px; height: 2px; background: var(--brand); }
+  .hero-c .heading { font-size: 42px; margin-bottom: 20px; }
+  .hero-c .heading .hl { color: var(--brand); }
+  .hero-c .desc { margin-bottom: 32px; }
+  .hero-c .card {
+    position: relative;
+    margin-top: -12px;
+    border-top: 4px solid var(--brand);
+    background: #fff;
+    padding: 32px;
+    box-shadow: 0 20px 50px -15px rgba(0,0,0,0.08);
+    border-left: 1px solid var(--neutral-200);
+    border-right: 1px solid var(--neutral-200);
+    border-bottom: 1px solid var(--neutral-200);
+  }
+  .hero-c .card .fiu-badge { margin-bottom: 20px; }
+  .hero-c .card .side-section + .side-section { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--neutral-200); }
+  /* Red corner triangle */
+  .hero-c .card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 32px 32px 0;
+    border-color: transparent rgba(196,30,36,0.06) transparent transparent;
+  }
+  /* Accent line left */
+  .hero-c::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--brand) 0%, var(--brand) 40%, transparent 100%);
+  }
+
+  /* ═══════ OPTION D — Left Red Rail ═══════ */
+  .hero-d {
+    background: #fff;
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    min-height: 400px;
+  }
+  .hero-d .rail {
+    background: var(--brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .hero-d .rail-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 10px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.85);
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    white-space: nowrap;
+  }
+  .hero-d .main {
+    padding: 48px 40px 48px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 700px;
+  }
+  .hero-d .tagline { margin-bottom: 20px; }
+  .hero-d .heading { font-size: 40px; margin-bottom: 18px; }
+  .hero-d .desc { margin-bottom: 28px; }
+  .hero-d .aside {
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid var(--neutral-200);
+    width: 340px;
+    background: var(--neutral-50);
+  }
+  .hero-d .aside .fiu-badge { margin-bottom: 24px; }
+  .hero-d .aside .side-section + .side-section { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--neutral-200); }
+
+  @media (max-width: 900px) {
+    .hero-a { grid-template-columns: 1fr; }
+    .hero-a .divider { height: 3px; width: 100%; }
+    .hero-a .divider::before { width: 11px; height: 11px; }
+    .hero-b .trust-bar { flex-direction: column; gap: 12px; }
+    .hero-c .inner { grid-template-columns: 1fr; }
+    .hero-d { grid-template-columns: 40px 1fr; }
+    .hero-d .aside { display: none; }
+    .heading { font-size: 28px !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- OPTION A -->
+<p class="option-label">Option A <span>Editorial Split &mdash; red divider is the hero</span></p>
+<div class="hero-wrap">
+  <div class="hero-a">
+    <div class="left">
+      <div class="tagline">National Alliance for Financial Integrity</div>
+      <h1 class="heading">Strengthening India's <span class="hl">Financial Integrity</span><br>Through Industry Collaboration</h1>
+      <div class="ctas">
+        <a href="#" class="btn-primary">Membership Benefits <svg class="arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></a>
+        <a href="#" class="btn-ghost">Explore Certifications</a>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="right">
+      <div class="fiu-badge">
+        <div style="width:40px;height:40px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#64748b;">FIU</div>
+        <div>
+          <div class="label">Under Guidance Of</div>
+          <div class="name">FIU-INDIA</div>
+        </div>
+      </div>
+      <p class="desc">ARIFAC enables collaboration, capacity building, and coordinated action to strengthen India's financial crime prevention ecosystem.</p>
+      <div class="side-section">
+        <h4>Strategic Alignment</h4>
+        <p>Operates in complete alignment with India's Financial Intelligence Unit and FATF global standards.</p>
+      </div>
+      <div class="side-section" style="margin-top:16px;padding-top:16px;border-top:1px solid #e2e8f0;">
+        <h4>Industry Led</h4>
+        <p>Driven by the joint action of scheduled banks, fintech pioneers, and regulatory nodal officers.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPTION B -->
+<p class="option-label">Option B <span>Red Banner Strip &mdash; centred, bold, confident</span></p>
+<div class="hero-wrap">
+  <div class="hero-b">
+    <div class="banner">
+      <div class="tagline">National Alliance for Financial Integrity</div>
+      <div class="fiu-inline">
+        <div style="width:24px;height:24px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff;">FIU</div>
+        <span>Under Guidance of FIU-INDIA</span>
+      </div>
+    </div>
+    <div class="content">
+      <h1 class="heading">Strengthening India's <span class="hl-underline">Financial Integrity</span><br>Through Industry Collaboration</h1>
+      <p class="desc">ARIFAC enables collaboration, capacity building, and coordinated action to strengthen India's financial crime prevention ecosystem.</p>
+      <div class="ctas">
+        <a href="#" class="btn-primary">Membership Benefits <svg class="arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></a>
+        <a href="#" class="btn-ghost">Explore Certifications</a>
+      </div>
+    </div>
+    <div class="trust-bar">
+      <div class="fiu-badge">
+        <div style="width:32px;height:32px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#64748b;">FIU</div>
+        <div>
+          <div class="label">Under Guidance Of</div>
+          <div class="name">FIU-INDIA</div>
+        </div>
+      </div>
+      <div class="side-section">
+        <h4>Strategic Alignment</h4>
+        <p>Aligned with India's FIU and FATF global standards.</p>
+      </div>
+      <div class="side-section">
+        <h4>Industry Led</h4>
+        <p>Banks, fintech, and regulatory nodal officers.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPTION C -->
+<p class="option-label">Option C <span>Offset Card Overlap &mdash; architectural, layered</span></p>
+<div class="hero-wrap">
+  <div class="hero-c">
+    <div class="inner">
+      <div>
+        <div class="tagline">National Alliance for Financial Integrity</div>
+        <h1 class="heading">Strengthening India's <span class="hl">Financial Integrity</span><br>Through Industry Collaboration</h1>
+        <p class="desc">ARIFAC enables collaboration, capacity building, and coordinated action to strengthen India's financial crime prevention ecosystem.</p>
+        <div class="ctas">
+          <a href="#" class="btn-primary">Membership Benefits <svg class="arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></a>
+          <a href="#" class="btn-ghost">Explore Certifications</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="fiu-badge">
+          <div style="width:40px;height:40px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#64748b;">FIU</div>
+          <div>
+            <div class="label">Under Guidance Of</div>
+            <div class="name">FIU-INDIA</div>
+          </div>
+        </div>
+        <div class="side-section">
+          <h4>Strategic Alignment</h4>
+          <p>Operates in complete alignment with India's Financial Intelligence Unit and FATF global standards.</p>
+        </div>
+        <div class="side-section">
+          <h4>Industry Led</h4>
+          <p>Driven by the joint action of scheduled banks, fintech pioneers, and regulatory nodal officers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPTION D -->
+<p class="option-label">Option D <span>Left Red Rail &mdash; distinctive, minimal, bold red presence</span></p>
+<div class="hero-wrap">
+  <div class="hero-d">
+    <div class="rail">
+      <span class="rail-text">National Alliance for Financial Integrity</span>
+    </div>
+    <div class="main">
+      <div class="tagline" style="display:flex;align-items:center;gap:8px;">
+        <span style="width:6px;height:6px;background:var(--brand);display:block;flex-shrink:0;"></span>
+        Established Under FIU-INDIA Guidance
+      </div>
+      <h1 class="heading">Strengthening India's <span class="hl">Financial Integrity</span><br>Through Industry Collaboration</h1>
+      <p class="desc">ARIFAC enables collaboration, capacity building, and coordinated action to strengthen India's financial crime prevention ecosystem.</p>
+      <div class="ctas">
+        <a href="#" class="btn-primary">Membership Benefits <svg class="arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></a>
+        <a href="#" class="btn-ghost">Explore Certifications</a>
+      </div>
+    </div>
+    <div class="aside">
+      <div class="fiu-badge">
+        <div style="width:40px;height:40px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#64748b;">FIU</div>
+        <div>
+          <div class="label">Under Guidance Of</div>
+          <div class="name">FIU-INDIA</div>
+        </div>
+      </div>
+      <div class="side-section">
+        <h4>Strategic Alignment</h4>
+        <p>Operates in complete alignment with India's Financial Intelligence Unit and FATF global standards.</p>
+      </div>
+      <div class="side-section">
+        <h4>Industry Led</h4>
+        <p>Driven by the joint action of scheduled banks, fintech pioneers, and regulatory nodal officers.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- NEW OPTIONS E–H -->
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<style>
+  /* ═══════ OPTION E — Stacked Blocks ═══════ */
+  .hero-e {
+    background: #fff;
+  }
+  .hero-e .top-row {
+    display: flex;
+    align-items: stretch;
+  }
+  .hero-e .red-block {
+    background: var(--brand);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .hero-e .red-block .fiu-box {
+    width: 36px; height: 36px; background: rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7px; font-weight: 700; color: #fff;
+  }
+  .hero-e .red-block span { font-size: 10px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.2em; }
+  .hero-e .tagline-bar {
+    flex: 1;
+    background: var(--neutral-50);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--neutral-200);
+  }
+  .hero-e .body-area {
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .hero-e .heading { font-size: 42px; margin-bottom: 18px; }
+  .hero-e .desc { margin-bottom: 28px; max-width: 100%; }
+  .hero-e .info-col { padding-left: 32px; border-left: 2px solid var(--brand); }
+  .hero-e .info-col .side-section + .side-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--neutral-200); }
+  .hero-e .bottom-cta {
+    padding: 0 48px 40px;
+  }
+
+  /* ═══════ OPTION F — Hero with Red Accent Panel ═══════ */
+  .hero-f {
+    background: #fff;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 440px;
+  }
+  .hero-f .content {
+    padding: 56px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-f .tagline { margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+  .hero-f .tagline::before { content: ''; width: 32px; height: 3px; background: var(--brand); display: block; flex-shrink: 0; }
+  .hero-f .heading { font-size: 44px; margin-bottom: 20px; }
+  .hero-f .heading .hl {
+    background: linear-gradient(to bottom, transparent 60%, rgba(196,30,36,0.12) 60%);
+    padding: 0 4px;
+  }
+  .hero-f .desc { margin-bottom: 32px; }
+  .hero-f .accent-panel {
+    background: var(--brand);
+    padding: 48px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  .hero-f .accent-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0,0,0,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-f .accent-panel .fiu-badge .label { color: rgba(255,255,255,0.6); }
+  .hero-f .accent-panel .fiu-badge .name { color: #fff; }
+  .hero-f .accent-panel .fiu-badge .fiu-box {
+    width: 44px; height: 44px; background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px; font-weight: 700; color: #fff;
+  }
+  .hero-f .accent-panel .fiu-badge { margin-bottom: 28px; position: relative; z-index: 1; }
+  .hero-f .accent-panel .side-section { position: relative; z-index: 1; }
+  .hero-f .accent-panel .side-section h4 { color: rgba(255,255,255,0.7); }
+  .hero-f .accent-panel .side-section p { color: rgba(255,255,255,0.9); }
+  .hero-f .accent-panel .side-section + .side-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.15); }
+
+  /* ═══════ OPTION G — Minimal Typographic ═══════ */
+  .hero-g {
+    background: #fff;
+    padding: 64px 48px 48px;
+    position: relative;
+  }
+  .hero-g::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 48px;
+    right: 48px;
+    height: 4px;
+    background: var(--brand);
+  }
+  .hero-g .meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--neutral-200);
+  }
+  .hero-g .meta-row .fiu-badge .fiu-box {
+    width: 32px; height: 32px; background: var(--neutral-100);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7px; font-weight: 700; color: var(--neutral-500);
+  }
+  .hero-g .heading {
+    font-size: 52px;
+    margin-bottom: 32px;
+    max-width: 900px;
+    line-height: 1.05;
+  }
+  .hero-g .heading .hl {
+    color: var(--brand);
+    font-style: italic;
+  }
+  .hero-g .lower {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--neutral-200);
+  }
+  .hero-g .lower .desc { max-width: 100%; }
+  .hero-g .lower .side-section p { font-size: 13px; }
+  .hero-g .ctas { margin-top: 24px; }
+
+  /* ═══════ OPTION H — Diagonal Sash ═══════ */
+  .hero-h {
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+  }
+  .hero-h .sash {
+    position: absolute;
+    top: -60px;
+    right: -40px;
+    width: 420px;
+    height: 600px;
+    background: var(--brand);
+    transform: rotate(12deg);
+    transform-origin: top right;
+    opacity: 0.06;
+  }
+  .hero-h .sash-line {
+    position: absolute;
+    top: -20px;
+    right: 180px;
+    width: 3px;
+    height: 500px;
+    background: var(--brand);
+    transform: rotate(12deg);
+    opacity: 0.15;
+  }
+  .hero-h .inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 56px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+  .hero-h .tagline { margin-bottom: 20px; }
+  .hero-h .heading { font-size: 42px; margin-bottom: 18px; }
+  .hero-h .heading .hl {
+    color: var(--brand);
+    text-decoration: underline;
+    text-decoration-color: rgba(196,30,36,0.3);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 3px;
+  }
+  .hero-h .desc { margin-bottom: 28px; }
+  .hero-h .card-right {
+    background: var(--neutral-50);
+    border: 1px solid var(--neutral-200);
+    padding: 32px;
+    position: relative;
+  }
+  .hero-h .card-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, var(--brand), var(--brand-light), transparent);
+  }
+  .hero-h .card-right .fiu-badge { margin-bottom: 20px; }
+  .hero-h .card-right .fiu-badge .fiu-box {
+    width: 40px; height: 40px; background: var(--neutral-200);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px; font-weight: 700; color: var(--neutral-500);
+  }
+  .hero-h .card-right .side-section + .side-section { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--neutral-200); }
+
+  @media (max-width: 900px) {
+    .hero-e .body-area { grid-template-columns: 1fr; }
+    .hero-e .info-col { padding-left: 0; border-left: none; border-top: 2px solid var(--brand); padding-top: 24px; }
+    .hero-e .top-row { flex-direction: column; }
+    .hero-f { grid-template-columns: 1fr; }
+    .hero-f .accent-panel { padding: 32px; }
+    .hero-g .heading { font-size: 32px !important; }
+    .hero-g .lower { grid-template-columns: 1fr; }
+    .hero-h .inner { grid-template-columns: 1fr; }
+    .hero-h .card-right { margin-top: 16px; }
+  }
+</style>
+
+<!-- OPTION E -->
+<p class="option-label">Option E <span>Stacked Blocks &mdash; modular, structured, newsroom feel</span></p>
+<div class="hero-wrap">
+  <div class="hero-e">
+    <div class="top-row">
+      <div class="red-block">
+        <div class="fiu-box">FIU</div>
+        <span>FIU-INDIA Guided</span>
+      </div>
+      <div class="tagline-bar">
+        <span class="tagline">National Alliance for Financial Integrity</span>
+      </div>
+    </div>
+    <div class="body-area">
+      <div>
+        <h1 class="heading">Strengthening India's <span class="hl">Financial Integrity</span><br>Through Industry Collaboration</h1>
+        <p class="desc">ARIFAC enables collaboration, capacity building, and coordinated action to strengthen India's financial crime prevention ecosystem.</p>
+      </div>
+      <div class="info-col">
+        <div class="side-section">
+          <h4>Strategic Alignment</h4>
+          <p>Operates in complete alignment with India's Financial Intelligence Unit and FATF global standards.</p>
+        </div>
+        <div class="side-section">
+          <h4>Industry Led</h4>
+          <p>Driven by the joint action of scheduled banks, fintech pioneers, and regulatory nodal officers.</p>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-cta">
+      <div class="ctas">
+        <a href="#" class="btn-primary">Membership Benefits <svg class="arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></a>
+        <a href="#" class="btn-ghost">Explore Certifications</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPTION F -->
+<p class="option-label">Option F <span>Red Accent Panel &mdash; side card becomes the red moment</span></p>
+<div class="hero-wrap">
+  <div class="hero-f">
+    <div class="content">
+      <div class="tagline">National Alliance for Financial Integrity</div>
+      <h1 class="heading">Strengthening India's <span class="hl">Financial Integrity</span><br>Through Industry Collaboration</h1>
+      <p class="desc">ARIFAC enables collaboration, capacity building, and coordinated action to strengthen India's financial crime prevention ecosystem.</p>
+      <div class="ctas">
+        <a href="#" class="btn-primary">Membership Benefits <svg class="arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></a>
+        <a href="#" class="btn-ghost">Explore Certifications</a>
+      </div>
+    </div>
+    <div class="accent-panel">
+      <div class="fiu-badge">
+        <div class="fiu-box">FIU</div>
+        <div>
+          <div class="label">Under Guidance Of</div>
+          <div class="name">FIU-INDIA</div>
+        </div>
+      </div>
+      <div class="side-section">
+        <h4>Strategic Alignment</h4>
+        <p>Operates in complete alignment with India's Financial Intelligence Unit and FATF global standards.</p>
+      </div>
+      <div class="side-section">
+        <h4>Industry Led</h4>
+        <p>Driven by the joint action of scheduled banks, fintech pioneers, and regulatory nodal officers.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPTION G -->
+<p class="option-label">Option G <span>Minimal Typographic &mdash; oversized heading, 3-column lower</span></p>
+<div class="hero-wrap">
+  <div class="hero-g">
+    <div class="meta-row">
+      <span class="tagline">National Alliance for Financial Integrity</span>
+      <div class="fiu-badge">
+        <div class="fiu-box">FIU</div>
+        <div>
+          <div class="label">Under Guidance Of</div>
+          <div class="name">FIU-INDIA</div>
+        </div>
+      </div>
+    </div>
+    <h1 class="heading">Strengthening India's <span class="hl">Financial Integrity</span> Through Industry Collaboration</h1>
+    <div class="lower">
+      <div>
+        <p class="desc">ARIFAC enables collaboration, capacity building, and coordinated action to strengthen India's financial crime prevention ecosystem.</p>
+        <div class="ctas">
+          <a href="#" class="btn-primary">Membership Benefits <svg class="arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></a>
+        </div>
+      </div>
+      <div class="side-section">
+        <h4>Strategic Alignment</h4>
+        <p>Operates in complete alignment with India's Financial Intelligence Unit and FATF global standards.</p>
+      </div>
+      <div class="side-section">
+        <h4>Industry Led</h4>
+        <p>Driven by the joint action of scheduled banks, fintech pioneers, and regulatory nodal officers.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPTION H -->
+<p class="option-label">Option H <span>Diagonal Sash &mdash; subtle geometric energy, classic layout</span></p>
+<div class="hero-wrap">
+  <div class="hero-h">
+    <div class="sash"></div>
+    <div class="sash-line"></div>
+    <div class="inner">
+      <div>
+        <div class="tagline" style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <span style="width:8px;height:2px;background:var(--brand);display:block;"></span>
+          National Alliance for Financial Integrity
+        </div>
+        <h1 class="heading">Strengthening India's <span class="hl">Financial Integrity</span><br>Through Industry Collaboration</h1>
+        <p class="desc">ARIFAC enables collaboration, capacity building, and coordinated action to strengthen India's financial crime prevention ecosystem.</p>
+        <div class="ctas">
+          <a href="#" class="btn-primary">Membership Benefits <svg class="arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></a>
+          <a href="#" class="btn-ghost">Explore Certifications</a>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="fiu-badge">
+          <div class="fiu-box">FIU</div>
+          <div>
+            <div class="label">Under Guidance Of</div>
+            <div class="name">FIU-INDIA</div>
+          </div>
+        </div>
+        <div class="side-section">
+          <h4>Strategic Alignment</h4>
+          <p>Operates in complete alignment with India's Financial Intelligence Unit and FATF global standards.</p>
+        </div>
+        <div class="side-section">
+          <h4>Industry Led</h4>
+          <p>Driven by the joint action of scheduled banks, fintech pioneers, and regulatory nodal officers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="height:80px;"></div>
+</body>
+</html>

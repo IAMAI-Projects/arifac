@@ -79,7 +79,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — Containerize app with multi-stage Dockerfile, standalone output, SSL database config, health endpoint
+- [x] 04-01-PLAN.md — Containerize app with multi-stage Dockerfile, standalone output, SSL database config, health endpoint
 - [ ] 04-02-PLAN.md — Create Terraform infrastructure (ECR, ECS, RDS) and deploy script, verify locally
 
 ## Progress
