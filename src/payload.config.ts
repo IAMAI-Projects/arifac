@@ -32,6 +32,15 @@ export default buildConfig({
       baseDir: path.resolve(dirname, '..'),
       importMapFile: path.resolve(dirname, 'app/(payload)/admin/importMap.js'),
     },
+    meta: {
+      titleSuffix: '— ARIFAC',
+    },
+    components: {
+      graphics: {
+        Logo: '/src/components/admin/Logo',
+        Icon: '/src/components/admin/Icon',
+      },
+    },
     livePreview: {
       url: ({ data, collectionConfig, globalConfig }) => {
         const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'

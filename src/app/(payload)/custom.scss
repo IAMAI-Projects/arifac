@@ -1,1 +1,83 @@
-/* Custom Payload admin styles — add overrides here */
+/* ARIFAC Admin Panel Branding */
+
+:root {
+  /* Override Payload's theme colors with ARIFAC brand */
+  --theme-success-500: #C41E24;
+  --theme-success-400: #DE5358;
+
+  /* Nav sidebar */
+  --nav-width: 280px;
+}
+
+/* Login page */
+.login {
+  /* Center the form better */
+  .login__form {
+    max-width: 400px;
+  }
+}
+
+/* Brand-colored submit buttons */
+.btn {
+  &.btn--style-primary {
+    background-color: #C41E24;
+
+    &:hover {
+      background-color: #a3181d;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba(196, 30, 36, 0.3);
+    }
+  }
+}
+
+/* Nav active link accent */
+.nav-group__toggle:hover,
+.nav__link:hover,
+.nav__link--active {
+  color: #C41E24;
+}
+
+/* Collection list headers */
+.collection-list__header {
+  h1 {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Document header */
+.doc-header__title {
+  h1 {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Pill / tag accent color */
+.pill--style-light-cyan {
+  background-color: rgba(196, 30, 36, 0.08);
+  color: #C41E24;
+}
+
+/* Step nav breadcrumb links */
+.step-nav__link {
+  &:hover {
+    color: #C41E24;
+  }
+}
+
+/* Save / publish button */
+.form-submit .btn--style-primary {
+  background-color: #C41E24;
+
+  &:hover {
+    background-color: #a3181d;
+  }
+}
+
+/* Dashboard card hover accent */
+.dashboard__card-list .card:hover {
+  border-color: rgba(196, 30, 36, 0.3);
+}
