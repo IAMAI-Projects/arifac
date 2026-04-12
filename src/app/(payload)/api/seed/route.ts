@@ -147,7 +147,30 @@ export async function GET() {
     })
     results.push('Created home page with blocks')
   } else {
-    results.push('Home page already exists')
+    // Ensure _status is set for draft-enabled collections
+    const homeDoc = existingHome.docs[0]
+    if (!homeDoc._status || homeDoc._status !== 'published') {
+      await payload.update({ collection: 'pages', id: homeDoc.id, data: { _status: 'published' } as never })
+      results.push('Published home page (set _status)')
+    } else {
+      results.push('Home page already exists')
+    }
+  }
+
+  // Publish all existing documents that have NULL _status
+  for (const col of ['pages', 'regulatory-updates', 'certifications', 'news-items', 'members'] as const) {
+    const unpublished = await payload.find({
+      collection: col,
+      where: { _status: { not_equals: 'published' } },
+      limit: 500,
+      draft: true,
+    })
+    for (const doc of unpublished.docs) {
+      await payload.update({ collection: col, id: doc.id, data: { _status: 'published' } as never })
+    }
+    if (unpublished.docs.length > 0) {
+      results.push(`Published ${unpublished.docs.length} ${col} documents`)
+    }
   }
 
   // 2. Regulatory Updates, News Items, Certifications (independent — run in parallel)
