@@ -157,9 +157,42 @@ export async function GET() {
       const existingUpdates = await payload.find({ collection: 'regulatory-updates', limit: 1 })
       if (existingUpdates.docs.length === 0) {
         const updates = [
-          { title: 'Regional Rural Banks – Know Your Customer Directions, 2025', date: '2026-01-04', referenceNumber: 'DOR.AML.REC.No.185/14.01.004/2025-26', category: 'kyc-cdd', issuingBody: 'rbi', link: '' },
-          { title: 'Commercial Banks – Know Your Customer Directions, 2025', date: '2025-11-28', referenceNumber: 'DOR.AML.REC.No.88/14.01.002/2025-26', category: 'kyc-cdd', issuingBody: 'rbi', link: '' },
-          { title: 'Small Finance Banks – Know Your Customer Directions, 2025', date: '2025-11-28', referenceNumber: 'DOR.AML.REC.No.119/14.01.007/2025-26', category: 'kyc-cdd', issuingBody: 'rbi', link: '' },
+          // RBI – KYC Directions (10)
+          { title: 'Commercial Banks – Know Your Customer Directions, 2025', date: '2025-11-28', referenceNumber: 'DOR.AML.REC.No.88/14.01.002/2025-26', category: 'kyc-cdd' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Small Finance Banks – Know Your Customer Directions, 2025', date: '2025-11-28', referenceNumber: 'DOR.AML.REC.No.119/14.01.007/2025-26', category: 'kyc-cdd' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Payments Banks – Know Your Customer Directions, 2025', date: '2025-11-28', referenceNumber: 'DOR.AML.REC.No.137/14.01.009/2025-26', category: 'kyc-cdd' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Local Area Banks – Know Your Customer Directions, 2025', date: '2025-11-28', referenceNumber: 'DOR.AML.REC.No.162/14.01.008/2025-26', category: 'kyc-cdd' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Urban Cooperative Banks – Know Your Customer Directions, 2025', date: '2025-11-28', referenceNumber: 'DOR.AML.REC.No.210/14.01.006/2025-26', category: 'kyc-cdd' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Rural Cooperative Banks – Know Your Customer Directions, 2025', date: '2025-11-28', referenceNumber: 'DOR.AML.REC.No.235/14.01.005/2025-26', category: 'kyc-cdd' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'All India Financial Institutions – Know Your Customer Directions, 2025', date: '2025-11-28', referenceNumber: 'DOR.AML.REC.No.254/14.01.011/2025-26', category: 'kyc-cdd' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Non-Banking Financial Companies – Know Your Customer Directions, 2025', date: '2025-11-28', referenceNumber: 'DOR.AML.REC.No.280/14.01.003/2025-26', category: 'kyc-cdd' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Asset Reconstruction Companies – Know Your Customer Directions, 2025', date: '2025-11-28', referenceNumber: 'DOR.AML.REC.No.296/14.01.010/2025-26', category: 'kyc-cdd' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Regional Rural Banks – Know Your Customer Directions, 2025', date: '2026-01-04', referenceNumber: 'DOR.AML.REC.No.185/14.01.004/2025-26', category: 'kyc-cdd' as const, issuingBody: 'rbi' as const, link: '' },
+          // RBI – Fraud / Cyber Risk (6)
+          { title: 'Master Directions on Fraud Risk Management in Commercial Banks (incl. RRBs) and AIFIs', date: '2024-07-15', referenceNumber: 'DOS.CO.FMG.SEC.No.5/23.04.001/2024-25', category: 'fraud-cyber' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Master Directions on Fraud Risk Management in Urban / State / Central Cooperative Banks', date: '2024-07-15', referenceNumber: 'DOS.CO.FMG.SEC.No.6/23.04.001/2024-25', category: 'fraud-cyber' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Master Directions on Fraud Risk Management in Non-Banking Financial Companies (incl. HFCs)', date: '2024-07-15', referenceNumber: 'DOS.CO.FMG.SEC.No.7/23.04.001/2024-25', category: 'fraud-cyber' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Master Directions on Frauds – Classification and Reporting by Commercial Banks and Select FIs', date: '2016-07-01', referenceNumber: 'DBS.CO.CFMC.BC.No.1/23.04.001/2016-17', category: 'aml-cft' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Master Direction on Information Technology Governance, Risk, Controls and Assurance Practices', date: '2024-04-10', referenceNumber: 'DoS.CO.CSITEG/SEC.7/31.01.015/2023-24', category: 'fraud-cyber' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Cyber Security Framework in Banks', date: '2016-06-02', referenceNumber: 'DBS.CO/CSITE/BC.11/33.01.001/2015-16', category: 'fraud-cyber' as const, issuingBody: 'rbi' as const, link: '' },
+          // RBI – Compliance & Governance (3)
+          { title: 'Master Direction – RBI (Outsourcing of Information Technology Services) Directions, 2023', date: '2024-04-10', referenceNumber: 'RBI/2023-24/95 | DoS.CO.CSITE.SEC.7/31.01.015/2023-24', category: 'compliance-governance' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Master Circular – Prudential Norms on Income Recognition, Asset Classification & Provisioning (IRACP)', date: '2023-04-01', referenceNumber: 'RBI/2023-24/07 | DOR.STR.REC.5/21.04.048/2023-24', category: 'compliance-governance' as const, issuingBody: 'rbi' as const, link: '' },
+          { title: 'Guidelines on Management of Operational Risk (Basel III / Standardised Approach)', date: '2022-02-17', referenceNumber: 'DOR.MRG.REC.93/00-00-007/2021-22', category: 'compliance-governance' as const, issuingBody: 'rbi' as const, link: '' },
+          // FIU-IND – AML / CFT (3)
+          { title: 'AML & CFT Guidelines for Reporting Entities Providing Services Related to Virtual Digital Assets (VDAs)', date: '2023-03-10', referenceNumber: 'F.No.9-8/2023/COMPL/FIUIND', category: 'aml-cft' as const, issuingBody: 'fiu-ind' as const, link: '' },
+          { title: 'AML & CFT Guidelines for Reporting Entities – Designated Non-Financial Businesses and Professions (DNFBP)', date: '2023-07-04', referenceNumber: 'FIUIND/DNFBP/2023', category: 'aml-cft' as const, issuingBody: 'fiu-ind' as const, link: '' },
+          { title: 'Revised AML/CFT Guidelines for VDA Service Providers (Enhanced KYC – selfie verification, geo-location, penny-drop)', date: '2025-09-15', referenceNumber: 'F.No. 9-8/2023/COMPL/FIUIND-Pt-II', category: 'aml-cft' as const, issuingBody: 'fiu-ind' as const, link: '' },
+          // SEBI (6)
+          { title: 'Master Circular – Guidelines on AML Standards and CFT / Obligations of Securities Market Intermediaries under PMLA 2002', date: '2024-06-06', referenceNumber: 'SEBI/HO/MLSD/SEC5/P/CIR/2024/083', category: 'aml-cft' as const, issuingBody: 'sebi' as const, link: '' },
+          { title: 'Master Circular on Know Your Client (KYC) Norms for the Securities Market', date: '2023-10-12', referenceNumber: 'SEBI/HO/MIRSD/SECFATF/P/CIR/2023/169', category: 'kyc-cdd' as const, issuingBody: 'sebi' as const, link: '' },
+          { title: 'Uploading of KYC Information by KYC Registration Agencies (KRAs) to Central KYC Records Registry (CKYCRR)', date: '2024-06-27', referenceNumber: 'SEBI/HO/MIRSD/SEC-3/P/CIR/2024/088', category: 'kyc-cdd' as const, issuingBody: 'sebi' as const, link: '' },
+          { title: 'Guidelines in Pursuance of Amendment to SEBI KYC Registration Agency (KRA) Regulations, 2011', date: '2025-01-15', referenceNumber: 'NSE Circular ISC66053', category: 'kyc-cdd' as const, issuingBody: 'sebi' as const, link: '' },
+          { title: 'Publishing Investor Charter for KYC (Know Your Client) Registration Agencies (KRAs) on their Websites', date: '2025-05-15', referenceNumber: 'SEBI/HO/MIRSD/PODFATF/P/CIR/2025/62', category: 'kyc-cdd' as const, issuingBody: 'sebi' as const, link: '' },
+          { title: 'Cyber Security & Cyber Resilience Framework for SEBI-Registered Intermediaries', date: '2023-12-28', referenceNumber: 'SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2025/119', category: 'fraud-cyber' as const, issuingBody: 'sebi' as const, link: '' },
+          // IRDAI (2)
+          { title: 'IRDAI Master Guidelines on Anti-Money Laundering / Counter Financing of Terrorism (AML/CFT) for all Insurers', date: '2022-08-01', referenceNumber: 'IRDAI/SDD/GDL/AML/062/01/2022', category: 'aml-cft' as const, issuingBody: 'irdai' as const, link: '' },
+          { title: 'Amendment to Master Guidelines on Anti-Money Laundering / Counter Financing of Terrorism (AML/CFT) 2022', date: '2025-08-01', referenceNumber: 'IRDAI/IID/CIR/MISC/177/10/2023', category: 'aml-cft' as const, issuingBody: 'irdai' as const, link: '' },
         ]
         for (const u of updates) await payload.create({ collection: 'regulatory-updates', data: u })
         return `Created ${updates.length} regulatory updates`

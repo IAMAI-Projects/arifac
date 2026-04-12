@@ -19,14 +19,14 @@ export default async function HomePage() {
   const updatesResult = await payload.find({
     collection: 'regulatory-updates',
     sort: '-date',
-    limit: 5,
+    limit: 3,
   })
 
   return (
     <>
       {page.layout && page.layout.length > 0 && (
         <BlockRenderer
-          blocks={page.layout}
+          blocks={page.layout.filter(block => block.blockType !== 'featuredPrograms')}
           regulatoryUpdates={updatesResult.docs}
         />
       )}

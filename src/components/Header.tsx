@@ -19,37 +19,52 @@ export default function Header({ newsItems = [] }: HeaderProps) {
 
   return (
     <>
-      {/* Top Bar with News Scroller & Logins -- hidden when no news items (per D-12) */}
+      {/* Top Bar with News Scroller & Logins -- Exact StatsStrip Sync Version */}
       {newsItems.length > 0 && (
-        <div className="bg-brand text-white h-10 flex items-center overflow-hidden border-b border-white/10">
-          <div className="max-w-[1240px] mx-auto px-6 w-full flex items-center justify-between">
+        <div className="bg-[#0f172a] h-11 flex items-center overflow-hidden border-b border-brand/20 relative z-30">
+          {/* Depth Layers (Exact Sync with StatsStrip) */}
+          <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none" />
+          <div className="absolute inset-0 bg-grid-subtle opacity-[0.03] pointer-events-none" />
+          
+          <div className="max-w-[1240px] mx-auto px-6 w-full flex items-center justify-between relative z-10">
 
             {/* News Scroller */}
             <div className="flex items-center gap-4 flex-1 overflow-hidden h-full">
-              <span className="bg-brand text-[10px] font-bold px-2 py-0.5 whitespace-nowrap uppercase tracking-widest shrink-0 z-10 relative">
+              <span className="bg-white/5 text-white text-[9px] font-black px-2.5 py-1 whitespace-nowrap uppercase tracking-[0.2em] shrink-0 relative flex items-center gap-2 border border-white/10">
+                <span className="w-1.5 h-1.5 bg-[#C41E24] rounded-full animate-pulse" />
                 Latest Updates
               </span>
               <div className="flex-1 overflow-hidden relative">
-                <div className="inline-flex animate-marquee whitespace-nowrap text-[11px] font-medium text-white/80 py-1">
+                <div className="inline-flex animate-marquee whitespace-nowrap text-[11px] font-bold text-white/90 py-1">
                   {newsItems.map((item) => (
-                    <span key={item.id} className="mx-8">{item.text}</span>
+                    <span key={item.id} className="mx-10 flex items-center gap-2">
+                      {item.text}
+                    </span>
                   ))}
                   {/* Duplicate for seamless loop */}
                   {newsItems.map((item) => (
-                    <span key={`dup-${item.id}`} className="mx-8">{item.text}</span>
+                    <span key={`dup-${item.id}`} className="mx-10 flex items-center gap-2">
+                      {item.text}
+                    </span>
                   ))}
                 </div>
               </div>
             </div>
 
             {/* Login Links */}
-            <div className="hidden md:flex items-center gap-6 shrink-0 ml-8">
-              <Link href="/login/member" className="text-[11px] font-bold hover:text-white/70 transition-colors uppercase tracking-widest">
-                Member Login
+            <div className="hidden md:flex items-center gap-6 shrink-0 ml-8 border-l border-brand/20 pl-8 h-full">
+              <Link href="/login/member" className="text-[10px] font-black text-white hover:text-[#C41E24] transition-colors uppercase tracking-widest flex items-center gap-2">
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                </svg>
+                Member
               </Link>
-              <div className="w-px h-3 bg-white/20" />
-              <Link href="/login/learner" className="text-[11px] font-bold hover:text-white/70 transition-colors uppercase tracking-widest">
-                Learner Login
+              <Link href="/login/learner" className="text-[10px] font-black text-white hover:text-[#C41E24] transition-colors uppercase tracking-widest flex items-center gap-2">
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M12 14l9-5-9-5-9 5 9 5z" />
+                  <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                </svg>
+                Learner
               </Link>
             </div>
 
@@ -157,9 +172,10 @@ export default function Header({ newsItems = [] }: HeaderProps) {
           {/* Right: Actions */}
           <div className="flex items-center gap-4 xl:gap-6">
 
-            <Link href="/membership" className={`bg-neutral-900 text-white px-5 py-2.5 lg:px-7 lg:py-3 text-[13px] font-bold hover:bg-brand transition-colors whitespace-nowrap ${
-              isActive("/membership") ? "bg-brand" : ""
+            <Link href="/membership" className={`bg-[#0b1b3d] text-white px-5 py-2.5 lg:px-7 lg:py-3 text-[13px] font-bold hover:bg-[#C41E24] transition-all whitespace-nowrap border border-white/5 relative overflow-hidden group/btn ${
+              isActive("/membership") ? "bg-[#C41E24]" : ""
             }`}>
+              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover/btn:opacity-100 transition-opacity" />
               Membership
             </Link>
           </div>

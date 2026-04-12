@@ -27,8 +27,13 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-brand-dark text-white pt-16 md:pt-24 pb-10">
-      <div className="max-w-[1240px] mx-auto px-6">
+    <footer className="bg-brand-darker text-white pt-16 md:pt-24 pb-10 relative overflow-hidden">
+      {/* Texture Sync with StatsStrip */}
+      <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-subtle opacity-[0.02] pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-px bg-white/5" />
+      
+      <div className="max-w-[1240px] mx-auto px-6 relative z-10">
         <div className="grid md:grid-cols-12 gap-12 lg:gap-10 mb-16">
           
           <div className="md:col-span-4">

@@ -64,8 +64,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Add about-specific structured fields to Pages schema, run migration, convert about page to CMS-driven
-- [ ] 03-02-PLAN.md — Expand seed endpoint with all page content, run seed, verify visual parity across all routes
+- [x] 03-01-PLAN.md — Add about-specific structured fields to Pages schema, run migration, convert about page to CMS-driven
+- [x] 03-02-PLAN.md — Expand seed endpoint with all page content, run seed, verify visual parity across all routes
 
 ### Phase 4: Production Deployment
 **Goal**: The CMS-powered site runs on AWS with persistent database and media storage, accessible to editors

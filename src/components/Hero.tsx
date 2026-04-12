@@ -10,9 +10,23 @@ interface HeroProps {
 
 export default function Hero({ data }: HeroProps) {
   return (
-    <section className="relative bg-white pt-12 pb-10 lg:pt-16 lg:pb-20 overflow-hidden">
-      {/* Background Accent */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-neutral-50 -z-10 hidden lg:block" />
+    <section className="relative bg-white pt-12 pb-10 lg:pt-16 lg:pb-24 overflow-hidden">
+      {/* Asymmetric Brand Element */}
+      <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full pointer-events-none -z-10 hidden lg:block">
+        <div className="absolute inset-0 bg-gradient-to-br from-brand/15 via-brand/5 to-transparent blur-3xl opacity-50" />
+        <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_top_right,var(--color-brand)_0%,transparent_75%)] opacity-[0.05]" />
+        
+        {/* Geometric Accents */}
+        <div className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-brand/20 via-brand/5 to-transparent" />
+        <div className="absolute top-1/4 right-0 w-48 h-px bg-gradient-to-l from-brand/20 to-transparent" />
+        <div className="absolute bottom-1/3 right-0 w-72 h-px bg-gradient-to-l from-brand/10 to-transparent -rotate-12" />
+      </div>
+
+      {/* Subtle Background Detail */}
+      <div className="absolute inset-0 bg-grid-subtle opacity-[0.02] pointer-events-none -z-20" />
+      
+      {/* Top Accent Segment */}
+      <div className="absolute top-0 left-6 lg:left-12 w-32 h-[3px] bg-brand" />
 
       <div className="max-w-[1240px] mx-auto px-6">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">

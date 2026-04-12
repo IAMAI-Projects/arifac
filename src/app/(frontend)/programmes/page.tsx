@@ -8,6 +8,7 @@ export default async function ProgrammesPage() {
 
   const engagementFormats = programmes.engagementFormats ?? []
   const programmeSchedule = programmes.programmeSchedule ?? []
+  const recentConsultations = programmes.recentConsultations ?? []
   const annualMeetings = programmes.annualMeetings ?? []
 
   return (
@@ -141,6 +142,50 @@ export default async function ProgrammesPage() {
                   <h4 className="text-[14px] font-bold text-neutral-900 leading-snug group-hover:text-brand transition-colors">
                     {row.name}
                   </h4>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Recent Consultations */}
+      {recentConsultations.length > 0 && (
+        <section className="py-8 lg:py-10 bg-white border-b border-neutral-100">
+          <div className="max-w-[1240px] mx-auto px-6">
+            <div className="flex items-center justify-between mb-5 pb-3 border-b border-neutral-100">
+              <div className="flex items-center gap-3">
+                <div className="w-1 h-6 bg-brand" />
+                <h2 className="text-xl lg:text-2xl font-extrabold text-neutral-900 uppercase tracking-tight">
+                  Recent Consultations
+                </h2>
+              </div>
+              <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">
+                {recentConsultations.length} Sessions
+              </span>
+            </div>
+
+            <div className="space-y-3">
+              {recentConsultations.map((item, idx) => (
+                <div
+                  key={item.id ?? idx}
+                  className="group grid grid-cols-[48px_1fr] md:grid-cols-[64px_100px_1fr_120px] items-center gap-3 py-4 border-b border-neutral-100 last:border-b-0 hover:bg-neutral-50/60 transition-colors"
+                >
+                  <span className="text-[10px] font-black text-neutral-300 group-hover:text-brand transition-colors text-center">
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
+                  <span className="hidden md:block text-[12px] font-bold text-neutral-500">
+                    {item.date}
+                  </span>
+                  <div>
+                    <span className="text-[14px] font-bold text-neutral-900 leading-snug group-hover:text-brand transition-colors">
+                      {item.name}
+                    </span>
+                    <span className="md:hidden block text-[11px] text-neutral-400 mt-0.5">{item.date}</span>
+                  </div>
+                  <span className="hidden md:block text-[10px] font-bold text-neutral-500 uppercase tracking-wider px-2.5 py-1 bg-neutral-50 border border-neutral-200 text-center">
+                    {item.type}
+                  </span>
                 </div>
               ))}
             </div>

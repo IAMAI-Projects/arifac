@@ -11,8 +11,11 @@ export default function CTASection({ data }: CTASectionProps) {
   return (
     <section className="bg-white py-12 md:py-16">
       <div className="max-w-[1240px] mx-auto px-6">
-        <div className="bg-brand p-8 lg:p-12 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-brand opacity-10 rounded-full translate-x-1/2 -translate-y-1/2" />
+        <div className="bg-brand-darker p-8 lg:p-12 relative overflow-hidden border border-brand/20">
+          {/* Depth Texture Sync */}
+          <div className="absolute inset-0 bg-noise opacity-[0.03] pointer-events-none" />
+          <div className="absolute inset-0 bg-grid-subtle opacity-[0.03] pointer-events-none" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-brand opacity-[0.08] blur-[80px] rounded-full translate-x-1/2 -translate-y-1/2" />
 
           <div className="relative z-10 max-w-3xl">
             <h2 className="text-3xl md:text-4xl font-bold !text-white mb-4">{data.heading}</h2>
