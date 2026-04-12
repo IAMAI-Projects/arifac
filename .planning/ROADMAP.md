@@ -76,10 +76,11 @@ Plans:
   2. Admin panel is accessible at the production `/admin` URL and editors can log in
   3. Content changes made in the production admin panel persist across deployments
   4. PostgreSQL database is running on AWS RDS (or similar) with SSL connectivity
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: TBD
+- [ ] 04-01-PLAN.md — Containerize app with multi-stage Dockerfile, standalone output, SSL database config, health endpoint
+- [ ] 04-02-PLAN.md — Create Terraform infrastructure (ECR, ECS, RDS) and deploy script, verify locally
 
 ## Progress
 
@@ -91,4 +92,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. CMS Foundation | 0/2 | Not started | - |
 | 2. Content Modeling & Frontend Integration | 0/3 | Not started | - |
 | 3. Content Migration | 0/2 | Not started | - |
-| 4. Production Deployment | 0/1 | Not started | - |
+| 4. Production Deployment | 0/2 | Not started | - |
