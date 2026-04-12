@@ -23,7 +23,7 @@ This is phase 1. Phase 2 (future) will add inline/visual editing (click-to-edit 
 
 ## Environment Variable
 
-- `NEXT_PUBLIC_PAYLOAD_URL` — base URL of the app (e.g., `http://localhost:3000`). Needs `NEXT_PUBLIC_` prefix for client component access.
+- `NEXT_PUBLIC_SERVER_URL` — already exists in `.env.example`. Reused for the Live Preview server URL (no new env var needed).
 
 ## Changes
 
@@ -36,7 +36,7 @@ admin: {
   // ...existing config
   livePreview: {
     url: ({ data, collectionConfig, globalConfig }) => {
-      const baseUrl = process.env.NEXT_PUBLIC_PAYLOAD_URL || 'http://localhost:3000'
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
       // Globals
       if (globalConfig) {
@@ -76,11 +76,11 @@ Update `versions` config on all collections and the Programmes global:
 | Collection/Global | Current | Change to |
 |---|---|---|
 | `Pages` | `versions: { drafts: false, maxPerDoc: 20 }` | `versions: { drafts: true, maxPerDoc: 20 }` |
-| `RegulatoryUpdates` | no versions config | `versions: { drafts: true }` |
-| `Certifications` | no versions config | `versions: { drafts: true }` |
-| `NewsItems` | no versions config | `versions: { drafts: true }` |
+| `RegulatoryUpdates` | `versions: { drafts: false, maxPerDoc: 20 }` | `versions: { drafts: true, maxPerDoc: 20 }` |
+| `Certifications` | `versions: { drafts: false, maxPerDoc: 20 }` | `versions: { drafts: true, maxPerDoc: 20 }` |
+| `NewsItems` | `versions: { drafts: false, maxPerDoc: 20 }` | `versions: { drafts: true, maxPerDoc: 20 }` |
 | `Members` | no versions config | `versions: { drafts: true }` |
-| `Programmes` (global) | no versions config | `versions: { drafts: true }` |
+| `Programmes` (global) | `versions: { drafts: false, max: 20 }` | `versions: { drafts: true, max: 20 }` |
 
 ### 3. New Component: `RefreshRouteOnSave`
 
@@ -97,7 +97,7 @@ export const RefreshRouteOnSave: React.FC = () => {
   return (
     <PayloadLivePreview
       refresh={() => router.refresh()}
-      serverURL={process.env.NEXT_PUBLIC_PAYLOAD_URL || ''}
+      serverURL={process.env.NEXT_PUBLIC_SERVER_URL || ''}
     />
   )
 }
