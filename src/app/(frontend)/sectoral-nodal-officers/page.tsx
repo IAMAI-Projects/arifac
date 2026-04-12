@@ -1,6 +1,7 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import StaticPageLayout from '@/components/StaticPageLayout'
+import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 
 interface NodalOfficer {
   organization: string
@@ -116,6 +117,7 @@ export default async function SectoralNodalOfficersPage() {
     collection: 'pages',
     where: { slug: { equals: 'sectoral-nodal-officers' } },
     limit: 1,
+    draft: true,
   })
   const page = result.docs[0]
 
@@ -127,6 +129,7 @@ export default async function SectoralNodalOfficersPage() {
       title={page?.banner?.title || 'Sectoral Nodal Officers'}
       description={page?.banner?.description || 'Facilitating coordination and mission delivery across the ARIFAC network through representation from major financial sectors.'}
     >
+      <RefreshRouteOnSave />
       <section className="py-10 lg:py-14">
         <div className="max-w-4xl mx-auto px-6">
           {sectors.map((sector, i) => (

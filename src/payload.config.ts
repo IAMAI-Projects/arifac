@@ -32,6 +32,35 @@ export default buildConfig({
       baseDir: path.resolve(dirname, '..'),
       importMapFile: path.resolve(dirname, 'app/(payload)/admin/importMap.js'),
     },
+    livePreview: {
+      url: ({ data, collectionConfig, globalConfig }) => {
+        const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+
+        if (globalConfig) {
+          if (globalConfig.slug === 'programmes') return `${baseUrl}/programmes`
+        }
+
+        if (collectionConfig) {
+          if (collectionConfig.slug === 'pages') {
+            const slug = data?.slug
+            return slug === 'home' ? baseUrl : `${baseUrl}/${slug}`
+          }
+          if (collectionConfig.slug === 'regulatory-updates') return `${baseUrl}/updates`
+          if (collectionConfig.slug === 'certifications') return `${baseUrl}/certifications`
+          if (collectionConfig.slug === 'news-items') return `${baseUrl}`
+          if (collectionConfig.slug === 'members') return `${baseUrl}/members`
+        }
+
+        return baseUrl
+      },
+      collections: ['pages', 'regulatory-updates', 'certifications', 'news-items', 'members'],
+      globals: ['programmes'],
+      breakpoints: [
+        { label: 'Mobile', name: 'mobile', width: 375, height: 667 },
+        { label: 'Tablet', name: 'tablet', width: 768, height: 1024 },
+        { label: 'Desktop', name: 'desktop', width: 1440, height: 900 },
+      ],
+    },
   },
   collections: [
     {

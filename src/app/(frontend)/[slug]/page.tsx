@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import StaticPageLayout from '@/components/StaticPageLayout'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -12,6 +13,7 @@ export async function generateStaticParams() {
     where: { pageType: { not_equals: 'home' } },
     limit: 100,
     select: { slug: true },
+    draft: true,
   })
   return result.docs.map((page) => ({ slug: page.slug }))
 }
@@ -24,6 +26,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     collection: 'pages',
     where: { slug: { equals: slug } },
     limit: 1,
+    draft: true,
   })
 
   const page = result.docs[0]
@@ -35,6 +38,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       title={page.banner?.title || page.title}
       description={page.banner?.description || ''}
     >
+      <RefreshRouteOnSave />
       {page.body && (
         <section className="py-10 lg:py-14">
           <div className="max-w-[1240px] mx-auto px-6">

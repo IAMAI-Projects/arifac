@@ -7,7 +7,7 @@ export const RegulatoryUpdates: CollectionConfig = {
     defaultColumns: ['title', 'issuingBody', 'category', 'date'],
   },
   versions: {
-    drafts: false,
+    drafts: true,
     maxPerDoc: 20,
   },
   fields: [

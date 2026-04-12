@@ -2,6 +2,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import PageBanner from '@/components/PageBanner'
 import CertificationsFilter from '@/components/CertificationsFilter'
+import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 
 export default async function CertificationsPage() {
   const payload = await getPayload({ config: configPromise })
@@ -9,10 +10,12 @@ export default async function CertificationsPage() {
     collection: 'certifications',
     limit: 100,
     sort: 'title',
+    draft: true,
   })
 
   return (
     <>
+      <RefreshRouteOnSave />
       <PageBanner
         label="Certifications"
         title="Industry Standard Pathways for Financial Crime Readiness"

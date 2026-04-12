@@ -2,6 +2,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import PageBanner from '@/components/PageBanner'
 import UpdatesFilter from '@/components/UpdatesFilter'
+import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 
 export default async function UpdatesPage() {
   const payload = await getPayload({ config: configPromise })
@@ -9,10 +10,12 @@ export default async function UpdatesPage() {
     collection: 'regulatory-updates',
     sort: '-date',
     limit: 100,
+    draft: true,
   })
 
   return (
     <>
+      <RefreshRouteOnSave />
       <PageBanner
         label="Regulatory Updates"
         title="Recent Circulars and Notifications"

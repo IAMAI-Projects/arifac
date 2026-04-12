@@ -3,7 +3,7 @@ import type { GlobalConfig } from 'payload'
 export const Programmes: GlobalConfig = {
   slug: 'programmes',
   versions: {
-    drafts: false,
+    drafts: true,
     max: 20,
   },
   fields: [

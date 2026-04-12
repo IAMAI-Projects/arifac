@@ -417,10 +417,10 @@ export async function GET() {
   for (const p of corePages) {
     const existing = await payload.find({ collection: 'pages', where: { slug: { equals: p.slug } }, limit: 1 })
     if (existing.docs.length === 0) {
-      await payload.create({ collection: 'pages', data: p })
+      await payload.create({ collection: 'pages', data: p as never })
       results.push(`Created page: ${p.slug}`)
     } else {
-      await payload.update({ collection: 'pages', id: existing.docs[0].id, data: p })
+      await payload.update({ collection: 'pages', id: existing.docs[0].id, data: p as never })
       results.push(`Updated page: ${p.slug}`)
     }
   }
@@ -553,10 +553,10 @@ export async function GET() {
   for (const p of additionalPages) {
     const existing = await payload.find({ collection: 'pages', where: { slug: { equals: p.slug } }, limit: 1 })
     if (existing.docs.length === 0) {
-      await payload.create({ collection: 'pages', data: p })
+      await payload.create({ collection: 'pages', data: p as never })
       results.push(`Created page: ${p.slug}`)
     } else {
-      await payload.update({ collection: 'pages', id: existing.docs[0].id, data: p })
+      await payload.update({ collection: 'pages', id: existing.docs[0].id, data: p as never })
       results.push(`Updated page: ${p.slug}`)
     }
   }

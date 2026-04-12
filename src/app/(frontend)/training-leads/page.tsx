@@ -1,6 +1,7 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import StaticPageLayout from '@/components/StaticPageLayout'
+import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 
 interface TrainingLead {
   name: string
@@ -112,6 +113,7 @@ export default async function TrainingLeadsPage() {
     collection: 'pages',
     where: { slug: { equals: 'training-leads' } },
     limit: 1,
+    draft: true,
   })
   const page = result.docs[0]
 
@@ -121,6 +123,7 @@ export default async function TrainingLeadsPage() {
       title={page?.banner?.title || 'Training Leads'}
       description={page?.banner?.description || 'Leading experts driving excellence in professional certification across the ARIFAC ecosystem.'}
     >
+      <RefreshRouteOnSave />
       <section className="py-10 lg:py-14">
         <div className="max-w-[1240px] mx-auto px-6">
           <div className="mb-8">

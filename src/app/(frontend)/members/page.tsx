@@ -1,13 +1,14 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import StaticPageLayout from '@/components/StaticPageLayout'
+import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 
 export default async function MembersPage() {
   const payload = await getPayload({ config: configPromise })
 
   const [pageResult, membersResult] = await Promise.all([
-    payload.find({ collection: 'pages', where: { slug: { equals: 'members' } }, limit: 1 }),
-    payload.find({ collection: 'members', limit: 500, sort: 'name' }),
+    payload.find({ collection: 'pages', where: { slug: { equals: 'members' } }, limit: 1, draft: true }),
+    payload.find({ collection: 'members', limit: 500, sort: 'name', draft: true }),
   ])
 
   const page = pageResult.docs[0]
@@ -19,6 +20,7 @@ export default async function MembersPage() {
       title={page?.banner?.title || `Our Members — ${members.length} leading organisations in the ecosystem.`}
       description={page?.banner?.description || ''}
     >
+      <RefreshRouteOnSave />
       <section className="py-10 lg:py-14">
         <div className="max-w-[1240px] mx-auto px-6">
           <div className="flex items-center justify-between mb-6 pb-3 border-b border-neutral-100">

@@ -1,10 +1,11 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import PageBanner from '@/components/PageBanner'
+import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 
 export default async function ProgrammesPage() {
   const payload = await getPayload({ config: configPromise })
-  const programmes = await payload.findGlobal({ slug: 'programmes' })
+  const programmes = await payload.findGlobal({ slug: 'programmes', draft: true })
 
   const engagementFormats = programmes.engagementFormats ?? []
   const programmeSchedule = programmes.programmeSchedule ?? []
@@ -13,6 +14,7 @@ export default async function ProgrammesPage() {
 
   return (
     <>
+      <RefreshRouteOnSave />
       <PageBanner
         label="Programmes"
         title="Consolidated Ecosystem Engagement Framework"

@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import type { Page } from '@/payload-types'
 import PageBanner from '@/components/PageBanner'
 import Link from 'next/link'
+import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 
 export default async function AboutPage() {
   const payload = await getPayload({ config: configPromise })
@@ -11,6 +12,7 @@ export default async function AboutPage() {
     collection: 'pages',
     where: { slug: { equals: 'about' } },
     limit: 1,
+    draft: true,
   })
   const page = result.docs[0] as Page | undefined
   if (!page) notFound()
@@ -22,6 +24,7 @@ export default async function AboutPage() {
 
   return (
     <>
+      <RefreshRouteOnSave />
       <PageBanner
         label={page.banner?.label || 'About ARIFAC'}
         title={page.banner?.title || page.title}

@@ -7,7 +7,7 @@ export const NewsItems: CollectionConfig = {
     defaultColumns: ['text', 'published', 'createdAt'],
   },
   versions: {
-    drafts: false,
+    drafts: true,
     maxPerDoc: 20,
   },
   fields: [

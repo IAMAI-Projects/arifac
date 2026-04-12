@@ -6,7 +6,7 @@ export const Certifications: CollectionConfig = {
     useAsTitle: 'title',
   },
   versions: {
-    drafts: false,
+    drafts: true,
     maxPerDoc: 20,
   },
   fields: [

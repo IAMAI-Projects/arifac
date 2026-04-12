@@ -6,6 +6,9 @@ export const Members: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'createdAt'],
   },
+  versions: {
+    drafts: true,
+  },
   fields: [
     {
       name: 'name',
