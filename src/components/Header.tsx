@@ -59,7 +59,7 @@ export default function Header({ newsItems = [] }: HeaderProps) {
                 </svg>
                 Member
               </Link>
-              <Link href="/login/learner" className="text-[10px] font-black text-white hover:text-[#C41E24] transition-colors uppercase tracking-widest flex items-center gap-2">
+              <Link href="https://stage.learning.arifac.com/" className="text-[10px] font-black text-white hover:text-[#C41E24] transition-colors uppercase tracking-widest flex items-center gap-2">
                 <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M12 14l9-5-9-5-9 5 9 5z" />
                   <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
