@@ -239,7 +239,7 @@ export async function seed(payload: Payload) {
 
     await payload.create({
       collection: 'pages',
-      data: page as Parameters<typeof payload.create<'pages'>>[0]['data'],
+      data: page as any,
     })
     console.log(`  + Created page "${page.slug}"`)
   }
