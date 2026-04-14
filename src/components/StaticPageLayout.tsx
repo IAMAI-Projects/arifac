@@ -2,9 +2,10 @@ import type { ReactNode } from "react";
 import PageBanner from "@/components/PageBanner";
 
 interface StaticPageLayoutProps {
-  label: string;
+  label?: string;
   title: string;
   description: string;
+  subheading?: React.ReactNode;
   ctaLabel?: string;
   ctaHref?: string;
   children: ReactNode;
@@ -14,13 +15,14 @@ export default function StaticPageLayout({
   label,
   title,
   description,
+  subheading,
   ctaLabel,
   ctaHref,
   children,
 }: StaticPageLayoutProps) {
   return (
     <>
-      <PageBanner label={label} title={title} description={description} ctaLabel={ctaLabel} ctaHref={ctaHref} />
+      <PageBanner label={label} title={title} description={description} subheading={subheading} ctaLabel={ctaLabel} ctaHref={ctaHref} />
       {children}
     </>
   );

@@ -46,11 +46,25 @@ const responsibilities = [
 export default function MembershipPage() {
   return (
     <StaticPageLayout
-      label="Membership"
-      title="Membership at ARIFAC"
-      description="Membership is designed for reporting entities and stakeholders in India's digital and financial ecosystem seeking to engage in industry consultations, capacity building, and knowledge sharing aligned with AML/CFT frameworks."
-      ctaLabel="Apply for Membership"
-      ctaHref="/membership/apply"
+      title="Engagement with ARIFAC"
+      description="Engagement is structured to enable reporting entities and ecosystem stakeholders to actively participate in consultations, strengthen capacity, and contribute to knowledge-sharing initiatives aligned with AML/CFT frameworks."
+      subheading={
+        <>
+          <p className="mb-2">ARIFAC offers two engagement pathways:</p>
+          <ul className="space-y-1">
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 w-2 h-[3px] bg-brand flex-shrink-0" />
+              <span><strong className="text-neutral-900">Membership (Paid):</strong> Comprehensive access to programmes, certifications, consultations, and ecosystem initiatives.</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 w-2 h-[3px] bg-brand flex-shrink-0" />
+              <span><strong className="text-neutral-900">Affiliate (Free):</strong> Entry-level access to ARIFAC updates, selected resources, and broader ecosystem participation.</span>
+            </li>
+          </ul>
+        </>
+      }
+      ctaLabel="Apply to be a Membership / Affliate"
+      ctaHref="https://stage.member.arifac.com/"
     >
      
 
@@ -58,12 +72,11 @@ export default function MembershipPage() {
       <section className="py-6 lg:py-8 border-b border-neutral-100">
         <div className="max-w-[1240px] mx-auto px-6">
           <div className="mb-5">
-            <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-2 block">What Membership Enables</span>
+            <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-2 block">What ARIFAC Engagement Enables</span>
             <h2 className="text-xl lg:text-[28px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-2">
-              A focused approach to capacity building and collaboration
-            </h2>
+             Capacity building and collaboration benefits for the financial intelligence ecosystem. </h2>
             <p className="text-neutral-600 text-[15px] leading-[1.75] max-w-3xl">
-              Across the financial intelligence ecosystem.
+              Benefits differ by engagement tier, with enhanced access for Members.
             </p>
           </div>
 
@@ -98,7 +111,7 @@ export default function MembershipPage() {
             <div>
               <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-2 block">Obligations</span>
               <h2 className="text-xl lg:text-[28px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-3">
-                Member Responsibilities
+                Member / Affliate Responsibilities
               </h2>
               <p className="text-neutral-600 text-[15px] leading-[1.75] mb-4">
                 Members are expected to maintain the highest standards of integrity, professionalism, and compliance.
