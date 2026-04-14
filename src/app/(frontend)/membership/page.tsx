@@ -53,17 +53,17 @@ export default function MembershipPage() {
           <p className="mb-2">ARIFAC offers two engagement pathways:</p>
           <ul className="space-y-1">
             <li className="flex items-start gap-3">
-              <span className="mt-1.5 w-2 h-[3px] bg-brand flex-shrink-0" />
+              <span className="mt-1.5 w-2 h-[3px] bg-brand shrink-0" />
               <span><strong className="text-neutral-900">Membership (Paid):</strong> Comprehensive access to programmes, certifications, consultations, and ecosystem initiatives.</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="mt-1.5 w-2 h-[3px] bg-brand flex-shrink-0" />
+              <span className="mt-1.5 w-2 h-[3px] bg-brand shrink-0" />
               <span><strong className="text-neutral-900">Affiliate (Free):</strong> Entry-level access to ARIFAC updates, selected resources, and broader ecosystem participation.</span>
             </li>
           </ul>
         </>
       }
-      ctaLabel="Apply to be a Membership / Affliate"
+      ctaLabel="Apply to be a Member / Affliate"
       ctaHref="https://stage.member.arifac.com/"
     >
      
@@ -119,7 +119,7 @@ export default function MembershipPage() {
               <ul className="space-y-2 mb-4">
                 {responsibilities.map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <span className="mt-1.5 w-2 h-[3px] bg-brand flex-shrink-0" />
+                    <span className="mt-1.5 w-2 h-[3px] bg-brand shrink-0" />
                     <span className="text-[14px] text-neutral-700 leading-[1.6]">{item}</span>
                   </li>
                 ))}
@@ -137,15 +137,15 @@ export default function MembershipPage() {
               </h2>
               <ul className="space-y-2">
                 <li className="flex items-start gap-3">
-                  <span className="mt-1.5 w-2 h-[3px] bg-brand flex-shrink-0" />
+                  <span className="mt-1.5 w-2 h-[3px] bg-brand shrink-0" />
                   <span className="text-[14px] text-neutral-700 leading-[1.6]">Membership is valid for a year from the date of onboarding and will be renewed annually</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="mt-1.5 w-2 h-[3px] bg-brand flex-shrink-0" />
+                  <span className="mt-1.5 w-2 h-[3px] bg-brand shrink-0" />
                   <span className="text-[14px] text-neutral-700 leading-[1.6]">Membership is subject to renewal in accordance with ARIFAC policies</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="mt-1.5 w-2 h-[3px] bg-brand flex-shrink-0" />
+                  <span className="mt-1.5 w-2 h-[3px] bg-brand shrink-0" />
                   <span className="text-[14px] text-neutral-700 leading-[1.6]">Access may be restricted upon expiry until renewal is completed</span>
                 </li>
               </ul>
