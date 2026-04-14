@@ -5,6 +5,7 @@ import sharp from 'sharp'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+import { seed } from './seed'
 import { Pages } from './collections/Pages'
 import { RegulatoryUpdates } from './collections/RegulatoryUpdates'
 import { Certifications } from './collections/Certifications'
@@ -103,6 +104,13 @@ export default buildConfig({
     Members,
   ],
   globals: [Programmes],
+  onInit: async (payload) => {
+    const forceSeed = process.env.PAYLOAD_SEED === 'true'
+    const { totalDocs } = await payload.count({ collection: 'pages' })
+    if (totalDocs === 0 || forceSeed) {
+      await seed(payload)
+    }
+  },
   editor: lexicalEditor(),
   secret: payloadSecret,
   typescript: {

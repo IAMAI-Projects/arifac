@@ -30,7 +30,7 @@ export default async function HomePage() {
       <RefreshRouteOnSave />
       {page.layout && page.layout.length > 0 && (
         <BlockRenderer
-          blocks={page.layout.filter(block => block.blockType !== 'featuredPrograms')}
+          blocks={page.layout.filter(block => block.blockType !== 'featuredPrograms' && block.blockType !== 'stats')}
           regulatoryUpdates={updatesResult.docs}
         />
       )}

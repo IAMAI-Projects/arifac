@@ -2,29 +2,29 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #081329; /* Elite Midnight Blue */
+  --foreground: #2D2D2D;
 }
 
 @theme inline {
   /* Brand */
-  --color-brand: #C41E24;
-  --color-brand-light: #DE5358;
-  --color-brand-dark: #1E293B;   /* Professional Slate Dark */
-  --color-brand-darker: #0F172A; /* Midnight Charcoal Sync */
+  --color-brand: #DA2128;
+  --color-brand-light: #E54E53;
+  --color-brand-dark: #7A797B;
+  --color-brand-darker: #5C5B5D;
   --color-brand-subtle: #FEF2F2;
   --color-brand-on-dark: rgba(255, 255, 255, 0.9);
 
-  /* Neutrals - Re-centered on Elite Blue */
-  --color-neutral-50: #f8fafc;
-  --color-neutral-100: #f1f5f9;
-  --color-neutral-200: #e2e8f0;
-  --color-neutral-300: #cbd5e1;
-  --color-neutral-400: #94a3b8;
-  --color-neutral-500: #64748b;
-  --color-neutral-600: #475569;
-  --color-neutral-700: #334155;
-  --color-neutral-800: #1C2541; /* Navy Slate */
-  --color-neutral-900: #081329; /* Elite Midnight Blue Sync */
+  /* Neutrals - Based on brand gray palette */
+  --color-neutral-50: #F5F3F3;
+  --color-neutral-100: #EBE7E7;
+  --color-neutral-200: #D4CCCC;
+  --color-neutral-300: #B7ADAD;
+  --color-neutral-400: #9A9293;
+  --color-neutral-500: #7A797B;
+  --color-neutral-600: #626163;
+  --color-neutral-700: #4A494B;
+  --color-neutral-800: #333233;
+  --color-neutral-900: #1C1B1C;
 }
 
 body {

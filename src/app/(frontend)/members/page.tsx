@@ -51,9 +51,9 @@ export default async function MembersPage() {
             ))}
           </div>
 
-          <div className="mt-8 pt-5 border-t-2 border-navy/10 flex items-center gap-2">
+          <div className="mt-8 pt-5 border-t-2 border-neutral-200 flex items-center gap-2">
             <span className="w-3 h-[3px] bg-brand" />
-            <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-slate-500">
+            <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-neutral-500">
               {members.length} Member Organisations
             </span>
           </div>

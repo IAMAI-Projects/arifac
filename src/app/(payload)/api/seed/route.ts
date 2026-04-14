@@ -147,14 +147,78 @@ export async function GET() {
     })
     results.push('Created home page with blocks')
   } else {
-    // Ensure _status is set for draft-enabled collections
+    // Update existing home page with latest layout and ensure published
     const homeDoc = existingHome.docs[0]
-    if (!homeDoc._status || homeDoc._status !== 'published') {
-      await payload.update({ collection: 'pages', id: homeDoc.id, data: { _status: 'published' } as never })
-      results.push('Published home page (set _status)')
-    } else {
-      results.push('Home page already exists')
-    }
+    await payload.update({
+      collection: 'pages',
+      id: homeDoc.id,
+      data: {
+        layout: [
+          {
+            blockType: 'hero',
+            tagline: 'National Alliance for Financial Integrity',
+            heading: "Strengthening India's",
+            headingHighlight: 'Financial Integrity',
+            headingTrail: 'Through Industry Collaboration',
+            description: "ARIFAC (Alliance of Reporting Entities in India for AML/CFT) under the guidance of FIU-IND, enables collaboration, capacity building, and coordinated action to strengthen India's financial crime prevention ecosystem.",
+            primaryButton: { label: 'Membership Benefits', link: '/member-benefits' },
+            secondaryButton: { label: 'Explore Certifications', link: '/certifications' },
+            sideCard: {
+              strategicAlignmentText: "Operates in complete alignment with India's Financial Intelligence Unit and FATF global standards.",
+              industryLedText: 'Driven by the joint action of scheduled banks, fintech pioneers, and regulatory nodal officers.',
+            },
+          },
+          {
+            blockType: 'capabilityMatrix',
+            sectionHeading: 'The ARIFAC Mandate:',
+            sectionHeadingHighlight: "Securing India's Financial Sovereignty.",
+            sectionDescription: "As a national alliance, ARIFAC operates through three strategic channels to strengthen the integrity of India's financial ecosystem.",
+            mandates: [
+              { label: 'Institutional Alliance', title: 'National Industry Ecosystem', description: 'ARIFAC serves as the unified industry platform, bridging the gap between reporting entities, fintech pioneers, and regulatory nodal officers.', linkText: 'Our Mission', linkRef: '/about' },
+              { label: 'Regulatory Intelligence', title: 'Strategic Actionable Insights', description: 'We translate complex global mandates and FIU-India circulars into tactical compliance frameworks for institutional readiness.', linkText: 'View Intelligence', linkRef: '/regulatory-updates' },
+              { label: 'Operational Excellence', title: 'Capability & Skill Building', description: 'Specialized training pathways designed to standardise AML/CFT literacy and enhance the investigative capabilities of compliance professionals.', linkText: 'Explore Training', linkRef: '/certifications' },
+            ],
+          },
+          {
+            blockType: 'stats',
+            stats: [
+              { label: 'Reporting Entities', value: '2,500+' },
+              { label: 'Officers Trained', value: '15,000+' },
+              { label: 'Sectors Represented', value: '18+' },
+              { label: 'Years of Collaboration', value: '10+' },
+            ],
+          },
+          {
+            blockType: 'featuredPrograms',
+            sectionEyebrow: 'Capability Building',
+            sectionHeading: 'Professional Certification Framework',
+            sectionDescription: "Advancing the investigative and compliance capabilities of India's financial workforce through standardized, role-based literacy and specialist training.",
+            viewAllText: 'View Certifications', viewAllLink: '/certifications',
+            programs: [
+              { title: 'ARIFAC Certified Associate (AML/CFT)', category: 'Foundation Level', description: 'Entry-level AML/CFT literacy designed for role-based onboarding and fundamental compliance awareness.', link: '/certifications/associate', image: '/cert-associate.png' },
+              { title: 'ARIFAC Certified Professional', category: 'Professional Level', description: 'Focuses on applied compliance, transaction monitoring, and enhancing supervisory capabilities for daily operations.', link: '/certifications/professional', image: '/cert-professional.png' },
+              { title: 'ARIFAC Certified Specialist', category: 'Specialist Level', description: 'Deep domain expertise focusing on advanced investigations, money laundering typologies, and forensic analysis.', link: '/certifications/specialist', image: '/cert-specialist.png' },
+            ],
+          },
+          {
+            blockType: 'regulatoryDashboard',
+            sectionEyebrow: 'Regulatory Intelligence',
+            sectionHeading: 'Stay Ahead of Evolving Frameworks',
+            sectionDescription: 'ARIFAC centralizes critical updates from FIU-IND, RBI, SEBI, and IRDAI to ensure your reporting systems are always in sync with national mandates.',
+            ctaText: 'Access Full Archive', ctaLink: '/regulatory-updates',
+          },
+          {
+            blockType: 'cta',
+            heading: 'Empower your institution with global compliance standards.',
+            description: 'Join ARIFAC as an institutional member to gain access to exclusive forums, regulatory guidance, and specialized capability building programs.',
+            primaryButton: { label: 'Apply for Membership', link: '/membership' },
+            secondaryButton: { label: 'Contact Us', link: '/contact' },
+          },
+        ],
+        _status: 'published',
+      } as never,
+    })
+    results.push('Updated home page with latest layout')
   }
 
   // Publish all existing documents that have NULL _status

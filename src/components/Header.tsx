@@ -86,32 +86,73 @@ export default function Header({ newsItems = [] }: HeaderProps) {
 
           {/* Center: Navigation */}
           <nav className="hidden lg:flex items-center gap-4 xl:gap-8 mx-auto">
-            {[
-              { label: "About", href: "/about" },
-              { label: "Membership", href: "/membership" },
-            ].map(item => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`text-[13px] font-bold transition-colors whitespace-nowrap ${
-                  isActive(item.href) ? "text-brand" : "text-neutral-800 hover:text-brand"
+            <Link
+              href="/about"
+              className={`text-[15px] font-bold transition-colors whitespace-nowrap ${
+                isActive("/about") ? "text-brand" : "text-neutral-800 hover:text-brand"
+              }`}
+            >
+              About
+            </Link>
+
+            {/* Engage with dropdown */}
+            <div className="relative group/engage">
+              <span
+                className={`text-[15px] font-bold group-hover/engage:text-brand transition-colors whitespace-nowrap flex items-center gap-1.5 cursor-default ${
+                  (isActive("/membership") || isActive("/learners") || isActive("/contributor")) ? "text-brand" : "text-neutral-800 hover:text-brand"
                 }`}
               >
-                {item.label}
-              </Link>
-            ))}
+                Engage
+                <svg className={`w-2.5 h-2.5 group-hover/engage:text-brand group-hover/engage:translate-y-px transition-all duration-300 ${
+                  (isActive("/membership") || isActive("/learners") || isActive("/contributor")) ? "text-brand" : "text-neutral-300"
+                }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                </svg>
+              </span>
+              <div className="absolute top-full -left-4 pt-3 opacity-0 invisible translate-y-1 group-hover/engage:opacity-100 group-hover/engage:visible group-hover/engage:translate-y-0 transition-all duration-300 z-50">
+                <div className="bg-white w-[260px] border border-neutral-200 overflow-hidden relative">
+                  {/* Top accent */}
+                  <div className="h-[2px] w-full bg-gradient-to-r from-brand via-brand-light to-transparent" />
+                  {/* Eyebrow */}
+                  <div className="px-5 pt-4 pb-2">
+                    <span className="text-[9px] font-bold text-brand uppercase tracking-[0.25em]">Engage</span>
+                  </div>
+                  {/* Links */}
+                  <div className="px-2 pb-3">
+                    <Link href="/membership" className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
+                      <div>
+                        <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">Membership</span>
+                        <span className="text-[10px] text-neutral-400">Join our network</span>
+                      </div>
+                    </Link>
+                    <Link href="/learners" className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
+                      <div>
+                        <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">Learners</span>
+                        <span className="text-[10px] text-neutral-400">Register with ARIFAC</span>
+                      </div>
+                    </Link>
+                    <Link href="/contributor" className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
+                      <div>
+                        <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">Become a Contributor</span>
+                        <span className="text-[10px] text-neutral-400">Join our expert network</span>
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             {/* Certification with dropdown */}
             <div className="relative group/nav">
               <Link
                 href="/certifications"
-                className={`text-[13px] font-bold group-hover/nav:text-brand transition-colors whitespace-nowrap flex items-center gap-1.5 ${
-                  isActive("/certifications") ? "text-brand" : "text-neutral-800 hover:text-brand"
+                className={`text-[15px] font-bold group-hover/nav:text-brand transition-colors whitespace-nowrap flex items-center gap-1.5 ${
+                  (isActive("/certifications") || isActive("/training-leads")) ? "text-brand" : "text-neutral-800 hover:text-brand"
                 }`}
               >
                 Certification
                 <svg className={`w-2.5 h-2.5 group-hover/nav:text-brand group-hover/nav:translate-y-px transition-all duration-300 ${
-                  isActive("/certifications") ? "text-brand" : "text-neutral-300"
+                  (isActive("/certifications") || isActive("/training-leads")) ? "text-brand" : "text-neutral-300"
                 }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -126,23 +167,13 @@ export default function Header({ newsItems = [] }: HeaderProps) {
                   </div>
                   {/* Links */}
                   <div className="px-2 pb-3">
-                    <Link href="/certifications" className="group/item flex items-center gap-3 px-3 py-2.5 hover:bg-neutral-50 transition-colors">
-                      <div className="w-7 h-7 bg-brand/[0.06] flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand transition-colors duration-300">
-                        <svg className="w-3.5 h-3.5 text-brand group-hover/item:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
-                      </div>
+                    <Link href="/certifications" className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
                       <div>
                         <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">All Certifications</span>
                         <span className="text-[10px] text-neutral-400">Browse learning pathways</span>
                       </div>
                     </Link>
-                    <Link href="/training-leads" className="group/item flex items-center gap-3 px-3 py-2.5 hover:bg-neutral-50 transition-colors">
-                      <div className="w-7 h-7 bg-brand/[0.06] flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand transition-colors duration-300">
-                        <svg className="w-3.5 h-3.5 text-brand group-hover/item:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                      </div>
+                    <Link href="/training-leads" className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
                       <div>
                         <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">Training Leads</span>
                         <span className="text-[10px] text-neutral-400">Expert network directory</span>
@@ -160,7 +191,7 @@ export default function Header({ newsItems = [] }: HeaderProps) {
               <Link
                 key={item.label}
                 href={item.href}
-                className={`text-[13px] font-bold transition-colors whitespace-nowrap ${
+                className={`text-[15px] font-bold transition-colors whitespace-nowrap ${
                   isActive(item.href) ? "text-brand" : "text-neutral-800 hover:text-brand"
                 }`}
               >

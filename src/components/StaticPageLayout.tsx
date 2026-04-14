@@ -5,6 +5,8 @@ interface StaticPageLayoutProps {
   label: string;
   title: string;
   description: string;
+  ctaLabel?: string;
+  ctaHref?: string;
   children: ReactNode;
 }
 
@@ -12,11 +14,13 @@ export default function StaticPageLayout({
   label,
   title,
   description,
+  ctaLabel,
+  ctaHref,
   children,
 }: StaticPageLayoutProps) {
   return (
     <>
-      <PageBanner label={label} title={title} description={description} />
+      <PageBanner label={label} title={title} description={description} ctaLabel={ctaLabel} ctaHref={ctaHref} />
       {children}
     </>
   );
