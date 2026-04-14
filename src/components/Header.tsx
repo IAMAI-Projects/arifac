@@ -99,12 +99,12 @@ export default function Header({ newsItems = [] }: HeaderProps) {
             <div className="relative group/engage">
               <span
                 className={`text-[15px] font-bold group-hover/engage:text-brand transition-colors whitespace-nowrap flex items-center gap-1.5 cursor-default ${
-                  (isActive("/membership") || isActive("/learners") || isActive("/contributor")) ? "text-brand" : "text-neutral-800 hover:text-brand"
+                  isActive("/membership") ? "text-brand" : "text-neutral-800 hover:text-brand"
                 }`}
               >
                 Engage
                 <svg className={`w-2.5 h-2.5 group-hover/engage:text-brand group-hover/engage:translate-y-px transition-all duration-300 ${
-                  (isActive("/membership") || isActive("/learners") || isActive("/contributor")) ? "text-brand" : "text-neutral-300"
+                  isActive("/membership") ? "text-brand" : "text-neutral-300"
                 }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -123,18 +123,6 @@ export default function Header({ newsItems = [] }: HeaderProps) {
                       <div>
                         <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">Membership</span>
                         <span className="text-[10px] text-neutral-400">Join our network</span>
-                      </div>
-                    </Link>
-                    <Link href="/learners" className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
-                      <div>
-                        <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">Learners</span>
-                        <span className="text-[10px] text-neutral-400">Register with ARIFAC</span>
-                      </div>
-                    </Link>
-                    <Link href="/contributor" className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
-                      <div>
-                        <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">Become a Contributor</span>
-                        <span className="text-[10px] text-neutral-400">Join our expert network</span>
                       </div>
                     </Link>
                   </div>
