@@ -105,7 +105,7 @@ export interface Page {
     description?: string | null
   }
   body?: Record<string, unknown>[] | null
-  layout?: (HeroBlock | StatsBlock | CapabilityMatrixBlock | RegulatoryDashboardBlock | FeaturedProgramsBlock | CTABlock)[] | null
+  layout?: (HeroBlock | StatsBlock | CapabilityMatrixBlock | RegulatoryDashboardBlock | FeaturedProgramsBlock | CTABlock | PartnershipsBlock | CommunityBlock)[] | null
   whySection?: {
     eyebrow?: string | null
     heading?: string | null
@@ -247,6 +247,46 @@ export interface CTABlock {
     label?: string | null
     link?: string | null
   }
+}
+
+/**
+ * Partnerships block
+ */
+export interface PartnershipsBlock {
+  blockType: 'partnerships'
+  id?: string | null
+  label?: string | null
+  heading: string
+  description?: string | null
+  guidanceCard?: {
+    label?: string | null
+    title: string
+    logoUrl?: string | null
+  }
+  disclaimer?: string | null
+}
+
+/**
+ * Community block
+ */
+export interface CommunityBlock {
+  blockType: 'community'
+  id?: string | null
+  label?: string | null
+  heading: string
+  description?: string | null
+  links?: {
+    eyebrow: string
+    title: string
+    href: string
+    id?: string | null
+  }[] | null
+  stat?: {
+    value: string
+    description: string
+  }
+  ctaLabel?: string | null
+  ctaLink?: string | null
 }
 
 /**
