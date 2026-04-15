@@ -6,20 +6,31 @@ import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 
 export default async function UpdatesPage() {
   const payload = await getPayload({ config: configPromise })
-  const { docs: updates } = await payload.find({
-    collection: 'regulatory-updates',
-    sort: '-date',
-    limit: 100,
-    draft: true,
-  })
+
+  const [{ docs: updates }, pageResult] = await Promise.all([
+    payload.find({
+      collection: 'regulatory-updates',
+      sort: '-date',
+      limit: 100,
+      draft: true,
+    }),
+    payload.find({
+      collection: 'pages',
+      where: { slug: { equals: 'updates' } },
+      limit: 1,
+      draft: true,
+    }),
+  ])
+
+  const page = pageResult.docs[0]
 
   return (
     <>
       <RefreshRouteOnSave />
       <PageBanner
-        label="Regulatory Updates"
-        title="Recent Circulars and Notifications"
-        description="Track important circulars, notifications, advisories, and regulatory updates relevant to reporting entities and the broader financial crime prevention ecosystem."
+        label={page?.banner?.label ?? 'Regulatory Updates'}
+        title={page?.banner?.title ?? 'Recent Circulars and Notifications'}
+        description={page?.banner?.description ?? 'Track important circulars, notifications, advisories, and regulatory updates relevant to reporting entities and the broader financial crime prevention ecosystem.'}
       />
       {updates.length > 0 ? (
         <UpdatesFilter updates={updates} />

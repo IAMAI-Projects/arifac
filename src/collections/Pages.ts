@@ -40,6 +40,11 @@ export const Pages: CollectionConfig = {
         { label: 'Home', value: 'home' },
         { label: 'About', value: 'about' },
         { label: 'Contact', value: 'contact' },
+        { label: 'Membership', value: 'membership' },
+        { label: 'Learners', value: 'learners' },
+        { label: 'Contributor', value: 'contributor' },
+        { label: 'Certifications', value: 'certifications' },
+        { label: 'Updates', value: 'updates' },
       ],
     },
     {
@@ -146,6 +151,136 @@ export const Pages: CollectionConfig = {
             { name: 'subtitle', type: 'text', required: true },
           ],
         },
+      ],
+    },
+    // Membership fields
+    {
+      name: 'membershipIntro',
+      type: 'group',
+      admin: { condition: (data) => data?.pageType === 'membership' },
+      fields: [
+        { name: 'subheading', type: 'textarea' },
+        { name: 'description', type: 'textarea' },
+      ],
+    },
+    {
+      name: 'benefits',
+      type: 'array',
+      admin: { condition: (data) => data?.pageType === 'membership' },
+      fields: [
+        { name: 'category', type: 'text', required: true },
+        {
+          name: 'items',
+          type: 'array',
+          fields: [
+            { name: 'title', type: 'text', required: true },
+            { name: 'description', type: 'text', required: true },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'responsibilities',
+      type: 'array',
+      admin: { condition: (data) => data?.pageType === 'membership' },
+      fields: [
+        { name: 'title', type: 'text', required: true },
+        { name: 'description', type: 'text', required: true },
+      ],
+    },
+    {
+      name: 'validityTerms',
+      type: 'array',
+      admin: { condition: (data) => data?.pageType === 'membership' },
+      fields: [
+        { name: 'text', type: 'text', required: true },
+      ],
+    },
+    {
+      name: 'feeTables',
+      type: 'group',
+      admin: { condition: (data) => data?.pageType === 'membership' },
+      fields: [
+        {
+          name: 'turnoverBased',
+          type: 'array',
+          fields: [
+            { name: 'tier', type: 'text', required: true },
+            { name: 'fee', type: 'text', required: true },
+          ],
+        },
+        {
+          name: 'aumBased',
+          type: 'array',
+          fields: [
+            { name: 'tier', type: 'text', required: true },
+            { name: 'fee', type: 'text', required: true },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'membershipCta',
+      type: 'group',
+      admin: { condition: (data) => data?.pageType === 'membership' },
+      fields: [
+        { name: 'label', type: 'text' },
+        { name: 'link', type: 'text' },
+      ],
+    },
+    // Learners fields
+    {
+      name: 'accessItems',
+      type: 'array',
+      admin: { condition: (data) => data?.pageType === 'learners' },
+      fields: [
+        { name: 'title', type: 'text', required: true },
+        { name: 'description', type: 'text', required: true },
+      ],
+    },
+    {
+      name: 'learnersCta',
+      type: 'group',
+      admin: { condition: (data) => data?.pageType === 'learners' },
+      fields: [
+        { name: 'heading', type: 'text' },
+        { name: 'description', type: 'textarea' },
+        { name: 'buttonLabel', type: 'text' },
+        { name: 'buttonLink', type: 'text' },
+      ],
+    },
+    // Contributor fields
+    {
+      name: 'expertiseAreas',
+      type: 'array',
+      admin: { condition: (data) => data?.pageType === 'contributor' },
+      fields: [
+        { name: 'label', type: 'text', required: true },
+      ],
+    },
+    {
+      name: 'whyContribute',
+      type: 'group',
+      admin: { condition: (data) => data?.pageType === 'contributor' },
+      fields: [
+        { name: 'heading', type: 'text', defaultValue: 'Why Contribute to ARIFAC?' },
+        {
+          name: 'points',
+          type: 'array',
+          fields: [
+            { name: 'text', type: 'text', required: true },
+          ],
+        },
+      ],
+    },
+    // Certifications fields
+    {
+      name: 'pathwayTiers',
+      type: 'array',
+      admin: { condition: (data) => data?.pageType === 'certifications' },
+      fields: [
+        { name: 'title', type: 'text', required: true },
+        { name: 'description', type: 'text', required: true },
       ],
     },
   ],

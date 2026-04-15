@@ -235,31 +235,167 @@ const pages = [
   {
     title: 'Register with ARIFAC',
     slug: 'learners',
-    pageType: 'simple' as const,
+    pageType: 'learners' as const,
     banner: {
       label: 'Learners',
       title: 'Register with ARIFAC',
       description: 'ARIFAC brings together institutions and professionals at the forefront of financial intelligence in India. Registering with us places you within an evolving ecosystem of regulators, practitioners, and policymakers in the AML/CFT ecosystem.',
     },
+    accessItems: [
+      { title: 'Knowledge & Intelligence', description: 'Curated intelligence briefs, typology reports, and risk advisories from across the ecosystem' },
+      { title: 'Typology & Risk Alerts', description: 'Emerging financial crime patterns, red flags, and sector-specific risk indicators' },
+      { title: 'Events & Summits', description: 'Access to ARIFAC conferences, summits, and regional compliance events' },
+      { title: 'Webinars & Awareness Sessions', description: 'Regular online sessions covering regulatory updates, best practices, and emerging threats' },
+      { title: 'Reports', description: 'ARIFAC research publications, compliance benchmarking data, and industry whitepapers' },
+      { title: 'Training & Certification', description: 'Enrolment eligibility for ARIFAC\'s L1-L5 professional certification programmes' },
+      { title: 'Closed-Door Interactions', description: 'Invitation-only sessions with regulators, policymakers, and senior compliance leaders' },
+    ],
+    learnersCta: {
+      heading: 'Registering with ARIFAC is open and free for all',
+      description: 'Whether you are a compliance professional, student, researcher, or simply interested in financial intelligence — registration gives you access to ARIFAC\'s knowledge ecosystem at no cost.',
+      buttonLabel: 'Register Now',
+      buttonLink: '/register',
+    },
   },
   {
     title: 'Become a Contributor',
     slug: 'contributor',
-    pageType: 'simple' as const,
+    pageType: 'contributor' as const,
     banner: {
       label: 'Contributor',
       title: 'Become a Contributor',
       description: 'Join ARIFAC\'s network of experts and practitioners shaping the future of financial intelligence in India. Share your expertise through training, research, events, and policy dialogue.',
     },
+    expertiseAreas: [
+      { label: 'AML/CFT Compliance' },
+      { label: 'Financial Intelligence' },
+      { label: 'Risk Assessment' },
+      { label: 'Regulatory Policy' },
+      { label: 'Cyber Security' },
+      { label: 'Fraud Prevention' },
+      { label: 'Banking & Finance' },
+      { label: 'FinTech & Digital Payments' },
+      { label: 'Legal & Enforcement' },
+      { label: 'Data Analytics' },
+      { label: 'Training & Education' },
+      { label: 'Other' },
+    ],
+    whyContribute: {
+      heading: 'Why Contribute to ARIFAC?',
+      points: [
+        { text: 'Shape India\'s AML/CFT compliance standards and best practices' },
+        { text: 'Gain visibility as a recognized expert in the financial intelligence ecosystem' },
+        { text: 'Collaborate with regulators, industry leaders, and fellow practitioners' },
+        { text: 'Contribute to research publications and industry whitepapers' },
+        { text: 'Access exclusive contributor-only events and networking opportunities' },
+      ],
+    },
   },
   {
     title: 'Membership at ARIFAC',
     slug: 'membership',
-    pageType: 'simple' as const,
+    pageType: 'membership' as const,
     banner: {
       label: 'Membership',
-      title: 'Membership at ARIFAC',
+      title: 'Engagement with ARIFAC',
       description: 'Membership is designed for reporting entities and stakeholders in India\'s digital and financial ecosystem seeking to engage in industry consultations, capacity building, and knowledge sharing aligned with AML/CFT frameworks.',
+    },
+    membershipIntro: {
+      subheading: 'ARIFAC offers two engagement pathways — Membership (Paid, for reporting entities) and Affiliate (Free, for individuals). Both provide structured access to programmes, knowledge, and the compliance network.',
+      description: '',
+    },
+    benefits: [
+      {
+        category: 'Engagement & Governance',
+        items: [
+          { title: 'Regulatory Engagement', description: 'Participate in structured consultations with FIU-IND and regulatory bodies' },
+          { title: 'Governance Participation', description: 'Contribute to ARIFAC\'s sectoral committees and working groups' },
+          { title: 'Closed-Door Interactions', description: 'Access invitation-only sessions with regulators and policymakers' },
+        ],
+      },
+      {
+        category: 'Learning & Capacity',
+        items: [
+          { title: 'Training & Certification', description: 'Enrol in ARIFAC\'s L1-L5 certification programmes at preferential rates' },
+          { title: 'Workshops & Masterclasses', description: 'Attend domain-specific sessions led by industry experts' },
+          { title: 'Webinars & Awareness', description: 'Join regular knowledge sessions on emerging compliance topics' },
+        ],
+      },
+      {
+        category: 'Intelligence & Research',
+        items: [
+          { title: 'Knowledge & Intelligence', description: 'Receive curated intelligence briefs, typology reports, and risk advisories' },
+          { title: 'Typology & Risk Alerts', description: 'Stay updated on emerging financial crime patterns and red flags' },
+          { title: 'Reports', description: 'Access ARIFAC research publications and compliance benchmarking data' },
+          { title: 'Participation in Reports', description: 'Contribute to and be featured in industry research and surveys' },
+        ],
+      },
+      {
+        category: 'Ecosystem & Visibility',
+        items: [
+          { title: 'Events & Summits', description: 'Attend flagship events including the Annual Conference and regional summits' },
+          { title: 'Ecosystem Directory', description: 'Listing in ARIFAC\'s member directory for network visibility' },
+          { title: 'Brand Visibility', description: 'Co-branding opportunities at ARIFAC events and publications' },
+        ],
+      },
+    ],
+    responsibilities: [
+      { title: 'Compliance Commitment', description: 'Maintain active compliance with applicable PMLA and FIU-IND regulations' },
+      { title: 'Participation', description: 'Actively participate in ARIFAC programmes, consultations, and knowledge-sharing initiatives' },
+      { title: 'Confidentiality', description: 'Maintain confidentiality of shared intelligence, discussions, and member-only resources' },
+      { title: 'Ethical Conduct', description: 'Uphold ethical standards in all interactions within the ARIFAC ecosystem' },
+    ],
+    validityTerms: [
+      { text: 'Membership is valid for 12 months from the date of approval' },
+      { text: 'Renewal is subject to continued eligibility and compliance with membership obligations' },
+      { text: 'ARIFAC reserves the right to revise terms and fee structure annually' },
+    ],
+    feeTables: {
+      turnoverBased: [
+        { tier: 'Up to INR 5 Cr', fee: '₹25,000' },
+        { tier: 'INR 5 Cr to INR 100 Cr', fee: '₹50,000' },
+        { tier: 'INR 100 Cr to INR 500 Cr', fee: '₹1,00,000' },
+        { tier: 'INR 500 Cr to INR 1,000 Cr', fee: '₹2,00,000' },
+        { tier: 'INR 1,000 Cr to INR 2,000 Cr', fee: '₹3,00,000' },
+        { tier: 'Above INR 2,000 Cr', fee: '₹5,00,000' },
+      ],
+      aumBased: [
+        { tier: 'Up to INR 500 Cr', fee: '₹25,000' },
+        { tier: 'INR 500 Cr to INR 5,000 Cr', fee: '₹50,000' },
+        { tier: 'INR 5,000 Cr to INR 20,000 Cr', fee: '₹1,00,000' },
+        { tier: 'INR 20,000 Cr to INR 50,000 Cr', fee: '₹2,00,000' },
+        { tier: 'INR 50,000 Cr to INR 1,00,000 Cr', fee: '₹3,00,000' },
+        { tier: 'Above INR 1,00,000 Cr', fee: '₹5,00,000' },
+      ],
+    },
+    membershipCta: {
+      label: 'Apply to be a Member / Affiliate',
+      link: '/register',
+    },
+  },
+  {
+    title: 'Certifications',
+    slug: 'certifications',
+    pageType: 'certifications' as const,
+    banner: {
+      label: 'Certifications',
+      title: 'Industry Standard Pathways for Financial Crime Readiness',
+      description: 'Role-based programmes designed to strengthen compliance across India\'s financial ecosystem — from foundational awareness to senior integrity leadership.',
+    },
+    pathwayTiers: [
+      { title: 'Recognised Standards', description: 'Aligned with FATF & Indian PMLA requirements.' },
+      { title: 'Industry Validated', description: 'Vetted by leading subject matter experts.' },
+      { title: 'Career Growth', description: 'Foundation to senior integrity leadership.' },
+    ],
+  },
+  {
+    title: 'Regulatory Updates',
+    slug: 'updates',
+    pageType: 'updates' as const,
+    banner: {
+      label: 'Regulatory Updates',
+      title: 'Recent Circulars and Notifications',
+      description: 'Track important circulars, notifications, advisories, and regulatory updates relevant to reporting entities and the broader financial crime prevention ecosystem.',
     },
   },
 ]
