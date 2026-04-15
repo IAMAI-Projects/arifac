@@ -351,5 +351,83 @@ export async function seed(payload: Payload) {
     console.log(`  + Created certification "${cert.title}"`)
   }
 
+  console.log('Seeding header global...')
+  await payload.updateGlobal({
+    slug: 'header',
+    data: {
+      navigation: [
+        { label: 'About', link: '/about', hasDropdown: false },
+        {
+          label: 'Engage',
+          link: '/membership',
+          hasDropdown: true,
+          dropdownLabel: 'Engage',
+          dropdownItems: [
+            { label: 'Membership', description: 'Join our network', link: '/membership' },
+          ],
+        },
+        {
+          label: 'Certification',
+          link: '/certifications',
+          hasDropdown: true,
+          dropdownLabel: 'Certification & Training',
+          dropdownItems: [
+            { label: 'All Certifications', description: 'Browse learning pathways', link: '/certifications' },
+            { label: 'Training Leads', description: 'Expert network directory', link: '/training-leads' },
+          ],
+        },
+        { label: 'Programmes', link: '/programmes', hasDropdown: false },
+        { label: 'Updates', link: '/updates', hasDropdown: false },
+      ],
+      memberPortalLabel: 'Member',
+      memberPortalUrl: process.env.NEXT_PUBLIC_MEMBER_PORTAL_URL || '',
+      learnerPortalLabel: 'Learner',
+      learnerPortalUrl: 'https://stage.learning.arifac.com/',
+      fiuLogoLink: 'https://fiuindia.gov.in/',
+      linkedinUrl: 'https://www.linkedin.com/company/arifac/',
+    },
+  })
+
+  console.log('Seeding footer global...')
+  await payload.updateGlobal({
+    slug: 'footer',
+    data: {
+      tagline: "Empowering India's financial ecosystem through unified compliance standards, expert certification, and strategic regulatory dialogue.",
+      initiativeLabel: 'An IAMAI Initiative',
+      linkGroups: [
+        {
+          title: 'Alliance',
+          links: [
+            { label: 'About Us', url: '/about' },
+            { label: 'Our Members', url: '/members' },
+          ],
+        },
+        {
+          title: 'Programmes',
+          links: [
+            { label: 'Programmes', url: '/programmes' },
+            { label: 'Certifications', url: '/certifications' },
+            { label: 'Training Leads', url: '/training-leads' },
+            { label: 'Sectoral Nodal Officers', url: '/sectoral-nodal-officers' },
+            { label: 'Regulatory Updates', url: '/updates' },
+          ],
+        },
+        {
+          title: 'Support',
+          links: [
+            { label: 'Help Center', url: '/help' },
+            { label: 'Contact Us', url: '/contact' },
+          ],
+        },
+      ],
+      bottomLinks: [
+        { label: 'Terms of Use', url: '/legal/terms-of-use' },
+        { label: 'Privacy Policy', url: '/legal/privacy-policy' },
+        { label: 'Legal & Compliance', url: '/legal/disclaimer' },
+      ],
+      copyrightText: 'ARIFAC | IAMAI. All rights reserved.',
+    },
+  })
+
   console.log('Seeding complete.')
 }

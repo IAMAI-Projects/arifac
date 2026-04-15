@@ -12,6 +12,8 @@ import { Certifications } from './collections/Certifications'
 import { NewsItems } from './collections/NewsItems'
 import { Members } from './collections/Members'
 import { Programmes } from './globals/Programmes'
+import { Header } from './globals/Header'
+import { Footer } from './globals/Footer'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -64,7 +66,7 @@ export default buildConfig({
         return baseUrl
       },
       collections: ['pages', 'regulatory-updates', 'certifications', 'news-items', 'members'],
-      globals: ['programmes'],
+      globals: ['programmes', 'header', 'footer'],
       breakpoints: [
         { label: 'Mobile', name: 'mobile', width: 375, height: 667 },
         { label: 'Tablet', name: 'tablet', width: 768, height: 1024 },
@@ -103,7 +105,7 @@ export default buildConfig({
     NewsItems,
     Members,
   ],
-  globals: [Programmes],
+  globals: [Programmes, Header, Footer],
   onInit: async (payload) => {
     const forceSeed = process.env.PAYLOAD_SEED === 'true'
     const { totalDocs } = await payload.count({ collection: 'pages' })

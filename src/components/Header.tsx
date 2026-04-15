@@ -3,13 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { NewsItem } from "@/payload-types";
+import type { NewsItem, Header as HeaderType } from "@/payload-types";
 
 interface HeaderProps {
   newsItems?: NewsItem[];
+  data: HeaderType;
 }
 
-export default function Header({ newsItems = [] }: HeaderProps) {
+export default function Header({ newsItems = [], data }: HeaderProps) {
   const pathname = usePathname();
 
   const isActive = (href: string) => {
@@ -25,7 +26,7 @@ export default function Header({ newsItems = [] }: HeaderProps) {
           {/* Depth Layers (Exact Sync with StatsStrip) */}
           <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none" />
           <div className="absolute inset-0 bg-grid-subtle opacity-[0.03] pointer-events-none" />
-          
+
           <div className="max-w-[1240px] mx-auto px-6 w-full flex items-center justify-between relative z-10">
 
             {/* News Scroller */}
@@ -61,7 +62,7 @@ export default function Header({ newsItems = [] }: HeaderProps) {
 
           {/* Left: Logos */}
           <div className="flex items-center gap-4 shrink-0">
-            <a href="https://fiuindia.gov.in/" target="_blank" rel="noopener noreferrer">
+            <a href={data.fiuLogoLink || 'https://fiuindia.gov.in/'} target="_blank" rel="noopener noreferrer">
               <Image src="/fiu-logo.png" alt="FIU INDIA" width={32} height={32} className="h-9 lg:h-10 xl:h-12 mix-blend-multiply" style={{ width: "auto" }} priority />
             </a>
             <div className="h-8 lg:h-10 w-px bg-neutral-300" />
@@ -72,113 +73,66 @@ export default function Header({ newsItems = [] }: HeaderProps) {
 
           {/* Center: Navigation */}
           <nav className="hidden lg:flex items-center gap-4 xl:gap-8 mx-auto">
-            <Link
-              href="/about"
-              className={`text-[15px] font-bold transition-colors whitespace-nowrap ${
-                isActive("/about") ? "text-brand" : "text-neutral-800 hover:text-brand"
-              }`}
-            >
-              About
-            </Link>
-
-            {/* Engage with dropdown */}
-            <div className="relative group/engage">
-              <span
-                className={`text-[15px] font-bold group-hover/engage:text-brand transition-colors whitespace-nowrap flex items-center gap-1.5 cursor-default ${
-                  isActive("/membership") ? "text-brand" : "text-neutral-800 hover:text-brand"
-                }`}
-              >
-                Engage
-                <svg className={`w-2.5 h-2.5 group-hover/engage:text-brand group-hover/engage:translate-y-px transition-all duration-300 ${
-                  isActive("/membership") ? "text-brand" : "text-neutral-300"
-                }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                </svg>
-              </span>
-              <div className="absolute top-full -left-4 pt-3 opacity-0 invisible translate-y-1 group-hover/engage:opacity-100 group-hover/engage:visible group-hover/engage:translate-y-0 transition-all duration-300 z-50">
-                <div className="bg-white w-[260px] border border-neutral-200 overflow-hidden relative">
-                  {/* Top accent */}
-                  <div className="h-[2px] w-full bg-gradient-to-r from-brand via-brand-light to-transparent" />
-                  {/* Eyebrow */}
-                  <div className="px-5 pt-4 pb-2">
-                    <span className="text-[9px] font-bold text-brand uppercase tracking-[0.25em]">Engage</span>
-                  </div>
-                  {/* Links */}
-                  <div className="px-2 pb-3">
-                    <Link href="/membership" className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
-                      <div>
-                        <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">Membership</span>
-                        <span className="text-[10px] text-neutral-400">Join our network</span>
-                      </div>
+            {data.navigation?.map((item, idx) => {
+              if (item.hasDropdown && item.dropdownItems && item.dropdownItems.length > 0) {
+                const groupName = `nav${idx}`;
+                const isAnyChildActive = item.dropdownItems.some(di => isActive(di.link));
+                return (
+                  <div key={idx} className={`relative group/${groupName}`}>
+                    <Link
+                      href={item.link}
+                      className={`text-[15px] font-bold group-hover/${groupName}:text-brand transition-colors whitespace-nowrap flex items-center gap-1.5 ${
+                        isActive(item.link) || isAnyChildActive ? "text-brand" : "text-neutral-800 hover:text-brand"
+                      }`}
+                    >
+                      {item.label}
+                      <svg className={`w-2.5 h-2.5 group-hover/${groupName}:text-brand group-hover/${groupName}:translate-y-px transition-all duration-300 ${
+                        isActive(item.link) || isAnyChildActive ? "text-brand" : "text-neutral-300"
+                      }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                      </svg>
                     </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Certification with dropdown */}
-            <div className="relative group/nav">
-              <Link
-                href="/certifications"
-                className={`text-[15px] font-bold group-hover/nav:text-brand transition-colors whitespace-nowrap flex items-center gap-1.5 ${
-                  (isActive("/certifications") || isActive("/training-leads")) ? "text-brand" : "text-neutral-800 hover:text-brand"
-                }`}
-              >
-                Certification
-                <svg className={`w-2.5 h-2.5 group-hover/nav:text-brand group-hover/nav:translate-y-px transition-all duration-300 ${
-                  (isActive("/certifications") || isActive("/training-leads")) ? "text-brand" : "text-neutral-300"
-                }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <div className="absolute top-full -left-4 pt-3 opacity-0 invisible translate-y-1 group-hover/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0 transition-all duration-300 z-50">
-                <div className="bg-white w-[260px] border border-neutral-200 overflow-hidden relative">
-                  {/* Top accent */}
-                  <div className="h-[2px] w-full bg-gradient-to-r from-brand via-brand-light to-transparent" />
-                  {/* Eyebrow */}
-                  <div className="px-5 pt-4 pb-2">
-                    <span className="text-[9px] font-bold text-brand uppercase tracking-[0.25em]">Certification &amp; Training</span>
-                  </div>
-                  {/* Links */}
-                  <div className="px-2 pb-3">
-                    <Link href="/certifications" className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
-                      <div>
-                        <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">All Certifications</span>
-                        <span className="text-[10px] text-neutral-400">Browse learning pathways</span>
+                    <div className={`absolute top-full -left-4 pt-3 opacity-0 invisible translate-y-1 group-hover/${groupName}:opacity-100 group-hover/${groupName}:visible group-hover/${groupName}:translate-y-0 transition-all duration-300 z-50`}>
+                      <div className="bg-white w-[260px] border border-neutral-200 overflow-hidden relative">
+                        <div className="h-[2px] w-full bg-gradient-to-r from-brand via-brand-light to-transparent" />
+                        <div className="px-5 pt-4 pb-2">
+                          <span className="text-[9px] font-bold text-brand uppercase tracking-[0.25em]">{item.dropdownLabel || item.label}</span>
+                        </div>
+                        <div className="px-2 pb-3">
+                          {item.dropdownItems.map((di, diIdx) => (
+                            <Link key={diIdx} href={di.link} className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
+                              <div>
+                                <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">{di.label}</span>
+                                {di.description && <span className="text-[10px] text-neutral-400">{di.description}</span>}
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
                       </div>
-                    </Link>
-                    <Link href="/training-leads" className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
-                      <div>
-                        <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">Training Leads</span>
-                        <span className="text-[10px] text-neutral-400">Expert network directory</span>
-                      </div>
-                    </Link>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
+                );
+              }
 
-            {[
-              { label: "Programmes", href: "/programmes" },
-              { label: "Updates", href: "/updates" },
-            ].map(item => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`text-[15px] font-bold transition-colors whitespace-nowrap ${
-                  isActive(item.href) ? "text-brand" : "text-neutral-800 hover:text-brand"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+              return (
+                <Link
+                  key={idx}
+                  href={item.link}
+                  className={`text-[15px] font-bold transition-colors whitespace-nowrap ${
+                    isActive(item.link) ? "text-brand" : "text-neutral-800 hover:text-brand"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Right: Actions */}
           <div className="flex items-center gap-4 xl:gap-6">
 
             <Link
-              href="https://www.linkedin.com/company/arifac/"
+              href={data.linkedinUrl || 'https://www.linkedin.com/company/arifac/'}
               target="_blank"
               rel="noopener noreferrer"
               className="text-neutral-600 hover:text-brand transition-colors"
@@ -207,13 +161,13 @@ export default function Header({ newsItems = [] }: HeaderProps) {
                     <span className="text-[9px] font-bold text-brand uppercase tracking-[0.25em]">Login As</span>
                   </div>
                   <div className="px-2 pb-3">
-                    <Link href={`${process.env.NEXT_PUBLIC_MEMBER_PORTAL_URL}`} className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
+                    <Link href={data.memberPortalUrl || `${process.env.NEXT_PUBLIC_MEMBER_PORTAL_URL}`} className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
                       <div>
                         <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">Organization</span>
                         <span className="text-[10px] text-neutral-400">Member portal access</span>
                       </div>
                     </Link>
-                    <Link href="https://stage.learning.arifac.com/" className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
+                    <Link href={data.learnerPortalUrl || 'https://stage.learning.arifac.com/'} className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
                       <div>
                         <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">Learner</span>
                         <span className="text-[10px] text-neutral-400">Learning platform access</span>

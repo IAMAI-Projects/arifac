@@ -33,9 +33,13 @@ export interface Config {
   }
   globals: {
     programmes: Programme
+    header: Header
+    footer: Footer
   }
   globalsSelect: {
     programmes: ProgrammesSelect<false> | ProgrammesSelect<true>
+    header: HeaderSelect<false> | HeaderSelect<true>
+    footer: FooterSelect<false> | FooterSelect<true>
   }
   locale: null
   user: User & {
@@ -337,6 +341,62 @@ export interface Programme {
 }
 
 /**
+ * Header global
+ */
+export interface Header {
+  id: number
+  navigation?: {
+    label: string
+    link: string
+    hasDropdown?: boolean | null
+    dropdownLabel?: string | null
+    dropdownItems?: {
+      label: string
+      description?: string | null
+      link: string
+      id?: string | null
+    }[] | null
+    id?: string | null
+  }[] | null
+  memberPortalLabel?: string | null
+  memberPortalUrl?: string | null
+  learnerPortalLabel?: string | null
+  learnerPortalUrl?: string | null
+  fiuLogoLink?: string | null
+  linkedinUrl?: string | null
+  updatedAt?: string | null
+  createdAt?: string | null
+  globalType?: string | null
+}
+
+/**
+ * Footer global
+ */
+export interface Footer {
+  id: number
+  tagline?: string | null
+  initiativeLabel?: string | null
+  linkGroups?: {
+    title: string
+    links?: {
+      label: string
+      url: string
+      id?: string | null
+    }[] | null
+    id?: string | null
+  }[] | null
+  bottomLinks?: {
+    label: string
+    url: string
+    id?: string | null
+  }[] | null
+  copyrightText?: string | null
+  updatedAt?: string | null
+  createdAt?: string | null
+  globalType?: string | null
+}
+
+/**
  * Select types for collections
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -421,6 +481,30 @@ export interface ProgrammesSelect<T extends boolean = true> {
   programmeSchedule?: T
   recentConsultations?: T
   annualMeetings?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
+}
+
+export interface HeaderSelect<T extends boolean = true> {
+  navigation?: T
+  memberPortalLabel?: T
+  memberPortalUrl?: T
+  learnerPortalLabel?: T
+  learnerPortalUrl?: T
+  fiuLogoLink?: T
+  linkedinUrl?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
+}
+
+export interface FooterSelect<T extends boolean = true> {
+  tagline?: T
+  initiativeLabel?: T
+  linkGroups?: T
+  bottomLinks?: T
+  copyrightText?: T
   updatedAt?: T
   createdAt?: T
   globalType?: T
