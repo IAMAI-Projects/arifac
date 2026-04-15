@@ -570,18 +570,85 @@ export async function GET() {
       ]),
     },
     {
-      title: 'Membership',
+      title: 'Engagement with ARIFAC',
       slug: 'membership',
-      pageType: 'simple' as const,
-      banner: { label: 'Join the Alliance', title: 'ARIFAC Membership', description: 'Institutional membership for reporting entities, fintech companies, and compliance professionals.' },
-      body: lexicalRoot([
-        lexicalHeading('ARIFAC Membership', 'h2'),
-        lexicalParagraph('ARIFAC membership is open to all reporting entities, fintech companies, and compliance professionals operating within India\'s AML/CFT regulatory framework.'),
-        lexicalHeading('Membership Categories', 'h3'),
-        lexicalList(['Institutional Members — Banks, NBFCs, payment aggregators, fintech platforms', 'Associate Members — Technology providers, consultancies, training institutions', 'Individual Members — Compliance officers, AML investigators, risk professionals']),
-        lexicalHeading('How to Apply', 'h3'),
-        lexicalParagraph('Submit your membership application through the ARIFAC portal. Applications are reviewed within 5-7 business days.'),
-      ]),
+      pageType: 'membership' as const,
+      banner: {
+        label: 'Membership',
+        title: 'Engagement with ARIFAC',
+        description: 'Engagement is structured to enable reporting entities and ecosystem stakeholders to actively participate in consultations, strengthen capacity, and contribute to knowledge-sharing initiatives aligned with AML/CFT frameworks.',
+      },
+      membershipIntro: {
+        subheading: 'ARIFAC offers two engagement pathways — Membership (Paid, for reporting entities) and Affiliate (Free, for individuals). Both provide structured access to programmes, knowledge, and the compliance network.',
+      },
+      membershipCta: {
+        label: 'Apply to be a Member / Affiliate',
+        link: `${process.env.NEXT_PUBLIC_MEMBER_PORTAL_URL || ''}/register`,
+      },
+      benefits: [
+        {
+          category: 'Engagement & Governance',
+          items: [
+            { title: 'Regulatory Engagement', description: 'Direct participation in consultations, policy dialogues, and expert forums alongside regulators and policymakers.' },
+            { title: 'Governance Participation', description: 'Full voting rights within ARIFAC — eligible to elect and be elected to the Steering Committee and Working Groups.' },
+            { title: 'Closed-Door Interactions', description: 'Exclusive access to policy and regulatory closed-room sessions, structured by domain.' },
+          ],
+        },
+        {
+          category: 'Learning & Capacity',
+          items: [
+            { title: 'Training & Certification', description: 'Access to L1\u2013L5 certification programmes at preferential member pricing.' },
+            { title: 'Workshops & Masterclasses', description: 'Full access to advanced sessions led by practitioners and subject matter experts.' },
+            { title: 'Webinars & Awareness', description: 'Unrestricted access to all webinars and awareness sessions.' },
+          ],
+        },
+        {
+          category: 'Intelligence & Research',
+          items: [
+            { title: 'Knowledge & Intelligence', description: 'Comprehensive access to typologies, case studies, learnings, and risk intelligence curated for the industry.' },
+            { title: 'Typology & Risk Alerts', description: 'Real-time FIU-driven insights and alerts to stay ahead of emerging risks.' },
+            { title: 'Reports', description: 'Full access to all ARIFAC published reports.' },
+            { title: 'Participation in Reports', description: 'Preferential inclusion in whitepapers, industry reports, and key ecosystem initiatives.' },
+          ],
+        },
+        {
+          category: 'Ecosystem & Visibility',
+          items: [
+            { title: 'Events & Summits', description: 'Participation and speaking opportunities at ARIFAC, IAMAI, PCI and FCC-organised summits (e.g. N-SAFE and GFF).' },
+            { title: 'Ecosystem Directory', description: 'Full access to the directory of member institutions and certified professionals.' },
+            { title: 'Brand Visibility', description: 'Recognised as an ARIFAC Member across the website and all publications.' },
+          ],
+        },
+      ],
+      responsibilities: [
+        { title: 'Confidentiality', description: 'Maintain confidentiality of discussions and shared information' },
+        { title: 'Compliance', description: 'Ensure compliance with applicable AML/CFT laws and regulatory obligations' },
+        { title: 'No Misuse', description: 'Avoid misuse of ARIFAC platforms, forums, or affiliation' },
+        { title: 'Good Faith', description: 'Act in good faith and contribute constructively to industry discussions' },
+      ],
+      validityTerms: [
+        { text: 'Membership is valid for a year from the date of onboarding and will be renewed annually' },
+        { text: 'Membership is subject to renewal in accordance with ARIFAC policies' },
+        { text: 'Access may be restricted upon expiry until renewal is completed' },
+      ],
+      feeTables: {
+        turnoverBased: [
+          { tier: 'Up to 5 Cr', fee: '\u20B925,000' },
+          { tier: '5\u201325 Cr', fee: '\u20B950,000' },
+          { tier: '25\u2013100 Cr', fee: '\u20B91,00,000' },
+          { tier: '100\u2013500 Cr', fee: '\u20B91,50,000' },
+          { tier: '500\u20132,000 Cr', fee: '\u20B93,00,000' },
+          { tier: 'Above 2,000 Cr', fee: '\u20B95,00,000' },
+        ],
+        aumBased: [
+          { tier: 'Up to 500 Cr', fee: '\u20B925,000' },
+          { tier: '500\u20131,000 Cr', fee: '\u20B950,000' },
+          { tier: '1,000\u201310,000 Cr', fee: '\u20B91,00,000' },
+          { tier: '10,000\u201350,000 Cr', fee: '\u20B91,50,000' },
+          { tier: '50,000\u20131,00,000 Cr', fee: '\u20B93,00,000' },
+          { tier: 'Above 1,00,000 Cr', fee: '\u20B95,00,000' },
+        ],
+      },
     },
     {
       title: 'Member Benefits',
