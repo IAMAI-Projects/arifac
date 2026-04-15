@@ -311,28 +311,6 @@ export interface Page {
             blockName?: string | null;
             blockType: 'partnerships';
           }
-        | {
-            label?: string | null;
-            heading: string;
-            description?: string | null;
-            links?:
-              | {
-                  eyebrow: string;
-                  title: string;
-                  href: string;
-                  id?: string | null;
-                }[]
-              | null;
-            stat: {
-              value: string;
-              description: string;
-            };
-            ctaLabel?: string | null;
-            ctaLink?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'community';
-          }
       )[]
     | null;
   whySection?: {
@@ -898,31 +876,6 @@ export interface PagesSelect<T extends boolean = true> {
                     logoUrl?: T;
                   };
               disclaimer?: T;
-              id?: T;
-              blockName?: T;
-            };
-        community?:
-          | T
-          | {
-              label?: T;
-              heading?: T;
-              description?: T;
-              links?:
-                | T
-                | {
-                    eyebrow?: T;
-                    title?: T;
-                    href?: T;
-                    id?: T;
-                  };
-              stat?:
-                | T
-                | {
-                    value?: T;
-                    description?: T;
-                  };
-              ctaLabel?: T;
-              ctaLink?: T;
               id?: T;
               blockName?: T;
             };

@@ -3,7 +3,6 @@ import Hero from '@/components/Hero'
 import StatsStrip from '@/components/StatsStrip'
 import CapabilityMatrix from '@/components/CapabilityMatrix'
 import Partnerships from '@/components/Partnerships'
-import CommunitySection from '@/components/CommunitySection'
 import RegulatoryDashboard from '@/components/RegulatoryDashboard'
 import FeaturedPrograms from '@/components/FeaturedPrograms'
 import CTASection from '@/components/CTASection'
@@ -28,8 +27,6 @@ export default function BlockRenderer({ blocks, regulatoryUpdates = [] }: BlockR
             return <CapabilityMatrix key={index} data={block} />
           case 'partnerships':
             return <Partnerships key={index} data={block} />
-          case 'community':
-            return <CommunitySection key={index} data={block} />
           case 'regulatoryDashboard':
             return <RegulatoryDashboard key={index} data={block} updates={regulatoryUpdates} />
           case 'featuredPrograms':

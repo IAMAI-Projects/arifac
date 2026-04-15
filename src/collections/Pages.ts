@@ -6,7 +6,6 @@ import { RegulatoryDashboardBlock } from '../blocks/RegulatoryDashboardBlock'
 import { FeaturedProgramsBlock } from '../blocks/FeaturedProgramsBlock'
 import { CTABlock } from '../blocks/CTABlock'
 import { PartnershipsBlock } from '../blocks/PartnershipsBlock'
-import { CommunityBlock } from '../blocks/CommunityBlock'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -74,7 +73,6 @@ export const Pages: CollectionConfig = {
         FeaturedProgramsBlock,
         CTABlock,
         PartnershipsBlock,
-        CommunityBlock,
       ],
       admin: {
         condition: (data) => data?.pageType === 'home',
