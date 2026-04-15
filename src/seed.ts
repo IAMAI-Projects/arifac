@@ -222,6 +222,92 @@ const pages = [
   },
 ]
 
+const certifications = [
+  {
+    title: 'ARIFAC Certified Associate (AML/CFT)',
+    level: 'ACF-L1',
+    focus: 'AML/CFT Foundations',
+    category: 'Foundation' as const,
+    format: 'Online',
+    description: 'Entry-level AML/CFT literacy and role-based onboarding. Build a strong foundation with practical understanding of KYC, transaction monitoring, and financial crime risk indicators within the Indian regulatory framework. Designed for entry-level professionals across reporting entities and learners aspiring to build a career in compliance, risk, and financial crime prevention.',
+    duration: 'Self-paced',
+    curriculum: [
+      { item: 'AML/CFT Foundations & Regulatory Framework' },
+      { item: 'KYC, CKYC & Data Governance' },
+      { item: 'Transaction Monitoring Basics' },
+      { item: 'Financial Crime Risk Indicators' },
+      { item: 'PMLA 2002 & Indian Regulatory Requirements' },
+      { item: 'FATF Standards Overview' },
+    ],
+  },
+  {
+    title: 'ARIFAC Certified Professional',
+    level: 'ACF-L2',
+    focus: 'Applied Compliance & Monitoring',
+    category: 'Professional' as const,
+    format: 'Online',
+    description: 'Applied compliance, monitoring, and supervisory capability. Designed for mid-level professionals responsible for transaction monitoring, STR filing, and day-to-day compliance operations across reporting entities.',
+    duration: 'Self-paced',
+    curriculum: [
+      { item: 'Transaction Monitoring & STR Filing' },
+      { item: 'Fraud Detection in Payments' },
+      { item: 'Merchant Onboarding & Due Diligence' },
+      { item: 'Data Analytics for AML Monitoring' },
+      { item: 'AI/ML in Fraud Detection' },
+      { item: 'Cross-border AML & Remittance Monitoring' },
+    ],
+  },
+  {
+    title: 'ARIFAC Certified Specialist',
+    level: 'ACF-L3',
+    focus: 'Investigations & Typologies',
+    category: 'Specialist' as const,
+    format: 'Online',
+    description: 'Deep domain expertise in financial crime investigations, typologies, and advanced compliance. For experienced professionals handling complex cases, regulatory interpretation, and specialist risk domains.',
+    duration: 'Self-paced',
+    curriculum: [
+      { item: 'Advanced AML Investigations & Typologies' },
+      { item: 'Financial Crime Typologies & Case Studies' },
+      { item: 'Mule Account Networks & Syndicates' },
+      { item: 'Advanced Crypto Forensics & AML' },
+      { item: 'Sanctions Screening & Evasion' },
+      { item: 'Working with Law Enforcement Agencies' },
+    ],
+  },
+  {
+    title: 'ARIFAC Certified Leader',
+    level: 'ACF-L4',
+    focus: 'Governance & Strategy',
+    category: 'Strategic' as const,
+    format: 'Online',
+    description: 'Strategic oversight, policy design, and institutional leadership in AML/CFT. For senior leaders and board members responsible for enterprise-wide financial crime governance, risk culture, and regulatory engagement.',
+    duration: 'Self-paced',
+    curriculum: [
+      { item: 'AML Governance, Board Oversight & Risk Culture' },
+      { item: 'Enterprise AML Risk Framework' },
+      { item: 'Financial Crime Strategy & Transformation' },
+      { item: 'Regulatory Engagement & Policy Design' },
+      { item: 'Global AML Standards (FATF, BIS, IOSCO)' },
+      { item: 'Crisis Management & Fraud Response' },
+    ],
+  },
+  {
+    title: 'Compliance Training Programme for All Employees',
+    level: 'CTP',
+    focus: 'Organisation-wide Compliance',
+    category: 'Foundation' as const,
+    format: 'Online',
+    description: 'Foundational AML/CFT compliance training designed for all employees across reporting entities. Ensures organisation-wide awareness of financial crime risks, regulatory obligations, and reporting responsibilities.',
+    duration: 'Self-paced',
+    curriculum: [
+      { item: 'AML/CFT Awareness Fundamentals' },
+      { item: 'Reporting Obligations & Responsibilities' },
+      { item: 'Recognising Suspicious Activity' },
+      { item: 'Internal Escalation Procedures' },
+    ],
+  },
+]
+
 export async function seed(payload: Payload) {
   console.log('Seeding pages...')
 
@@ -242,6 +328,27 @@ export async function seed(payload: Payload) {
       data: page as any,
     })
     console.log(`  + Created page "${page.slug}"`)
+  }
+
+  console.log('Seeding certifications...')
+
+  for (const cert of certifications) {
+    const existing = await payload.find({
+      collection: 'certifications',
+      where: { title: { equals: cert.title } },
+      limit: 1,
+    })
+
+    if (existing.docs.length > 0) {
+      console.log(`  ✓ Certification "${cert.title}" already exists, skipping`)
+      continue
+    }
+
+    await payload.create({
+      collection: 'certifications',
+      data: cert as any,
+    })
+    console.log(`  + Created certification "${cert.title}"`)
   }
 
   console.log('Seeding complete.')

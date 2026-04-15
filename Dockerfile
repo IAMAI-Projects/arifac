@@ -16,6 +16,8 @@ COPY . .
 # Build args for Next.js build (NEXT_PUBLIC_ vars are inlined at build time)
 ARG NEXT_PUBLIC_SERVER_URL
 ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
+ARG NEXT_PUBLIC_MEMBER_PORTAL_URL
+ENV NEXT_PUBLIC_MEMBER_PORTAL_URL=${NEXT_PUBLIC_MEMBER_PORTAL_URL}
 
 # Use compile mode to avoid needing DATABASE_URI at build time
 # All pages will be server-rendered at request time (appropriate for CMS)

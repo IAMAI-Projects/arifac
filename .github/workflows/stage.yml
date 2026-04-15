@@ -36,6 +36,7 @@ jobs:
         run: |
           docker build \
             --build-arg NEXT_PUBLIC_SERVER_URL=https://stage.arifac.com \
+            --build-arg NEXT_PUBLIC_MEMBER_PORTAL_URL=https://stage.member.arifac.com \
             -t "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" \
             -t "$ECR_REGISTRY/$ECR_REPOSITORY:latest" .
           docker push "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
