@@ -42,23 +42,21 @@ export default async function AboutPage() {
             <p className="text-neutral-600 text-[16px] leading-[1.7]">
               {page.whySection?.description}
             </p>
-            <p className="text-neutral-600 text-[16px] leading-[1.7] mt-4">
-              The increasing scale and sophistication of financial crime, including cyber fraud, mule account networks, identity misuse, and platform abuse, require a coordinated industry response aligned with:
-            </p>
-            <ul className="mt-4 space-y-2">
-              <li className="flex items-start gap-3 text-neutral-600 text-[15px] leading-relaxed">
-                <div className="w-1.5 h-1.5 bg-brand mt-[9px] flex-shrink-0" />
-                The Prevention of Money Laundering Act (PMLA)
-              </li>
-              <li className="flex items-start gap-3 text-neutral-600 text-[15px] leading-relaxed">
-                <div className="w-1.5 h-1.5 bg-brand mt-[9px] flex-shrink-0" />
-                Reporting requirements under FIU-IND
-              </li>
-              <li className="flex items-start gap-3 text-neutral-600 text-[15px] leading-relaxed">
-                <div className="w-1.5 h-1.5 bg-brand mt-[9px] flex-shrink-0" />
-                Global standards for AML — FATF Recommendations, International Monetary Fund, Basel Committee, Egmont Group
-              </li>
-            </ul>
+            {page.whySection?.alignedWith?.description && (
+              <p className="text-neutral-600 text-[16px] leading-[1.7] mt-4">
+                {page.whySection.alignedWith.description}
+              </p>
+            )}
+            {alignedItems.length > 0 && (
+              <ul className="mt-4 space-y-2">
+                {alignedItems.map((item, idx) => (
+                  <li key={item.id || idx} className="flex items-start gap-3 text-neutral-600 text-[15px] leading-relaxed">
+                    <div className="w-1.5 h-1.5 bg-brand mt-[9px] flex-shrink-0" />
+                    <span><span className="font-bold">{item.label}:</span> {item.value}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </section>
