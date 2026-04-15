@@ -390,6 +390,17 @@ export async function GET() {
     await payload.updateGlobal({
       slug: 'programmes',
       data: {
+        banner: {
+          label: 'Programmes',
+          title: 'Consolidated Ecosystem Engagement Framework',
+          description: 'ARIFAC facilitates structured collaboration between reporting entities, regulators, and domain experts through multiple active engagement channels.',
+        },
+        sectionHeadings: {
+          engagementStrategy: 'Engagement Strategy',
+          programmeSchedule: 'Programme Schedule',
+          recentConsultations: 'Recent Consultations',
+          annualMeetings: 'Annual Meetings & Regulatory Fora',
+        },
         engagementFormats: [
           { title: 'Industry Consultations', description: 'Addressing emerging financial risks and operational challenges within the AML/CFT' },
           { title: 'Training & Capacity Building', description: 'Programmes to strengthen internal capabilities across compliance, risk, legal, operations, and business functions.' },
