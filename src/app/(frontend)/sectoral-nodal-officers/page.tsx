@@ -2,72 +2,13 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import StaticPageLayout from '@/components/StaticPageLayout'
 import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
+import type { NodalOfficer } from '@/payload-types'
 
-interface NodalOfficer {
-  organization: string
-  designation: string
-  officerName: string
+interface OfficerCardProps {
+  officer: NodalOfficer
 }
 
-interface Sector {
-  name: string
-  officers: NodalOfficer[]
-}
-
-const sectors: Sector[] = [
-  {
-    name: 'Banks',
-    officers: [
-      { organization: 'ICICI Bank', designation: 'Principal Officer', officerName: 'Ms Rakhee Sengupta' },
-      { organization: 'Axis Bank', designation: 'Principal Officer', officerName: 'Mr Manish Vasishta' },
-      { organization: 'State Bank of India', designation: 'Principal Officer', officerName: '' },
-    ],
-  },
-  {
-    name: 'Payment Aggregators / PA - Cross Border',
-    officers: [
-      { organization: 'IndiaIdeas.com Limited (BillDesk)', designation: 'Principal Officer', officerName: 'Ms Jyothi N M' },
-    ],
-  },
-  {
-    name: 'Networks',
-    officers: [
-      { organization: 'NPCI', designation: 'Principal Officer', officerName: '' },
-    ],
-  },
-  {
-    name: 'Payment Banks / PPI Issuers',
-    officers: [
-      { organization: 'Fino Payments Bank', designation: 'Principal Officer', officerName: 'Mr Aashish Pathak' },
-    ],
-  },
-  {
-    name: 'Asset Management',
-    officers: [
-      { organization: 'HDFC Mutual Fund', designation: 'Principal Officer', officerName: 'Mr Sameer Seksaria' },
-    ],
-  },
-  {
-    name: 'Co-operative Banks',
-    officers: [
-      { organization: 'Karad Urban Co-Operative Bank', designation: 'Principal Officer', officerName: 'Mr Amit Madhusudan Retharekar' },
-    ],
-  },
-  {
-    name: 'Brokers',
-    officers: [
-      { organization: 'Zerodha Broking Limited', designation: 'Principal Officer', officerName: 'Ms Roopa Venkatesh' },
-    ],
-  },
-  {
-    name: 'NBFC',
-    officers: [
-      { organization: 'Bajaj Finserv', designation: 'Principal Officer', officerName: 'Mr Neelesh Sarda' },
-    ],
-  },
-]
-
-function OfficerCard({ officer }: { officer: NodalOfficer }) {
+function OfficerCard({ officer }: OfficerCardProps) {
   return (
     <div className="group bg-[#f5f5f7] p-8 md:p-10 flex flex-col md:flex-row md:items-center justify-between gap-8 hover:bg-white hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-500">
       <div className="space-y-2">
@@ -82,8 +23,8 @@ function OfficerCard({ officer }: { officer: NodalOfficer }) {
         <div className="h-12 w-px bg-gray-200 hidden md:block" />
         <div className="space-y-1">
           <div className="text-[10px] font-bold text-brand uppercase tracking-widest">Nodal Officer</div>
-          {officer.officerName ? (
-            <div className="text-lg font-bold text-[#1d1d1f]">{officer.officerName}</div>
+          {officer.name ? (
+            <div className="text-lg font-bold text-[#1d1d1f]">{officer.name}</div>
           ) : (
             <div className="text-lg font-medium text-slate-400 italic">Principal Officer</div>
           )}
@@ -93,18 +34,18 @@ function OfficerCard({ officer }: { officer: NodalOfficer }) {
   )
 }
 
-function SectorGroup({ sector, index }: { sector: Sector; index: number }) {
+function SectorGroup({ name, officers, index }: { name: string; officers: NodalOfficer[]; index: number }) {
   return (
     <div className="mb-24 last:mb-0">
       <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12 mb-12 border-b border-gray-100 pb-8">
         <span className="text-brand font-bold text-sm tracking-widest tabular-nums opacity-50">
           {String(index + 1).padStart(2, '0')}
         </span>
-        <h2 className="text-3xl font-bold text-[#1d1d1f] tracking-tight">{sector.name}</h2>
+        <h2 className="text-3xl font-bold text-[#1d1d1f] tracking-tight">{name}</h2>
       </div>
       <div className="grid gap-6">
-        {sector.officers.map((officer) => (
-          <OfficerCard key={officer.organization} officer={officer} />
+        {officers.map((officer) => (
+          <OfficerCard key={officer.id} officer={officer} />
         ))}
       </div>
     </div>
@@ -121,7 +62,22 @@ export default async function SectoralNodalOfficersPage() {
   })
   const page = result.docs[0]
 
-  const totalOfficers = sectors.reduce((sum, s) => sum + s.officers.length, 0)
+  const { docs: officers } = await payload.find({
+    collection: 'nodal-officers',
+    sort: 'order',
+    limit: 100,
+  })
+
+  // Group by sector for display
+  const sectorMap = new Map<string, NodalOfficer[]>()
+  for (const officer of officers) {
+    const sector = officer.sector
+    if (!sectorMap.has(sector)) sectorMap.set(sector, [])
+    sectorMap.get(sector)!.push(officer)
+  }
+  const sectors = Array.from(sectorMap.entries()).map(([name, sectorOfficers]) => ({ name, officers: sectorOfficers }))
+
+  const totalOfficers = officers.length
 
   return (
     <StaticPageLayout
@@ -133,7 +89,7 @@ export default async function SectoralNodalOfficersPage() {
       <section className="py-10 lg:py-14">
         <div className="max-w-4xl mx-auto px-6">
           {sectors.map((sector, i) => (
-            <SectorGroup key={sector.name} sector={sector} index={i} />
+            <SectorGroup key={sector.name} name={sector.name} officers={sector.officers} index={i} />
           ))}
 
           <div className="mt-6 pt-5 border-t-2 border-navy/10 flex flex-wrap items-center justify-between gap-4">

@@ -2,68 +2,9 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import StaticPageLayout from '@/components/StaticPageLayout'
 import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
+import type { TrainingLeadsDirectory } from '@/payload-types'
 
-interface TrainingLead {
-  name: string
-  designation?: string
-  organization: string
-  specialisation?: string
-}
-
-const trainingLeads: TrainingLead[] = [
-  {
-    name: 'Mr Nihal Shah',
-    designation: 'Principal Officer',
-    organization: 'Citibank NA',
-    specialisation: 'Foreign Banks AML Framework',
-  },
-  {
-    name: 'Mr Shirish Pathak',
-    organization: 'Fintelekt Advisory Services Pvt Ltd',
-  },
-  {
-    name: 'Mr Sameer Seksaria',
-    organization: 'HDFC AMC',
-    specialisation: 'Asset Management Compliance',
-  },
-  {
-    name: 'Mr Gyan Gotan',
-    organization: 'HDFC Bank',
-    specialisation: 'Private Banking AML Framework',
-  },
-  {
-    name: 'Ms Rakhee Sengupta',
-    organization: 'ICICI Bank',
-    specialisation: 'Retail Banking AML',
-  },
-  {
-    name: 'Ms Jyothi N M',
-    designation: 'Asstt. GM & Principal Officer',
-    organization: 'IndiaIdeas.com Limited (BillDesk)',
-    specialisation: 'PA/PACB, BBPS AML Framework',
-  },
-  {
-    name: 'Mr Prashant Sinha',
-    organization: 'Jio Financial Services',
-  },
-  {
-    name: 'Mr Hemang Sheth',
-    organization: 'JP Morgan Chase Bank NA',
-  },
-  {
-    name: 'Mr Amit Madhusudan Retharekar',
-    designation: 'Chief Compliance Officer',
-    organization: 'Karad Urban Co-Operative Bank',
-    specialisation: 'Cooperative Banking AML Framework',
-  },
-  {
-    name: '',
-    organization: 'State Bank of India',
-    specialisation: 'Public Banking AML Framework',
-  },
-]
-
-function LeadRow({ lead, index }: { lead: TrainingLead; index: number }) {
+function LeadRow({ lead, index }: { lead: TrainingLeadsDirectory; index: number }) {
   return (
     <div className="group grid grid-cols-[48px_1fr] lg:grid-cols-[64px_minmax(180px,1.2fr)_1.5fr_1fr] items-start lg:items-center gap-x-4 gap-y-1 py-5 lg:py-6 border-b border-slate-200 last:border-b-0 hover:bg-slate-50/60 transition-colors duration-300">
       <span className="text-[28px] lg:text-[36px] font-extrabold text-slate-200 leading-none select-none tabular-nums group-hover:text-brand-light transition-colors duration-300">
@@ -94,10 +35,10 @@ function LeadRow({ lead, index }: { lead: TrainingLead; index: number }) {
         </div>
       </div>
 
-      {lead.specialisation ? (
+      {lead.specialization ? (
         <div className="col-span-2 lg:col-span-1 pl-[calc(48px+16px)] lg:pl-0 mt-1 lg:mt-0">
           <span className="inline-block text-[11px] font-bold uppercase tracking-[0.12em] text-navy/50 bg-navy/[0.04] border border-navy/[0.08] px-2.5 py-1">
-            {lead.specialisation}
+            {lead.specialization}
           </span>
         </div>
       ) : (
@@ -116,6 +57,12 @@ export default async function TrainingLeadsPage() {
     draft: true,
   })
   const page = result.docs[0]
+
+  const { docs: trainingLeads } = await payload.find({
+    collection: 'training-leads-directory',
+    sort: 'order',
+    limit: 100,
+  })
 
   return (
     <StaticPageLayout
@@ -145,7 +92,7 @@ export default async function TrainingLeadsPage() {
 
           <div>
             {trainingLeads.map((lead, i) => (
-              <LeadRow key={lead.organization} lead={lead} index={i} />
+              <LeadRow key={lead.id} lead={lead} index={i} />
             ))}
           </div>
 
@@ -160,7 +107,7 @@ export default async function TrainingLeadsPage() {
               <div className="flex items-center gap-2">
                 <span className="w-3 h-[3px] bg-brand-light" />
                 <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-slate-500">
-                  {trainingLeads.filter((l) => l.specialisation).length} Specialisations
+                  {trainingLeads.filter((l) => l.specialization).length} Specialisations
                 </span>
               </div>
             </div>

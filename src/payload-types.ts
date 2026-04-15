@@ -18,6 +18,9 @@ export interface Config {
     certifications: Certification
     'news-items': NewsItem
     members: Member
+    'legal-pages': LegalPage
+    'nodal-officers': NodalOfficer
+    'training-leads-directory': TrainingLeadsDirectory
   }
   collectionsJoins: Record<string, never>
   collectionsSelect: {
@@ -27,6 +30,9 @@ export interface Config {
     certifications: CertificationsSelect<false> | CertificationsSelect<true>
     'news-items': NewsItemsSelect<false> | NewsItemsSelect<true>
     members: MembersSelect<false> | MembersSelect<true>
+    'legal-pages': LegalPagesSelect<false> | LegalPagesSelect<true>
+    'nodal-officers': NodalOfficersSelect<false> | NodalOfficersSelect<true>
+    'training-leads-directory': TrainingLeadsDirectorySelect<false> | TrainingLeadsDirectorySelect<true>
   }
   db: {
     defaultIDType: number
@@ -304,6 +310,58 @@ export interface Member {
 }
 
 /**
+ * Legal Pages collection
+ */
+export interface LegalPage {
+  id: number
+  title: string
+  slug: string
+  contactEmail?: string | null
+  sections?: {
+    title: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    body: any
+    id?: string | null
+  }[] | null
+  acknowledgment?: {
+    heading?: string | null
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    body?: any
+  } | null
+  updatedAt: string
+  createdAt: string
+  _status?: string | null
+}
+
+/**
+ * Nodal Officers collection
+ */
+export interface NodalOfficer {
+  id: number
+  name: string
+  designation: string
+  organization: string
+  sector: string
+  order?: number | null
+  updatedAt: string
+  createdAt: string
+}
+
+/**
+ * Training Leads Directory collection
+ */
+export interface TrainingLeadsDirectory {
+  id: number
+  name: string
+  designation?: string | null
+  organization: string
+  specialization?: string | null
+  order?: number | null
+  updatedAt: string
+  createdAt: string
+}
+
+/**
  * Programmes global
  */
 export interface Programme {
@@ -474,6 +532,37 @@ export interface MembersSelect<T extends boolean = true> {
   updatedAt?: T
   createdAt?: T
   _status?: T
+}
+
+export interface LegalPagesSelect<T extends boolean = true> {
+  title?: T
+  slug?: T
+  contactEmail?: T
+  sections?: T
+  acknowledgment?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+
+export interface NodalOfficersSelect<T extends boolean = true> {
+  name?: T
+  designation?: T
+  organization?: T
+  sector?: T
+  order?: T
+  updatedAt?: T
+  createdAt?: T
+}
+
+export interface TrainingLeadsDirectorySelect<T extends boolean = true> {
+  name?: T
+  designation?: T
+  organization?: T
+  specialization?: T
+  order?: T
+  updatedAt?: T
+  createdAt?: T
 }
 
 export interface ProgrammesSelect<T extends boolean = true> {

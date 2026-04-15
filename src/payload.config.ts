@@ -11,6 +11,9 @@ import { RegulatoryUpdates } from './collections/RegulatoryUpdates'
 import { Certifications } from './collections/Certifications'
 import { NewsItems } from './collections/NewsItems'
 import { Members } from './collections/Members'
+import { LegalPages } from './collections/LegalPages'
+import { NodalOfficers } from './collections/NodalOfficers'
+import { TrainingLeadsDirectory } from './collections/TrainingLeadsDirectory'
 import { Programmes } from './globals/Programmes'
 import { Header } from './globals/Header'
 import { Footer } from './globals/Footer'
@@ -61,11 +64,14 @@ export default buildConfig({
           if (collectionConfig.slug === 'certifications') return `${baseUrl}/certifications`
           if (collectionConfig.slug === 'news-items') return `${baseUrl}`
           if (collectionConfig.slug === 'members') return `${baseUrl}/members`
+          if (collectionConfig.slug === 'legal-pages') return `${baseUrl}/legal/${data?.slug || ''}`
+          if (collectionConfig.slug === 'nodal-officers') return `${baseUrl}/sectoral-nodal-officers`
+          if (collectionConfig.slug === 'training-leads-directory') return `${baseUrl}/training-leads`
         }
 
         return baseUrl
       },
-      collections: ['pages', 'regulatory-updates', 'certifications', 'news-items', 'members'],
+      collections: ['pages', 'regulatory-updates', 'certifications', 'news-items', 'members', 'legal-pages', 'nodal-officers', 'training-leads-directory'],
       globals: ['programmes', 'header', 'footer'],
       breakpoints: [
         { label: 'Mobile', name: 'mobile', width: 375, height: 667 },
@@ -104,6 +110,9 @@ export default buildConfig({
     Certifications,
     NewsItems,
     Members,
+    LegalPages,
+    NodalOfficers,
+    TrainingLeadsDirectory,
   ],
   globals: [Programmes, Header, Footer],
   onInit: async (payload) => {
