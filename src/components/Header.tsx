@@ -77,7 +77,9 @@ export default function Header({ newsItems = [] }: HeaderProps) {
 
           {/* Left: Logos */}
           <div className="flex items-center gap-4 shrink-0">
-            <Image src="/fiu-logo.png" alt="FIU INDIA" width={32} height={32} className="h-9 lg:h-10 xl:h-12 mix-blend-multiply" style={{ width: "auto" }} priority />
+            <a href="https://fiuindia.gov.in/" target="_blank" rel="noopener noreferrer">
+              <Image src="/fiu-logo.png" alt="FIU INDIA" width={32} height={32} className="h-9 lg:h-10 xl:h-12 mix-blend-multiply" style={{ width: "auto" }} priority />
+            </a>
             <div className="h-8 lg:h-10 w-px bg-neutral-300" />
             <Link href="/">
               <Image src="/logo.png" alt="ARIFAC" width={110} height={32} className="h-9 lg:h-10 xl:h-12 w-auto mix-blend-multiply" priority />
