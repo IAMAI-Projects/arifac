@@ -4,10 +4,7 @@ import Link from "next/link";
 export default function Footer() {
   const allianceLinks = [
     { href: "/about", label: "About Us" },
-    { href: "/member-benefits", label: "Member Benefits" },
     { href: "/members", label: "Our Members" },
-    { href: "/meetings", label: "Meetings & Events" },
-    { href: "/gallery", label: "Gallery" },
   ];
 
   const programmesLinks = [
@@ -19,15 +16,12 @@ export default function Footer() {
   ];
 
   const supportLinks = [
-    { href: "/resources", label: "Resource Center" },
     { href: "/help", label: "Help Center" },
-    { href: "/faqs", label: "FAQs" },
     { href: "/contact", label: "Contact Us" },
-    { href: "/membership/launching-soon", label: "Membership Application" },
   ];
 
   return (
-    <footer className="bg-brand-darker text-white pt-16 md:pt-24 pb-10 relative overflow-hidden">
+    <footer className="bg-[#0f172a] text-white pt-16 md:pt-24 pb-10 relative overflow-hidden">
       {/* Texture Sync with StatsStrip */}
       <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none" />
       <div className="absolute inset-0 bg-grid-subtle opacity-[0.02] pointer-events-none" />
@@ -86,7 +80,7 @@ export default function Footer() {
         <div className="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-[12px] text-white font-medium">
           <div className="flex gap-8">
             <Link href="/terms-of-use" className="hover:text-white transition-colors">Terms of Use</Link>
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/disclaimer" className="hover:text-white transition-colors">Legal & Compliance</Link>
           </div>
           <div className="flex items-center gap-2">

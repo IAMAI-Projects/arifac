@@ -64,7 +64,7 @@ export default function MembershipPage() {
         </>
       }
       ctaLabel="Apply to be a Member / Affliate"
-      ctaHref="https://stage.member.arifac.com/"
+      ctaHref={`${process.env.NEXT_PUBLIC_MEMBER_PORTAL_URL}/register`}
     >
      
 
@@ -168,11 +168,14 @@ export default function MembershipPage() {
 
             <div className="grid md:grid-cols-2 gap-6">
               {/* Turnover Table */}
-              <div>
-                <div className="flex items-center gap-3 mb-3 pb-2 border-b border-neutral-100">
+              <details className="group">
+                <summary className="flex items-center gap-3 mb-3 pb-2 border-b border-neutral-100 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                   <div className="h-1 w-6 bg-brand" />
                   <span className="text-[11px] font-bold text-brand tracking-widest uppercase">Turnover-Based</span>
-                </div>
+                  <svg className="w-3.5 h-3.5 text-neutral-400 ml-auto transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-neutral-200">
@@ -189,14 +192,17 @@ export default function MembershipPage() {
                     <tr><td className="py-2">Above 2,000 Cr</td><td className="py-2 text-right font-medium">&#8377;5,00,000 + taxes</td></tr>
                   </tbody>
                 </table>
-              </div>
+              </details>
 
               {/* AUM Table */}
-              <div>
-                <div className="flex items-center gap-3 mb-3 pb-2 border-b border-neutral-100">
+              <details className="group">
+                <summary className="flex items-center gap-3 mb-3 pb-2 border-b border-neutral-100 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                   <div className="h-1 w-6 bg-brand" />
                   <span className="text-[11px] font-bold text-brand tracking-widest uppercase">AUM-Based</span>
-                </div>
+                  <svg className="w-3.5 h-3.5 text-neutral-400 ml-auto transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-neutral-200">
@@ -213,7 +219,7 @@ export default function MembershipPage() {
                     <tr><td className="py-2">Above 1,00,000 Cr</td><td className="py-2 text-right font-medium">&#8377;5,00,000 + taxes</td></tr>
                   </tbody>
                 </table>
-              </div>
+              </details>
             </div>
           </div>
         </div>

@@ -135,13 +135,6 @@ export async function GET() {
             sectionDescription: 'ARIFAC centralizes critical updates from FIU-IND, RBI, SEBI, and IRDAI to ensure your reporting systems are always in sync with national mandates.',
             ctaText: 'Access Full Archive', ctaLink: '/regulatory-updates',
           },
-          {
-            blockType: 'cta',
-            heading: 'Empower your institution with global compliance standards.',
-            description: 'Join ARIFAC as an institutional member to gain access to exclusive forums, regulatory guidance, and specialized capability building programs.',
-            primaryButton: { label: 'Apply for Membership', link: '/membership' },
-            secondaryButton: { label: 'Contact Us', link: '/contact' },
-          },
         ],
       },
     })
@@ -207,13 +200,6 @@ export async function GET() {
             sectionDescription: 'ARIFAC centralizes critical updates from FIU-IND, RBI, SEBI, and IRDAI to ensure your reporting systems are always in sync with national mandates.',
             ctaText: 'Access Full Archive', ctaLink: '/regulatory-updates',
           },
-          {
-            blockType: 'cta',
-            heading: 'Empower your institution with global compliance standards.',
-            description: 'Join ARIFAC as an institutional member to gain access to exclusive forums, regulatory guidance, and specialized capability building programs.',
-            primaryButton: { label: 'Apply for Membership', link: '/membership' },
-            secondaryButton: { label: 'Contact Us', link: '/contact' },
-          },
         ],
         _status: 'published',
       } as never,
@@ -241,7 +227,7 @@ export async function GET() {
   const [updatesResult, newsResult, certsResult] = await Promise.all([
     // 2a. Regulatory Updates
     (async () => {
-      const existingUpdates = await payload.find({ collection: 'regulatory-updates', limit: 1 })
+      const existingUpdates = await payload.find({ collection: 'regulatory-updates', limit: 1, draft: true })
       if (existingUpdates.docs.length === 0) {
         const updates = [
           // RBI – KYC Directions (10)
@@ -710,10 +696,10 @@ export async function GET() {
     'Zerodha Broking Limited',
   ]
 
-  const existingMembers = await payload.find({ collection: 'members', limit: 1 })
+  const existingMembers = await payload.find({ collection: 'members', limit: 1, draft: true })
   if (existingMembers.totalDocs === 0) {
     for (const name of memberNames) {
-      await payload.create({ collection: 'members', data: { name } })
+      await payload.create({ collection: 'members', data: { name, _status: 'published' } as never })
     }
     results.push(`Created ${memberNames.length} members`)
   } else {

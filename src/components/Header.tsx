@@ -53,7 +53,7 @@ export default function Header({ newsItems = [] }: HeaderProps) {
 
             {/* Login Links */}
             <div className="hidden md:flex items-center gap-6 shrink-0 ml-8 border-l border-brand/20 pl-8 h-full">
-              <Link href="https://stage.member.arifac.com/" className="text-[10px] font-black text-white hover:text-[#C41E24] transition-colors uppercase tracking-widest flex items-center gap-2">
+              <Link href={`${process.env.NEXT_PUBLIC_MEMBER_PORTAL_URL}`} className="text-[10px] font-black text-white hover:text-[#C41E24] transition-colors uppercase tracking-widest flex items-center gap-2">
                 <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                 </svg>

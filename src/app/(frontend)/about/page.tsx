@@ -42,40 +42,23 @@ export default async function AboutPage() {
             <p className="text-neutral-600 text-[16px] leading-[1.7]">
               {page.whySection?.description}
             </p>
-          </div>
-
-          <div className="grid lg:grid-cols-7 gap-6">
-            {/* Threats -- 2 cols */}
-            <div className="lg:col-span-2 bg-neutral-50 border border-neutral-200 p-6 lg:p-8 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand to-brand-light" />
-              <h3 className="text-[11px] font-bold text-brand uppercase tracking-widest mb-5">Emerging Threats</h3>
-              <div className="space-y-3">
-                {threats.map((threat) => (
-                  <div key={threat.id || threat.label} className="flex items-center gap-3 bg-white p-3 border border-neutral-100 hover:border-brand/30 hover:shadow-sm transition-all">
-                    <div className="w-1.5 h-1.5 bg-brand flex-shrink-0" />
-                    <span className="text-[12px] font-bold text-neutral-900 uppercase tracking-tight">{threat.label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Aligned With -- 5 cols */}
-            <div className="lg:col-span-5 bg-brand p-8 lg:p-10 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-brand/10" />
-              <div className="absolute bottom-0 left-0 w-48 h-24 bg-brand/[0.04]" />
-              <h3 className="text-[11px] font-bold text-white uppercase tracking-widest mb-5">Aligned With</h3>
-              <p className="text-white/80 text-[15px] leading-relaxed mb-6">
-                {page.whySection?.alignedWith?.description}
-              </p>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-white/10">
-                {alignedItems.map((item) => (
-                  <div key={item.id || item.value} className="bg-white/[0.05] p-3">
-                    <div className="text-[10px] font-bold text-white/70 uppercase tracking-widest mb-1.5">{item.label}</div>
-                    <div className="text-[13px] font-bold text-white tracking-tight">{item.value}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <p className="text-neutral-600 text-[16px] leading-[1.7] mt-4">
+              The increasing scale and sophistication of financial crime, including cyber fraud, mule account networks, identity misuse, and platform abuse, require a coordinated industry response aligned with:
+            </p>
+            <ul className="mt-4 space-y-2">
+              <li className="flex items-start gap-3 text-neutral-600 text-[15px] leading-relaxed">
+                <div className="w-1.5 h-1.5 bg-brand mt-[9px] flex-shrink-0" />
+                The Prevention of Money Laundering Act (PMLA)
+              </li>
+              <li className="flex items-start gap-3 text-neutral-600 text-[15px] leading-relaxed">
+                <div className="w-1.5 h-1.5 bg-brand mt-[9px] flex-shrink-0" />
+                Reporting requirements under FIU-IND
+              </li>
+              <li className="flex items-start gap-3 text-neutral-600 text-[15px] leading-relaxed">
+                <div className="w-1.5 h-1.5 bg-brand mt-[9px] flex-shrink-0" />
+                Global standards for AML — FATF Recommendations, International Monetary Fund, Basel Committee, Egmont Group
+              </li>
+            </ul>
           </div>
         </div>
       </section>
