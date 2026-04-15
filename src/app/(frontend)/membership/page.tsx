@@ -63,7 +63,7 @@ export default function MembershipPage() {
           </ul>
         </>
       }
-      ctaLabel="Apply to be a Member / Affliate"
+      ctaLabel="Apply to be a Member / Affiliate"
       ctaHref={`${process.env.NEXT_PUBLIC_MEMBER_PORTAL_URL}/register`}
     >
      
