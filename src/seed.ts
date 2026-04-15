@@ -755,5 +755,23 @@ export async function seed(payload: Payload) {
     console.log(`  + Created legal page "${legalPage.slug}"`)
   }
 
+  console.log('Seeding programmes global...')
+  await payload.updateGlobal({
+    slug: 'programmes',
+    data: {
+      banner: {
+        label: 'Programmes',
+        title: 'Consolidated Ecosystem Engagement Framework',
+        description: 'ARIFAC facilitates structured collaboration between reporting entities, regulators, and domain experts through multiple active engagement channels.',
+      },
+      sectionHeadings: {
+        engagementStrategy: 'Engagement Strategy',
+        programmeSchedule: 'Programme Schedule',
+        recentConsultations: 'Recent Consultations',
+        annualMeetings: 'Annual Meetings & Regulatory Fora',
+      },
+    },
+  })
+
   console.log('Seeding complete.')
 }

@@ -16,9 +16,9 @@ export default async function ProgrammesPage() {
     <>
       <RefreshRouteOnSave />
       <PageBanner
-        label="Programmes"
-        title="Consolidated Ecosystem Engagement Framework"
-        description="Enabling collaboration, capacity building, and regulatory alignment across India's financial ecosystem through structured engagement channels."
+        label={programmes.banner?.label ?? 'Programmes'}
+        title={programmes.banner?.title ?? 'Consolidated Ecosystem Engagement Framework'}
+        description={programmes.banner?.description ?? ''}
       />
 
       {/* Engagement Channels */}
@@ -29,7 +29,7 @@ export default async function ProgrammesPage() {
               <div className="flex items-center gap-3">
                 <div className="h-1 w-8 bg-brand" />
                 <span className="text-[11px] font-bold text-brand tracking-widest uppercase">
-                  Engagement Strategy
+                  {programmes.sectionHeadings?.engagementStrategy ?? 'Engagement Strategy'}
                 </span>
               </div>
               <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">
@@ -69,7 +69,7 @@ export default async function ProgrammesPage() {
               <div className="flex items-center gap-3">
                 <div className="w-1 h-6 bg-brand" />
                 <h2 className="text-xl lg:text-2xl font-extrabold text-neutral-900 uppercase tracking-tight">
-                  Programme Schedule
+                  {programmes.sectionHeadings?.programmeSchedule ?? 'Programme Schedule'}
                 </h2>
               </div>
               <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">
@@ -159,7 +159,7 @@ export default async function ProgrammesPage() {
               <div className="flex items-center gap-3">
                 <div className="w-1 h-6 bg-brand" />
                 <h2 className="text-xl lg:text-2xl font-extrabold text-neutral-900 uppercase tracking-tight">
-                  Recent Consultations
+                  {programmes.sectionHeadings?.recentConsultations ?? 'Recent Consultations'}
                 </h2>
               </div>
               <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">
@@ -209,7 +209,7 @@ export default async function ProgrammesPage() {
                   </span>
                 </div>
                 <h2 className="text-2xl lg:text-[28px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-3">
-                  Annual Meetings &amp; Regulatory Fora.
+                  {programmes.sectionHeadings?.annualMeetings ?? 'Annual Meetings & Regulatory Fora'}.
                 </h2>
                 <p className="text-neutral-600 text-[14px] leading-relaxed">
                   Structured convergence platforms facilitating knowledge

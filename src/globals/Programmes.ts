@@ -8,6 +8,25 @@ export const Programmes: GlobalConfig = {
   },
   fields: [
     {
+      name: 'banner',
+      type: 'group',
+      fields: [
+        { name: 'label', type: 'text', defaultValue: 'Programmes' },
+        { name: 'title', type: 'text' },
+        { name: 'description', type: 'textarea' },
+      ],
+    },
+    {
+      name: 'sectionHeadings',
+      type: 'group',
+      fields: [
+        { name: 'engagementStrategy', type: 'text', defaultValue: 'Engagement Strategy' },
+        { name: 'programmeSchedule', type: 'text', defaultValue: 'Programme Schedule' },
+        { name: 'recentConsultations', type: 'text', defaultValue: 'Recent Consultations' },
+        { name: 'annualMeetings', type: 'text', defaultValue: 'Annual Meetings & Regulatory Fora' },
+      ],
+    },
+    {
       name: 'engagementFormats',
       type: 'array',
       fields: [

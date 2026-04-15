@@ -1242,6 +1242,17 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Programme {
   id: number;
+  banner?: {
+    label?: string | null;
+    title?: string | null;
+    description?: string | null;
+  };
+  sectionHeadings?: {
+    engagementStrategy?: string | null;
+    programmeSchedule?: string | null;
+    recentConsultations?: string | null;
+    annualMeetings?: string | null;
+  };
   engagementFormats?:
     | {
         title: string;
@@ -1352,6 +1363,21 @@ export interface Footer {
  * via the `definition` "programmes_select".
  */
 export interface ProgrammesSelect<T extends boolean = true> {
+  banner?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        description?: T;
+      };
+  sectionHeadings?:
+    | T
+    | {
+        engagementStrategy?: T;
+        programmeSchedule?: T;
+        recentConsultations?: T;
+        annualMeetings?: T;
+      };
   engagementFormats?:
     | T
     | {
