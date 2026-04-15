@@ -9,7 +9,7 @@ export default async function CertificationsPage() {
   const { docs: certifications } = await payload.find({
     collection: 'certifications',
     limit: 100,
-    sort: 'title',
+    sort: 'level',
     draft: true,
   })
 

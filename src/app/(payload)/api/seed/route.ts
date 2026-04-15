@@ -286,10 +286,13 @@ export async function GET() {
       }
       return 'News items already exist'
     })(),
-    // 2c. Certifications
+    // 2c. Certifications (always re-create)
     (async () => {
-      const existingCerts = await payload.find({ collection: 'certifications', limit: 1 })
-      if (existingCerts.docs.length === 0) {
+      const existingCerts = await payload.find({ collection: 'certifications', limit: 500, draft: true })
+      for (const doc of existingCerts.docs) {
+        await payload.delete({ collection: 'certifications', id: doc.id })
+      }
+      {
         const certs = [
           {
             title: 'ARIFAC Certified Associate (AML/CFT)',
@@ -378,7 +381,6 @@ export async function GET() {
         for (const c of certs) await payload.create({ collection: 'certifications', data: c })
         return `Created ${certs.length} certifications`
       }
-      return 'Certifications already exist'
     })(),
   ])
   results.push(updatesResult, newsResult, certsResult)

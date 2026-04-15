@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useState, useMemo } from 'react'
 import type { Certification } from '@/payload-types'
 
@@ -79,11 +78,11 @@ export default function CertificationsFilter({ certifications }: CertificationsF
               >
                 <div className="absolute inset-0 bg-noise opacity-[0.015] pointer-events-none" />
                 <div className="flex items-center gap-4 relative z-10">
-                  <div className="w-10 h-10 bg-brand/[0.03] text-brand flex items-center justify-center flex-shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300">
+                  <div className="w-10 h-10 bg-[#0f172a]/[0.05] text-[#0f172a] flex items-center justify-center flex-shrink-0 group-hover:bg-[#0f172a] group-hover:text-white transition-all duration-300">
                     {tier.icon}
                   </div>
                   <div className="min-w-0">
-                    <h3 className="text-[13px] font-bold text-neutral-900 uppercase tracking-widest group-hover:text-brand transition-colors">
+                    <h3 className="text-[13px] font-bold text-neutral-900 uppercase tracking-widest group-hover:text-[#0f172a] transition-colors">
                       {tier.label}
                     </h3>
                     <p className="text-neutral-400 text-[11px] leading-relaxed truncate">
@@ -107,7 +106,7 @@ export default function CertificationsFilter({ certifications }: CertificationsF
               <div className="lg:sticky lg:top-6">
                 <div className="bg-white border border-neutral-200 shadow-sm overflow-hidden">
                   {/* Sidebar header */}
-                  <div className="bg-brand px-5 py-4">
+                  <div className="bg-[#0f172a] px-5 py-4">
                     <h3 className="text-[11px] font-bold text-white uppercase tracking-widest">
                       Filter Programmes
                     </h3>
@@ -127,7 +126,7 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         placeholder="Title, focus, topic..."
-                        className="w-full bg-neutral-50 border border-neutral-200 px-3 py-2 text-[13px] focus:outline-none focus:border-brand focus:bg-white transition-all placeholder:text-neutral-300"
+                        className="w-full bg-neutral-50 border border-neutral-200 px-3 py-2 text-[13px] focus:outline-none focus:border-[#0f172a] focus:bg-white transition-all placeholder:text-neutral-300"
                       />
                     </div>
 
@@ -143,7 +142,7 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                             onClick={() => setCategoryFilter(cat)}
                             className={`w-full text-left px-3 py-2 text-[12px] font-bold transition-all ${
                               categoryFilter === cat
-                                ? 'bg-brand text-white'
+                                ? 'bg-[#0f172a] text-white'
                                 : 'text-neutral-900 hover:bg-neutral-50 border border-transparent hover:border-neutral-200'
                             }`}
                           >
@@ -165,7 +164,7 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                             onClick={() => setFormatFilter(fmt)}
                             className={`w-full text-left px-3 py-2 text-[12px] font-bold transition-all ${
                               formatFilter === fmt
-                                ? 'bg-brand text-white'
+                                ? 'bg-[#0f172a] text-white'
                                 : 'text-neutral-900 hover:bg-neutral-50 border border-transparent hover:border-neutral-200'
                             }`}
                           >
@@ -183,7 +182,7 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                           setCategoryFilter('All')
                           setFormatFilter('All')
                         }}
-                        className="w-full text-center px-3 py-2 text-[11px] font-bold text-neutral-400 uppercase tracking-widest border border-dashed border-neutral-300 hover:text-brand hover:border-brand transition-colors"
+                        className="w-full text-center px-3 py-2 text-[11px] font-bold text-neutral-400 uppercase tracking-widest border border-dashed border-neutral-300 hover:text-[#0f172a] hover:border-[#0f172a] transition-colors"
                       >
                         Clear Filters
                       </button>
@@ -199,24 +198,20 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                 {filteredCourses.map((cert, idx) => (
                   <div
                     key={cert.id}
-                    className="group relative bg-white border border-neutral-200 hover:border-brand/40 hover:shadow-lg transition-all duration-500 overflow-hidden"
+                    className="group relative bg-white border border-neutral-200 hover:border-brand/30 hover:shadow-lg transition-all duration-500 overflow-hidden"
                   >
                     {/* Top accent bar */}
-                    <div className="h-1 w-full bg-gradient-to-r from-brand to-brand-light group-hover:from-brand-dark group-hover:to-brand transition-all duration-500" />
+                    <div className="h-1 w-full bg-gradient-to-r from-brand to-brand-light transition-all duration-500" />
 
-                    {/* Background index */}
-                    <div className="absolute top-6 right-5 text-[64px] font-black text-neutral-900/[0.04] group-hover:text-brand/[0.08] transition-colors pointer-events-none select-none leading-none">
-                      {String(idx + 1).padStart(2, '0')}
-                    </div>
 
                     <div className="relative z-10 p-5 lg:p-6">
                       <div className="flex items-center gap-3 mb-3">
-                        <span className="text-[10px] font-bold text-white uppercase tracking-widest bg-brand px-2.5 py-1">
+                        <span className="text-[10px] font-bold text-brand uppercase tracking-widest bg-brand/[0.08] border border-brand/20 px-2.5 py-1">
                           {cert.level}
                         </span>
                       </div>
 
-                      <h3 className="text-[16px] font-bold text-neutral-900 mb-2 leading-tight group-hover:text-brand transition-colors pr-12">
+                      <h3 className="text-[16px] font-bold text-neutral-900 mb-2 leading-tight group-hover:text-[#0f172a] transition-colors pr-12">
                         {cert.title}
                       </h3>
 
@@ -226,10 +221,10 @@ export default function CertificationsFilter({ certifications }: CertificationsF
 
                       {/* Meta tags */}
                       <div className="flex flex-wrap items-center gap-2 mb-4">
-                        <span className="text-[10px] font-bold text-neutral-900 uppercase tracking-wider px-2.5 py-1 bg-brand/[0.04] border border-neutral-900/10">
+                        <span className="text-[10px] font-bold text-neutral-900 uppercase tracking-wider px-2.5 py-1 bg-[#0f172a]/[0.04] border border-neutral-900/10">
                           {cert.format}
                         </span>
-                        <span className="text-[10px] font-bold text-neutral-900 uppercase tracking-wider px-2.5 py-1 bg-brand/[0.04] border border-neutral-900/10">
+                        <span className="text-[10px] font-bold text-neutral-900 uppercase tracking-wider px-2.5 py-1 bg-[#0f172a]/[0.04] border border-neutral-900/10">
                           {cert.duration}
                         </span>
                         <span className="text-[10px] font-bold text-brand uppercase tracking-wider px-2.5 py-1 bg-brand/[0.06] border border-brand/15">
@@ -242,7 +237,7 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                         onClick={() =>
                           setExpanded(expanded === cert.id ? null : cert.id)
                         }
-                        className="flex items-center gap-2 text-[11px] font-bold text-neutral-900 uppercase tracking-widest hover:text-brand transition-colors"
+                        className="flex items-center gap-2 text-[11px] font-bold text-neutral-900 uppercase tracking-widest hover:text-[#0f172a] transition-colors"
                       >
                         <svg
                           className={`w-3 h-3 transition-transform duration-300 ${expanded === cert.id ? 'rotate-90' : ''}`}
@@ -271,22 +266,17 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                         </div>
                       )}
 
-                      {/* Enquire */}
+                      {/* Status */}
                       <div className="mt-4 pt-4 border-t border-neutral-100">
-                        <Link
-                          href={`/contact?subject=${encodeURIComponent(cert.title)}`}
-                          className="group/btn inline-flex items-center gap-2 bg-brand text-white px-4 py-2 text-[11px] font-bold uppercase tracking-widest hover:bg-brand-dark transition-colors"
-                        >
-                          Enquire
-                          <svg
-                            className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                          </svg>
-                        </Link>
+                        {cert.level === 'ACF-L1' ? (
+                          <span className="inline-flex items-center gap-2 bg-brand/10 text-brand px-4 py-2 text-[11px] font-bold uppercase tracking-widest">
+                            Launching Soon
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-2 bg-neutral-100 text-neutral-400 px-4 py-2 text-[11px] font-bold uppercase tracking-widest">
+                            Coming Soon
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
