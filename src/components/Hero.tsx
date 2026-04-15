@@ -1,5 +1,8 @@
-import Image from "next/image";
+
+'use client'
+
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import type { Page } from '@/payload-types'
 
 type HeroBlockData = Extract<NonNullable<Page['layout']>[number], { blockType: 'hero' }>
@@ -9,119 +12,175 @@ interface HeroProps {
 }
 
 export default function Hero({ data }: HeroProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    let animationId: number
+    let width = 0
+    let height = 0
+
+    const nodes: { x: number; y: number; vx: number; vy: number }[] = []
+    const nodeCount = 80
+    const connectionDistance = 200
+
+    function resize() {
+      width = canvas!.offsetWidth
+      height = canvas!.offsetHeight
+      canvas!.width = width * window.devicePixelRatio
+      canvas!.height = height * window.devicePixelRatio
+      ctx!.scale(window.devicePixelRatio, window.devicePixelRatio)
+    }
+
+    function initNodes() {
+      nodes.length = 0
+      for (let i = 0; i < nodeCount; i++) {
+        nodes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+        })
+      }
+    }
+
+    function draw() {
+      ctx!.clearRect(0, 0, width, height)
+
+      // Update positions
+      for (const node of nodes) {
+        node.x += node.vx
+        node.y += node.vy
+        if (node.x < 0 || node.x > width) node.vx *= -1
+        if (node.y < 0 || node.y > height) node.vy *= -1
+      }
+
+      // Draw connections
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x
+          const dy = nodes[i].y - nodes[j].y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          if (dist < connectionDistance) {
+            const opacity = (1 - dist / connectionDistance) * 0.25
+            ctx!.beginPath()
+            ctx!.moveTo(nodes[i].x, nodes[i].y)
+            ctx!.lineTo(nodes[j].x, nodes[j].y)
+            ctx!.strokeStyle = `rgba(218, 33, 40, ${opacity})`
+            ctx!.lineWidth = 1
+            ctx!.stroke()
+          }
+        }
+      }
+
+      // Draw nodes
+      for (const node of nodes) {
+        ctx!.beginPath()
+        ctx!.arc(node.x, node.y, 1.5, 0, Math.PI * 2)
+        ctx!.fillStyle = 'rgba(255, 255, 255, 0.15)'
+        ctx!.fill()
+      }
+
+      animationId = requestAnimationFrame(draw)
+    }
+
+    resize()
+    initNodes()
+    draw()
+
+    window.addEventListener('resize', () => { resize(); initNodes() })
+    return () => {
+      cancelAnimationFrame(animationId)
+      window.removeEventListener('resize', () => { resize(); initNodes() })
+    }
+  }, [])
+
   return (
-    <section className="relative flex items-center overflow-hidden bg-neutral-50">
-      {/* Atmospheric layers */}
+    <section className="relative overflow-hidden bg-[#0f172a] flex items-end">
+      {/* Layered atmosphere */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-neutral-50 via-white to-neutral-100" />
-        <div className="absolute inset-0 bg-grid-subtle opacity-[0.5]" />
-        <div className="absolute inset-0 bg-noise" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a] via-[#131d33] to-[#0c1322]" />
+        <div className="absolute inset-0 bg-grid-subtle opacity-[0.04]" />
+        <div className="absolute inset-0 bg-noise opacity-[0.03]" />
       </div>
 
-      <div className="max-w-[1240px] mx-auto px-6 relative z-10 w-full py-14 lg:py-20">
+      {/* Network node animation */}
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-[1]" />
 
-        {/* Mobile FIU trust line */}
-        {data.sideCard && (
-          <div className="flex items-center gap-3 mb-8 lg:hidden">
-            <Image src="/fiu-logo.png" alt="FIU India" width={28} height={28} className="mix-blend-multiply" />
-            <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-[0.2em]">Under Guidance of FIU-INDIA</span>
-          </div>
-        )}
+      {/* Geometric accents */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] lg:w-[700px] lg:h-[700px] pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-bl from-brand/[0.07] to-transparent" />
+        <div className="absolute top-0 right-0 w-full h-full border-l border-b border-white/[0.03] origin-top-right -skew-x-12" />
+      </div>
 
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      {/* Accent glows */}
+      <div className="absolute -right-32 top-1/3 w-[400px] h-[400px] bg-brand/[0.06] blur-[120px] pointer-events-none" />
+      <div className="absolute -left-20 bottom-0 w-[300px] h-[300px] bg-brand/[0.03] blur-[80px] pointer-events-none" />
 
-          {/* Content — left */}
-          <div className="lg:col-span-7 animate-in">
+      {/* Top accent line */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-brand/60 to-transparent" />
 
-            {/* Tagline */}
-            <div className="flex items-center gap-3 mb-7 lg:mb-8">
-              <span className="w-8 h-[1px] bg-brand/50 flex-shrink-0" />
-              <span className="text-[11px] lg:text-[12px] font-bold text-brand uppercase tracking-[0.3em]">
-                {data.tagline}
-              </span>
-            </div>
+      <div className="max-w-[1240px] mx-auto px-6 relative z-10 w-full pt-20 pb-16 lg:pt-28 lg:pb-20">
 
-            {/* Heading — larger, commanding */}
-            <h1 className="text-[32px] md:text-[40px] lg:text-[46px] font-extrabold text-neutral-900 leading-[1.1] tracking-tight mb-7 lg:mb-9">
-              {data.heading}{' '}
-              {data.headingHighlight && (
-                <span className="text-brand">
-                  {data.headingHighlight}
-                </span>
-              )}
-              {data.headingTrail && (
-                <span className="text-neutral-700"> {data.headingTrail}</span>
-              )}
-            </h1>
-
-            {/* Description */}
-            <p className="text-neutral-500 text-[15px] lg:text-[16px] leading-[1.75] max-w-[520px] mb-9 lg:mb-11">
-              {data.description}
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-4 items-center">
-              {data.primaryButton && (
-                <Link
-                  href={data.primaryButton.link}
-                  className="bg-brand text-white px-7 py-3.5 lg:px-9 lg:py-4 text-[13px] font-bold hover:bg-[#b91c22] transition-all flex items-center gap-3 group"
-                >
-                  {data.primaryButton.label}
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </Link>
-              )}
-              {data.secondaryButton && (
-                <Link
-                  href={data.secondaryButton.link}
-                  className="text-neutral-700 font-bold text-[13px] px-7 py-3.5 lg:px-9 lg:py-4 border border-neutral-300 hover:border-neutral-400 hover:text-neutral-900 transition-all flex items-center gap-2"
-                >
-                  {data.secondaryButton.label}
-                </Link>
-              )}
-            </div>
-          </div>
-
-          {/* Side card — right */}
-          {data.sideCard && (
-            <div className="lg:col-span-5 hidden lg:block animate-in delay-200">
-              <div className="bg-white border border-neutral-200 shadow-sm p-8 lg:p-9 relative">
-                {/* Subtle top accent — thin brand line */}
-                <div className="absolute top-0 left-0 w-16 h-[2px] bg-brand" />
-
-                {/* FIU badge */}
-                <div className="flex items-center gap-4 mb-7">
-                  <Image src="/fiu-logo.png" alt="FIU India" width={44} height={44} className="mix-blend-multiply" />
-                  <div>
-                    <div className="text-[9px] font-bold text-neutral-400 uppercase tracking-[0.25em] leading-none mb-1.5">Under Guidance Of</div>
-                    <div className="text-[17px] font-black text-neutral-900 leading-none">FIU-INDIA</div>
-                  </div>
-                </div>
-
-                <div className="space-y-5">
-                  {data.sideCard.strategicAlignmentText && (
-                    <div>
-                      <h4 className="text-[11px] font-bold text-brand uppercase tracking-[0.2em] mb-2">Strategic Alignment</h4>
-                      <p className="text-neutral-600 text-[14px] leading-relaxed">
-                        {data.sideCard.strategicAlignmentText}
-                      </p>
-                    </div>
-                  )}
-                  {data.sideCard.industryLedText && (
-                    <div className="pt-5 border-t border-neutral-100">
-                      <h4 className="text-[11px] font-bold text-brand uppercase tracking-[0.2em] mb-2">Industry Led</h4>
-                      <p className="text-neutral-600 text-[14px] leading-relaxed">
-                        {data.sideCard.industryLedText}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-
+        {/* Tagline — full width */}
+        <div className="flex items-center gap-3 mb-8 lg:mb-10 animate-in">
+          <span className="w-10 h-[2px] bg-brand flex-shrink-0" />
+          <span className="text-[11px] lg:text-[12px] font-bold text-brand uppercase tracking-[0.3em]">
+            {data.tagline}
+          </span>
         </div>
+
+        {/* Heading — spans full width, editorial scale */}
+        <h1 className="text-[34px] md:text-[48px] lg:text-[58px] xl:text-[64px] font-extrabold text-white leading-[1.06] tracking-tight mb-10 lg:mb-14 animate-in delay-100">
+          {data.heading}{' '}
+          {data.headingHighlight && (
+            <span className="text-brand">
+              {data.headingHighlight}
+            </span>
+          )}
+          {data.headingTrail && (
+            <span className="text-slate-300"> {data.headingTrail}</span>
+          )}
+        </h1>
+
+        {/* Bottom row: description left, CTAs right */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-16 animate-in delay-200">
+
+          {/* Description */}
+          <p className="text-slate-400 text-[15px] lg:text-[16px] leading-[1.8] max-w-[520px] lg:mb-0">
+            {data.description}
+          </p>
+
+          {/* CTAs */}
+          <div className="flex flex-wrap gap-4 items-center flex-shrink-0">
+            {data.primaryButton && (
+              <Link
+                href={data.primaryButton.link}
+                className="bg-brand text-white px-7 py-3.5 lg:px-9 lg:py-4 text-[13px] font-bold hover:bg-[#b91c22] transition-all flex items-center gap-3 group"
+              >
+                {data.primaryButton.label}
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </Link>
+            )}
+            {data.secondaryButton && (
+              <Link
+                href={data.secondaryButton.link}
+                className="text-slate-300 font-bold text-[13px] px-7 py-3.5 lg:px-9 lg:py-4 border border-slate-600 hover:border-slate-400 hover:text-white transition-all flex items-center gap-2"
+              >
+                {data.secondaryButton.label}
+              </Link>
+            )}
+          </div>
+        </div>
+
+        {/* Divider line at bottom */}
+        <div className="mt-14 lg:mt-18 h-[1px] bg-gradient-to-r from-white/10 via-white/5 to-transparent" />
       </div>
     </section>
   );

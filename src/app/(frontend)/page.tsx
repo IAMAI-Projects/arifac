@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import BlockRenderer from '@/components/BlockRenderer'
 import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 
+
 export default async function HomePage() {
   const payload = await getPayload({ config: configPromise })
 

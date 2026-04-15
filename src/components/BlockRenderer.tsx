@@ -2,6 +2,7 @@ import type { Page, RegulatoryUpdate } from '@/payload-types'
 import Hero from '@/components/Hero'
 import StatsStrip from '@/components/StatsStrip'
 import CapabilityMatrix from '@/components/CapabilityMatrix'
+import Partnerships from '@/components/Partnerships'
 import RegulatoryDashboard from '@/components/RegulatoryDashboard'
 import FeaturedPrograms from '@/components/FeaturedPrograms'
 import CTASection from '@/components/CTASection'
@@ -25,7 +26,12 @@ export default function BlockRenderer({ blocks, regulatoryUpdates = [] }: BlockR
           case 'capabilityMatrix':
             return <CapabilityMatrix key={index} data={block} />
           case 'regulatoryDashboard':
-            return <RegulatoryDashboard key={index} data={block} updates={regulatoryUpdates} />
+            return (
+              <div key={index}>
+                <Partnerships />
+                <RegulatoryDashboard data={block} updates={regulatoryUpdates} />
+              </div>
+            )
           case 'featuredPrograms':
             return <FeaturedPrograms key={index} data={block} />
           case 'cta':
