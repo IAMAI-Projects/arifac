@@ -25,8 +25,8 @@ export default function Hero({ data }: HeroProps) {
     let height = 0
 
     const nodes: { x: number; y: number; vx: number; vy: number }[] = []
-    const nodeCount = 80
-    const connectionDistance = 200
+    let nodeCount = 80
+    let connectionDistance = 200
 
     function resize() {
       width = canvas!.offsetWidth
@@ -34,6 +34,12 @@ export default function Hero({ data }: HeroProps) {
       canvas!.width = width * window.devicePixelRatio
       canvas!.height = height * window.devicePixelRatio
       ctx!.scale(window.devicePixelRatio, window.devicePixelRatio)
+
+      // Scale density with screen area so desktop isn't sparse
+      const area = width * height
+      nodeCount = Math.round(area / 8000)
+      nodeCount = Math.max(30, Math.min(nodeCount, 100))
+      connectionDistance = Math.min(260, 140 + width * 0.06)
     }
 
     function initNodes() {

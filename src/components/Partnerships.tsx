@@ -1,41 +1,36 @@
 export default function Partnerships() {
   return (
-    <section className="pt-4 pb-16 md:pt-6 md:pb-24 bg-neutral-50 overflow-hidden">
+    <section className="py-10 md:py-14 bg-neutral-50 overflow-hidden">
       <div className="max-w-[1240px] mx-auto px-6">
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-end mb-16">
-          {/* Left: Section Header */}
-          <div>
-            <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-4 block">
-              Partnerships
-            </span>
-            <h2 className="text-3xl lg:text-[42px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-6">
-              Built on shared standards
+        <div className="grid md:grid-cols-2 gap-0 bg-white border border-neutral-100">
+          {/* Left: Strategic Guidance */}
+          <div className="p-6 lg:p-8 flex flex-col justify-center">
+            <h2 className="text-xl lg:text-2xl font-extrabold text-neutral-900 leading-tight tracking-tight mb-4">
+              Strategic <span className="text-brand">Guidance</span>
             </h2>
-            <p className="text-neutral-600 text-[16px] lg:text-[18px] leading-relaxed">
-              ARIFAC unites regulatory bodies, industry stakeholders, legal experts, and academicians to strengthen every dimension of financial compliance.
-            </p>
+            <div className="flex items-center gap-4">
+              <img src="/fiu-logo.png" alt="FIU-IND Logo" className="h-12 w-auto object-contain flex-shrink-0" />
+              <span className="text-[16px] font-bold text-neutral-900 leading-snug">
+                Financial Intelligence Unit &ndash; India
+              </span>
+            </div>
           </div>
 
-          {/* Right: Strategic Guidance */}
-          <div className="group relative bg-white p-8 lg:p-10 border border-neutral-100 hover:border-brand/40 hover:shadow-xl transition-all duration-500">
-            <div className="absolute top-6 right-8 text-5xl font-black text-neutral-100 group-hover:text-brand/5 transition-colors pointer-events-none select-none">
-              01
-            </div>
-            <div className="relative z-10">
-              <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-4 block">
-                Strategic Guidance
-              </span>
-              <h3 className="text-[20px] font-bold text-neutral-900 leading-tight group-hover:text-brand transition-colors">
-                Financial Intelligence Unit &ndash; India (FIU-IND)
-              </h3>
-            </div>
+          {/* Right: Built on shared standards */}
+          <div className="p-6 lg:p-8 border-t md:border-t-0 md:border-l border-neutral-100 flex flex-col justify-center">
+            <h2 className="text-xl lg:text-2xl font-extrabold text-neutral-900 leading-tight tracking-tight mb-3">
+              Built on shared <span className="text-brand">standards</span>
+            </h2>
+            <p className="text-neutral-500 text-[14px] leading-relaxed">
+              ARIFAC unites regulatory bodies, industry stakeholders, legal experts, and academicians to strengthen every dimension of financial compliance.
+            </p>
           </div>
         </div>
 
         {/* Disclaimer */}
-        <div className="border-t border-neutral-200 pt-6">
-          <p className="text-neutral-400 text-[13px] leading-relaxed">
+        <div className="mt-5 pt-4 border-t border-neutral-200">
+          <p className="text-neutral-400 text-[12px] leading-relaxed">
             <span className="font-bold text-neutral-500">Note:</span> ARIFAC is an industry-led platform and does not grant approvals, licenses, or compliance certifications.
           </p>
         </div>
