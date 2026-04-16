@@ -75,24 +75,23 @@ export default function Header({ newsItems = [], data }: HeaderProps) {
           <nav className="hidden lg:flex items-center gap-4 xl:gap-8 mx-auto">
             {data.navigation?.map((item, idx) => {
               if (item.hasDropdown && item.dropdownItems && item.dropdownItems.length > 0) {
-                const groupName = `nav${idx}`;
                 const isAnyChildActive = item.dropdownItems.some(di => isActive(di.link));
                 return (
-                  <div key={idx} className={`relative group/${groupName}`}>
+                  <div key={idx} className="relative group/nav">
                     <Link
                       href={item.link}
-                      className={`text-[15px] font-bold group-hover/${groupName}:text-brand transition-colors whitespace-nowrap flex items-center gap-1.5 ${
+                      className={`text-[15px] font-bold group-hover/nav:text-brand transition-colors whitespace-nowrap flex items-center gap-1.5 ${
                         isActive(item.link) || isAnyChildActive ? "text-brand" : "text-neutral-800 hover:text-brand"
                       }`}
                     >
                       {item.label}
-                      <svg className={`w-2.5 h-2.5 group-hover/${groupName}:text-brand group-hover/${groupName}:translate-y-px transition-all duration-300 ${
+                      <svg className={`w-2.5 h-2.5 group-hover/nav:text-brand group-hover/nav:translate-y-px transition-all duration-300 ${
                         isActive(item.link) || isAnyChildActive ? "text-brand" : "text-neutral-300"
                       }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                       </svg>
                     </Link>
-                    <div className={`absolute top-full -left-4 pt-3 opacity-0 invisible translate-y-1 group-hover/${groupName}:opacity-100 group-hover/${groupName}:visible group-hover/${groupName}:translate-y-0 transition-all duration-300 z-50`}>
+                    <div className="absolute top-full -left-4 pt-3 opacity-0 invisible translate-y-1 group-hover/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0 transition-all duration-300 z-50">
                       <div className="bg-white w-[260px] border border-neutral-200 overflow-hidden relative">
                         <div className="h-[2px] w-full bg-gradient-to-r from-brand via-brand-light to-transparent" />
                         <div className="px-5 pt-4 pb-2">
