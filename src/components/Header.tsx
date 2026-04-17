@@ -4,14 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import type { NewsItem, Header as HeaderType } from "@/payload-types";
+import type { Header as HeaderType } from "@/payload-types";
 
 interface HeaderProps {
-  newsItems?: NewsItem[];
   data: HeaderType;
 }
 
-export default function Header({ newsItems = [], data }: HeaderProps) {
+export default function Header({ data }: HeaderProps) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
@@ -47,43 +46,6 @@ export default function Header({ newsItems = [], data }: HeaderProps) {
 
   return (
     <>
-      {/* Top Bar with News Scroller & Logins -- Exact StatsStrip Sync Version */}
-      {newsItems.length > 0 && (
-        <div className="bg-[#0f172a] h-11 flex items-center overflow-hidden border-b border-brand/20 relative z-30">
-          {/* Depth Layers (Exact Sync with StatsStrip) */}
-          <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none" />
-          <div className="absolute inset-0 bg-grid-subtle opacity-[0.03] pointer-events-none" />
-
-          <div className="max-w-[1240px] mx-auto px-6 w-full flex items-center justify-between relative z-10">
-
-            {/* News Scroller */}
-            <div className="flex items-center gap-4 flex-1 overflow-hidden h-full">
-              <span className="bg-white/5 text-white text-[9px] font-black px-2.5 py-1 whitespace-nowrap uppercase tracking-[0.2em] shrink-0 relative flex items-center gap-2 border border-white/10">
-                <span className="w-1.5 h-1.5 bg-[#C41E24] rounded-full animate-pulse" />
-                Latest Updates
-              </span>
-              <div className="flex-1 overflow-hidden relative">
-                <div className="inline-flex animate-marquee whitespace-nowrap text-[11px] font-bold text-white/90 py-1">
-                  {newsItems.map((item) => (
-                    <span key={item.id} className="mx-10 flex items-center gap-2">
-                      {item.text}
-                    </span>
-                  ))}
-                  {/* Duplicate for seamless loop */}
-                  {newsItems.map((item) => (
-                    <span key={`dup-${item.id}`} className="mx-10 flex items-center gap-2">
-                      {item.text}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-        </div>
-      )}
-
       <header className="sticky top-0 z-50 w-full bg-white border-b border-neutral-200 shadow-sm">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-16 lg:h-24 flex items-center justify-between gap-3">
 
