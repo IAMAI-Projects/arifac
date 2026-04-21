@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     pages: Page;
+    media: Media;
     'regulatory-updates': RegulatoryUpdate;
     certifications: Certification;
     'news-items': NewsItem;
@@ -85,6 +86,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
     'regulatory-updates': RegulatoryUpdatesSelect<false> | RegulatoryUpdatesSelect<true>;
     certifications: CertificationsSelect<false> | CertificationsSelect<true>;
     'news-items': NewsItemsSelect<false> | NewsItemsSelect<true>;
@@ -457,6 +459,26 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt?: string | null;
+  prefix?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "regulatory-updates".
  */
 export interface RegulatoryUpdate {
@@ -473,6 +495,13 @@ export interface RegulatoryUpdate {
     | 'sanctions'
     | 'compliance-governance';
   issuingBody: 'rbi' | 'fiu-ind' | 'sebi' | 'irdai';
+  /**
+   * Upload a PDF. If set, "View Circular" will open this file. Takes precedence over the link below.
+   */
+  pdf?: (number | null) | Media;
+  /**
+   * Optional external URL. Used only when no PDF is uploaded.
+   */
   link?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -635,6 +664,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: number | Media;
       } | null)
     | ({
         relationTo: 'regulatory-updates';
@@ -1042,6 +1075,25 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  prefix?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "regulatory-updates_select".
  */
 export interface RegulatoryUpdatesSelect<T extends boolean = true> {
@@ -1050,6 +1102,7 @@ export interface RegulatoryUpdatesSelect<T extends boolean = true> {
   referenceNumber?: T;
   category?: T;
   issuingBody?: T;
+  pdf?: T;
   link?: T;
   updatedAt?: T;
   createdAt?: T;

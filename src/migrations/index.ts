@@ -1,1 +1,15 @@
-export const migrations = [];
+import * as migration_20260416_024626_init_prod from './20260416_024626_init_prod';
+import * as migration_20260421_050159_add_media_and_pdf from './20260421_050159_add_media_and_pdf';
+
+export const migrations = [
+  {
+    up: migration_20260416_024626_init_prod.up,
+    down: migration_20260416_024626_init_prod.down,
+    name: '20260416_024626_init_prod',
+  },
+  {
+    up: migration_20260421_050159_add_media_and_pdf.up,
+    down: migration_20260421_050159_add_media_and_pdf.down,
+    name: '20260421_050159_add_media_and_pdf'
+  },
+];

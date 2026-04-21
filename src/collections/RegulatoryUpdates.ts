@@ -52,8 +52,19 @@ export const RegulatoryUpdates: CollectionConfig = {
       ],
     },
     {
+      name: 'pdf',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description: 'Upload a PDF. If set, "View Circular" will open this file. Takes precedence over the link below.',
+      },
+    },
+    {
       name: 'link',
       type: 'text',
+      admin: {
+        description: 'Optional external URL. Used only when no PDF is uploaded.',
+      },
     },
   ],
 }

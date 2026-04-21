@@ -1,12 +1,14 @@
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
 import sharp from 'sharp'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
 import { seed } from './seed'
 import { Pages } from './collections/Pages'
+import { Media } from './collections/Media'
 import { RegulatoryUpdates } from './collections/RegulatoryUpdates'
 import { Certifications } from './collections/Certifications'
 import { NewsItems } from './collections/NewsItems'
@@ -106,6 +108,7 @@ export default buildConfig({
       ],
     },
     Pages,
+    Media,
     RegulatoryUpdates,
     Certifications,
     NewsItems,
@@ -135,5 +138,26 @@ export default buildConfig({
       }),
     },
   }),
+  plugins: [
+    s3Storage({
+      collections: {
+        media: {
+          disableLocalStorage: true,
+          prefix: 'media',
+        },
+      },
+      bucket: process.env.S3_BUCKET || 'arifac-cms-media',
+      config: {
+        region: process.env.AWS_REGION || 'ap-south-1',
+        ...(process.env.AWS_ACCESS_KEY_ID &&
+          process.env.AWS_SECRET_ACCESS_KEY && {
+            credentials: {
+              accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+              secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+            },
+          }),
+      },
+    }),
+  ],
   sharp,
 })

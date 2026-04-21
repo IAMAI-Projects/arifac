@@ -153,6 +153,8 @@ export default function UpdatesFilter({ updates }: UpdatesFilterProps) {
             const displayRegulator = issuingBodyLabels[item.issuingBody] || item.issuingBody
             const displayCategory = categoryLabels[item.category] || item.category
             const tone = regulatorTone[item.issuingBody] || 'bg-neutral-50 text-neutral-700 border-neutral-200'
+            const pdfUrl = typeof item.pdf === 'object' && item.pdf ? item.pdf.url : null
+            const href = pdfUrl || item.link
             return (
               <article
                 key={item.id}
@@ -177,9 +179,9 @@ export default function UpdatesFilter({ updates }: UpdatesFilterProps) {
                     <p className="text-[12px] text-neutral-500 font-mono mt-2">{item.referenceNumber}</p>
                   </div>
 
-                  {item.link && (
+                  {href && (
                     <a
-                      href={item.link}
+                      href={href}
                       target="_blank"
                       rel="noreferrer noopener"
                       className="shrink-0 inline-flex items-center gap-2 border border-neutral-300 px-4 py-2 text-[11px] font-black uppercase tracking-wide text-neutral-700 hover:bg-brand hover:text-white hover:border-neutral-900 transition-all"
