@@ -66,8 +66,8 @@ export default function UpdatesFilter({ updates }: UpdatesFilterProps) {
     })
 
     return scoped.sort((a, b) => {
-      const lhs = new Date(`${a.date}T00:00:00`).getTime()
-      const rhs = new Date(`${b.date}T00:00:00`).getTime()
+      const lhs = new Date(a.date).getTime()
+      const rhs = new Date(b.date).getTime()
       return sortBy === 'newest' ? rhs - lhs : lhs - rhs
     })
   }, [category, regulator, sortBy, updates])
