@@ -453,6 +453,26 @@ export interface Page {
         id?: string | null;
       }[]
     | null;
+  formSection?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+  };
+  contactInfo?: {
+    eyebrow?: string | null;
+    entries?:
+      | {
+          label: string;
+          links?:
+            | {
+                text: string;
+                url: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -1076,6 +1096,30 @@ export interface PagesSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         id?: T;
+      };
+  formSection?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+      };
+  contactInfo?:
+    | T
+    | {
+        eyebrow?: T;
+        entries?:
+          | T
+          | {
+              label?: T;
+              links?:
+                | T
+                | {
+                    text?: T;
+                    url?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;

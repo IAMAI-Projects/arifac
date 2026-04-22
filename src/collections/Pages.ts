@@ -281,5 +281,38 @@ export const Pages: CollectionConfig = {
         { name: 'description', type: 'text', required: true },
       ],
     },
+    // Contact fields
+    {
+      name: 'formSection',
+      type: 'group',
+      admin: { condition: (data) => data?.pageType === 'contact' },
+      fields: [
+        { name: 'eyebrow', type: 'text', defaultValue: 'Send a Message' },
+        { name: 'heading', type: 'text', defaultValue: 'How can we help you?' },
+      ],
+    },
+    {
+      name: 'contactInfo',
+      type: 'group',
+      admin: { condition: (data) => data?.pageType === 'contact' },
+      fields: [
+        { name: 'eyebrow', type: 'text', defaultValue: 'Contact Information' },
+        {
+          name: 'entries',
+          type: 'array',
+          fields: [
+            { name: 'label', type: 'text', required: true },
+            {
+              name: 'links',
+              type: 'array',
+              fields: [
+                { name: 'text', type: 'text', required: true },
+                { name: 'url', type: 'text', required: true },
+              ],
+            },
+          ],
+        },
+      ],
+    },
   ],
 }

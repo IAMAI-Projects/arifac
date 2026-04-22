@@ -398,6 +398,38 @@ const pages = [
       description: 'Track important circulars, notifications, advisories, and regulatory updates relevant to reporting entities and the broader financial crime prevention ecosystem.',
     },
   },
+  {
+    title: 'Contact Us',
+    slug: 'contact',
+    pageType: 'contact' as const,
+    banner: {
+      label: 'Get in Touch',
+      title: 'Contact Us',
+      description: 'Reach out to the ARIFAC team for membership inquiries, partnership opportunities, or general information.',
+    },
+    formSection: {
+      eyebrow: 'Send a Message',
+      heading: 'How can we help you?',
+    },
+    contactInfo: {
+      eyebrow: 'Contact Information',
+      entries: [
+        {
+          label: 'Email Us',
+          links: [
+            { text: 'help.arifac@iamai.in', url: 'mailto:help.arifac@iamai.in' },
+          ],
+        },
+        {
+          label: 'Call Us',
+          links: [
+            { text: '+91 99201 20875', url: 'tel:+919920120875' },
+            { text: '+91 88507 54237', url: 'tel:+918850754237' },
+          ],
+        },
+      ],
+    },
+  },
 ]
 
 const certifications = [
