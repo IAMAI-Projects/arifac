@@ -126,7 +126,7 @@ export async function submitContactForm(formData: FormData) {
     const adminMailOptions = {
       from: { name, address: smtpUser },
       replyTo: email,
-      to: 'help.arifac@iamai.in',
+      to: 'help@arifac.com',
       subject: subject ? `Contact Form: ${subject}` : `New Contact Submission from ${name}`,
       html: adminHtml,
     };
