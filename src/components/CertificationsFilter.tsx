@@ -269,10 +269,15 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                       {/* Status */}
                       <div className="mt-4 pt-4 border-t border-neutral-100">
                         {cert.launchStatus === 'live' ? (
-                          <span className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 text-[11px] font-bold uppercase tracking-widest">
-                            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
-                            Live
-                          </span>
+                          <div className="space-y-2">
+                            <span className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 text-[11px] font-bold uppercase tracking-widest">
+                              <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                              Live
+                            </span>
+                            <p className="text-[12px] text-neutral-600 leading-relaxed">
+                              This course is now live for employees of reporting entities, based on nominations received from their respective organisations.
+                            </p>
+                          </div>
                         ) : (
                           <span className="inline-flex items-center gap-2 bg-neutral-100 text-neutral-400 px-4 py-2 text-[11px] font-bold uppercase tracking-widest">
                             Coming Soon
