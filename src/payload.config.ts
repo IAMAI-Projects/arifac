@@ -19,6 +19,7 @@ import { TrainingLeadsDirectory } from './collections/TrainingLeadsDirectory'
 import { Programmes } from './globals/Programmes'
 import { Header } from './globals/Header'
 import { Footer } from './globals/Footer'
+import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -74,7 +75,7 @@ export default buildConfig({
         return baseUrl
       },
       collections: ['pages', 'regulatory-updates', 'certifications', 'news-items', 'members', 'legal-pages', 'nodal-officers', 'training-leads-directory'],
-      globals: ['programmes', 'header', 'footer'],
+      globals: ['programmes', 'header', 'footer', 'site-settings'],
       breakpoints: [
         { label: 'Mobile', name: 'mobile', width: 375, height: 667 },
         { label: 'Tablet', name: 'tablet', width: 768, height: 1024 },
@@ -117,7 +118,7 @@ export default buildConfig({
     NodalOfficers,
     TrainingLeadsDirectory,
   ],
-  globals: [Programmes, Header, Footer],
+  globals: [Programmes, Header, Footer, SiteSettings],
   onInit: async (payload) => {
     const forceSeed = process.env.PAYLOAD_SEED === 'true'
     const { totalDocs } = await payload.count({ collection: 'pages' })

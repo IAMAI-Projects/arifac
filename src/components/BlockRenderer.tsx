@@ -12,9 +12,11 @@ type Block = NonNullable<Page['layout']>[number]
 interface BlockRendererProps {
   blocks: Block[]
   regulatoryUpdates?: RegulatoryUpdate[]
+  categoryLabelMap?: Record<string, string>
+  issuingBodyLabelMap?: Record<string, string>
 }
 
-export default function BlockRenderer({ blocks, regulatoryUpdates = [] }: BlockRendererProps) {
+export default function BlockRenderer({ blocks, regulatoryUpdates = [], categoryLabelMap, issuingBodyLabelMap }: BlockRendererProps) {
   return (
     <>
       {blocks.map((block, index) => {
@@ -28,7 +30,7 @@ export default function BlockRenderer({ blocks, regulatoryUpdates = [] }: BlockR
           case 'partnerships':
             return <Partnerships key={index} data={block} />
           case 'regulatoryDashboard':
-            return <RegulatoryDashboard key={index} data={block} updates={regulatoryUpdates} />
+            return <RegulatoryDashboard key={index} data={block} updates={regulatoryUpdates} categoryLabelMap={categoryLabelMap} issuingBodyLabelMap={issuingBodyLabelMap} />
           case 'featuredPrograms':
             return <FeaturedPrograms key={index} data={block} />
           case 'cta':

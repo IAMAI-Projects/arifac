@@ -54,7 +54,7 @@ export default function FeaturedPrograms({ data }: FeaturedProgramsProps) {
                 <h3 className="text-[18px] font-bold text-neutral-900 mb-3 group-hover:text-brand transition-colors leading-snug">{program.title}</h3>
                 <p className="text-neutral-600 text-[14px] leading-relaxed mb-6 flex-grow">{program.description}</p>
                 <Link href={program.link} className="inline-flex items-center gap-2 text-[11px] font-bold text-neutral-900 uppercase tracking-widest hover:text-brand transition-colors">
-                  Course Details
+                  {data.courseDetailsLabel || 'Course Details'}
                   <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>

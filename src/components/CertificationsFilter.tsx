@@ -3,11 +3,33 @@
 import { useState, useMemo } from 'react'
 import type { Certification } from '@/payload-types'
 
-interface CertificationsFilterProps {
-  certifications: Certification[]
+interface PathwayTier {
+  title: string
+  description: string
+  id?: string | null
 }
 
-export default function CertificationsFilter({ certifications }: CertificationsFilterProps) {
+interface CertificationsUI {
+  filterTitle?: string | null
+  searchLabel?: string | null
+  searchPlaceholder?: string | null
+  levelLabel?: string | null
+  formatLabel?: string | null
+  clearFiltersLabel?: string | null
+  curriculumLabel?: string | null
+  liveLabel?: string | null
+  liveDescription?: string | null
+  comingSoonLabel?: string | null
+  noResultsMessage?: string | null
+}
+
+interface CertificationsFilterProps {
+  certifications: Certification[]
+  pathwayTiers?: PathwayTier[] | null
+  ui?: CertificationsUI | null
+}
+
+export default function CertificationsFilter({ certifications, pathwayTiers, ui }: CertificationsFilterProps) {
   const [search, setSearch] = useState('')
   const [categoryFilter, setCategoryFilter] = useState('All')
   const [formatFilter, setFormatFilter] = useState('All')
@@ -43,35 +65,25 @@ export default function CertificationsFilter({ certifications }: CertificationsF
       <section className="relative -mt-6 z-20 animate-in">
         <div className="max-w-[1240px] mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-0">
-            {[
-              {
-                label: 'Recognised Standards',
-                sub: 'Aligned with FATF & Indian PMLA requirements.',
-                icon: (
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2 2 2 0 012 2v.5m.435 4.435L17.435 20M12 22a10 10 0 110-20 10 10 0 010 20z" />
-                  </svg>
-                ),
-              },
-              {
-                label: 'Industry Validated',
-                sub: 'Vetted by leading subject matter experts.',
-                icon: (
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                ),
-              },
-              {
-                label: 'Career Growth',
-                sub: 'Foundation to senior integrity leadership.',
-                icon: (
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                  </svg>
-                ),
-              },
-            ].map((tier, idx) => (
+            {(() => {
+              const defaultIcons = [
+                <svg key="0" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2 2 2 0 012 2v.5m.435 4.435L17.435 20M12 22a10 10 0 110-20 10 10 0 010 20z" /></svg>,
+                <svg key="1" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
+                <svg key="2" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>,
+              ]
+              const defaultTiers = [
+                { label: 'Recognised Standards', sub: 'Aligned with FATF & Indian PMLA requirements.' },
+                { label: 'Industry Validated', sub: 'Vetted by leading subject matter experts.' },
+                { label: 'Career Growth', sub: 'Foundation to senior integrity leadership.' },
+              ]
+              const tierCards = (pathwayTiers && pathwayTiers.length > 0 ? pathwayTiers : []).map((t, i) => ({
+                label: t.title,
+                sub: t.description,
+                icon: defaultIcons[i] || defaultIcons[0],
+              }))
+              const displayTiers = tierCards.length > 0 ? tierCards : defaultTiers.map((t, i) => ({ ...t, icon: defaultIcons[i] }))
+              return displayTiers
+            })().map((tier, idx) => (
               <div
                 key={tier.label}
                 className={`group bg-white p-5 lg:p-6 border border-neutral-100 transition-all hover:bg-neutral-50 relative overflow-hidden animate-in delay-${(idx + 1) * 100}`}
@@ -108,7 +120,7 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                   {/* Sidebar header */}
                   <div className="bg-[#0f172a] px-5 py-4">
                     <h3 className="text-[11px] font-bold text-white uppercase tracking-widest">
-                      Filter Programmes
+                      {ui?.filterTitle || 'Filter Programmes'}
                     </h3>
                     <p className="text-[11px] text-neutral-400 mt-1">
                       {filteredCourses.length} of {certifications.length} shown
@@ -119,13 +131,13 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                     {/* Search */}
                     <div>
                       <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 block">
-                        Search
+                        {ui?.searchLabel || 'Search'}
                       </label>
                       <input
                         type="text"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Title, focus, topic..."
+                        placeholder={ui?.searchPlaceholder || "Title, focus, topic..."}
                         className="w-full bg-neutral-50 border border-neutral-200 px-3 py-2 text-[13px] focus:outline-none focus:border-[#0f172a] focus:bg-white transition-all placeholder:text-neutral-300"
                       />
                     </div>
@@ -133,7 +145,7 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                     {/* Level */}
                     <div>
                       <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 block">
-                        Level
+                        {ui?.levelLabel || 'Level'}
                       </label>
                       <div className="space-y-1">
                         {categories.map((cat) => (
@@ -155,7 +167,7 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                     {/* Format */}
                     <div>
                       <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 block">
-                        Format
+                        {ui?.formatLabel || 'Format'}
                       </label>
                       <div className="space-y-1">
                         {formats.map((fmt) => (
@@ -184,7 +196,7 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                         }}
                         className="w-full text-center px-3 py-2 text-[11px] font-bold text-neutral-400 uppercase tracking-widest border border-dashed border-neutral-300 hover:text-[#0f172a] hover:border-[#0f172a] transition-colors"
                       >
-                        Clear Filters
+                        {ui?.clearFiltersLabel || 'Clear Filters'}
                       </button>
                     )}
                   </div>
@@ -257,7 +269,7 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                         >
                           <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
-                        Curriculum
+                        {ui?.curriculumLabel || 'Curriculum'}
                       </button>
 
                       {expanded === cert.id && cert.curriculum && (
@@ -284,15 +296,15 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                           <div className="space-y-2">
                             <span className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 text-[11px] font-bold uppercase tracking-widest">
                               <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
-                              Live
+                              {ui?.liveLabel || 'Live'}
                             </span>
                             <p className="text-[12px] text-neutral-600 leading-relaxed">
-                              This course is now live for employees of reporting entities, based on nominations received from their respective organisations.
+                              {ui?.liveDescription || 'This course is now live for employees of reporting entities, based on nominations received from their respective organisations.'}
                             </p>
                           </div>
                         ) : (
                           <span className="inline-flex items-center gap-2 bg-neutral-100 text-neutral-400 px-4 py-2 text-[11px] font-bold uppercase tracking-widest">
-                            Coming Soon
+                            {ui?.comingSoonLabel || 'Coming Soon'}
                           </span>
                         )}
                       </div>
@@ -304,8 +316,7 @@ export default function CertificationsFilter({ certifications }: CertificationsF
               {filteredCourses.length === 0 && (
                 <div className="mt-6 bg-white border border-dashed border-neutral-300 p-8 text-center">
                   <p className="text-neutral-500 text-[14px]">
-                    No courses match the selected filters. Try adjusting your
-                    search or filter selections.
+                    {ui?.noResultsMessage || 'No courses match the selected filters. Try adjusting your search or filter selections.'}
                   </p>
                 </div>
               )}

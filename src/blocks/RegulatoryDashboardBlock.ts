@@ -31,5 +31,6 @@ export const RegulatoryDashboardBlock: Block = {
       type: 'text',
       defaultValue: '/regulatory-updates',
     },
+    { name: 'viewCircularLabel', type: 'text', defaultValue: 'View Circular' },
   ],
 }

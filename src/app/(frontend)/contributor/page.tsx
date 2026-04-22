@@ -30,6 +30,7 @@ export default async function ContributorPage() {
         <ContributorForm
           expertiseAreas={expertiseAreas.map((a) => a.label)}
           whyContribute={whyContribute}
+          formLabels={page.contributorFormLabels}
         />
       </StaticPageLayout>
     </>

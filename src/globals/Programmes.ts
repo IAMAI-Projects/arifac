@@ -27,6 +27,23 @@ export const Programmes: GlobalConfig = {
       ],
     },
     {
+      name: 'labels',
+      type: 'group',
+      fields: [
+        { name: 'activeChannelsLabel', type: 'text', defaultValue: 'Active Channels' },
+        { name: 'sessionsLabel', type: 'text', defaultValue: 'Sessions' },
+        { name: 'institutionalDialogueEyebrow', type: 'text', defaultValue: 'Institutional Dialogue' },
+        { name: 'annualMeetingsDescription', type: 'textarea', defaultValue: 'Structured convergence platforms facilitating knowledge exchange and strategic alignment between ecosystem stakeholders.' },
+        { name: 'programmeTableHeader', type: 'text', defaultValue: 'Programme' },
+        { name: 'formatTableHeader', type: 'text', defaultValue: 'Format' },
+        { name: 'timelineTableHeader', type: 'text', defaultValue: 'Timeline' },
+        { name: 'yearTableHeader', type: 'text', defaultValue: 'Year' },
+        { name: 'meetingTableHeader', type: 'text', defaultValue: 'Meeting' },
+        { name: 'dateTableHeader', type: 'text', defaultValue: 'Date' },
+        { name: 'locationTableHeader', type: 'text', defaultValue: 'Location' },
+      ],
+    },
+    {
       name: 'engagementFormats',
       type: 'array',
       fields: [

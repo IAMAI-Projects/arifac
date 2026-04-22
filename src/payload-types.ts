@@ -107,11 +107,13 @@ export interface Config {
     programmes: Programme;
     header: Header;
     footer: Footer;
+    'site-settings': SiteSetting;
   };
   globalsSelect: {
     programmes: ProgrammesSelect<false> | ProgrammesSelect<true>;
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -185,7 +187,10 @@ export interface Page {
     | 'learners'
     | 'contributor'
     | 'certifications'
-    | 'updates';
+    | 'updates'
+    | 'members'
+    | 'training-leads'
+    | 'nodal-officers';
   banner?: {
     label?: string | null;
     title?: string | null;
@@ -262,6 +267,7 @@ export interface Page {
             sectionDescription?: string | null;
             ctaText?: string | null;
             ctaLink?: string | null;
+            viewCircularLabel?: string | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'regulatoryDashboard';
@@ -280,6 +286,7 @@ export interface Page {
               image?: string | null;
               id?: string | null;
             }[];
+            courseDetailsLabel?: string | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'featuredPrograms';
@@ -418,6 +425,26 @@ export interface Page {
     label?: string | null;
     link?: string | null;
   };
+  membershipSections?: {
+    benefitsEyebrow?: string | null;
+    benefitsHeading?: string | null;
+    benefitsDescription?: string | null;
+    responsibilitiesEyebrow?: string | null;
+    responsibilitiesHeading?: string | null;
+    responsibilitiesDescription?: string | null;
+    responsibilitiesDisclaimer?: string | null;
+    validityEyebrow?: string | null;
+    validityHeading?: string | null;
+    feesEyebrow?: string | null;
+    feesHeading?: string | null;
+    feesDescription?: string | null;
+    turnoverLabel?: string | null;
+    aumLabel?: string | null;
+    feeSuffix?: string | null;
+    turnoverColumnHeader?: string | null;
+    aumColumnHeader?: string | null;
+    feeColumnHeader?: string | null;
+  };
   accessItems?:
     | {
         title: string;
@@ -430,6 +457,12 @@ export interface Page {
     description?: string | null;
     buttonLabel?: string | null;
     buttonLink?: string | null;
+  };
+  learnersSection?: {
+    accessEyebrow?: string | null;
+    accessHeading?: string | null;
+    accessDescription?: string | null;
+    ctaEyebrow?: string | null;
   };
   expertiseAreas?:
     | {
@@ -446,6 +479,37 @@ export interface Page {
         }[]
       | null;
   };
+  contributorFormLabels?: {
+    personalInfoHeader?: string | null;
+    contactDetailsHeader?: string | null;
+    professionalBgHeader?: string | null;
+    expertiseHeader?: string | null;
+    expertiseInstruction?: string | null;
+    contributionHeader?: string | null;
+    contributionLabel?: string | null;
+    contributionPlaceholder?: string | null;
+    linkedinLabel?: string | null;
+    linkedinPlaceholder?: string | null;
+    submitLabel?: string | null;
+    successHeading?: string | null;
+    successEyebrow?: string | null;
+    successDescription?: string | null;
+    whyContributeHeader?: string | null;
+    firstNameLabel?: string | null;
+    lastNameLabel?: string | null;
+    emailLabel?: string | null;
+    phoneLabel?: string | null;
+    organisationLabel?: string | null;
+    designationLabel?: string | null;
+    experienceLabel?: string | null;
+    experienceOptions?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
   pathwayTiers?:
     | {
         title: string;
@@ -453,6 +517,19 @@ export interface Page {
         id?: string | null;
       }[]
     | null;
+  certificationsUI?: {
+    filterTitle?: string | null;
+    searchLabel?: string | null;
+    searchPlaceholder?: string | null;
+    levelLabel?: string | null;
+    formatLabel?: string | null;
+    clearFiltersLabel?: string | null;
+    curriculumLabel?: string | null;
+    liveLabel?: string | null;
+    liveDescription?: string | null;
+    comingSoonLabel?: string | null;
+    noResultsMessage?: string | null;
+  };
   formSection?: {
     eyebrow?: string | null;
     heading?: string | null;
@@ -472,6 +549,51 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
+  };
+  contactFormLabels?: {
+    successMessage?: string | null;
+    errorMessage?: string | null;
+    nameLabel?: string | null;
+    namePlaceholder?: string | null;
+    emailLabel?: string | null;
+    emailPlaceholder?: string | null;
+    phoneLabel?: string | null;
+    phonePlaceholder?: string | null;
+    subjectLabel?: string | null;
+    subjectPlaceholder?: string | null;
+    messageLabel?: string | null;
+    messagePlaceholder?: string | null;
+    submitLabel?: string | null;
+    submittingLabel?: string | null;
+  };
+  membersLabels?: {
+    directoryEyebrow?: string | null;
+    countLabel?: string | null;
+    footerLabel?: string | null;
+  };
+  trainingLeadsContent?: {
+    sectionEyebrow?: string | null;
+    sectionHeading?: string | null;
+    sectionDescription?: string | null;
+    numberHeader?: string | null;
+    nameHeader?: string | null;
+    organizationHeader?: string | null;
+    specialisationHeader?: string | null;
+    leadsCountLabel?: string | null;
+    specialisationsCountLabel?: string | null;
+    lastUpdated?: string | null;
+  };
+  nodalOfficersContent?: {
+    nodalOfficerLabel?: string | null;
+    fallbackDesignation?: string | null;
+    sectorsCountLabel?: string | null;
+    officersCountLabel?: string | null;
+    lastUpdated?: string | null;
+  };
+  updatesUI?: {
+    noResultsMessage?: string | null;
+    emptyMessage?: string | null;
+    viewCircularLabel?: string | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -879,6 +1001,7 @@ export interface PagesSelect<T extends boolean = true> {
               sectionDescription?: T;
               ctaText?: T;
               ctaLink?: T;
+              viewCircularLabel?: T;
               id?: T;
               blockName?: T;
             };
@@ -900,6 +1023,7 @@ export interface PagesSelect<T extends boolean = true> {
                     image?: T;
                     id?: T;
                   };
+              courseDetailsLabel?: T;
               id?: T;
               blockName?: T;
             };
@@ -1058,6 +1182,28 @@ export interface PagesSelect<T extends boolean = true> {
         label?: T;
         link?: T;
       };
+  membershipSections?:
+    | T
+    | {
+        benefitsEyebrow?: T;
+        benefitsHeading?: T;
+        benefitsDescription?: T;
+        responsibilitiesEyebrow?: T;
+        responsibilitiesHeading?: T;
+        responsibilitiesDescription?: T;
+        responsibilitiesDisclaimer?: T;
+        validityEyebrow?: T;
+        validityHeading?: T;
+        feesEyebrow?: T;
+        feesHeading?: T;
+        feesDescription?: T;
+        turnoverLabel?: T;
+        aumLabel?: T;
+        feeSuffix?: T;
+        turnoverColumnHeader?: T;
+        aumColumnHeader?: T;
+        feeColumnHeader?: T;
+      };
   accessItems?:
     | T
     | {
@@ -1072,6 +1218,14 @@ export interface PagesSelect<T extends boolean = true> {
         description?: T;
         buttonLabel?: T;
         buttonLink?: T;
+      };
+  learnersSection?:
+    | T
+    | {
+        accessEyebrow?: T;
+        accessHeading?: T;
+        accessDescription?: T;
+        ctaEyebrow?: T;
       };
   expertiseAreas?:
     | T
@@ -1090,12 +1244,60 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
       };
+  contributorFormLabels?:
+    | T
+    | {
+        personalInfoHeader?: T;
+        contactDetailsHeader?: T;
+        professionalBgHeader?: T;
+        expertiseHeader?: T;
+        expertiseInstruction?: T;
+        contributionHeader?: T;
+        contributionLabel?: T;
+        contributionPlaceholder?: T;
+        linkedinLabel?: T;
+        linkedinPlaceholder?: T;
+        submitLabel?: T;
+        successHeading?: T;
+        successEyebrow?: T;
+        successDescription?: T;
+        whyContributeHeader?: T;
+        firstNameLabel?: T;
+        lastNameLabel?: T;
+        emailLabel?: T;
+        phoneLabel?: T;
+        organisationLabel?: T;
+        designationLabel?: T;
+        experienceLabel?: T;
+        experienceOptions?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+      };
   pathwayTiers?:
     | T
     | {
         title?: T;
         description?: T;
         id?: T;
+      };
+  certificationsUI?:
+    | T
+    | {
+        filterTitle?: T;
+        searchLabel?: T;
+        searchPlaceholder?: T;
+        levelLabel?: T;
+        formatLabel?: T;
+        clearFiltersLabel?: T;
+        curriculumLabel?: T;
+        liveLabel?: T;
+        liveDescription?: T;
+        comingSoonLabel?: T;
+        noResultsMessage?: T;
       };
   formSection?:
     | T
@@ -1120,6 +1322,61 @@ export interface PagesSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+      };
+  contactFormLabels?:
+    | T
+    | {
+        successMessage?: T;
+        errorMessage?: T;
+        nameLabel?: T;
+        namePlaceholder?: T;
+        emailLabel?: T;
+        emailPlaceholder?: T;
+        phoneLabel?: T;
+        phonePlaceholder?: T;
+        subjectLabel?: T;
+        subjectPlaceholder?: T;
+        messageLabel?: T;
+        messagePlaceholder?: T;
+        submitLabel?: T;
+        submittingLabel?: T;
+      };
+  membersLabels?:
+    | T
+    | {
+        directoryEyebrow?: T;
+        countLabel?: T;
+        footerLabel?: T;
+      };
+  trainingLeadsContent?:
+    | T
+    | {
+        sectionEyebrow?: T;
+        sectionHeading?: T;
+        sectionDescription?: T;
+        numberHeader?: T;
+        nameHeader?: T;
+        organizationHeader?: T;
+        specialisationHeader?: T;
+        leadsCountLabel?: T;
+        specialisationsCountLabel?: T;
+        lastUpdated?: T;
+      };
+  nodalOfficersContent?:
+    | T
+    | {
+        nodalOfficerLabel?: T;
+        fallbackDesignation?: T;
+        sectorsCountLabel?: T;
+        officersCountLabel?: T;
+        lastUpdated?: T;
+      };
+  updatesUI?:
+    | T
+    | {
+        noResultsMessage?: T;
+        emptyMessage?: T;
+        viewCircularLabel?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1313,6 +1570,19 @@ export interface Programme {
     recentConsultations?: string | null;
     annualMeetings?: string | null;
   };
+  labels?: {
+    activeChannelsLabel?: string | null;
+    sessionsLabel?: string | null;
+    institutionalDialogueEyebrow?: string | null;
+    annualMeetingsDescription?: string | null;
+    programmeTableHeader?: string | null;
+    formatTableHeader?: string | null;
+    timelineTableHeader?: string | null;
+    yearTableHeader?: string | null;
+    meetingTableHeader?: string | null;
+    dateTableHeader?: string | null;
+    locationTableHeader?: string | null;
+  };
   engagementFormats?:
     | {
         title: string;
@@ -1383,6 +1653,12 @@ export interface Header {
   learnerPortalUrl?: string | null;
   fiuLogoLink?: string | null;
   linkedinUrl?: string | null;
+  loginLabel?: string | null;
+  loginAsLabel?: string | null;
+  organizationLoginLabel?: string | null;
+  organizationLoginDescription?: string | null;
+  learnerLoginLabel?: string | null;
+  learnerLoginDescription?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1420,6 +1696,43 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  siteTitle?: string | null;
+  siteDescription?: string | null;
+  /**
+   * Display labels for regulatory update categories (used on Updates and Home pages)
+   */
+  categoryLabels?:
+    | {
+        /**
+         * Internal slug e.g. aml-cft
+         */
+        value: string;
+        /**
+         * Display label e.g. AML / CFT
+         */
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Display labels for issuing bodies (used on Updates and Home pages)
+   */
+  issuingBodyLabels?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "programmes_select".
  */
 export interface ProgrammesSelect<T extends boolean = true> {
@@ -1437,6 +1750,21 @@ export interface ProgrammesSelect<T extends boolean = true> {
         programmeSchedule?: T;
         recentConsultations?: T;
         annualMeetings?: T;
+      };
+  labels?:
+    | T
+    | {
+        activeChannelsLabel?: T;
+        sessionsLabel?: T;
+        institutionalDialogueEyebrow?: T;
+        annualMeetingsDescription?: T;
+        programmeTableHeader?: T;
+        formatTableHeader?: T;
+        timelineTableHeader?: T;
+        yearTableHeader?: T;
+        meetingTableHeader?: T;
+        dateTableHeader?: T;
+        locationTableHeader?: T;
       };
   engagementFormats?:
     | T
@@ -1508,6 +1836,12 @@ export interface HeaderSelect<T extends boolean = true> {
   learnerPortalUrl?: T;
   fiuLogoLink?: T;
   linkedinUrl?: T;
+  loginLabel?: T;
+  loginAsLabel?: T;
+  organizationLoginLabel?: T;
+  organizationLoginDescription?: T;
+  learnerLoginLabel?: T;
+  learnerLoginDescription?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1540,6 +1874,31 @@ export interface FooterSelect<T extends boolean = true> {
         id?: T;
       };
   copyrightText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  siteTitle?: T;
+  siteDescription?: T;
+  categoryLabels?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  issuingBodyLabels?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

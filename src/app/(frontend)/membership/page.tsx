@@ -45,12 +45,12 @@ export default async function MembershipPage() {
           <section className="py-6 lg:py-8 border-b border-neutral-100">
             <div className="max-w-[1240px] mx-auto px-6">
               <div className="mb-5">
-                <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-2 block">What ARIFAC Engagement Enables</span>
+                <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-2 block">{page.membershipSections?.benefitsEyebrow || 'What ARIFAC Engagement Enables'}</span>
                 <h2 className="text-xl lg:text-[28px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-2">
-                  Capacity building and collaboration benefits for the financial intelligence ecosystem.
+                  {page.membershipSections?.benefitsHeading || 'Capacity building and collaboration benefits for the financial intelligence ecosystem.'}
                 </h2>
                 <p className="text-neutral-600 text-[15px] leading-[1.75] max-w-3xl">
-                  Benefits differ by engagement tier, with enhanced access for Members.
+                  {page.membershipSections?.benefitsDescription || 'Benefits differ by engagement tier, with enhanced access for Members.'}
                 </p>
               </div>
 
@@ -84,12 +84,12 @@ export default async function MembershipPage() {
             <div className="grid md:grid-cols-2 gap-8">
               {/* Member Responsibilities */}
               <div>
-                <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-2 block">Obligations</span>
+                <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-2 block">{page.membershipSections?.responsibilitiesEyebrow || 'Obligations'}</span>
                 <h2 className="text-xl lg:text-[28px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-3">
-                  Member / Affliate Responsibilities
+                  {page.membershipSections?.responsibilitiesHeading || 'Member / Affiliate Responsibilities'}
                 </h2>
                 <p className="text-neutral-600 text-[15px] leading-[1.75] mb-4">
-                  Members are expected to maintain the highest standards of integrity, professionalism, and compliance.
+                  {page.membershipSections?.responsibilitiesDescription || 'Members are expected to maintain the highest standards of integrity, professionalism, and compliance.'}
                 </p>
                 <ul className="space-y-2 mb-4">
                   {responsibilities.map((item) => (
@@ -100,15 +100,15 @@ export default async function MembershipPage() {
                   ))}
                 </ul>
                 <p className="text-[13px] text-neutral-500 leading-[1.6] border-l-2 border-brand/20 pl-4">
-                  Members must not disclose sensitive regulatory or transaction-related information, including Suspicious Transaction Reporting (STR)-related discussions or any confidential compliance data.
+                  {page.membershipSections?.responsibilitiesDisclaimer || 'Members must not disclose sensitive regulatory or transaction-related information, including Suspicious Transaction Reporting (STR)-related discussions or any confidential compliance data.'}
                 </p>
               </div>
 
               {/* Validity & Renewal */}
               <div>
-                <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-2 block">Terms</span>
+                <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-2 block">{page.membershipSections?.validityEyebrow || 'Terms'}</span>
                 <h2 className="text-xl lg:text-[28px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-3">
-                  Validity &amp; Renewal
+                  {page.membershipSections?.validityHeading || 'Validity & Renewal'}
                 </h2>
                 <ul className="space-y-2">
                   {validityTerms.map((item) => (
@@ -128,12 +128,12 @@ export default async function MembershipPage() {
           <section className="py-6 lg:py-8">
             <div className="max-w-[1240px] mx-auto px-6">
               <div>
-                <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-2 block">Pricing</span>
+                <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-2 block">{page.membershipSections?.feesEyebrow || 'Pricing'}</span>
                 <h2 className="text-xl lg:text-[28px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-3">
-                  Fees
+                  {page.membershipSections?.feesHeading || 'Fees'}
                 </h2>
                 <p className="text-neutral-600 text-[15px] leading-[1.75] mb-5 max-w-3xl">
-                  Membership fees are determined by your organisation&apos;s self-declared annual turnover or Assets Under Management (AUM), as applicable. All fees are exclusive of taxes and subject to revision.
+                  {page.membershipSections?.feesDescription || "Membership fees are determined by your organisation's self-declared annual turnover or Assets Under Management (AUM), as applicable. All fees are exclusive of taxes and subject to revision."}
                 </p>
 
                 <div className="grid md:grid-cols-2 gap-6">
@@ -142,7 +142,7 @@ export default async function MembershipPage() {
                     <details className="group">
                       <summary className="flex items-center gap-3 mb-3 pb-2 border-b border-neutral-100 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                         <div className="h-1 w-6 bg-brand" />
-                        <span className="text-[11px] font-bold text-brand tracking-widest uppercase">Turnover-Based</span>
+                        <span className="text-[11px] font-bold text-brand tracking-widest uppercase">{page.membershipSections?.turnoverLabel || 'Turnover-Based'}</span>
                         <svg className="w-3.5 h-3.5 text-neutral-400 ml-auto transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                         </svg>
@@ -150,15 +150,15 @@ export default async function MembershipPage() {
                       <table className="w-full">
                         <thead>
                           <tr className="border-b border-neutral-200">
-                            <th className="text-left text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">Turnover &#8377;</th>
-                            <th className="text-right text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">Annual Fee</th>
+                            <th className="text-left text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">{page.membershipSections?.turnoverColumnHeader || 'Turnover ₹'}</th>
+                            <th className="text-right text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">{page.membershipSections?.feeColumnHeader || 'Annual Fee'}</th>
                           </tr>
                         </thead>
                         <tbody className="text-[13px] text-neutral-700">
                           {feeTables.turnoverBased.map((row) => (
                             <tr key={row.tier} className="border-b border-neutral-100">
                               <td className="py-2">{row.tier}</td>
-                              <td className="py-2 text-right font-medium">{row.fee} + taxes</td>
+                              <td className="py-2 text-right font-medium">{row.fee} {page.membershipSections?.feeSuffix || '+ taxes'}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -171,7 +171,7 @@ export default async function MembershipPage() {
                     <details className="group">
                       <summary className="flex items-center gap-3 mb-3 pb-2 border-b border-neutral-100 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                         <div className="h-1 w-6 bg-brand" />
-                        <span className="text-[11px] font-bold text-brand tracking-widest uppercase">AUM-Based</span>
+                        <span className="text-[11px] font-bold text-brand tracking-widest uppercase">{page.membershipSections?.aumLabel || 'AUM-Based'}</span>
                         <svg className="w-3.5 h-3.5 text-neutral-400 ml-auto transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                         </svg>
@@ -179,15 +179,15 @@ export default async function MembershipPage() {
                       <table className="w-full">
                         <thead>
                           <tr className="border-b border-neutral-200">
-                            <th className="text-left text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">AUM &#8377;</th>
-                            <th className="text-right text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">Annual Fee</th>
+                            <th className="text-left text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">{page.membershipSections?.aumColumnHeader || 'AUM ₹'}</th>
+                            <th className="text-right text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">{page.membershipSections?.feeColumnHeader || 'Annual Fee'}</th>
                           </tr>
                         </thead>
                         <tbody className="text-[13px] text-neutral-700">
                           {feeTables.aumBased.map((row) => (
                             <tr key={row.tier} className="border-b border-neutral-100">
                               <td className="py-2">{row.tier}</td>
-                              <td className="py-2 text-right font-medium">{row.fee} + taxes</td>
+                              <td className="py-2 text-right font-medium">{row.fee} {page.membershipSections?.feeSuffix || '+ taxes'}</td>
                             </tr>
                           ))}
                         </tbody>

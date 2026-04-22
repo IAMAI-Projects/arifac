@@ -3,14 +3,14 @@ import type { Page, RegulatoryUpdate } from '@/payload-types'
 
 type RegulatoryDashboardBlockData = Extract<NonNullable<Page['layout']>[number], { blockType: 'regulatoryDashboard' }>
 
-const issuingBodyLabels: Record<RegulatoryUpdate['issuingBody'], string> = {
+const defaultIssuingBodyLabels: Record<string, string> = {
   'rbi': 'RBI',
   'fiu-ind': 'FIU-IND',
   'sebi': 'SEBI',
   'irdai': 'IRDAI',
 }
 
-const categoryLabels: Record<RegulatoryUpdate['category'], string> = {
+const defaultCategoryLabels: Record<string, string> = {
   'aml-cft': 'AML / CFT',
   'kyc-cdd': 'KYC / Customer Due Diligence',
   'reporting': 'Reporting',
@@ -23,9 +23,13 @@ const categoryLabels: Record<RegulatoryUpdate['category'], string> = {
 interface RegulatoryDashboardProps {
   data: RegulatoryDashboardBlockData
   updates: RegulatoryUpdate[]
+  categoryLabelMap?: Record<string, string>
+  issuingBodyLabelMap?: Record<string, string>
 }
 
-export default function RegulatoryDashboard({ data, updates }: RegulatoryDashboardProps) {
+export default function RegulatoryDashboard({ data, updates, categoryLabelMap, issuingBodyLabelMap }: RegulatoryDashboardProps) {
+  const resolvedIssuingBodyLabels = { ...defaultIssuingBodyLabels, ...issuingBodyLabelMap }
+  const resolvedCategoryLabels = { ...defaultCategoryLabels, ...categoryLabelMap }
   return (
     <section className="py-12 md:py-16 bg-neutral-50 border-t border-neutral-200">
       <div className="max-w-[1240px] mx-auto px-6">
@@ -55,8 +59,8 @@ export default function RegulatoryDashboard({ data, updates }: RegulatoryDashboa
               return (
               <div key={update.id} className="flex flex-col p-5 lg:p-6 border border-neutral-100 rounded-xl hover:border-brand/30 hover:shadow-sm transition-all group bg-white">
                 <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <span className="bg-brand-subtle text-brand text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">{issuingBodyLabels[update.issuingBody]}</span>
-                  <span className="bg-neutral-100 text-neutral-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">{categoryLabels[update.category]}</span>
+                  <span className="bg-brand-subtle text-brand text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">{resolvedIssuingBodyLabels[update.issuingBody]}</span>
+                  <span className="bg-neutral-100 text-neutral-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">{resolvedCategoryLabels[update.category]}</span>
                   <span className="text-[11px] text-neutral-400 font-medium ml-1">{new Date(update.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                 </div>
 
@@ -72,7 +76,7 @@ export default function RegulatoryDashboard({ data, updates }: RegulatoryDashboa
                       rel="noopener noreferrer"
                       className="flex-shrink-0 flex items-center gap-2 text-[11px] font-bold border border-neutral-200 px-4 py-2 rounded-lg hover:border-brand hover:text-brand transition-all whitespace-nowrap group/btn"
                     >
-                      View Circular
+                      {data.viewCircularLabel || 'View Circular'}
                       <svg className="w-3.5 h-3.5 opacity-60 group-hover/btn:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>

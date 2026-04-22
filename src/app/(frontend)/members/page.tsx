@@ -27,11 +27,11 @@ export default async function MembersPage() {
             <div className="flex items-center gap-3">
               <div className="h-1 w-8 bg-brand" />
               <span className="text-[11px] font-bold text-brand tracking-widest uppercase">
-                Member Directory
+                {page?.membersLabels?.directoryEyebrow || 'Member Directory'}
               </span>
             </div>
             <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">
-              {members.length} Organisations
+              {members.length} {page?.membersLabels?.countLabel || 'Organisations'}
             </span>
           </div>
 
@@ -54,7 +54,7 @@ export default async function MembersPage() {
           <div className="mt-8 pt-5 border-t-2 border-neutral-200 flex items-center gap-2">
             <span className="w-3 h-[3px] bg-brand" />
             <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-neutral-500">
-              {members.length} Member Organisations
+              {members.length} {page?.membersLabels?.footerLabel || 'Member Organisations'}
             </span>
           </div>
         </div>

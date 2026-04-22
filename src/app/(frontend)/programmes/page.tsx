@@ -33,7 +33,7 @@ export default async function ProgrammesPage() {
                 </span>
               </div>
               <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">
-                {engagementFormats.length} Active Channels
+                {engagementFormats.length} {programmes.labels?.activeChannelsLabel || 'Active Channels'}
               </span>
             </div>
 
@@ -73,7 +73,7 @@ export default async function ProgrammesPage() {
                 </h2>
               </div>
               <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">
-                {programmeSchedule.length} Sessions
+                {programmeSchedule.length} {programmes.labels?.sessionsLabel || 'Sessions'}
               </span>
             </div>
 
@@ -86,13 +86,13 @@ export default async function ProgrammesPage() {
                       #
                     </th>
                     <th className="px-4 py-3 text-left text-[10px] font-black text-neutral-400 uppercase tracking-[0.15em] w-[55%]">
-                      Programme
+                      {programmes.labels?.programmeTableHeader || 'Programme'}
                     </th>
                     <th className="px-4 py-3 text-left text-[10px] font-black text-neutral-400 uppercase tracking-[0.15em] w-[20%]">
-                      Format
+                      {programmes.labels?.formatTableHeader || 'Format'}
                     </th>
                     <th className="px-4 py-3 text-left text-[10px] font-black text-neutral-400 uppercase tracking-[0.15em] w-[20%]">
-                      Timeline
+                      {programmes.labels?.timelineTableHeader || 'Timeline'}
                     </th>
                   </tr>
                 </thead>
@@ -163,7 +163,7 @@ export default async function ProgrammesPage() {
                 </h2>
               </div>
               <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">
-                {recentConsultations.length} Sessions
+                {recentConsultations.length} {programmes.labels?.sessionsLabel || 'Sessions'}
               </span>
             </div>
 
@@ -205,16 +205,14 @@ export default async function ProgrammesPage() {
                 <div className="flex items-center gap-3 mb-3">
                   <div className="h-1 w-8 bg-brand" />
                   <span className="text-[11px] font-bold text-brand tracking-widest uppercase">
-                    Institutional Dialogue
+                    {programmes.labels?.institutionalDialogueEyebrow || 'Institutional Dialogue'}
                   </span>
                 </div>
                 <h2 className="text-2xl lg:text-[28px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-3">
                   {programmes.sectionHeadings?.annualMeetings ?? 'Annual Meetings & Regulatory Fora'}.
                 </h2>
                 <p className="text-neutral-600 text-[14px] leading-relaxed">
-                  Structured convergence platforms facilitating knowledge
-                  exchange and strategic alignment between ecosystem
-                  stakeholders.
+                  {programmes.labels?.annualMeetingsDescription || 'Structured convergence platforms facilitating knowledge exchange and strategic alignment between ecosystem stakeholders.'}
                 </p>
               </div>
 
@@ -225,16 +223,16 @@ export default async function ProgrammesPage() {
                     <thead>
                       <tr className="bg-brand">
                         <th className="px-5 lg:px-6 py-4 text-[10px] font-black text-white/60 uppercase tracking-widest w-[15%]">
-                          Year
+                          {programmes.labels?.yearTableHeader || 'Year'}
                         </th>
                         <th className="px-5 lg:px-6 py-4 text-[10px] font-black text-white/60 uppercase tracking-widest">
-                          Meeting
+                          {programmes.labels?.meetingTableHeader || 'Meeting'}
                         </th>
                         <th className="px-5 lg:px-6 py-4 text-[10px] font-black text-white/60 uppercase tracking-widest w-[22%]">
-                          Date
+                          {programmes.labels?.dateTableHeader || 'Date'}
                         </th>
                         <th className="px-5 lg:px-6 py-4 text-[10px] font-black text-white/60 uppercase tracking-widest w-[15%]">
-                          Location
+                          {programmes.labels?.locationTableHeader || 'Location'}
                         </th>
                       </tr>
                     </thead>

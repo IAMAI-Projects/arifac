@@ -74,20 +74,20 @@ export default async function TrainingLeadsPage() {
       <section className="py-10 lg:py-14">
         <div className="max-w-[1240px] mx-auto px-6">
           <div className="mb-8">
-            <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-3 block">Expert Network</span>
+            <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-3 block">{page?.trainingLeadsContent?.sectionEyebrow || 'Expert Network'}</span>
             <h2 className="text-2xl lg:text-[28px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-3">
-              ARIFAC Training Lead Directory
+              {page?.trainingLeadsContent?.sectionHeading || 'ARIFAC Training Lead Directory'}
             </h2>
             <p className="text-neutral-600 text-[15px] leading-relaxed max-w-2xl">
-              Domain specialists appointed across India&apos;s financial ecosystem to lead certification, capacity building, and AML/CFT training initiatives.
+              {page?.trainingLeadsContent?.sectionDescription || "Domain specialists appointed across India's financial ecosystem to lead certification, capacity building, and AML/CFT training initiatives."}
             </p>
           </div>
 
           <div className="hidden lg:grid lg:grid-cols-[64px_minmax(180px,1.2fr)_1.5fr_1fr] gap-x-4 pb-3 border-b-2 border-navy/10 mb-0">
-            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">No.</span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Name</span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Organization</span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Specialisation</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">{page?.trainingLeadsContent?.numberHeader || 'No.'}</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">{page?.trainingLeadsContent?.nameHeader || 'Name'}</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">{page?.trainingLeadsContent?.organizationHeader || 'Organization'}</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">{page?.trainingLeadsContent?.specialisationHeader || 'Specialisation'}</span>
           </div>
 
           <div>
@@ -101,17 +101,17 @@ export default async function TrainingLeadsPage() {
               <div className="flex items-center gap-2">
                 <span className="w-3 h-[3px] bg-brand" />
                 <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-slate-500">
-                  {trainingLeads.length} Leads
+                  {trainingLeads.length} {page?.trainingLeadsContent?.leadsCountLabel || 'Leads'}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-3 h-[3px] bg-brand-light" />
                 <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-slate-500">
-                  {trainingLeads.filter((l) => l.specialization).length} Specialisations
+                  {trainingLeads.filter((l) => l.specialization).length} {page?.trainingLeadsContent?.specialisationsCountLabel || 'Specialisations'}
                 </span>
               </div>
             </div>
-            <span className="text-[11px] text-slate-400">Updated April 2026</span>
+            <span className="text-[11px] text-slate-400">{page?.trainingLeadsContent?.lastUpdated || 'Updated April 2026'}</span>
           </div>
         </div>
       </section>

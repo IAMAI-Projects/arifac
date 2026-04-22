@@ -29,5 +29,11 @@ export const Header: GlobalConfig = {
     { name: 'learnerPortalUrl', type: 'text' },
     { name: 'fiuLogoLink', type: 'text', defaultValue: 'https://fiuindia.gov.in/' },
     { name: 'linkedinUrl', type: 'text', defaultValue: 'https://www.linkedin.com/company/arifac/' },
+    { name: 'loginLabel', type: 'text', defaultValue: 'Login' },
+    { name: 'loginAsLabel', type: 'text', defaultValue: 'Login As' },
+    { name: 'organizationLoginLabel', type: 'text', defaultValue: 'Organization' },
+    { name: 'organizationLoginDescription', type: 'text', defaultValue: 'Member portal access' },
+    { name: 'learnerLoginLabel', type: 'text', defaultValue: 'Learner' },
+    { name: 'learnerLoginDescription', type: 'text', defaultValue: 'Learning platform access' },
   ],
 }

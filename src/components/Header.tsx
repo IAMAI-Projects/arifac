@@ -137,7 +137,7 @@ export default function Header({ data }: HeaderProps) {
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                 </svg>
-                Login
+                {data.loginLabel || 'Login'}
                 <svg className="w-2.5 h-2.5 text-neutral-300 group-hover/login:text-brand group-hover/login:translate-y-px transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -146,19 +146,19 @@ export default function Header({ data }: HeaderProps) {
                 <div className="bg-white w-[220px] border border-neutral-200 overflow-hidden relative">
                   <div className="h-[2px] w-full bg-gradient-to-r from-brand via-brand-light to-transparent" />
                   <div className="px-5 pt-4 pb-2">
-                    <span className="text-[9px] font-bold text-brand uppercase tracking-[0.25em]">Login As</span>
+                    <span className="text-[9px] font-bold text-brand uppercase tracking-[0.25em]">{data.loginAsLabel || 'Login As'}</span>
                   </div>
                   <div className="px-2 pb-3">
                     <Link href={memberPortalHref} className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
                       <div>
-                        <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">Organization</span>
-                        <span className="text-[10px] text-neutral-400">Member portal access</span>
+                        <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">{data.organizationLoginLabel || 'Organization'}</span>
+                        <span className="text-[10px] text-neutral-400">{data.organizationLoginDescription || 'Member portal access'}</span>
                       </div>
                     </Link>
                     <Link href={learnerPortalHref} className="group/item flex items-center px-3 py-2.5 hover:bg-neutral-50 transition-colors">
                       <div>
-                        <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">Learner</span>
-                        <span className="text-[10px] text-neutral-400">Learning platform access</span>
+                        <span className="text-[12px] font-bold text-neutral-900 block leading-tight group-hover/item:text-brand transition-colors">{data.learnerLoginLabel || 'Learner'}</span>
+                        <span className="text-[10px] text-neutral-400">{data.learnerLoginDescription || 'Learning platform access'}</span>
                       </div>
                     </Link>
                   </div>
@@ -281,7 +281,7 @@ export default function Header({ data }: HeaderProps) {
 
               <div className="px-4 pb-6">
                 <span className="text-[10px] font-bold text-brand uppercase tracking-[0.25em] block mb-3">
-                  Login As
+                  {data.loginAsLabel || 'Login As'}
                 </span>
                 <div className="flex flex-col gap-2">
                   <Link
@@ -289,16 +289,16 @@ export default function Header({ data }: HeaderProps) {
                     onClick={() => setIsMenuOpen(false)}
                     className="flex flex-col border border-neutral-200 px-4 py-3 hover:border-brand transition-colors"
                   >
-                    <span className="text-[13px] font-bold text-neutral-900 leading-tight">Organization</span>
-                    <span className="text-[11px] text-neutral-400">Member portal access</span>
+                    <span className="text-[13px] font-bold text-neutral-900 leading-tight">{data.organizationLoginLabel || 'Organization'}</span>
+                    <span className="text-[11px] text-neutral-400">{data.organizationLoginDescription || 'Member portal access'}</span>
                   </Link>
                   <Link
                     href={learnerPortalHref}
                     onClick={() => setIsMenuOpen(false)}
                     className="flex flex-col border border-neutral-200 px-4 py-3 hover:border-brand transition-colors"
                   >
-                    <span className="text-[13px] font-bold text-neutral-900 leading-tight">Learner</span>
-                    <span className="text-[11px] text-neutral-400">Learning platform access</span>
+                    <span className="text-[13px] font-bold text-neutral-900 leading-tight">{data.learnerLoginLabel || 'Learner'}</span>
+                    <span className="text-[11px] text-neutral-400">{data.learnerLoginDescription || 'Learning platform access'}</span>
                   </Link>
                 </div>
 

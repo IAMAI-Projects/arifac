@@ -26,6 +26,17 @@ export default async function HomePage() {
     draft: true,
   })
 
+  const siteSettings = await payload.findGlobal({ slug: 'site-settings' })
+
+  const categoryLabelMap: Record<string, string> = {}
+  for (const item of siteSettings.categoryLabels ?? []) {
+    if (item.value && item.label) categoryLabelMap[item.value] = item.label
+  }
+  const issuingBodyLabelMap: Record<string, string> = {}
+  for (const item of siteSettings.issuingBodyLabels ?? []) {
+    if (item.value && item.label) issuingBodyLabelMap[item.value] = item.label
+  }
+
   return (
     <>
       <RefreshRouteOnSave />
@@ -33,6 +44,8 @@ export default async function HomePage() {
         <BlockRenderer
           blocks={page.layout.filter(block => block.blockType !== 'featuredPrograms' && block.blockType !== 'stats')}
           regulatoryUpdates={updatesResult.docs}
+          categoryLabelMap={categoryLabelMap}
+          issuingBodyLabelMap={issuingBodyLabelMap}
         />
       )}
     </>

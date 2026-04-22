@@ -33,7 +33,7 @@ export default async function CertificationsPage() {
         description={page?.banner?.description ?? "Role-based programmes from foundation to specialist level, designed to strengthen compliance across India's financial ecosystem."}
       />
       {certifications.length > 0 ? (
-        <CertificationsFilter certifications={certifications} />
+        <CertificationsFilter certifications={certifications} pathwayTiers={page?.pathwayTiers} ui={page?.certificationsUI} />
       ) : null}
     </>
   )

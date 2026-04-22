@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react'
 import type { RegulatoryUpdate } from '@/payload-types'
 
-const categoryLabels: Record<string, string> = {
+const defaultCategoryLabels: Record<string, string> = {
   'aml-cft': 'AML / CFT',
   'kyc-cdd': 'KYC / Customer Due Diligence',
   'reporting': 'Reporting Obligations',
@@ -13,7 +13,7 @@ const categoryLabels: Record<string, string> = {
   'compliance-governance': 'Compliance & Governance',
 }
 
-const issuingBodyLabels: Record<string, string> = {
+const defaultIssuingBodyLabels: Record<string, string> = {
   'rbi': 'RBI',
   'fiu-ind': 'FIU-IND',
   'sebi': 'SEBI',
@@ -38,28 +38,34 @@ const PER_PAGE = 10
 
 interface UpdatesFilterProps {
   updates: RegulatoryUpdate[]
+  viewCircularLabel?: string | null
+  noResultsMessage?: string | null
+  categoryLabelMap?: Record<string, string>
+  issuingBodyLabelMap?: Record<string, string>
 }
 
-export default function UpdatesFilter({ updates }: UpdatesFilterProps) {
+export default function UpdatesFilter({ updates, viewCircularLabel, noResultsMessage, categoryLabelMap, issuingBodyLabelMap }: UpdatesFilterProps) {
+  const resolvedCategoryLabels = { ...defaultCategoryLabels, ...categoryLabelMap }
+  const resolvedIssuingBodyLabels = { ...defaultIssuingBodyLabels, ...issuingBodyLabelMap }
   const [regulator, setRegulator] = useState('All Regulators')
   const [category, setCategory] = useState('All Categories')
   const [sortBy, setSortBy] = useState<'newest' | 'oldest'>('newest')
   const [page, setPage] = useState(1)
 
   const regulators = useMemo(
-    () => ['All Regulators', ...new Set(updates.map((item) => issuingBodyLabels[item.issuingBody] || item.issuingBody))],
+    () => ['All Regulators', ...new Set(updates.map((item) => resolvedIssuingBodyLabels[item.issuingBody] || item.issuingBody))],
     [updates],
   )
 
   const categories = useMemo(
-    () => ['All Categories', ...new Set(updates.map((item) => categoryLabels[item.category] || item.category))],
+    () => ['All Categories', ...new Set(updates.map((item) => resolvedCategoryLabels[item.category] || item.category))],
     [updates],
   )
 
   const filtered = useMemo(() => {
     const scoped = updates.filter((item) => {
-      const displayRegulator = issuingBodyLabels[item.issuingBody] || item.issuingBody
-      const displayCategory = categoryLabels[item.category] || item.category
+      const displayRegulator = resolvedIssuingBodyLabels[item.issuingBody] || item.issuingBody
+      const displayCategory = resolvedCategoryLabels[item.category] || item.category
       const regulatorMatch = regulator === 'All Regulators' || displayRegulator === regulator
       const categoryMatch = category === 'All Categories' || displayCategory === category
       return regulatorMatch && categoryMatch
@@ -145,13 +151,13 @@ export default function UpdatesFilter({ updates }: UpdatesFilterProps) {
         <div className="space-y-3">
           {pageData.length === 0 && (
             <div className="border border-neutral-200 bg-neutral-50 p-8 text-center text-neutral-600">
-              No circulars match your selected filters.
+              {noResultsMessage || 'No circulars match your selected filters.'}
             </div>
           )}
 
           {pageData.map((item, idx) => {
-            const displayRegulator = issuingBodyLabels[item.issuingBody] || item.issuingBody
-            const displayCategory = categoryLabels[item.category] || item.category
+            const displayRegulator = resolvedIssuingBodyLabels[item.issuingBody] || item.issuingBody
+            const displayCategory = resolvedCategoryLabels[item.category] || item.category
             const tone = regulatorTone[item.issuingBody] || 'bg-neutral-50 text-neutral-700 border-neutral-200'
             const pdfUrl = typeof item.pdf === 'object' && item.pdf ? item.pdf.url : null
             const href = pdfUrl || item.link
@@ -186,7 +192,7 @@ export default function UpdatesFilter({ updates }: UpdatesFilterProps) {
                       rel="noreferrer noopener"
                       className="shrink-0 inline-flex items-center gap-2 border border-neutral-300 px-4 py-2 text-[11px] font-black uppercase tracking-wide text-neutral-700 hover:bg-brand hover:text-white hover:border-neutral-900 transition-all"
                     >
-                      View Circular
+                      {viewCircularLabel || 'View Circular'}
                       <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
                         <path d="M7 17 17 7" />
                         <path d="M9 7h8v8" />

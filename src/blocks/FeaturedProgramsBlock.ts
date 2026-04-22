@@ -44,5 +44,6 @@ export const FeaturedProgramsBlock: Block = {
         { name: 'image', type: 'text' },
       ],
     },
+    { name: 'courseDetailsLabel', type: 'text', defaultValue: 'Course Details' },
   ],
 }

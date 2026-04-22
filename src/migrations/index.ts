@@ -3,6 +3,7 @@ import * as migration_20260421_050159_add_media_and_pdf from './20260421_050159_
 import * as migration_20260422_005529_add_cert_launch_status_order from './20260422_005529_add_cert_launch_status_order';
 import * as migration_20260422_065435_add_contact_page_fields from './20260422_065435_add_contact_page_fields';
 import * as migration_20260422_120000_category_enum_to_text from './20260422_120000_category_enum_to_text';
+import * as migration_20260422_195552_add_site_settings_and_ui_labels from './20260422_195552_add_site_settings_and_ui_labels';
 
 export const migrations = [
   {
@@ -23,11 +24,16 @@ export const migrations = [
   {
     up: migration_20260422_065435_add_contact_page_fields.up,
     down: migration_20260422_065435_add_contact_page_fields.down,
-    name: '20260422_065435_add_contact_page_fields'
+    name: '20260422_065435_add_contact_page_fields',
   },
   {
     up: migration_20260422_120000_category_enum_to_text.up,
     down: migration_20260422_120000_category_enum_to_text.down,
     name: '20260422_120000_category_enum_to_text',
+  },
+  {
+    up: migration_20260422_195552_add_site_settings_and_ui_labels.up,
+    down: migration_20260422_195552_add_site_settings_and_ui_labels.down,
+    name: '20260422_195552_add_site_settings_and_ui_labels'
   },
 ];

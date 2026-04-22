@@ -38,7 +38,7 @@ export default async function ContactPage() {
               <h2 className="text-2xl lg:text-[28px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-6">
                 {page.formSection?.heading || 'How can we help you?'}
               </h2>
-              <ContactForm />
+              <ContactForm labels={page.contactFormLabels} />
             </div>
 
             {/* Right Column: Contact Info */}
