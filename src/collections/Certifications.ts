@@ -27,14 +27,8 @@ export const Certifications: CollectionConfig = {
     },
     {
       name: 'category',
-      type: 'select',
+      type: 'text',
       required: true,
-      options: [
-        { label: 'Foundation', value: 'Foundation' },
-        { label: 'Professional', value: 'Professional' },
-        { label: 'Specialist', value: 'Specialist' },
-        { label: 'Strategic', value: 'Strategic' },
-      ],
     },
     {
       name: 'format',

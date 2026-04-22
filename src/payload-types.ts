@@ -536,7 +536,7 @@ export interface Certification {
   title: string;
   level: string;
   focus: string;
-  category: 'Foundation' | 'Professional' | 'Specialist' | 'Strategic';
+  category: string;
   format: string;
   description: string;
   curriculum?:
