@@ -194,33 +194,41 @@ export default function CertificationsFilter({ certifications }: CertificationsF
 
             {/* Right: Course Grid */}
             <div className="lg:col-span-9">
-              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4 grid-rows-[auto]" style={{ gridAutoRows: 'auto' }}>
                 {filteredCourses.map((cert, idx) => (
                   <div
                     key={cert.id}
-                    className="group relative bg-white border border-neutral-200 hover:border-brand/30 hover:shadow-lg transition-all duration-500 overflow-hidden"
+                    className="group relative bg-white border border-neutral-200 hover:border-brand/30 hover:shadow-lg transition-all duration-500 overflow-hidden grid grid-rows-subgrid row-span-6"
                   >
-                    {/* Top accent bar */}
-                    <div className="h-1 w-full bg-gradient-to-r from-brand to-brand-light transition-all duration-500" />
-
-
-                    <div className="relative z-10 p-5 lg:p-6">
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className="text-[10px] font-bold text-brand uppercase tracking-widest bg-brand/[0.08] border border-brand/20 px-2.5 py-1">
-                          {cert.level}
-                        </span>
+                    {/* Row 1: Top accent bar + Level badge */}
+                    <div>
+                      <div className="h-1 w-full bg-gradient-to-r from-brand to-brand-light transition-all duration-500" />
+                      <div className="relative z-10 px-5 lg:px-6 pt-5 lg:pt-6">
+                        <div className="flex items-center gap-3">
+                          <span className="text-[10px] font-bold text-brand uppercase tracking-widest bg-brand/[0.08] border border-brand/20 px-2.5 py-1">
+                            {cert.level}
+                          </span>
+                        </div>
                       </div>
+                    </div>
 
-                      <h3 className="text-[16px] font-bold text-neutral-900 mb-2 leading-tight group-hover:text-[#0f172a] transition-colors pr-12">
+                    {/* Row 2: Title */}
+                    <div className="relative z-10 px-5 lg:px-6 pt-3">
+                      <h3 className="text-[16px] font-bold text-neutral-900 leading-tight group-hover:text-[#0f172a] transition-colors pr-12">
                         {cert.title}
                       </h3>
+                    </div>
 
-                      <p className="text-neutral-500 text-[13px] leading-relaxed mb-4 line-clamp-3">
+                    {/* Row 3: Description */}
+                    <div className="relative z-10 px-5 lg:px-6 pt-2">
+                      <p className="text-neutral-500 text-[13px] leading-relaxed line-clamp-3">
                         {cert.description}
                       </p>
+                    </div>
 
-                      {/* Meta tags */}
-                      <div className="flex flex-wrap items-center gap-2 mb-4">
+                    {/* Row 4: Meta tags */}
+                    <div className="relative z-10 px-5 lg:px-6 pt-4">
+                      <div className="flex flex-wrap items-center gap-2">
                         <span className="text-[10px] font-bold text-neutral-900 uppercase tracking-wider px-2.5 py-1 bg-[#0f172a]/[0.04] border border-neutral-900/10">
                           {cert.format}
                         </span>
@@ -231,8 +239,10 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                           {cert.focus}
                         </span>
                       </div>
+                    </div>
 
-                      {/* Curriculum toggle */}
+                    {/* Row 5: Curriculum toggle */}
+                    <div className="relative z-10 px-5 lg:px-6 pt-4">
                       <button
                         onClick={() =>
                           setExpanded(expanded === cert.id ? null : cert.id)
@@ -265,9 +275,11 @@ export default function CertificationsFilter({ certifications }: CertificationsF
                           </ul>
                         </div>
                       )}
+                    </div>
 
-                      {/* Status */}
-                      <div className="mt-4 pt-4 border-t border-neutral-100">
+                    {/* Row 6: Status */}
+                    <div className="relative z-10 px-5 lg:px-6 pb-5 lg:pb-6 pt-4 mt-auto">
+                      <div className="pt-4 border-t border-neutral-100">
                         {cert.launchStatus === 'live' ? (
                           <div className="space-y-2">
                             <span className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 text-[11px] font-bold uppercase tracking-widest">
