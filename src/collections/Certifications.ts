@@ -58,5 +58,26 @@ export const Certifications: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'launchStatus',
+      type: 'select',
+      required: true,
+      defaultValue: 'coming-soon',
+      options: [
+        { label: 'Live', value: 'live' },
+        { label: 'Coming Soon', value: 'coming-soon' },
+      ],
+      admin: {
+        description: 'Shown as a badge on the certification card.',
+      },
+    },
+    {
+      name: 'order',
+      type: 'number',
+      defaultValue: 100,
+      admin: {
+        description: 'Lower numbers appear first on the certifications page.',
+      },
+    },
   ],
 }

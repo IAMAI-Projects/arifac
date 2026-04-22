@@ -526,6 +526,14 @@ export interface Certification {
       }[]
     | null;
   duration: string;
+  /**
+   * Shown as a badge on the certification card.
+   */
+  launchStatus: 'live' | 'coming-soon';
+  /**
+   * Lower numbers appear first on the certifications page.
+   */
+  order?: number | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -1126,6 +1134,8 @@ export interface CertificationsSelect<T extends boolean = true> {
         id?: T;
       };
   duration?: T;
+  launchStatus?: T;
+  order?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

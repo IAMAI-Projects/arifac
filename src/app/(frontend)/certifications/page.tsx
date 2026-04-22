@@ -11,7 +11,7 @@ export default async function CertificationsPage() {
     payload.find({
       collection: 'certifications',
       limit: 100,
-      sort: 'level',
+      sort: 'order',
       draft: true,
     }),
     payload.find({

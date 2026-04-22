@@ -23,22 +23,18 @@ export default function CertificationsFilter({ certifications }: CertificationsF
 
   const filteredCourses = useMemo(() => {
     const query = search.trim().toLowerCase()
-    const orderRank = (level: string) => (level === 'CTP' ? 0 : level === 'ACF-L1' ? 1 : 2)
-    return certifications
-      .filter((course) => {
-        const byCategory =
-          categoryFilter === 'All' || course.category === categoryFilter
-        const byFormat =
-          formatFilter === 'All' || course.format === formatFilter
-        const bySearch =
-          query.length === 0 ||
-          course.title.toLowerCase().includes(query) ||
-          course.focus.toLowerCase().includes(query) ||
-          course.description.toLowerCase().includes(query)
-        return byCategory && byFormat && bySearch
-      })
-      .slice()
-      .sort((a, b) => orderRank(a.level) - orderRank(b.level))
+    return certifications.filter((course) => {
+      const byCategory =
+        categoryFilter === 'All' || course.category === categoryFilter
+      const byFormat =
+        formatFilter === 'All' || course.format === formatFilter
+      const bySearch =
+        query.length === 0 ||
+        course.title.toLowerCase().includes(query) ||
+        course.focus.toLowerCase().includes(query) ||
+        course.description.toLowerCase().includes(query)
+      return byCategory && byFormat && bySearch
+    })
   }, [search, categoryFilter, formatFilter, certifications])
 
   return (
@@ -272,7 +268,7 @@ export default function CertificationsFilter({ certifications }: CertificationsF
 
                       {/* Status */}
                       <div className="mt-4 pt-4 border-t border-neutral-100">
-                        {cert.level === 'CTP' || cert.level === 'ACF-L1' ? (
+                        {cert.launchStatus === 'live' ? (
                           <span className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 text-[11px] font-bold uppercase tracking-widest">
                             <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
                             Live
