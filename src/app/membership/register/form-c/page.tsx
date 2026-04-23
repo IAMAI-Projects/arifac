@@ -209,7 +209,7 @@ function RegistrationFormCContent() {
       // Sync client-side auth state (local storage/UI)
       setClientAuth(formData.email, formData.fullName);
 
-      // Redirect directly to dashboard or success page for Form C (Free)
+      // Redirect directly to dashboard or success page for Form C 
       window.location.href = '/membership/dashboard';
     } catch (err: any) {
       setError(err.message);

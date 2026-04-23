@@ -67,7 +67,7 @@ export async function POST(request: Request) {
     } else if (formType === 'C') {
       const result = await MembershipService.registerFormC(data);
 
-      // Auto-login for Form C (Free)
+      // Auto-login for Form C 
       if (result.success && result.user) {
         const token = await createToken({
           userId: result.user.id,

@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from 'framer-motion';
-import { ExternalLink, AlertCircle, Info, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ExternalLink, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -301,7 +301,7 @@ export default function RegulatoryUpdatesPage() {
                         <span className="text-accent text-[12px] font-bold tracking-[0.2em] uppercase mb-4 block">Regulatory Updates</span>
                         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1d1d1f] tracking-tight mb-5 leading-tight">
                             Tracking Developments Across <br />
-                            <span className="bg-gradient-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text uppercase tracking-widest block mt-2">India's AML/CFT Framework</span>
+                            <span className="bg-linear-to-r from-[#C2B020] to-[#59626E] text-transparent bg-clip-text uppercase tracking-widest block mt-2">India&apos;s AML/CFT Framework</span>
                         </h1>
                         <p className="text-lg text-secondary max-w-3xl mx-auto font-medium leading-relaxed">
                             Track important circulars, notifications, advisories, and regulatory updates relevant to reporting entities and the broader financial crime prevention ecosystem.
