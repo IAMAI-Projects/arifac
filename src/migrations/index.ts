@@ -4,6 +4,8 @@ import * as migration_20260422_005529_add_cert_launch_status_order from './20260
 import * as migration_20260422_065435_add_contact_page_fields from './20260422_065435_add_contact_page_fields';
 import * as migration_20260422_120000_category_enum_to_text from './20260422_120000_category_enum_to_text';
 import * as migration_20260422_195552_add_site_settings_and_ui_labels from './20260422_195552_add_site_settings_and_ui_labels';
+import * as migration_20260424_000000_add_gallery from './20260424_000000_add_gallery';
+import * as migration_20260424_120000_add_gallery_page_global from './20260424_120000_add_gallery_page_global';
 
 export const migrations = [
   {
@@ -35,5 +37,15 @@ export const migrations = [
     up: migration_20260422_195552_add_site_settings_and_ui_labels.up,
     down: migration_20260422_195552_add_site_settings_and_ui_labels.down,
     name: '20260422_195552_add_site_settings_and_ui_labels'
+  },
+  {
+    up: migration_20260424_000000_add_gallery.up,
+    down: migration_20260424_000000_add_gallery.down,
+    name: '20260424_000000_add_gallery',
+  },
+  {
+    up: migration_20260424_120000_add_gallery_page_global.up,
+    down: migration_20260424_120000_add_gallery_page_global.down,
+    name: '20260424_120000_add_gallery_page_global',
   },
 ];

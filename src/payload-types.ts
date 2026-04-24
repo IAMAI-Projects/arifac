@@ -77,6 +77,7 @@ export interface Config {
     'legal-pages': LegalPage;
     'nodal-officers': NodalOfficer;
     'training-leads-directory': TrainingLeadsDirectory;
+    'gallery-items': GalleryItem;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -94,6 +95,7 @@ export interface Config {
     'legal-pages': LegalPagesSelect<false> | LegalPagesSelect<true>;
     'nodal-officers': NodalOfficersSelect<false> | NodalOfficersSelect<true>;
     'training-leads-directory': TrainingLeadsDirectorySelect<false> | TrainingLeadsDirectorySelect<true>;
+    'gallery-items': GalleryItemsSelect<false> | GalleryItemsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -108,12 +110,14 @@ export interface Config {
     header: Header;
     footer: Footer;
     'site-settings': SiteSetting;
+    'gallery-page': GalleryPage;
   };
   globalsSelect: {
     programmes: ProgrammesSelect<false> | ProgrammesSelect<true>;
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'gallery-page': GalleryPageSelect<false> | GalleryPageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -784,6 +788,31 @@ export interface TrainingLeadsDirectory {
   createdAt: string;
 }
 /**
+ * Upload and manage gallery photos displayed on the Gallery page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-items".
+ */
+export interface GalleryItem {
+  id: number;
+  /**
+   * Caption shown below the image in the lightbox.
+   */
+  title: string;
+  image: number | Media;
+  category: 'industry-consultations' | 'training-capacity-building' | 'working-groups' | 'flagship-programs';
+  /**
+   * Optional short description shown in the lightbox.
+   */
+  description?: string | null;
+  /**
+   * Lower numbers appear first. Use to control display order.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -846,6 +875,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'training-leads-directory';
         value: number | TrainingLeadsDirectory;
+      } | null)
+    | ({
+        relationTo: 'gallery-items';
+        value: number | GalleryItem;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1515,6 +1548,19 @@ export interface TrainingLeadsDirectorySelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-items_select".
+ */
+export interface GalleryItemsSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  category?: T;
+  description?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -1732,6 +1778,40 @@ export interface SiteSetting {
   createdAt?: string | null;
 }
 /**
+ * Content for the bottom sections of the Gallery page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-page".
+ */
+export interface GalleryPage {
+  id: number;
+  aboutSection?: {
+    title?: string | null;
+    description?: string | null;
+    features?:
+      | {
+          label: string;
+          description?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  ctaSection?: {
+    title?: string | null;
+    description?: string | null;
+    primaryButtonLabel?: string | null;
+    primaryButtonLink?: string | null;
+    secondaryButtonLabel?: string | null;
+    secondaryButtonLink?: string | null;
+  };
+  importantNote?: {
+    title?: string | null;
+    text?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "programmes_select".
  */
@@ -1898,6 +1978,44 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         value?: T;
         label?: T;
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-page_select".
+ */
+export interface GalleryPageSelect<T extends boolean = true> {
+  aboutSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        features?:
+          | T
+          | {
+              label?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+  ctaSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        primaryButtonLabel?: T;
+        primaryButtonLink?: T;
+        secondaryButtonLabel?: T;
+        secondaryButtonLink?: T;
+      };
+  importantNote?:
+    | T
+    | {
+        title?: T;
+        text?: T;
       };
   updatedAt?: T;
   createdAt?: T;

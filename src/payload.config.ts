@@ -16,10 +16,12 @@ import { Members } from './collections/Members'
 import { LegalPages } from './collections/LegalPages'
 import { NodalOfficers } from './collections/NodalOfficers'
 import { TrainingLeadsDirectory } from './collections/TrainingLeadsDirectory'
+import { GalleryItems } from './collections/GalleryItems'
 import { Programmes } from './globals/Programmes'
 import { Header } from './globals/Header'
 import { Footer } from './globals/Footer'
 import { SiteSettings } from './globals/SiteSettings'
+import { GalleryPage } from './globals/GalleryPage'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -70,11 +72,12 @@ export default buildConfig({
           if (collectionConfig.slug === 'legal-pages') return `${baseUrl}/legal/${data?.slug || ''}`
           if (collectionConfig.slug === 'nodal-officers') return `${baseUrl}/sectoral-nodal-officers`
           if (collectionConfig.slug === 'training-leads-directory') return `${baseUrl}/training-leads`
+          if (collectionConfig.slug === 'gallery-items') return `${baseUrl}/gallery`
         }
 
         return baseUrl
       },
-      collections: ['pages', 'regulatory-updates', 'certifications', 'news-items', 'members', 'legal-pages', 'nodal-officers', 'training-leads-directory'],
+      collections: ['pages', 'regulatory-updates', 'certifications', 'news-items', 'members', 'legal-pages', 'nodal-officers', 'training-leads-directory', 'gallery-items'],
       globals: ['programmes', 'header', 'footer', 'site-settings'],
       breakpoints: [
         { label: 'Mobile', name: 'mobile', width: 375, height: 667 },
@@ -117,8 +120,9 @@ export default buildConfig({
     LegalPages,
     NodalOfficers,
     TrainingLeadsDirectory,
+    GalleryItems,
   ],
-  globals: [Programmes, Header, Footer, SiteSettings],
+  globals: [Programmes, Header, Footer, SiteSettings, GalleryPage],
   onInit: async (payload) => {
     const forceSeed = process.env.PAYLOAD_SEED === 'true'
     const { totalDocs } = await payload.count({ collection: 'pages' })
