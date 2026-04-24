@@ -402,7 +402,7 @@ export async function GET() {
             ],
           },
         ]
-        for (const c of certs) await payload.create({ collection: 'certifications', data: c })
+        for (const c of certs) await payload.create({ collection: 'certifications', data: c as any })
         return `Created ${certs.length} certifications`
       }
     })(),

@@ -1,5 +1,5 @@
 /** @type {import('next-sitemap').IConfig} */
-module.exports = {
+const config = {
   siteUrl: process.env.NEXT_PUBLIC_SERVER_URL || 'https://arifac.in',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
@@ -18,3 +18,5 @@ module.exports = {
     ],
   },
 }
+
+export default config
