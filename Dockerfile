@@ -22,7 +22,7 @@ ENV NEXT_PUBLIC_MEMBER_PORTAL_URL=${NEXT_PUBLIC_MEMBER_PORTAL_URL}
 # Use compile mode to avoid needing DATABASE_URI at build time
 # All pages will be server-rendered at request time (appropriate for CMS)
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN corepack enable pnpm && pnpm next build --experimental-build-mode compile
+RUN corepack enable pnpm && pnpm next build --experimental-build-mode compile && pnpm next-sitemap
 
 # --- Runner ---
 FROM base AS runner
