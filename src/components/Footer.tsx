@@ -31,7 +31,7 @@ export default function Footer({ data }: FooterProps) {
 
           {data.linkGroups?.map((group, idx) => (
             <div key={idx} className={`md:col-span-2 ${idx === 0 ? 'md:col-start-6' : ''}`}>
-              <h4 className="text-[11px] font-bold text-white uppercase tracking-[0.2em] mb-6">{group.title}</h4>
+              <p className="text-[11px] font-bold text-white uppercase tracking-[0.2em] mb-6">{group.title}</p>
               <div className="flex flex-col gap-4 text-[13px] text-white">
                 {group.links?.map((link, linkIdx) => (
                   <Link key={linkIdx} href={link.url} className="hover:text-white/70 transition-colors">
