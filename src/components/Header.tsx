@@ -52,11 +52,11 @@ export default function Header({ data }: HeaderProps) {
           {/* Left: Logos */}
           <div className="flex items-center gap-3 sm:gap-4 shrink-0 min-w-0">
             <a href={data.fiuLogoLink || 'https://fiuindia.gov.in/'} target="_blank" rel="noopener noreferrer">
-              <Image src="/fiu-logo.png" alt="FIU INDIA" width={32} height={32} className="h-9 lg:h-10 xl:h-12 mix-blend-multiply" style={{ width: "auto" }} priority />
+              <Image src="/fiu-logo.png" alt="FIU INDIA" width={120} height={132} className="h-9 lg:h-10 xl:h-12 mix-blend-multiply" style={{ width: "auto" }} priority />
             </a>
             <div className="h-8 lg:h-10 w-px bg-neutral-300" />
             <Link href="/">
-              <Image src="/logo.png" alt="ARIFAC" width={110} height={32} className="h-9 lg:h-10 xl:h-12 w-auto mix-blend-multiply" priority />
+              <Image src="/logo.png" alt="ARIFAC" width={300} height={179} className="h-9 lg:h-10 xl:h-12 w-auto mix-blend-multiply" priority />
             </Link>
           </div>
 

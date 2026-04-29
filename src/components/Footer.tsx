@@ -19,14 +19,14 @@ export default function Footer({ data }: FooterProps) {
 
           <div className="md:col-span-4">
             <div className="flex items-center gap-4 mb-6">
-              <Image src="/fiu-logo.png" alt="FIU INDIA" width={48} height={48} className="h-14 w-auto" />
+              <Image src="/fiu-logo.png" alt="FIU INDIA" width={120} height={132} className="h-14 w-auto" />
               <div className="h-10 w-px bg-white/20" />
-              <Image src="/logo.png" alt="ARIFAC" width={140} height={40} className="h-12 w-auto brightness-0 invert" />
+              <Image src="/logo.png" alt="ARIFAC" width={300} height={179} className="h-12 w-auto brightness-0 invert" />
             </div>
             <p className="text-[15px] text-white leading-relaxed font-normal max-w-sm mb-8">
               {data.tagline}
             </p>
-            <Image src="/pci-fcc.png" alt="PCI & FCC — Internet And Mobile Association Of India" width={200} height={56} className="max-w-[180px] w-auto h-auto brightness-0 invert" />
+            <Image src="/pci-fcc.png" alt="PCI & FCC — Internet And Mobile Association Of India" width={400} height={116} className="max-w-[180px] w-auto h-auto brightness-0 invert" />
           </div>
 
           {data.linkGroups?.map((group, idx) => (
