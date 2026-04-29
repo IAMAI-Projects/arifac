@@ -246,6 +246,7 @@ export const Pages: CollectionConfig = {
         { name: 'feesEyebrow', type: 'text', defaultValue: 'Pricing' },
         { name: 'feesHeading', type: 'text', defaultValue: 'Fees' },
         { name: 'feesDescription', type: 'textarea', defaultValue: "Membership fees are determined by your organisation's self-declared annual turnover or Assets Under Management (AUM), as applicable. All fees are exclusive of taxes and subject to revision." },
+        { name: 'feeScheduleLabel', type: 'text', defaultValue: 'To view the schedule, click here' },
         { name: 'turnoverLabel', type: 'text', defaultValue: 'Turnover-Based' },
         { name: 'aumLabel', type: 'text', defaultValue: 'AUM-Based' },
         { name: 'feeSuffix', type: 'text', defaultValue: '+ taxes' },

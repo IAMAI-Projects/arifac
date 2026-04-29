@@ -1,8 +1,15 @@
+import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import StaticPageLayout from '@/components/StaticPageLayout'
 import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 import type { NodalOfficer } from '@/payload-types'
+
+export const metadata: Metadata = {
+  title: 'Sectoral Nodal Officers — AML/CFT Compliance Network | ARIFAC',
+  description: 'Directory of sectoral nodal officers across India\'s regulated financial entities, coordinating AML/CFT compliance under FIU-IND\'s guidance through ARIFAC.',
+  alternates: { canonical: 'https://arifac.com/sectoral-nodal-officers' },
+}
 
 interface OfficerCardProps {
   officer: NodalOfficer

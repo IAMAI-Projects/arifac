@@ -12,6 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
     appleWebApp: {
       title: "ARIFAC",
     },
+    metadataBase: new URL('https://arifac.com'),
   }
 }
 

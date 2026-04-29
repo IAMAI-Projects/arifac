@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import type { Page } from '@/payload-types'
 
 type PartnershipsBlockData = Extract<NonNullable<Page['layout']>[number], { blockType: 'partnerships' }>
@@ -23,7 +24,7 @@ export default function Partnerships({ data }: PartnershipsProps) {
             </h2>
             <div className="flex items-center gap-4">
               {data.guidanceCard?.logoUrl && (
-                <img src={data.guidanceCard.logoUrl} alt="" className="h-12 w-auto object-contain flex-shrink-0" />
+                <Image src={data.guidanceCard.logoUrl} alt={data.guidanceCard.title || ''} width={48} height={48} className="h-12 w-auto object-contain flex-shrink-0" />
               )}
               <span className="text-[16px] font-bold text-neutral-900 leading-snug">
                 {data.guidanceCard?.title}

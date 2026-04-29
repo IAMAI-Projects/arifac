@@ -6,6 +6,7 @@ import * as migration_20260422_120000_category_enum_to_text from './20260422_120
 import * as migration_20260422_195552_add_site_settings_and_ui_labels from './20260422_195552_add_site_settings_and_ui_labels';
 import * as migration_20260424_000000_add_gallery from './20260424_000000_add_gallery';
 import * as migration_20260424_120000_add_gallery_page_global from './20260424_120000_add_gallery_page_global';
+import * as migration_20260428_052344 from './20260428_052344';
 
 export const migrations = [
   {
@@ -36,7 +37,7 @@ export const migrations = [
   {
     up: migration_20260422_195552_add_site_settings_and_ui_labels.up,
     down: migration_20260422_195552_add_site_settings_and_ui_labels.down,
-    name: '20260422_195552_add_site_settings_and_ui_labels'
+    name: '20260422_195552_add_site_settings_and_ui_labels',
   },
   {
     up: migration_20260424_000000_add_gallery.up,
@@ -47,5 +48,10 @@ export const migrations = [
     up: migration_20260424_120000_add_gallery_page_global.up,
     down: migration_20260424_120000_add_gallery_page_global.down,
     name: '20260424_120000_add_gallery_page_global',
+  },
+  {
+    up: migration_20260428_052344.up,
+    down: migration_20260428_052344.down,
+    name: '20260428_052344'
   },
 ];

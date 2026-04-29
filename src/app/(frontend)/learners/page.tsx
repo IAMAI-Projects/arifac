@@ -1,8 +1,15 @@
+import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
 import StaticPageLayout from '@/components/StaticPageLayout'
 import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
+
+export const metadata: Metadata = {
+  title: 'Register as a Learner — AML/CFT Training | ARIFAC',
+  description: 'Access ARIFAC\'s AML/CFT learning resources, certification pathways, and industry events. Register to build your financial crime prevention competencies.',
+  alternates: { canonical: 'https://arifac.com/learners' },
+}
 
 export default async function LearnersPage() {
   const payload = await getPayload({ config: configPromise })

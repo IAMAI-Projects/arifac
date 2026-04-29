@@ -442,6 +442,7 @@ export interface Page {
     feesEyebrow?: string | null;
     feesHeading?: string | null;
     feesDescription?: string | null;
+    feeScheduleLabel?: string | null;
     turnoverLabel?: string | null;
     aumLabel?: string | null;
     feeSuffix?: string | null;
@@ -1230,6 +1231,7 @@ export interface PagesSelect<T extends boolean = true> {
         feesEyebrow?: T;
         feesHeading?: T;
         feesDescription?: T;
+        feeScheduleLabel?: T;
         turnoverLabel?: T;
         aumLabel?: T;
         feeSuffix?: T;

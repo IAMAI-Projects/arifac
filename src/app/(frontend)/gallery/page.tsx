@@ -7,8 +7,9 @@ import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Gallery — ARIFAC',
-  description: 'A visual record of ARIFAC industry engagements, workshops, summits, and working group sessions.',
+  title: 'Gallery — ARIFAC Industry Engagements & Events',
+  description: 'A visual record of ARIFAC industry engagements, workshops, summits, and working group sessions across India\'s financial crime prevention ecosystem.',
+  alternates: { canonical: 'https://arifac.com/gallery' },
 }
 
 export default async function GalleryPage() {

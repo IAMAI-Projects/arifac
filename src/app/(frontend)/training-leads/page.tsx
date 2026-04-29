@@ -1,8 +1,15 @@
+import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import StaticPageLayout from '@/components/StaticPageLayout'
 import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 import type { TrainingLeadsDirectory } from '@/payload-types'
+
+export const metadata: Metadata = {
+  title: 'Training Leads — ARIFAC Certified Practitioners Directory',
+  description: 'Meet ARIFAC\'s training leads — certified practitioners and subject-matter experts delivering AML/CFT capacity building programmes across India\'s financial sector.',
+  alternates: { canonical: 'https://arifac.com/training-leads' },
+}
 
 function LeadRow({ lead, index }: { lead: TrainingLeadsDirectory; index: number }) {
   return (

@@ -1,7 +1,14 @@
+import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import PageBanner from '@/components/PageBanner'
 import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
+
+export const metadata: Metadata = {
+  title: 'Programmes — Industry Engagement Framework | ARIFAC',
+  description: 'Explore ARIFAC\'s consolidated ecosystem engagement programmes including workshops, consultations, annual meetings, and capacity building initiatives for India\'s financial sector.',
+  alternates: { canonical: 'https://arifac.com/programmes' },
+}
 
 export default async function ProgrammesPage() {
   const payload = await getPayload({ config: configPromise })

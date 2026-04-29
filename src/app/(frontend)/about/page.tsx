@@ -1,8 +1,15 @@
+import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
 import type { Page } from '@/payload-types'
 import PageBanner from '@/components/PageBanner'
+
+export const metadata: Metadata = {
+  title: 'About ARIFAC — India\'s AML/CFT Collaboration Alliance',
+  description: 'Learn how ARIFAC brings together India\'s reporting entities under FIU-IND guidance to combat financial crime through collaboration, capacity building, and coordinated AML/CFT action.',
+  alternates: { canonical: 'https://arifac.com/about' },
+}
 import Link from 'next/link'
 import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 

@@ -1,8 +1,15 @@
+import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import PageBanner from '@/components/PageBanner'
 import CertificationsFilter from '@/components/CertificationsFilter'
 import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
+
+export const metadata: Metadata = {
+  title: 'Certifications — AML/CFT Professional Pathways | ARIFAC',
+  description: 'Role-based AML/CFT certification programmes from foundation to specialist level. Strengthen compliance capabilities across India\'s financial intelligence ecosystem.',
+  alternates: { canonical: 'https://arifac.com/certifications' },
+}
 
 export default async function CertificationsPage() {
   const payload = await getPayload({ config: configPromise })

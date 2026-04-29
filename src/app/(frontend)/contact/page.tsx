@@ -1,8 +1,15 @@
+import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
 import type { Page } from '@/payload-types'
 import PageBanner from '@/components/PageBanner'
+
+export const metadata: Metadata = {
+  title: 'Contact ARIFAC — Get in Touch',
+  description: 'Reach out to ARIFAC for enquiries about membership, certification programmes, training, or partnerships in India\'s financial crime prevention ecosystem.',
+  alternates: { canonical: 'https://arifac.com/contact' },
+}
 import ContactForm from '@/components/ContactForm'
 import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 

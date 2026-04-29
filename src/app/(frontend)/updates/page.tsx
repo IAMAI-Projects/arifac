@@ -1,8 +1,15 @@
+import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import PageBanner from '@/components/PageBanner'
 import UpdatesFilter from '@/components/UpdatesFilter'
 import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
+
+export const metadata: Metadata = {
+  title: 'Regulatory Updates — AML/CFT Circulars & Notifications | ARIFAC',
+  description: 'Stay current with the latest AML/CFT circulars, notifications, and advisories from FIU-IND and other regulators relevant to India\'s reporting entities.',
+  alternates: { canonical: 'https://arifac.com/updates' },
+}
 
 export default async function UpdatesPage() {
   const payload = await getPayload({ config: configPromise })

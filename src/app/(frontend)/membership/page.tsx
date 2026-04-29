@@ -1,8 +1,15 @@
+import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
 import StaticPageLayout from '@/components/StaticPageLayout'
 import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
+
+export const metadata: Metadata = {
+  title: 'Membership — Engage with ARIFAC\'s Financial Intelligence Ecosystem',
+  description: 'Join ARIFAC as a member organisation. Access capacity building programmes, policy consultations, and collaboration opportunities within India\'s AML/CFT reporting entity network.',
+  alternates: { canonical: 'https://arifac.com/membership' },
+}
 
 export default async function MembershipPage() {
   const payload = await getPayload({ config: configPromise })
@@ -127,73 +134,89 @@ export default async function MembershipPage() {
         {feeTables && (
           <section className="py-6 lg:py-8">
             <div className="max-w-[1240px] mx-auto px-6">
-              <div>
-                <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-2 block">{page.membershipSections?.feesEyebrow || 'Pricing'}</span>
-                <h2 className="text-xl lg:text-[28px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-3">
-                  {page.membershipSections?.feesHeading || 'Fees'}
-                </h2>
-                <p className="text-neutral-600 text-[15px] leading-[1.75] mb-5 max-w-3xl">
-                  {page.membershipSections?.feesDescription || "Membership fees are determined by your organisation's self-declared annual turnover or Assets Under Management (AUM), as applicable. All fees are exclusive of taxes and subject to revision."}
-                </p>
+              <span className="text-[11px] font-bold text-brand tracking-widest uppercase mb-2 block">{page.membershipSections?.feesEyebrow || 'Pricing'}</span>
+              <h2 className="text-xl lg:text-[28px] font-extrabold text-neutral-900 leading-tight tracking-tight mb-5">
+                {page.membershipSections?.feesHeading || 'Fees'}
+              </h2>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  {/* Turnover Table */}
-                  {feeTables.turnoverBased && feeTables.turnoverBased.length > 0 && (
-                    <details className="group">
-                      <summary className="flex items-center gap-3 mb-3 pb-2 border-b border-neutral-100 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
-                        <div className="h-1 w-6 bg-brand" />
-                        <span className="text-[11px] font-bold text-brand tracking-widest uppercase">{page.membershipSections?.turnoverLabel || 'Turnover-Based'}</span>
-                        <svg className="w-3.5 h-3.5 text-neutral-400 ml-auto transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </summary>
-                      <table className="w-full">
-                        <thead>
-                          <tr className="border-b border-neutral-200">
-                            <th className="text-left text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">{page.membershipSections?.turnoverColumnHeader || 'Turnover ₹'}</th>
-                            <th className="text-right text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">{page.membershipSections?.feeColumnHeader || 'Annual Fee'}</th>
-                          </tr>
-                        </thead>
-                        <tbody className="text-[13px] text-neutral-700">
-                          {feeTables.turnoverBased.map((row) => (
-                            <tr key={row.tier} className="border-b border-neutral-100">
-                              <td className="py-2">{row.tier}</td>
-                              <td className="py-2 text-right font-medium">{row.fee} {page.membershipSections?.feeSuffix || '+ taxes'}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </details>
-                  )}
+              <div className="grid md:grid-cols-2 gap-6 items-start">
+                {/* Affiliate */}
+                <div className="border border-neutral-200 p-6 flex flex-col">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="h-1 w-6 bg-neutral-300" />
+                      <span className="text-[11px] font-bold text-neutral-500 tracking-widest uppercase">Affiliate</span>
+                    </div>
+                    <span className="text-[13px] font-extrabold text-neutral-900">Free</span>
+                  </div>
+                  <p className="text-[13px] text-neutral-600 leading-[1.7]">Entry-level access to ARIFAC's platform, forums, and community events. No fee required to get started.</p>
+                </div>
 
-                  {/* AUM Table */}
-                  {feeTables.aumBased && feeTables.aumBased.length > 0 && (
-                    <details className="group">
-                      <summary className="flex items-center gap-3 mb-3 pb-2 border-b border-neutral-100 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
-                        <div className="h-1 w-6 bg-brand" />
-                        <span className="text-[11px] font-bold text-brand tracking-widest uppercase">{page.membershipSections?.aumLabel || 'AUM-Based'}</span>
-                        <svg className="w-3.5 h-3.5 text-neutral-400 ml-auto transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </summary>
-                      <table className="w-full">
-                        <thead>
-                          <tr className="border-b border-neutral-200">
-                            <th className="text-left text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">{page.membershipSections?.aumColumnHeader || 'AUM ₹'}</th>
-                            <th className="text-right text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">{page.membershipSections?.feeColumnHeader || 'Annual Fee'}</th>
-                          </tr>
-                        </thead>
-                        <tbody className="text-[13px] text-neutral-700">
-                          {feeTables.aumBased.map((row) => (
-                            <tr key={row.tier} className="border-b border-neutral-100">
-                              <td className="py-2">{row.tier}</td>
-                              <td className="py-2 text-right font-medium">{row.fee} {page.membershipSections?.feeSuffix || '+ taxes'}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </details>
-                  )}
+                {/* Member — highlighted */}
+                <div className="border border-brand p-6 flex flex-col relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-brand" />
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="h-1 w-6 bg-brand" />
+                      <span className="text-[11px] font-bold text-brand tracking-widest uppercase">Member</span>
+                    </div>
+                    <span className="text-[13px] font-extrabold text-neutral-900">Paid</span>
+                  </div>
+                  <details className="group">
+                    <summary className="text-[13px] text-neutral-600 leading-[1.7] cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                      Full membership with enhanced access to regulatory programmes, certifications, and ARIFAC forums. Fees are tiered by annual turnover or AUM, excl. taxes. {page.membershipSections?.feeScheduleLabel || 'Click here to find out more'}
+                    </summary>
+                    <div className="grid md:grid-cols-2 gap-6 mt-4">
+                      {feeTables.turnoverBased && feeTables.turnoverBased.length > 0 && (
+                        <div>
+                          <div className="flex items-center gap-3 mb-3 pb-2 border-b border-neutral-200">
+                            <div className="h-1 w-6 bg-brand" />
+                            <span className="text-[11px] font-bold text-brand tracking-widest uppercase">{page.membershipSections?.turnoverLabel || 'Turnover-Based'}</span>
+                          </div>
+                          <table className="w-full">
+                            <thead>
+                              <tr className="border-b border-neutral-200">
+                                <th className="text-left text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">{page.membershipSections?.turnoverColumnHeader || 'Turnover ₹'}</th>
+                                <th className="text-right text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">{page.membershipSections?.feeColumnHeader || 'Annual Fee'}</th>
+                              </tr>
+                            </thead>
+                            <tbody className="text-[13px] text-neutral-700">
+                              {feeTables.turnoverBased.map((row) => (
+                                <tr key={row.tier} className="border-b border-neutral-100">
+                                  <td className="py-2">{row.tier}</td>
+                                  <td className="py-2 text-right font-medium">{row.fee} {page.membershipSections?.feeSuffix || '+ taxes'}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      )}
+                      {feeTables.aumBased && feeTables.aumBased.length > 0 && (
+                        <div>
+                          <div className="flex items-center gap-3 mb-3 pb-2 border-b border-neutral-200">
+                            <div className="h-1 w-6 bg-brand" />
+                            <span className="text-[11px] font-bold text-brand tracking-widest uppercase">{page.membershipSections?.aumLabel || 'AUM-Based'}</span>
+                          </div>
+                          <table className="w-full">
+                            <thead>
+                              <tr className="border-b border-neutral-200">
+                                <th className="text-left text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">{page.membershipSections?.aumColumnHeader || 'AUM ₹'}</th>
+                                <th className="text-right text-[11px] font-bold text-neutral-500 uppercase tracking-widest py-2">{page.membershipSections?.feeColumnHeader || 'Annual Fee'}</th>
+                              </tr>
+                            </thead>
+                            <tbody className="text-[13px] text-neutral-700">
+                              {feeTables.aumBased.map((row) => (
+                                <tr key={row.tier} className="border-b border-neutral-100">
+                                  <td className="py-2">{row.tier}</td>
+                                  <td className="py-2 text-right font-medium">{row.fee} {page.membershipSections?.feeSuffix || '+ taxes'}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      )}
+                    </div>
+                  </details>
                 </div>
               </div>
             </div>

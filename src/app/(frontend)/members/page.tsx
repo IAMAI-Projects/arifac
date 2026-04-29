@@ -1,7 +1,14 @@
+import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import StaticPageLayout from '@/components/StaticPageLayout'
 import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
+
+export const metadata: Metadata = {
+  title: 'Member Directory — ARIFAC Network of Reporting Entities',
+  description: 'Browse ARIFAC\'s member directory of leading reporting entities across India\'s financial sector, united in strengthening AML/CFT compliance and financial crime prevention.',
+  alternates: { canonical: 'https://arifac.com/members' },
+}
 
 export default async function MembersPage() {
   const payload = await getPayload({ config: configPromise })

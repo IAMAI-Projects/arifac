@@ -1,8 +1,13 @@
+import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
 import BlockRenderer from '@/components/BlockRenderer'
 import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
+
+export const metadata: Metadata = {
+  alternates: { canonical: 'https://arifac.com' },
+}
 
 
 export default async function HomePage() {
