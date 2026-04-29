@@ -31,7 +31,7 @@ export default function RegulatoryDashboard({ data, updates, categoryLabelMap, i
   const resolvedIssuingBodyLabels = { ...defaultIssuingBodyLabels, ...issuingBodyLabelMap }
   const resolvedCategoryLabels = { ...defaultCategoryLabels, ...categoryLabelMap }
   return (
-    <section className="py-12 md:py-16 bg-neutral-50 border-t border-neutral-200">
+    <section className="py-12 md:py-16 bg-white border-t border-neutral-200">
       <div className="max-w-[1240px] mx-auto px-6">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-10">
 
@@ -60,14 +60,14 @@ export default function RegulatoryDashboard({ data, updates, categoryLabelMap, i
               <div key={update.id} className="flex flex-col p-5 lg:p-6 border border-neutral-100 rounded-xl hover:border-brand/30 hover:shadow-sm transition-all group bg-white">
                 <div className="flex flex-wrap items-center gap-3 mb-4">
                   <span className="bg-brand-subtle text-brand text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">{resolvedIssuingBodyLabels[update.issuingBody]}</span>
-                  <span className="bg-neutral-100 text-neutral-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">{resolvedCategoryLabels[update.category]}</span>
-                  <span className="text-[11px] text-neutral-400 font-medium ml-1">{new Date(update.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                  <span className="bg-neutral-100 text-neutral-700 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">{resolvedCategoryLabels[update.category]}</span>
+                  <span className="text-[11px] text-neutral-600 font-medium ml-1">{new Date(update.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                 </div>
 
                 <div className="flex justify-between items-start gap-6">
                   <div className="flex-grow">
                     <h3 className="text-[17px] font-bold text-neutral-900 group-hover:text-brand transition-colors leading-snug mb-2">{update.title}</h3>
-                    <p className="text-[12px] font-medium text-neutral-400 font-mono tracking-tight">{update.referenceNumber}</p>
+                    <p className="text-[12px] font-medium text-neutral-600 font-mono tracking-tight">{update.referenceNumber}</p>
                   </div>
                   {href && (
                     <a

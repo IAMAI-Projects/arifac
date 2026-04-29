@@ -37,7 +37,7 @@ export default function Partnerships({ data }: PartnershipsProps) {
             <h2 className="text-xl lg:text-2xl font-extrabold text-neutral-900 leading-tight tracking-tight mb-3">
               {data.heading}
             </h2>
-            <p className="text-neutral-500 text-[14px] leading-relaxed">
+            <p className="text-neutral-700 text-[14px] leading-relaxed">
               {data.description}
             </p>
           </div>
@@ -45,8 +45,8 @@ export default function Partnerships({ data }: PartnershipsProps) {
 
         {data.disclaimer && (
           <div className="mt-5 pt-4 border-t border-neutral-200">
-            <p className="text-neutral-400 text-[12px] leading-relaxed">
-              <span className="font-bold text-neutral-500">Note:</span> {data.disclaimer}
+            <p className="text-neutral-600 text-[12px] leading-relaxed">
+              <span className="font-bold text-neutral-700">Note:</span> {data.disclaimer}
             </p>
           </div>
         )}
